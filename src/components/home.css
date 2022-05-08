@@ -1,3 +1,12 @@
 .hometop{
-    
+    display:flex;
+    justify-content:space-evenly;
+    align-items: flex-end;
+}
+.selectgame{
+    border-bottom: 2px solid #C41E22;
+    text-align: center;
+}
+.hometopicon{
+  text-align: center;
 }
