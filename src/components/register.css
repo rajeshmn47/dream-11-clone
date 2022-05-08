@@ -1,0 +1,42 @@
+.register{
+    background-color: #FAFAFA;
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    text-align: center;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.registertopbar{
+    background-color: #C41E22;
+    color: #FFFFFF;
+    height: 10vh;
+    padding: 2vh 2vw;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+.logintopbar{
+    background-color: #C41E22;
+    color: #FFFFFF;
+    height: 10vh;
+    padding: 2vh 2vw;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+
+}
+.MuiPaper-root{
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    justify-content: space-between;
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    text-align: center;
+}
