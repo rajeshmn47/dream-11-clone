@@ -3,56 +3,24 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Typography from '@mui/material/Typography';
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { StepIconProps } from '@mui/material/StepIcon';
-import { Fragment } from 'react';
-import './home.css'
 
-const CheckoutSteps = ({ activeStep }) => {
-  const steps = [
-    {
-      label: <Typography>Select Team</Typography>,
-      icon: <LocalShippingIcon />,
-    },
-    {
-      label: <Typography>Create Team</Typography>,
-      icon: <LibraryAddCheckIcon />,
-    },
-    {
-      label: <Typography>Join Contests</Typography>,
-      icon: <AccountBalanceIcon />,
-    },
-  ];
+const steps = [
+  'Select master blaster campaign settings',
+  'Create an ad group',
+  'Create an ad',
+];
 
-  const stepStyles = {
-    boxSizing: "border-box",
-  };
-
+export default function Steppr() {
   return (
-    <Fragment>
-      <Stepper alternativeLabel activeStep={2} style={stepStyles}>
-        {steps.map((item, index) => (
-          <Step
-            key={index}
-            active={activeStep === index ? true : false}
-            completed={activeStep >= index ? true : false}
-          >
-            <StepLabel
-              style={{
-                color: activeStep >= index ? "red" : "#FFFFFF",
-              }}
-              icon={item.icon}
-            >
-              {item.label}
-            </StepLabel>
+    <Box sx={{ width: '100%',color:'#FFFFFF' }}>
+      <Stepper activeStep={0} alternativeLabel sx={{ width: '100%',color:'#FFFFFF' }}>
+        {steps.map((label) => (
+          <Step key={label} sx={{ width: '100%',color:'#FFFFFF' }}>
+            <StepLabel style={{ width: '100%',color:'#FFFFFF' }}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-    </Fragment>
+    </Box>
   );
-};
+}
 
-export default CheckoutSteps;
