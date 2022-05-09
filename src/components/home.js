@@ -3,6 +3,8 @@ import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import './home.css'
+import Steppr from './stepper'
 
 export const Home=()=>{
     return(
@@ -11,6 +13,9 @@ export const Home=()=>{
        <EmojiEventsOutlinedIcon style={{marginRight:'1vw'}}/> 
 Dream 11
         </div>
+        <div className='stepper'>
+        <Steppr/>
+            </div>
         <div className='hometop'>
         <div className='hometopicon selectgame'>
             <SportsCricketIcon style={{color:'#C41E22'}}/>
@@ -29,7 +34,7 @@ Dream 11
             <h5>Hockey</h5>
             </div>
         </div>
-        
+  
         </>
     )
 }
