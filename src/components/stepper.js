@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import { StepIconProps } from '@mui/material/StepIcon';
 import { Fragment } from 'react';
 
 const CheckoutSteps = ({ activeStep }) => {
@@ -25,16 +26,14 @@ const CheckoutSteps = ({ activeStep }) => {
     },
   ];
 
-  const stepStyles = {
-    boxSizing: "border-box",
-  };
+
 
   return (
     <Fragment>
-      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
+      <Stepper alternativeLabel activeStep={1} >
         {steps.map((a) => (
-          <Step key={a.label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{a.label}</StepLabel>
+          <Step color='#FFFFFF'  key={a.label} style={{color:'#FFFFFF',backgroundColor:'FFFFFF'}}>
+            <StepLabel color='#FFFFFF' style={{color:'#FFFFFF',backgroundColor:'FFFFFF'}}>{a.label}</StepLabel>
           </Step>
         ))}
       </Stepper>

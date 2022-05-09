@@ -18,5 +18,12 @@
 .stepper{
     background-color: #303030;
     height: 10vh;
-    padding:2vh 2vw
+    padding:2vh 2vw;
+    color:#FFFFFF;
+}
+.MuiStepLabel-root{
+    color:#FFFFFF;
+}
+.MuiStep-root{
+    color: #FFFFFF;
 }
