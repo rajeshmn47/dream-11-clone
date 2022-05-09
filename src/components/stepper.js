@@ -16,7 +16,9 @@ export default function Steppr() {
       <Stepper activeStep={0} alternativeLabel sx={{ width: '100%',color:'#FFFFFF' }}>
         {steps.map((label) => (
           <Step key={label} sx={{ width: '100%',color:'#FFFFFF' }}>
-            <StepLabel style={{ width: '100%',color:'#FFFFFF' }}>{label}</StepLabel>
+            <StepLabel style={{ width: '100%',color:'#FFFFFF' }}>
+              
+              <h5 style={{margin:'0',color:'#FFFFFF'}}>{label}</h5></StepLabel>
           </Step>
         ))}
       </Stepper>
