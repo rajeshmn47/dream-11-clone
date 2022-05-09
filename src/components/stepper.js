@@ -9,6 +9,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { StepIconProps } from '@mui/material/StepIcon';
 import { Fragment } from 'react';
+import './home.css'
 
 const CheckoutSteps = ({ activeStep }) => {
   const steps = [
