@@ -33,7 +33,7 @@ const CheckoutSteps = ({ activeStep }) => {
 
   return (
     <Fragment>
-      <Stepper alternativeLabel activeStep={1} style={stepStyles}>
+      <Stepper alternativeLabel activeStep={2} style={stepStyles}>
         {steps.map((item, index) => (
           <Step
             key={index}
@@ -42,7 +42,7 @@ const CheckoutSteps = ({ activeStep }) => {
           >
             <StepLabel
               style={{
-                color: activeStep >= index ? "red" : "#ffffff",
+                color: activeStep >= index ? "red" : "#FFFFFF",
               }}
               icon={item.icon}
             >
