@@ -5,18 +5,18 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
 const steps = [
-  'Select master blaster campaign settings',
-  'Create an ad group',
-  'Create an ad',
+  'Select Match',
+  'Create Team',
+  'Join Contest',
 ];
 
 export default function Steppr() {
   return (
     <Box sx={{ width: '100%',color:'#FFFFFF' }}>
-      <Stepper activeStep={0} alternativeLabel sx={{ width: '100%',color:'#FFFFFF' }}>
+      <Stepper color='secondary'  activeStep={0} alternativeLabel sx={{ width: '100%',color:'#FFFFFF' }}>
         {steps.map((label) => (
-          <Step key={label} sx={{ width: '100%',color:'#FFFFFF' }}>
-            <StepLabel style={{ width: '100%',color:'#FFFFFF' }}>
+          <Step color='secondary'  key={label} sx={{ width: '100%',color:'#FFFFFF' }}>
+            <StepLabel color='secondary' style={{ width: '100%',color:'#FFFFFF' }}>
               
               <h5 style={{margin:'0',color:'#FFFFFF'}}>{label}</h5></StepLabel>
           </Step>
