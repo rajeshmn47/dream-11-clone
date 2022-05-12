@@ -34,7 +34,16 @@ Dream 11
             <h5>Hockey</h5>
             </div>
         </div>
-  
+  <div className='matchstatuses'>
+    <button className='matchstatus'>live</button>  
+    <button className='matchstatus'>upcoming</button>  
+    <button className='matchstatus'>completed</button>  
+  </div>
+  <div className='matches'>
+   <div className='match'>rajesh</div>
+   <div className='match'>rajesh</div>
+   <div className='match'>rajesh</div>
+  </div>
         </>
     )
 }

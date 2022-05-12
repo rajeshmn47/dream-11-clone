@@ -21,3 +21,27 @@
     height: 10vh;
     padding:2vh 2vw;
 }
+.matchstatuses{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px 2px rgb(148, 147, 147);
+}
+.matchstatus{
+    background-color:#ffffff;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+}
+.matches{
+    background-color: #F1F0F8;
+    padding: 1vh 1vw;
+    
+}
+.match{
+    background-color: #FFFFFF;
+    padding: 2vh 2vw;
+    margin-top: 1vh;
+}
