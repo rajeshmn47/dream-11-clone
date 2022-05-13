@@ -5,8 +5,19 @@ import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import './home.css'
 import Steppr from './stepper'
+import {useEffect,useState} from 'react'
+import axios from 'axios'
 
 export const Home=()=>{
+const [upcoming,setUpcoming]=useState([])
+useEffect(()=>{
+async function getupcoming(){
+    const data=await axios.get('http://localhost:8000/home')
+    console.log(data.data.data)
+    setUpcoming(data.data.data.results)
+}
+getupcoming()
+},[])
     return(
         <>
            <div className='logintopbar'>
@@ -40,9 +51,24 @@ Dream 11
     <button className='matchstatus'>completed</button>  
   </div>
   <div className='matches'>
-   <div className='match'>rajesh</div>
-   <div className='match'>rajesh</div>
-   <div className='match'>rajesh</div>
+   {upcoming?upcoming.map((u)=>
+    <div className='match'>
+        <h5 style={{color:'rgb(233,233,233)',height:'3vh',fontSize:'12px'}}>{u.away.code} vs {u.home.code}</h5>
+        <div className='matchcenter'>
+      <div className='matchlefts'>
+     <img src={u.teamAwayFlagUrl} alt='' width='40'/>       
+            <h5>{u.away.code}</h5>
+            </div>
+    <h5 className='time'>{u.liveStatus}</h5>
+        <div className='matchrights'>
+            <h5> {u.home.code}</h5>
+        <img src={u.teamHomeFlagUrl} alt='' width='40'/>
+        </div>
+   </div>
+   <div className='mega'>Mega</div>
+   <div className='meg'><h5>57 crores</h5></div>
+   </div>
+   ):null}
   </div>
         </>
     )
