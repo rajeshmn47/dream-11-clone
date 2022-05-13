@@ -13,8 +13,8 @@ const [upcoming,setUpcoming]=useState([])
 useEffect(()=>{
 async function getupcoming(){
     const data=await axios.get('http://localhost:8000/home')
-    console.log(data.data.data)
-    setUpcoming(data.data.data.results)
+    console.log(data.upcoming)
+    setUpcoming(data.upcoming)
 }
 getupcoming()
 },[])

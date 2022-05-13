@@ -39,8 +39,7 @@
     background-color: #F1F0F8;
     padding: 2vh 3vw;
     box-sizing: border-box;
-    min-height:auto;
-    height:80vh;
+    min-height:60vh;
 }
 .match{
     background-color: #FFFFFF;
