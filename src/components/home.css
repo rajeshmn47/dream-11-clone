@@ -89,6 +89,10 @@ text-transform: uppercase;
 }
 .time{
 color:#C41E22;
+font-size: 10px;
+text-align: center;
+justify-content: center;
+width: 17vw;
 }
 .meg{
     display: inline-block;

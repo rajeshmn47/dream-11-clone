@@ -59,7 +59,7 @@ Dream 11
      <img src={u.teamAwayFlagUrl} alt='' width='40'/>       
             <h5>{u.away.code}</h5>
             </div>
-    <h5 className='time'>{u.liveStatus}</h5>
+    <h5 className='time'>{u.livestatus}</h5>
         <div className='matchrights'>
             <h5> {u.home.code}</h5>
         <img src={u.teamHomeFlagUrl} alt='' width='40'/>
