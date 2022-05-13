@@ -53,7 +53,8 @@ Dream 11
   <div className='matches'>
    {upcoming?upcoming.map((u)=>
     <div className='match'>
-        <h5 style={{color:'rgb(233,233,233)',height:'3vh',fontSize:'12px'}}>{u.away.code} vs {u.home.code}</h5>
+        <h5 style={{color:'rgb(233,233,233)',height:'3vh',fontSize:'12px'}}>
+            {u.away.code} vs {u.home.code}</h5>
         <div className='matchcenter'>
       <div className='matchlefts'>
      <img src={u.teamAwayFlagUrl} alt='' width='40'/>       
