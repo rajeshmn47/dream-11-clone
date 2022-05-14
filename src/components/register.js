@@ -3,8 +3,19 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import axios from 'axios'
+import {useState,react} from 'react'
 
 export const Register=()=>{
+const [username,setUsername]=useState()
+const [email,setEmail]=useState()
+const [phonenumber,setPhonenumber]=useState()
+const [password,setPassword]=useState()
+
+
+  const handlesubmit=async (e)=>{
+e.preventDefault()
+  }
     return(
         <>
         <div className='registertopbar'>
@@ -14,27 +25,35 @@ register & play
 
         <div className='register'>
 <Paper style={{padding:'2vh 2vw',}}>
-<TextField label="fullwidth" id="fullWidth"
-          defaultValue="Hello World"
+  <form onSubmit={handlesubmit} className='registerform'>
+<TextField 
+placeholder='username'
           variant="standard"
+          value={username}
+          onChange={(e)=>setUsername(e.target.value)}
         />
         <TextField
-        label="fullwidth" id="fullWidth"
-        defaultValue="Hello World"
+        placeholder='Phonenumber'
         variant="standard"
+        value={phonenumber}
+        onChange={(e)=>setPhonenumber(e.target.value)}
       />
       <TextField
-        label="fullwidth" id="fullWidth"
-        defaultValue="Hello World"
+    placeholder='Email'
         variant="standard"
+        value={email}
+        onChange={(e)=>setEmail(e.target.value)}
       />
       <TextField
-        label="fullwidth" id="fullWidth"
-        defaultValue="Hello World"
+        placeholder='Password'
         variant="standard"
+        id="fullWidth"
         type='password'
+        value={password}
+        onChange={(e)=>setPassword(e.target.value)}
       />
-      <Button variant="contained" disableElevation style={{backgroundColor:'#24B937'}}>Register</Button>
+      <Button variant="contained" type='submit' disableElevation style={{backgroundColor:'#24B937'}}>Register</Button>
+      </form>
       forgot password
 </Paper>
 <h5>Aleady a user?Log in</h5>

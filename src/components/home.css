@@ -27,7 +27,7 @@
     align-items: center;
     padding: 2vh 2vw;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px rgb(148, 147, 147);
+    box-shadow: 2px 2px 2px 2px rgb(148, 147, 147);
 }
 .matchstatus{
     background-color:#ffffff;
