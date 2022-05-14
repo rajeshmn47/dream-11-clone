@@ -7,14 +7,15 @@ import axios from 'axios'
 import {useState,react} from 'react'
 
 export const Register=()=>{
-const [username,setUsername]=useState()
-const [email,setEmail]=useState()
-const [phonenumber,setPhonenumber]=useState()
-const [password,setPassword]=useState()
+const [username,setUsername]=useState('')
+const [email,setEmail]=useState('')
+const [phonenumber,setPhonenumber]=useState('')
+const [password,setPassword]=useState('')
 
 
   const handlesubmit=async (e)=>{
 e.preventDefault()
+console.log(phonenumber,username,email,password)
   }
     return(
         <>
@@ -31,12 +32,14 @@ placeholder='username'
           variant="standard"
           value={username}
           onChange={(e)=>setUsername(e.target.value)}
+          type='text'
         />
         <TextField
         placeholder='Phonenumber'
         variant="standard"
         value={phonenumber}
         onChange={(e)=>setPhonenumber(e.target.value)}
+        type='phone'
       />
       <TextField
     placeholder='Email'
