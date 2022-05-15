@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 
 
-export const Otp=({open,setOpen})=>{
+export const Otp=({open,setOpen,otp,setOtp,handleotp})=>{
 
 const toggleDrawer=()=>{
     console.log('rajesh')
@@ -26,7 +26,8 @@ const toggleDrawer=()=>{
               justifyContent:'center',flexDirection:'column',alignItems:'center'}} >
         <Paper style={{padding:'5vh 2vw',width:'90%',height:'30%'}}>
         <TextField placeholder='enter otp you recieved on your number'    variant="standard"/>
-        <Button variant="contained" type='submit' disableElevation style={{backgroundColor:'#24B937'}}>
+        <Button variant="contained" type='submit' disableElevation 
+        style={{backgroundColor:'#24B937'}} onClick={()=>handleotp()}>
         Confirm otp</Button>
         </Paper>
         </div>

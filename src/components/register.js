@@ -13,6 +13,7 @@ const [email,setEmail]=useState('')
 const [phonenumber,setPhonenumber]=useState('')
 const [password,setPassword]=useState('')
 const[open,setOpen]=useState(false)
+const[otp,setOtp]=useState()
 
 
   const handlesubmit=async (e)=>{
@@ -23,6 +24,11 @@ await axios.post('http://localhost:8000/auth/register',{username:username,email:
 phonenumer:phonenumber,password:password})
 setOpen(true)
   }
+
+const handleotp= async ()=>{
+  await axios.post('http://localhost:8000/auth/otp',{username:username,email:email,
+  phonenumer:phonenumber,password:password})
+}
     return(
         <>
         <div className='registertopbar'>
@@ -68,7 +74,7 @@ placeholder='username'
 </Paper>
 <h5>Aleady a user?Log in</h5>
             </div>
-<Otp open={open} setOpen={setOpen}/>
+<Otp open={open} setOpen={setOpen} otp={otp} setOtp={setOtp} handleotp={handleotp}/>
         </>
     )
 }
