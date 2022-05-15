@@ -20,14 +20,15 @@ const[otp,setOtp]=useState()
 e.preventDefault()
 
 console.log(phonenumber,username,email,password)
-await axios.post('http://localhost:8000/auth/register',{username:username,email:email,
-phonenumer:phonenumber,password:password})
+const data=await axios.post('http://localhost:8000/auth/register',{username:username,email:email,
+phonenumber:phonenumber,password:password})
+console.log(data)
 setOpen(true)
   }
 
 const handleotp= async ()=>{
   await axios.post('http://localhost:8000/auth/otp',{username:username,email:email,
-  phonenumer:phonenumber,password:password})
+  phonenumber:phonenumber,password:password})
 }
     return(
         <>
@@ -44,13 +45,14 @@ register & play
         variant="standard"
         value={email}
         onChange={(e)=>setEmail(e.target.value)}
+        type='email'
       />
 <TextField 
-placeholder='username'
+placeholder='name'
           variant="standard"
           value={username}
           onChange={(e)=>setUsername(e.target.value)}
-          type='text'
+  
         />
         <TextField
         placeholder='Phonenumber'

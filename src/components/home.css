@@ -100,3 +100,13 @@ width: 17vw;
     margin-left: 3vw;
     text-transform: capitalize;
 }
+
+.bottomnav{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    height: 15vh;
+}

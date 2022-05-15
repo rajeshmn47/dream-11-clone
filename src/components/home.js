@@ -7,6 +7,7 @@ import './home.css'
 import Steppr from './stepper'
 import {useEffect,useState} from 'react'
 import axios from 'axios'
+import Bottomnav from './bottomnavbar'
 
 export const Home=()=>{
 const [upcoming,setUpcoming]=useState([])
@@ -71,6 +72,7 @@ Dream 11
    </div>
    ):null}
   </div>
+  <Bottomnav/>
         </>
     )
 }
