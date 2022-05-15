@@ -6,9 +6,10 @@ import Home from './components/home'
 import { Routes, Route, Link, BrowserRouter } from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import {loadUser} from './actions/userAction'
+import {useState,useEffect} from 'react'
 
 function App() {
-
+const dispatch=useDispatch()
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   )
