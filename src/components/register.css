@@ -17,6 +17,15 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.loginform{
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    text-align: center;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .registertopbar{
     background-color: #C41E22;
     color: #FFFFFF;

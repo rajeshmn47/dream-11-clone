@@ -4,8 +4,18 @@ import Register from './components/register';
 import Login from './components/login';
 import Home from './components/home'
 import { Routes, Route, Link, BrowserRouter } from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+import {loadUser} from './actions/userAction'
 
 function App() {
+
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  )
+  useEffect(() => {
+    dispatch(loadUser())
+    console.log(user)
+  }, [dispatch])
   return (
  <>
    <BrowserRouter>
