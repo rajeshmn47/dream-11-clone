@@ -5,17 +5,23 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
 import {useState,react} from 'react'
+import Otp from './otp'
 
 export const Register=()=>{
 const [username,setUsername]=useState('')
 const [email,setEmail]=useState('')
 const [phonenumber,setPhonenumber]=useState('')
 const [password,setPassword]=useState('')
+const[open,setOpen]=useState(false)
 
 
   const handlesubmit=async (e)=>{
 e.preventDefault()
+
 console.log(phonenumber,username,email,password)
+await axios.post('http://localhost:8000/auth/register',{username:username,email:email,
+phonenumer:phonenumber,password:password})
+setOpen(true)
   }
     return(
         <>
@@ -27,6 +33,12 @@ register & play
         <div className='register'>
 <Paper style={{padding:'2vh 2vw',}}>
   <form onSubmit={handlesubmit} className='registerform'>
+  <TextField
+    placeholder='Email'
+        variant="standard"
+        value={email}
+        onChange={(e)=>setEmail(e.target.value)}
+      />
 <TextField 
 placeholder='username'
           variant="standard"
@@ -41,12 +53,7 @@ placeholder='username'
         onChange={(e)=>setPhonenumber(e.target.value)}
         type='phone'
       />
-      <TextField
-    placeholder='Email'
-        variant="standard"
-        value={email}
-        onChange={(e)=>setEmail(e.target.value)}
-      />
+  
       <TextField
         placeholder='Password'
         variant="standard"
@@ -61,7 +68,7 @@ placeholder='username'
 </Paper>
 <h5>Aleady a user?Log in</h5>
             </div>
-
+<Otp open={open} setOpen={setOpen}/>
         </>
     )
 }
