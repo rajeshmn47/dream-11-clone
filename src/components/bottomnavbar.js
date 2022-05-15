@@ -8,7 +8,7 @@ export const Bottomnav=()=>{
     return(
         <>
         <div className='bottomnav'>
-<div>
+<div style={{color:'#C41E22'}}>
             <HomeOutlinedIcon/>
             Home
           </div> 

@@ -108,5 +108,12 @@ width: 17vw;
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
-    height: 15vh;
+    height: 10vh;
+    width:100vw;
+}
+.bottomnav div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
