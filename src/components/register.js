@@ -27,8 +27,9 @@ setOpen(true)
   }
 
 const handleotp= async ()=>{
-  await axios.post('http://localhost:8000/auth/otp',{username:username,email:email,
+  const data=await axios.post('http://localhost:8000/auth/otp',{username:username,email:email,
   phonenumber:phonenumber,password:password})
+console.log(data)
 }
     return(
         <>
