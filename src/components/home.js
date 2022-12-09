@@ -8,14 +8,19 @@ import Steppr from './stepper'
 import {useEffect,useState} from 'react'
 import axios from 'axios'
 import Bottomnav from './bottomnavbar'
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
 
 export const Home=()=>{
 const [upcoming,setUpcoming]=useState([])
+const [live,setLive]=useState([])
+const [past,setPast]=useState([])
 useEffect(()=>{
 async function getupcoming(){
     const data=await axios.get('http://localhost:8000/home')
     console.log(data)
-    setUpcoming(data.data.live.results)
+    setUpcoming(data.data.upcoming.results)
+    setLive(data.data.live.results)
+    setPast(data.data.past.results)
 }
 getupcoming()
 },[])
