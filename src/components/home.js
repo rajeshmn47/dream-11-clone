@@ -73,7 +73,7 @@ Dream 11
         </div>
    </div>
    <div className='mega'>Mega</div>
-   <div className='meg'><h5>57 crores</h5></div>
+   <div className='meg'><h5>58 crores</h5></div>
    </div>
    ):null}
   </div>
