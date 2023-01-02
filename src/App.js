@@ -15,7 +15,7 @@ const dispatch=useDispatch()
   )
   useEffect(() => {
     dispatch(loadUser())
-    console.log(user,'oiuytre')
+    console.log(user,'o')
   }, [dispatch])
   return (
  <>
