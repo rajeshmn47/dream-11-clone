@@ -1,60 +1,58 @@
-.register{
-    background-color: #FAFAFA;
-    padding: 2vh 2vw;
-    box-sizing: border-box;
-    text-align: center;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.register {
+  background-color: #fafafa;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.registerform{
-    padding: 2vh 2vw;
-    box-sizing: border-box;
-    text-align: center;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.registerform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.loginform{
-    padding: 2vh 2vw;
-    box-sizing: border-box;
-    text-align: center;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.loginform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.registertopbar{
-    background-color: #C41E22;
-    color: #FFFFFF;
-    height: 10vh;
-    padding: 2vh 2vw;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-
+.registertopbar {
+  background-color: #c41e22;
+  color: #ffffff;
+  height: 10vh;
+  padding: 2vh 2vw;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
-.logintopbar{
-    background-color: #C41E22;
-    color: #FFFFFF;
-    height: 10vh;
-    padding: 2vh 2vw;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    justify-content: center;
-
+.logintopbar {
+  background-color: #c41e22;
+  color: #ffffff;
+  height: 10vh;
+  padding: 2vh 2vw;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
 }
-.MuiPaper-root{
-    display: flex;
-    flex-direction: column;
-    height: 60vh;
-    justify-content: space-between;
-    padding: 2vh 2vw;
-    box-sizing: border-box;
-    text-align: center;
+.MuiPaper-root {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  justify-content: space-between;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
 }

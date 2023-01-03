@@ -1,119 +1,119 @@
-.hometop{
-    display:flex;
-    justify-content:space-evenly;
-    align-items: flex-end;
-    height:10vh;
-    box-shadow: 1px 1px 1px 1px rgb(148, 147, 147);
+.hometop {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 10vh;
+  box-shadow: 1px 1px 1px 1px rgb(148, 147, 147);
 }
-.hometop h5{
-    margin: 1vh;
+.hometop h5 {
+  margin: 1vh;
 }
-.selectgame{
-    border-bottom: 3px solid #C41E22;
-    text-align: center;
-    color:#C41E22;
+.selectgame {
+  border-bottom: 3px solid #c41e22;
+  text-align: center;
+  color: #c41e22;
 }
-.hometopicon{
+.hometopicon {
   text-align: center;
 }
-.stepper{
-    background-color: #303030;
-    height: 10vh;
-    padding:2vh 2vw;
+.stepper {
+  background-color: #303030;
+  height: 10vh;
+  padding: 2vh 2vw;
 }
-.matchstatuses{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 2vh 2vw;
-    box-sizing: border-box;
-    box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+.matchstatuses {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
 }
-.matchstatus{
-    background-color:#ffffff;
-    outline: none;
-    border: none;
-    text-transform: capitalize;
+.matchstatus {
+  background-color: #ffffff;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
 }
-.matches{
-    background-color: #F1F0F8;
-    padding: 2vh 3vw;
-    box-sizing: border-box;
-    min-height:60vh;
+.matches {
+  background-color: #f1f0f8;
+  padding: 2vh 3vw;
+  box-sizing: border-box;
+  min-height: 60vh;
 }
-.match{
-    background-color: #FFFFFF;
-    padding: 1vh 2vw;
-    margin-top: 1vh;
-    border-radius: 5px;
-    box-sizing: border-box;
+.match {
+  background-color: #ffffff;
+  padding: 1vh 2vw;
+  margin-top: 1vh;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
-.matchcenter{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
+.matchcenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.matchright{
-    display: flex;
-    align-items: center;
-    width: 30%;
-justify-content: space-evenly;
-flex-direction: column;
-align-items: flex-end;
-flex-direction: column;
+.matchright {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-direction: column;
 }
-.matchlefts{
-    display: flex;
-    align-items: center;
-    width: 30%;
-    justify-content:space-between;
-    align-items: center;
+.matchlefts {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  justify-content: space-between;
+  align-items: center;
 }
-.matchrights{
-    display: flex;
-    align-items: center;
-    width: 30%;
-justify-content: space-between;
-align-items: center;
+.matchrights {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  justify-content: space-between;
+  align-items: center;
 }
-.mega{
-    background-color: #C7E0D4;
-color: #1ca14d;
-width: 12vw;
-box-sizing: border-box;
-border-radius: 2px;
-display: inline-block;
-text-align: center;
-font-weight: 700;
-font-size: 12px;
-text-transform: uppercase;
+.mega {
+  background-color: #c7e0d4;
+  color: #1ca14d;
+  width: 12vw;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
 }
-.time{
-color:#C41E22;
-font-size: 10px;
-text-align: center;
-justify-content: center;
-width: 17vw;
+.time {
+  color: #c41e22;
+  font-size: 10px;
+  text-align: center;
+  justify-content: center;
+  width: 17vw;
 }
-.meg{
-    display: inline-block;
-    margin-left: 3vw;
-    text-transform: capitalize;
+.meg {
+  display: inline-block;
+  margin-left: 3vw;
+  text-transform: capitalize;
 }
 
-.bottomnav{
-    display:flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: #FFFFFF;
-    position: fixed;
-    bottom: 0;
-    height: 10vh;
-    width:100vw;
+.bottomnav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  height: 10vh;
+  width: 100vw;
 }
-.bottomnav div{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.bottomnav div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
