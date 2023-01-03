@@ -2,7 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import Register from './components/register';
 import Login from './components/login';
-import Home from './components/home'
+import Home from './components/home';
+import Players from './components/players';
+import CreateTeam from './components/createteam';
 import { Routes, Route, Link, BrowserRouter } from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import {loadUser} from './actions/userAction'
@@ -25,6 +27,8 @@ const dispatch=useDispatch()
         <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login/>} />
+          <Route path='/players' element={<Players/>} />
+          <Route path='/create' element={<CreateTeam/>}/>
         </Routes>
       
       </BrowserRouter>

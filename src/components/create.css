@@ -1,0 +1,15 @@
+.selected{
+    background-color: #EDE3D3;
+    border-top:2px solid #D7D6D4;
+    border-bottom:2px solid #D7D6D4;
+}
+
+.disabled{
+    opacity:0.5 !important;
+    cursor: not-allowed !important;
+}
+.disablednext{
+    background-color: grey !important;
+    cursor: not-allowed !important;
+    box-shadow: 0 2px 5px 1px rgba(64,60,67,.16);
+}
