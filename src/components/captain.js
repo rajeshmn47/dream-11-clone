@@ -4,6 +4,7 @@ import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import "./home.css";
+import "./create.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -38,6 +39,7 @@ const CaptainC = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ViceCaptain = styled.button`
@@ -52,6 +54,7 @@ const ViceCaptain = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const Name = styled.div`
   display: flex;
@@ -81,6 +84,35 @@ export const Captain = ({ players }) => {
     }));
     setSelectedPlayers([...pl]);
   }, []);
+
+  const handleCaptain = (i) => {
+    let op = players.map((p) => {
+      p.isCaptain = false;
+      return p;
+    });
+    let po = op.map((p) => {
+      if (p._id === i) {
+        p.isCaptain = true;
+      }
+      return p;
+    });
+    console.log("clicked", po);
+    setSelectedPlayers([...po]);
+  };
+
+  const handleViceCaptain = (i) => {
+    let op = players.map((p) => {
+      p.isViceCaptain = false;
+      return p;
+    });
+    let po = op.map((p) => {
+      if (p._id === i) {
+        p.isViceCaptain = true;
+      }
+      return p;
+    });
+    setSelectedPlayers([...po]);
+  };
   return (
     <>
       <CaptainSelector>
@@ -90,8 +122,18 @@ export const Captain = ({ players }) => {
               <img src={p.image} alt="" />
               <h1>{p.name.charAt(0).toUpperCase() + " " + p.lastname}</h1>
             </Name>
-            <CaptainC>c</CaptainC>
-            <ViceCaptain>vc</ViceCaptain>
+            <CaptainC
+              onClick={() => handleCaptain(p._id)}
+              className={p.isCaptain ? "captain" : "notcaptain"}
+            >
+              c
+            </CaptainC>
+            <ViceCaptain
+              onClick={() => handleViceCaptain(p._id)}
+              className={p.isViceCaptain ? "captain" : "notcaptain"}
+            >
+              vc
+            </ViceCaptain>
           </Player>
         ))}
       </CaptainSelector>

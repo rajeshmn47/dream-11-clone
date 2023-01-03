@@ -12,4 +12,17 @@
   background-color: grey !important;
   cursor: not-allowed !important;
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.captain {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: none;
+  outline: none;
+  border: 2px solid #000000 !important;
 }
