@@ -3,6 +3,7 @@ import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ export const Home = () => {
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
       const data = await axios.get("http://localhost:8000/home");
@@ -59,7 +61,10 @@ export const Home = () => {
       <div className="matches">
         {upcoming
           ? upcoming.map((u) => (
-              <div className="match">
+              <div
+                className="match"
+                onClick={() => navigate(`/contests/${u.id}`)}
+              >
                 <h5
                   style={{
                     color: "rgb(233,233,233)",

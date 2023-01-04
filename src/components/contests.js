@@ -18,6 +18,7 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import WestIcon from "@mui/icons-material/West";
 import styled from "@emotion/styled";
+import { useLocation, useParams } from "react-router-dom";
 import SavedTeam from "./savedteam";
 import BasicTabs from "./tabs";
 
@@ -66,11 +67,18 @@ const Container = styled.div`
   }
 `;
 export const Contests = ({ players }) => {
-  const [upcoming, setUpcoming] = useState([]);
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [live, setLive] = useState([]);
-  const [past, setPast] = useState([]);
-  const [save, setSave] = useState(false);
+  const [contests, setContests] = useState([]);
+  const search = useLocation().search;
+  const { id } = useParams();
+  console.log(id); //12345
+  useEffect(() => {
+    async function getupcoming() {
+      const data = await axios.get(`http://localhost:8000/getcontests/${id}`);
+      console.log(data);
+      setContests(data.data.contests);
+    }
+    getupcoming();
+  }, []);
 
   return (
     <Container>
@@ -86,7 +94,7 @@ export const Contests = ({ players }) => {
         </RightSide>
       </Top>
       <Bottom>
-        <BasicTabs />
+        <BasicTabs tabs={contests} />
       </Bottom>
     </Container>
   );

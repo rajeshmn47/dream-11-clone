@@ -30,7 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/players" element={<Players />} />
           <Route path="/create" element={<CreateTeam />} />
-          <Route path="/contests" element={<Contests />} />
+          <Route path="/contests/:id" element={<Contests />} />
           <Route path="/contestdetail" element={<ContestDetail />} />
         </Routes>
       </BrowserRouter>

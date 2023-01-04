@@ -47,6 +47,7 @@
   margin-top: 1vh;
   border-radius: 5px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .matchcenter {
   display: flex;

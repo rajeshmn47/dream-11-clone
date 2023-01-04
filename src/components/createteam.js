@@ -167,6 +167,7 @@ export const CreateTeam = () => {
     console.log("clicked next");
     setNext(true);
   };
+
   return (
     <>
       {!next ? (

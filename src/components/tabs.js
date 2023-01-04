@@ -101,7 +101,7 @@ function a11yProps(index) {
 
 export default function BasicTabs({ tabs }) {
   const [value, setValue] = React.useState(0);
-
+  console.log(tabs, "basicsoftabs");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -150,6 +150,37 @@ export default function BasicTabs({ tabs }) {
               25% Single
             </Last>
           </ContestContainer>
+          {tabs && (
+            <ContestContainer>
+              <Contest>
+                <First>
+                  <p>Prize Pool</p>
+                  <p>Entry</p>
+                </First>
+                <First>
+                  <h1>{tabs.price}</h1>
+                  <First>
+                    <del>₹ 19</del>
+                    <FreeButton>₹ {tabs.price / tabs.totalSpots}</FreeButton>
+                  </First>
+                </First>
+                <SliderContainer>
+                  <Slider />
+                </SliderContainer>
+                <First>
+                  <SpotsLeft>{tabs.spotsLeft} spots left</SpotsLeft>
+                  <SpotsRight>{tabs.totalSpots} spots</SpotsRight>
+                </First>
+              </Contest>
+              <Last>
+                ₹{tabs.price / tabs.totalSpots}
+                <EmojiEventsOutlinedIcon
+                  style={{ margin: "0 15px", marginBottom: "3px" }}
+                />
+                {(tabs.numWinners / tabs.totalSpots) * 100}% Single
+              </Last>
+            </ContestContainer>
+          )}
           <ContestContainer>
             <Contest>
               <First>
@@ -160,7 +191,7 @@ export default function BasicTabs({ tabs }) {
                 <h1>2.50 lacks</h1>
                 <First>
                   <del>₹ 19</del>
-                  <FreeButton>Free</FreeButton>
+                  <FreeButton>free</FreeButton>
                 </First>
               </First>
               <SliderContainer>
