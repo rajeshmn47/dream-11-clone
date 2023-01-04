@@ -9,6 +9,8 @@ import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
 import { useState, useEffect } from "react";
+import Contests from "./components/contests";
+import ContestDetail from "./components/contestdetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/players" element={<Players />} />
           <Route path="/create" element={<CreateTeam />} />
+          <Route path="/contests" element={<Contests />} />
+          <Route path="/contestdetail" element={<ContestDetail />} />
         </Routes>
       </BrowserRouter>
     </>

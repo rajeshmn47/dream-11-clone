@@ -14,7 +14,7 @@ import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
-import SavedTeam from "./savedteam";
+import { Grid } from "@mui/material";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -123,7 +123,42 @@ const PrevButton = styled.button`
   justify-content: space-evenly;
   white-space: nowrap;
 `;
-export const Captain = ({ players }) => {
+
+const Container = styled.div`
+  background-image: url("./pitch.png");
+  width: 100% !important;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+const PlayerP = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  img {
+    width: 70px !important;
+    height: 70px !important;
+    display: block;
+    border-radius: 50%;
+  }
+`;
+
+const Title = styled.p`
+  position: absolute;
+  bottom: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 2px 5px;
+  border-radius: 2px;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+`;
+
+export const SavedTeam = ({ players }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -132,8 +167,6 @@ export const Captain = ({ players }) => {
   useEffect(() => {
     let pl = players.map((obj) => ({
       ...obj,
-      isCaptain: false,
-      isViceCaptain: false,
     }));
     setSelectedPlayers([...pl]);
   }, []);
@@ -171,59 +204,55 @@ export const Captain = ({ players }) => {
     setSave(true);
   };
 
-  function isCandVcselected(se) {
-    console.log("r", selectedPlayers);
-    let a = se.find((s) => s.isCaptain === true);
-    let b = se.find((s) => s.isViceCaptain === true);
-    console.log(a, b, a & b);
+  const isCandVcselected = () => {
+    let a = selectedPlayers.find((s) => s.isCaptain);
+    let b = selectedPlayers.find((s) => s.isViceCaptain);
     return a && b;
-  }
+  };
   return (
-    <>
-      {!save ? (
-        <>
-          <CaptainSelector>
-            {selectedPlayers.map((p) => (
-              <Player>
-                <Name>
-                  <img src={p.image} alt="" />
-                  <h1>{p.name.charAt(0).toUpperCase() + " " + p.lastname}</h1>
-                </Name>
-                <CaptainC
-                  onClick={() => handleCaptain(p._id)}
-                  className={p.isCaptain ? "captain" : "notcaptain"}
-                >
-                  c
-                </CaptainC>
-                <ViceCaptain
-                  onClick={() => handleViceCaptain(p._id)}
-                  className={p.isViceCaptain ? "captain" : "notcaptain"}
-                >
-                  vc
-                </ViceCaptain>
-              </Player>
-            ))}
-          </CaptainSelector>
-          <NextButtonContainer>
-            <PrevButton>
-              <RemoveRedEyeOutlinedIcon />
-              Preview / Lineup
-              <GroupsRoundedIcon />
-            </PrevButton>
-            <NextButton
-              disabled={!isCandVcselected(selectedPlayers)}
-              className={isCandVcselected ? "selectedc" : "not"}
-              onClick={() => handleSave()}
-            >
-              save
-            </NextButton>
-          </NextButtonContainer>
-        </>
-      ) : (
-        <SavedTeam players={selectedPlayers} />
-      )}
-    </>
+    <Container>
+      <Grid container justifyContent="space-evenly" justify="space-evenly">
+        {players.slice(0, 2).map((p) => (
+          <Grid item xs={6} sm={6}>
+            <PlayerP>
+              <img src={p.image} alt="" />
+              <Title>{p.lastname}</Title>
+            </PlayerP>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container>
+        {players.slice(2, 6).map((p) => (
+          <Grid item xs={3} sm={3}>
+            <PlayerP>
+              <img src={p.image} alt="" />
+              <Title>{p.lastname}</Title>
+            </PlayerP>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container>
+        {players.slice(6, 8).map((p) => (
+          <Grid item xs={6} sm={6}>
+            <PlayerP>
+              <img src={p.image} alt="" />
+              <Title>{p.lastname}</Title>
+            </PlayerP>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container>
+        {players.slice(8, 11).map((p) => (
+          <Grid item xs={4} sm={4}>
+            <PlayerP>
+              <img src={p.image} alt="" />
+              <Title>{p.lastname}</Title>
+            </PlayerP>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 
-export default Captain;
+export default SavedTeam;

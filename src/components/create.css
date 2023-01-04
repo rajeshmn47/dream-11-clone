@@ -26,3 +26,9 @@
   outline: none;
   border: 2px solid #000000 !important;
 }
+.selectedc {
+  background-color: #008a36 !important;
+}
+.not {
+  background-color: grey !important;
+}
