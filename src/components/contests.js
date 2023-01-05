@@ -79,7 +79,6 @@ export const Contests = ({ players }) => {
     }
     getupcoming();
   }, []);
-
   return (
     <Container>
       <Top>

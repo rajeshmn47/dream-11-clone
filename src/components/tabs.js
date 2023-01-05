@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
 import Slider from "@mui/material/Slider";
+import ConfirmModal from "./confirmcon";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -101,11 +102,19 @@ function a11yProps(index) {
 
 export default function BasicTabs({ tabs }) {
   const [value, setValue] = React.useState(0);
-  console.log(tabs, "basicsoftabs");
+  const [open, setOpen] = React.useState(false);
+  console.log(open, "basicsoftabs");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  const handleOpen = () => {
+    console.log("stillitis clicked");
+    setOpen(true);
+  };
+  const handleClose = () => {
+    console.log("handleopenclose");
+    setOpen(false);
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -238,6 +247,11 @@ export default function BasicTabs({ tabs }) {
               />
               25% Single
             </Last>
+            <ConfirmModal
+              open={open}
+              setOpen={setOpen}
+              handleclose={handleClose}
+            />
           </ContestContainer>
         </ContestsContainer>
       </TabPanel>
