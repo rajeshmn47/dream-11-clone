@@ -35,6 +35,7 @@ export const Register = () => {
       email: email,
       phonenumber: phonenumber,
       password: password,
+      otp: otp,
     });
     console.log(data);
   };

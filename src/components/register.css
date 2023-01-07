@@ -34,6 +34,7 @@
   text-transform: uppercase;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
 }
 .logintopbar {
@@ -45,7 +46,7 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .MuiPaper-root {
   display: flex;

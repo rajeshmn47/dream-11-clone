@@ -159,37 +159,38 @@ export default function BasicTabs({ tabs }) {
               25% Single
             </Last>
           </ContestContainer>
-          {tabs && (
-            <ContestContainer>
-              <Contest>
-                <First>
-                  <p>Prize Pool</p>
-                  <p>Entry</p>
-                </First>
-                <First>
-                  <h1>{tabs.price}</h1>
+          {tabs &&
+            tabs.map((tab) => (
+              <ContestContainer>
+                <Contest>
                   <First>
-                    <del>₹ 19</del>
-                    <FreeButton>₹ {tabs.price / tabs.totalSpots}</FreeButton>
+                    <p>Prize Pool</p>
+                    <p>Entry</p>
                   </First>
-                </First>
-                <SliderContainer>
-                  <Slider />
-                </SliderContainer>
-                <First>
-                  <SpotsLeft>{tabs.spotsLeft} spots left</SpotsLeft>
-                  <SpotsRight>{tabs.totalSpots} spots</SpotsRight>
-                </First>
-              </Contest>
-              <Last>
-                ₹{tabs.price / tabs.totalSpots}
-                <EmojiEventsOutlinedIcon
-                  style={{ margin: "0 15px", marginBottom: "3px" }}
-                />
-                {(tabs.numWinners / tabs.totalSpots) * 100}% Single
-              </Last>
-            </ContestContainer>
-          )}
+                  <First>
+                    <h1>{tab.price}</h1>
+                    <First>
+                      <del>₹ 19</del>
+                      <FreeButton>₹ {tab.price / tab.totalSpots}</FreeButton>
+                    </First>
+                  </First>
+                  <SliderContainer>
+                    <Slider />
+                  </SliderContainer>
+                  <First>
+                    <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
+                    <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                  </First>
+                </Contest>
+                <Last>
+                  ₹{tab.price / tab.totalSpots}
+                  <EmojiEventsOutlinedIcon
+                    style={{ margin: "0 15px", marginBottom: "3px" }}
+                  />
+                  {(tab.numWinners / tab.totalSpots) * 100}% Single
+                </Last>
+              </ContestContainer>
+            ))}
           <ContestContainer>
             <Contest>
               <First>

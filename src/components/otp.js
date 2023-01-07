@@ -40,7 +40,7 @@ export const Otp = ({ open, setOpen, otp, setOtp, handleotp }) => {
               placeholder="enter otp you recieved on your number"
               variant="standard"
               value={otp}
-              onChange={(e)=>setOtp(e.target.value)}
+              onChange={(e) => setOtp(e.target.value)}
             />
             <Button
               variant="contained"

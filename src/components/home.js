@@ -3,6 +3,8 @@ import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import Steppr from "./stepper";
@@ -10,6 +12,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import styled from "@emotion/styled";
+
+const RightSide = styled.div`
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Account = styled.h3`
+  font-size: 12px;
+`;
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+`;
 
 export const Home = () => {
   const [upcoming, setUpcoming] = useState([]);
@@ -29,12 +50,17 @@ export const Home = () => {
   return (
     <>
       <div className="logintopbar">
-        <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
-        Dream 11
+        <Account>account</Account>
+        <Center>
+          <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+          Dream11
+        </Center>
+        <RightSide>
+          <NotificationAddOutlinedIcon style={{ marginRight: "10px" }} />
+          <AccountBalanceWalletOutlinedIcon />
+        </RightSide>
       </div>
-      <div className="stepper">
-        <Steppr />
-      </div>
+
       <div className="hometop">
         <div className="hometopicon selectgame">
           <SportsCricketIcon style={{ color: "#C41E22" }} />
@@ -59,8 +85,8 @@ export const Home = () => {
         <button className="matchstatus">completed</button>
       </div>
       <div className="matches">
-        {upcoming
-          ? upcoming.map((u) => (
+        {live
+          ? live.map((u) => (
               <div
                 className="match"
                 onClick={() => navigate(`/contests/${u.id}`)}
