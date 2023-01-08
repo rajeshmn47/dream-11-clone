@@ -156,6 +156,9 @@ const Title = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SavedTeam = ({ players }) => {
@@ -199,7 +202,7 @@ export const SavedTeam = ({ players }) => {
     });
     setSelectedPlayers([...po]);
   };
-  const handleSave = () => {
+  const handleSave = async () => {
     console.log("clicked next");
     setSave(true);
   };
@@ -210,48 +213,54 @@ export const SavedTeam = ({ players }) => {
     return a && b;
   };
   return (
-    <Container>
-      <Grid container justifyContent="space-evenly" justify="space-evenly">
-        {players.slice(0, 2).map((p) => (
-          <Grid item xs={6} sm={6}>
-            <PlayerP>
-              <img src={p.image} alt="" />
-              <Title>{p.lastname}</Title>
-            </PlayerP>
+    <div>
+      {players ? (
+        <Container>
+          <Grid container justifyContent="space-evenly" justify="space-evenly">
+            {players.slice(0, 2).map((p) => (
+              <Grid item xs={6} sm={6}>
+                <PlayerP>
+                  <img src={p.image} alt="" />
+                  <Title>{p.playerName.split(" ")[1]}</Title>
+                </PlayerP>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      <Grid container>
-        {players.slice(2, 6).map((p) => (
-          <Grid item xs={3} sm={3}>
-            <PlayerP>
-              <img src={p.image} alt="" />
-              <Title>{p.lastname}</Title>
-            </PlayerP>
+          <Grid container>
+            {players.slice(2, 6).map((p) => (
+              <Grid item xs={3} sm={3}>
+                <PlayerP>
+                  <img src={p.image} alt="" />
+                  <Title>{p.playerName.split(" ")[1]}</Title>
+                </PlayerP>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      <Grid container>
-        {players.slice(6, 8).map((p) => (
-          <Grid item xs={6} sm={6}>
-            <PlayerP>
-              <img src={p.image} alt="" />
-              <Title>{p.lastname}</Title>
-            </PlayerP>
+          <Grid container>
+            {players.slice(6, 8).map((p) => (
+              <Grid item xs={6} sm={6}>
+                <PlayerP>
+                  <img src={p.image} alt="" />
+                  <Title>{p.playerName.split(" ")[1]}</Title>
+                </PlayerP>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      <Grid container>
-        {players.slice(8, 11).map((p) => (
-          <Grid item xs={4} sm={4}>
-            <PlayerP>
-              <img src={p.image} alt="" />
-              <Title>{p.lastname}</Title>
-            </PlayerP>
+          <Grid container>
+            {players.slice(8, 11).map((p) => (
+              <Grid item xs={4} sm={4}>
+                <PlayerP>
+                  <img src={p.image} alt="" />
+                  <Title>{p.playerName.split(" ")[1]}</Title>
+                </PlayerP>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-    </Container>
+        </Container>
+      ) : (
+        <h1>ok</h1>
+      )}
+    </div>
   );
 };
 

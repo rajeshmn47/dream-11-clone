@@ -18,6 +18,7 @@ import {
   SendTimeExtension,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import { useParams } from "react-router-dom";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -123,21 +124,22 @@ export const CreateTeam = () => {
   const PlayersNumber = new Array(11).fill(null);
   const [TeamArray, setTeamArray] = useState(new Array(11).fill(null));
   const [upcoming, setUpcoming] = useState([]);
+  const { id } = useParams();
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [players, setPlayers] = useState([]);
   const [next, setNext] = useState(false);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get("http://localhost:8000/home");
+      const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
       console.log(data);
-      setUpcoming(data.data.upcoming.results);
-      setLive(data.data.live.results);
-      setPast(data.data.past.results);
-      let players = data.data.players.map((obj) => ({
-        ...obj,
-        isSelected: false,
-      }));
+
+      let players = data.data.players.teamAwayPlayers
+        .concat(data.data.players.teamHomePlayers)
+        .map((obj) => ({
+          ...obj,
+          isSelected: false,
+        }));
       setPlayers([...players]);
     }
     getupcoming();
@@ -200,7 +202,7 @@ export const CreateTeam = () => {
                     className={p.isSelected ? "selected" : "notselected"}
                   >
                     <img src={p.image} alt="" />
-                    <h1>{p.name}</h1>
+                    <h1>{p.playerName}</h1>
                     {p.isSelected ? (
                       <RemoveButton onClick={() => handleRemove(p._id)}>
                         <RemoveCircleOutlineRoundedIcon />

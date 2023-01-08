@@ -5,6 +5,7 @@ import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import { useSelector } from "react-redux";
 import "./home.css";
 import "./create.css";
 import Steppr from "./stepper";
@@ -15,6 +16,7 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
+import { useParams } from "react-router-dom";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -124,10 +126,15 @@ const PrevButton = styled.button`
   white-space: nowrap;
 `;
 export const Captain = ({ players }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  console.log(user);
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [vicecaptainId, setVicecaptainId] = useState(null);
+  const [captainId, setCaptainId] = useState(null);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
+  const { id } = useParams();
   const [save, setSave] = useState(false);
   useEffect(() => {
     let pl = players.map((obj) => ({
@@ -143,6 +150,7 @@ export const Captain = ({ players }) => {
       p.isCaptain = false;
       return p;
     });
+    setCaptainId(i);
     let po = op.map((p) => {
       if (p._id === i) {
         p.isCaptain = true;
@@ -158,6 +166,7 @@ export const Captain = ({ players }) => {
       p.isViceCaptain = false;
       return p;
     });
+    setVicecaptainId(i);
     let po = op.map((p) => {
       if (p._id === i) {
         p.isViceCaptain = true;
@@ -166,9 +175,17 @@ export const Captain = ({ players }) => {
     });
     setSelectedPlayers([...po]);
   };
-  const handleSave = () => {
+  const handleSave = async () => {
     console.log("clicked next");
+    const data = await axios.post(`http://localhost:8000/saveteam/${id}`, {
+      players: selectedPlayers,
+      matchId: id,
+      userid: user._id,
+      captainId: captainId,
+      vicecaptainId: vicecaptainId,
+    });
     setSave(true);
+    axios.post();
   };
 
   function isCandVcselected(se) {
@@ -187,7 +204,7 @@ export const Captain = ({ players }) => {
               <Player>
                 <Name>
                   <img src={p.image} alt="" />
-                  <h1>{p.name.charAt(0).toUpperCase() + " " + p.lastname}</h1>
+                  <h1>{p.playerName}</h1>
                 </Name>
                 <CaptainC
                   onClick={() => handleCaptain(p._id)}

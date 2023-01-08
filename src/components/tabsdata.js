@@ -147,18 +147,16 @@ export default function BasicTabs({ tabs }) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          {tabs.map((t, index) => (
-            <Tab label={t.label} {...a11yProps(index)} />
-          ))}
-        </Tabs>
-      </Box>
+    <div>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="basic tabs example"
+      >
+        <Tab label="Winnings" {...a11yProps(0)} />
+        <Tab label="Leaderboard" {...a11yProps(1)} />
+      </Tabs>
+
       <TabPanel value={value} index={0}>
         <ContestsContainer container item sm={12} xs={12}>
           <First>
@@ -183,6 +181,6 @@ export default function BasicTabs({ tabs }) {
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel></LastPanel>
       </TabPanel>
-    </Box>
+    </div>
   );
 }

@@ -93,7 +93,7 @@ export const Contests = ({ players }) => {
         </RightSide>
       </Top>
       <Bottom>
-        <BasicTabs tabs={contests} />
+        <BasicTabs tabs={contests} id={id} />
       </Bottom>
     </Container>
   );
