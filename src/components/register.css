@@ -41,12 +41,12 @@
   background-color: #c41e22;
   color: #ffffff;
   height: 10vh;
-  padding: 2vh 2vw;
+  padding: 2vh 3vw;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .MuiPaper-root {
   display: flex;

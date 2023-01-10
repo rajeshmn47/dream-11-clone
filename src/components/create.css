@@ -1,7 +1,7 @@
 .selected {
-  background-color: #ede3d3;
-  border-top: 2px solid #d7d6d4;
-  border-bottom: 2px solid #d7d6d4;
+  background-color: #fef4de;
+  border-top: 1px solid #d7d6d4;
+  border-bottom: 1px solid #d7d6d4;
 }
 
 .disabled {

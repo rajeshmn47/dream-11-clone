@@ -80,6 +80,17 @@ const CreateTeam = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  background-color: #000000;
+  color: #ffffff;
+  width: 200px;
+  margin: 0 auto;
+  height: 35px;
+  border-radius: 5px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
 `;
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -347,13 +358,13 @@ export default function BasicTabs({ tabs, id }) {
               </ContestContainer>
             ))}
         </ContestsContainer>
-        <BaseTab />
+        <BaseTab contest={contest} />
       </TabPanel>
       <TabPanel value={value} index={2}>
         {team?.length > 0 && (
           <SavedTeam players={team?.length > 0 && team[0].players} />
         )}
-        <CreateTeam onClick={() => navigate(`/create/${id}`)}>
+        <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
           <AddCircleOutlineRoundedIcon />
           create team
         </CreateTeam>

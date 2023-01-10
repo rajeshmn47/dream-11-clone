@@ -125,6 +125,20 @@ const PrevButton = styled.button`
   justify-content: space-evenly;
   white-space: nowrap;
 `;
+
+const Description = styled.div`
+  background-color: #fafafa;
+  padding: 10px 10px;
+  h3 {
+    text-align: center;
+    font-size: 16px;
+  }
+  p {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 17px;
+  }
+`;
 export const Captain = ({ players }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   console.log(user);
@@ -199,6 +213,10 @@ export const Captain = ({ players }) => {
     <>
       {!save ? (
         <>
+          <Description>
+            <h3>Choose your captain and vicecaptain</h3>
+            <p>C gets 2x points, VC gets 1.5x points</p>
+          </Description>
           <CaptainSelector>
             {selectedPlayers.map((p) => (
               <Player>

@@ -44,10 +44,11 @@
 .match {
   background-color: #ffffff;
   padding: 1vh 2vw;
-  margin-top: 1vh;
+  margin-top: 2vh;
   border-radius: 5px;
   box-sizing: border-box;
   cursor: pointer;
+  box-shadow: 5px 5px 4px 2px #cecccc;
 }
 .matchcenter {
   display: flex;

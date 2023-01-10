@@ -5,6 +5,7 @@ import Login from "./components/login";
 import Home from "./components/home";
 import Players from "./components/players";
 import CreateTeam from "./components/createteam";
+import CreateTeamNew from "./components/createnew";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
@@ -29,7 +30,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/players" element={<Players />} />
-          <Route path="/create/:id" element={<CreateTeam />} />
+          <Route path="/createnew/:id" element={<CreateTeamNew />} />
           <Route path="/contests/:id" element={<Contests />} />
           <Route path="/contestdetail" element={<ContestDetail />} />
         </Routes>

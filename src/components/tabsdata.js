@@ -139,7 +139,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ tabs }) {
+export default function BasicTabs({ contest }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -147,7 +147,7 @@ export default function BasicTabs({ tabs }) {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: "-30px", width: "115%" }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -165,14 +165,13 @@ export default function BasicTabs({ tabs }) {
                 <th>Rank</th>
                 <th>Winnings</th>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>₹17,850</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>₹17,850</td>
-              </tr>
+              {contest?.length > 0 &&
+                contest[0].prizeDetails.map((p, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>₹{p.prize}</td>
+                  </tr>
+                ))}
             </table>
           </First>
         </ContestsContainer>

@@ -127,7 +127,7 @@ const PrevButton = styled.button`
 const Container = styled.div`
   background-image: url("./pitch.png");
   width: 100% !important;
-  height: 100vh !important;
+  height: 60vh !important;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -142,6 +142,10 @@ const PlayerP = styled.div`
     height: 70px !important;
     display: block;
     border-radius: 50%;
+  }
+  p {
+    margin: 0 !important;
+    padding: 0 10px !important;
   }
 `;
 

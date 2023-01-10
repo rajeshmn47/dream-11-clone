@@ -18,7 +18,8 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import WestIcon from "@mui/icons-material/West";
 import styled from "@emotion/styled";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { unstable_HistoryRouter } from "react-router-dom";
 import SavedTeam from "./savedteam";
 import BasicTabs from "./tabs";
 
@@ -68,13 +69,18 @@ const Container = styled.div`
 `;
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
+  const [match, setMatch] = useState(null);
   const search = useLocation().search;
+  let history = useNavigate();
+
   const { id } = useParams();
   console.log(id); //12345
   useEffect(() => {
     async function getupcoming() {
       const data = await axios.get(`http://localhost:8000/getcontests/${id}`);
-      console.log(data);
+      const matchdata = await axios.get(`http://localhost:8000/getmatch/${id}`);
+      console.log(matchdata);
+      setMatch(matchdata.data.match);
       setContests(data.data.contests);
     }
     getupcoming();
@@ -83,8 +89,12 @@ export const Contests = ({ players }) => {
     <Container>
       <Top>
         <LeftSide>
-          <WestIcon />
-          <h1>Ban Vs Ind</h1>
+          <WestIcon onClick={() => history(-1)} style={{ cursor: "pointer" }} />
+          {match && (
+            <h1>
+              {match.teamAwayCode} Vs {match.teamHomeCode}
+            </h1>
+          )}
         </LeftSide>
         <RightSide>
           <Brightness1Icon />
