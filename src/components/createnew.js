@@ -124,8 +124,6 @@ const RemoveButton = styled.button`
 `;
 
 const NextButtonContainer = styled.div`
-  position: absolute;
-  bottom: 15%;
   left: 0%;
   z-index: 1000000000000000000000000;
   width: 300px;
@@ -134,6 +132,8 @@ const NextButtonContainer = styled.div`
   width: 100%;
   padding: 0 10px;
   box-sizing: border-box;
+  position: fixed;
+  bottom: 45%;
 `;
 
 const NextButton = styled.button`
