@@ -158,7 +158,7 @@ export const Captain = ({ players }) => {
     }));
     setSelectedPlayers([...pl]);
   }, []);
-
+  console.log(selectedPlayers, "select");
   const handleCaptain = (i) => {
     let op = players.map((p) => {
       p.isCaptain = false;
@@ -166,7 +166,7 @@ export const Captain = ({ players }) => {
     });
     setCaptainId(i);
     let po = op.map((p) => {
-      if (p._id === i) {
+      if (p.playerId === i) {
         p.isCaptain = true;
       }
       return p;
@@ -182,7 +182,7 @@ export const Captain = ({ players }) => {
     });
     setVicecaptainId(i);
     let po = op.map((p) => {
-      if (p._id === i) {
+      if (p.playerId === i) {
         p.isViceCaptain = true;
       }
       return p;
@@ -225,13 +225,13 @@ export const Captain = ({ players }) => {
                   <h1>{p.playerName}</h1>
                 </Name>
                 <CaptainC
-                  onClick={() => handleCaptain(p._id)}
+                  onClick={() => handleCaptain(p.playerId)}
                   className={p.isCaptain ? "captain" : "notcaptain"}
                 >
                   c
                 </CaptainC>
                 <ViceCaptain
-                  onClick={() => handleViceCaptain(p._id)}
+                  onClick={() => handleViceCaptain(p.playerId)}
                   className={p.isViceCaptain ? "captain" : "notcaptain"}
                 >
                   vc

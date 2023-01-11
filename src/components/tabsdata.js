@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
 import Slider from "@mui/material/Slider";
+import { useSelector } from "react-redux";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -139,7 +140,8 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ contest }) {
+export default function BasicTabs({ contest, teams }) {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -179,6 +181,17 @@ export default function BasicTabs({ contest }) {
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel></LastPanel>
+        <Paragraph>All Teams ({teams.length})</Paragraph>
+        <div style={{ marginLeft: "20px" }}>
+          {teams.length > 0 &&
+            teams
+              .sort((a, b) => a.points - b.points)
+              .map((f) => (
+                <div className={f.userId === user._id ? "selected" : "not"}>
+                  <h3>{f.points}</h3>
+                </div>
+              ))}
+        </div>
       </TabPanel>
     </div>
   );

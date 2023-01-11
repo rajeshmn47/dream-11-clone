@@ -16,6 +16,7 @@ import SavedTeam from "./savedteam";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
 
 const ContestsContainer = styled(Grid)``;
@@ -130,6 +131,7 @@ export default function BasicTabs({ tabs, id }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const [open, setOpen] = React.useState(false);
   const [team, setTeam] = React.useState(null);
+  const [leaderboard, setLeaderboard] = React.useState([]);
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
@@ -146,12 +148,22 @@ export default function BasicTabs({ tabs, id }) {
         const contestdata = await axios.get(
           `http://localhost:8000/getcontestsofuser/${id}?userid=${user._id}`
         );
-        console.log(contestdata);
+
         setContest(contestdata.data.contests);
       }
     }
     getplayers();
   }, [user]);
+  useEffect(() => {
+    async function getteams() {
+      const teamdata = await axios.get(
+        `http://localhost:8000/getteamsofcontest/${contest[0]._id}`
+      );
+      console.log(teamdata, "teamdata");
+      setLeaderboard(teamdata.data.teams);
+    }
+    getteams();
+  }, [contest]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -358,12 +370,15 @@ export default function BasicTabs({ tabs, id }) {
               </ContestContainer>
             ))}
         </ContestsContainer>
-        <BaseTab contest={contest} />
+        <BaseTab contest={contest} teams={leaderboard} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {team?.length > 0 && (
-          <SavedTeam players={team?.length > 0 && team[0].players} />
-        )}
+        {team?.length > 0 &&
+          team.map((t) => (
+            <>
+              <TeamShort players={t.players} plo={t} id={id} />
+            </>
+          ))}
         <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
           <AddCircleOutlineRoundedIcon />
           create team

@@ -22,7 +22,7 @@ const style = {
 };
 const Main = styled.div`
   width: 260px;
-  height: 60vw;
+  height: 400px;
   overflow: hidden;
   display: flex;
   justify-content: space-evenly;

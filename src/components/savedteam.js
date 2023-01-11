@@ -131,6 +131,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  font-family: "Open Sans";
 `;
 
 const PlayerP = styled.div`

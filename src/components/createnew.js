@@ -186,20 +186,23 @@ export const CreateTeam = () => {
   const [next, setNext] = useState(false);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
-      console.log(data);
+      console.log(id, "id");
+      if (id) {
+        const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
+        console.log(data);
 
-      let players = data.data.players.teamAwayPlayers
-        .concat(data.data.players.teamHomePlayers)
-        .map((obj) => ({
-          ...obj,
-          isSelected: false,
-        }));
-      setPlayers([...players]);
-      setMatch(data.data.matchdetails);
+        let players = data.data.players.teamAwayPlayers
+          .concat(data.data.players.teamHomePlayers)
+          .map((obj) => ({
+            ...obj,
+            isSelected: false,
+          }));
+        setPlayers([...players]);
+        setMatch(data.data.matchdetails);
+      }
     }
     getupcoming();
-  }, []);
+  }, [id]);
 
   console.log(players);
   const handleClick = (i) => {
@@ -234,7 +237,7 @@ export const CreateTeam = () => {
           <NoPlayers container spacing={2}>
             <PlayersIndicator container spacing={2}>
               <Grid item xs={3} sm={3}>
-                Players
+                Playersiooo
                 <p>{players.filter((p) => p.isSelected).length}/11</p>
               </Grid>
               <Grid item xs={3} sm={3}>
