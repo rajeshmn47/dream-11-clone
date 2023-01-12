@@ -26,6 +26,15 @@ const Container = styled.div`
     text-transform: capitalize;
     font-family: "Open Sans";
   }
+  table,
+  tr {
+    width: 300px;
+  }
+  tr {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 `;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
@@ -198,21 +207,31 @@ export default function BasicTabs({ contest, teams }) {
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel></LastPanel>
-        <Paragraph>All Teams ({teams.length})</Paragraph>
-        <div style={{ marginLeft: "20px" }}>
-          {teams.length > 0 &&
-            teams
-              .sort((a, b) => a.points - b.points)
-              .map((f) => (
-                <div
-                  className={f._doc.userId === user._id ? "selected" : ""}
-                  onClick={() => navigate(`/savedteam/${f._doc._id}`)}
-                >
-                  <p>{f.user.username}</p>
-                  <h3>{f._doc.points}</h3>
-                </div>
-              ))}
-        </div>
+        <table>
+          <tr>
+            <th>
+              <Paragraph>All Teams ({teams.length})</Paragraph>
+            </th>
+            <th>Points</th>
+            <th>Rank</th>
+          </tr>
+
+          <div style={{ marginLeft: "20px" }}>
+            {teams.length > 0 &&
+              teams
+                .sort((a, b) => a.points - b.points)
+                .map((f, index) => (
+                  <tr
+                    className={f._doc.userId === user._id ? "selected" : ""}
+                    onClick={() => navigate(`/savedteam/${f._doc._id}`)}
+                  >
+                    <td>{f.user.username}</td>
+                    <td>{f._doc.points}</td>
+                    <td>{index + 1}</td>
+                  </tr>
+                ))}
+          </div>
+        </table>
       </TabPanel>
     </Container>
   );

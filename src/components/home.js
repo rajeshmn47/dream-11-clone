@@ -5,6 +5,7 @@ import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import { Button, Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 import Steppr from "./stepper";
@@ -32,10 +33,43 @@ const Center = styled.div`
   font-weight: 700;
 `;
 
+const AddButton = styled(Button)`
+  background-color: #008a36;
+  color: #ffffff;
+  width: 160px;
+  margin: 0 auto;
+  &:hover {
+    background-color: #008a36;
+    color: #ffffff;
+  }
+`;
+
+const Deatil = styled.div`
+  border-top: 1px solid #dddddd;
+  margin-top: 10px;
+  text-align: left;
+  padding: 10px 0;
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+  }
+`;
+
+const DeatilTop = styled.div`
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px 0;
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+  }
+`;
+
 export const Home = () => {
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
@@ -47,6 +81,10 @@ export const Home = () => {
     }
     getupcoming();
   }, []);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
   return (
     <>
       <div className="logintopbar">
@@ -57,10 +95,28 @@ export const Home = () => {
         </Center>
         <RightSide>
           <NotificationAddOutlinedIcon style={{ marginRight: "10px" }} />
-          <AccountBalanceWalletOutlinedIcon />
+          <AccountBalanceWalletOutlinedIcon onClick={() => handleClick()} />
         </RightSide>
       </div>
-
+      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
+        <DeatilTop>
+          <p>total balance</p>
+          <h5>₹ 0</h5>
+        </DeatilTop>
+        <AddButton>add cash</AddButton>
+        <Deatil>
+          <p>Amount added</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+        <Deatil>
+          <p>winnings</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+        <Deatil>
+          <p>cash bonus</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+      </Drawer>
       <div className="hometop">
         <div className="hometopicon selectgame">
           <SportsCricketIcon style={{ color: "#C41E22" }} />
@@ -78,11 +134,6 @@ export const Home = () => {
           <SportsHockeyIcon />
           <h5>Hockey</h5>
         </div>
-      </div>
-      <div className="matchstatuses">
-        <button className="matchstatus">live</button>
-        <button className="matchstatus">upcoming</button>
-        <button className="matchstatus">completed</button>
       </div>
       <div className="matches">
         {live
