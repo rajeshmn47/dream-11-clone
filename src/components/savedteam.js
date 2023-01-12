@@ -9,6 +9,7 @@ import "./home.css";
 import "./create.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
@@ -166,18 +167,22 @@ const Title = styled.p`
   justify-content: center;
 `;
 
-export const SavedTeam = ({ players }) => {
+export const SavedTeam = () => {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const { id } = useParams();
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [save, setSave] = useState(false);
+  const [players, setPlayers] = useState(null);
   useEffect(() => {
-    let pl = players.map((obj) => ({
-      ...obj,
-    }));
-    setSelectedPlayers([...pl]);
-  }, []);
+    async function getteam() {
+      const data = await axios.get(`http://localhost:8000/getteam/${id}`);
+      console.log(data.data.team.players);
+      setPlayers(data.data.team.players);
+    }
+    getteam();
+  }, [id]);
 
   const handleCaptain = (i) => {
     let op = players.map((p) => {

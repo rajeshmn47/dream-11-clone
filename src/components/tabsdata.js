@@ -9,8 +9,24 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ContestsContainer = styled(Grid)``;
+const Container = styled.div`
+  .MuiTabs-indicator {
+    background-color: #ec1801 !important;
+    padding: 1px 0;
+  }
+  .Mui-selected {
+    color: #000000 !important;
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+  .MuiTab-root {
+    text-transform: capitalize;
+    font-family: "Open Sans";
+  }
+`;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   width: 100%;
@@ -143,13 +159,14 @@ function a11yProps(index) {
 export default function BasicTabs({ contest, teams }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const [value, setValue] = React.useState(0);
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div style={{ marginLeft: "-30px", width: "115%" }}>
+    <Container style={{ marginLeft: "-15px", width: "115%" }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -167,8 +184,8 @@ export default function BasicTabs({ contest, teams }) {
                 <th>Rank</th>
                 <th>Winnings</th>
               </tr>
-              {contest?.length > 0 &&
-                contest[0].prizeDetails.map((p, index) => (
+              {contest &&
+                contest.prizeDetails.map((p, index) => (
                   <tr>
                     <td>{index + 1}</td>
                     <td>₹{p.prize}</td>
@@ -187,12 +204,16 @@ export default function BasicTabs({ contest, teams }) {
             teams
               .sort((a, b) => a.points - b.points)
               .map((f) => (
-                <div className={f.userId === user._id ? "selected" : "not"}>
-                  <h3>{f.points}</h3>
+                <div
+                  className={f._doc.userId === user._id ? "selected" : ""}
+                  onClick={() => navigate(`/savedteam/${f._doc._id}`)}
+                >
+                  <p>{f.user.username}</p>
+                  <h3>{f._doc.points}</h3>
                 </div>
               ))}
         </div>
       </TabPanel>
-    </div>
+    </Container>
   );
 }

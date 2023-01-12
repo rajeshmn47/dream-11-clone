@@ -10,8 +10,10 @@ import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
 import { useState, useEffect } from "react";
+import SavedTeam from "./components/savedteam";
 import Contests from "./components/contests";
 import ContestDetail from "./components/contestdetail";
+import JoinedContests from "./components/joinedcontests";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +34,9 @@ function App() {
           <Route path="/players" element={<Players />} />
           <Route path="/createnew/:id" element={<CreateTeamNew />} />
           <Route path="/contests/:id" element={<Contests />} />
-          <Route path="/contestdetail" element={<ContestDetail />} />
+          <Route path="/savedteam/:id" element={<SavedTeam />} />
+          <Route path="/contestdetail/:id" element={<ContestDetail />} />
+          <Route path="/joined" element={<JoinedContests />} />
         </Routes>
       </BrowserRouter>
     </>

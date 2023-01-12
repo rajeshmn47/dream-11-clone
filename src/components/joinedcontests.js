@@ -11,7 +11,6 @@ import "./home.css";
 import "./create.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
@@ -20,7 +19,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import WestIcon from "@mui/icons-material/West";
 import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
-import BaseTab from "./tabsdata";
+import BasicTabs from "./tabsdata";
 import { Grid, Slider } from "@mui/material";
 
 const Top = styled.div`
@@ -127,33 +126,29 @@ const Last = styled.div`
 
 const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
 
-export const ContestDetail = () => {
+export const JoinedContests = ({ players }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [save, setSave] = useState(false);
-  const [leaderboard, setLeaderboard] = useState([]);
-  const [contest, setContest] = useState(null);
-  const { id } = useParams();
-  useEffect(() => {
-    async function getteams() {
-      const teamdata = await axios.get(
-        `http://localhost:8000/getteamsofcontest/${id}`
-      );
-      console.log(teamdata, "teamdata");
-      const contestdata = await axios.get(
-        `http://localhost:8000/getcontest/${id}`
-      );
-      setContest(contestdata.data.contest);
-      setLeaderboard(teamdata.data.teams);
-    }
-    getteams();
-  }, [id]);
+
   return (
-    <>
-      <ContestsContainer container item sm={12} xs={12}>
-        {contest && (
+    <Container>
+      <Top>
+        <LeftSide>
+          <WestIcon />
+
+          <h1>Ban Vs Ind</h1>
+        </LeftSide>
+        <RightSide>
+          <Brightness1Icon />
+          <AccountBalanceWalletOutlinedIcon />
+          <NotificationAddOutlinedIcon />
+        </RightSide>
+      </Top>
+      <Bottom>
+        <ContestsContainer>
           <ContestContainer>
             <Contest>
               <First>
@@ -161,40 +156,33 @@ export const ContestDetail = () => {
                 <p>Entry</p>
               </First>
               <First>
-                <h1>{contest.price}</h1>
+                <h1>2.50 lacks</h1>
                 <First>
                   <del>₹ 19</del>
-                  <FreeButton>
-                    ₹ {Math.floor(contest.price / contest.totalSpots)}
-                  </FreeButton>
+                  <FreeButton>Free</FreeButton>
                 </First>
               </First>
               <SliderContainer>
-                <Slider
-                  defaultValue={contest.totalSpots - contest.spotsLeft}
-                  min={0}
-                  max={contest.totalSpots}
-                />
+                <Slider />
               </SliderContainer>
               <First>
-                <SpotsLeft>{contest.spotsLeft} spots left</SpotsLeft>
-                <SpotsRight>{contest.totalSpots} spots</SpotsRight>
+                <SpotsLeft>2 spots left</SpotsLeft>
+                <SpotsRight>3 spots</SpotsRight>
               </First>
             </Contest>
             <Last>
-              ₹{Math.floor(contest.price / contest.totalSpots)}
+              ₹66
               <EmojiEventsOutlinedIcon
                 style={{ margin: "0 15px", marginBottom: "3px" }}
               />
-              {Math.floor((contest.numWinners / contest.totalSpots) * 100)}%
-              Single
+              25% Single
             </Last>
           </ContestContainer>
-        )}
-      </ContestsContainer>
-      <BaseTab contest={contest} teams={leaderboard} />
-    </>
+        </ContestsContainer>
+      </Bottom>
+      <BasicTabs tabs={tabs} />
+    </Container>
   );
 };
 
-export default ContestDetail;
+export default JoinedContests;

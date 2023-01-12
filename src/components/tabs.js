@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import SelectTeam from "./selectteam";
 import ConfirmModal from "./confirmcon";
 import BaseTab from "./tabsdata";
 import SavedTeam from "./savedteam";
@@ -93,6 +94,21 @@ const CreateTeam = styled.div`
   border-bottom-right-radius: 20px;
   cursor: pointer;
 `;
+
+const Heading = styled.h3`
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  margin-bottom: 20px;
+  font-size: 12px;
+  padding: 10px 10px;
+`;
+
+const JoinBtn = styled(Button)`
+  background-color: green;
+  color: #ffffff;
+  width: 180px;
+  margin-left: 100px;
+`;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -132,10 +148,15 @@ export default function BasicTabs({ tabs, id }) {
   const [open, setOpen] = React.useState(false);
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
+  const [selectedTeam, setSelectedTeam] = React.useState(null);
+  const [selectTeams, setSelectTeams] = React.useState({
+    selected: false,
+    team: null,
+  });
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
-  console.log(open, "basicsoftabs");
+  console.log(open, selectedTeam, selectTeams, "basicsoftabs");
 
   useEffect(() => {
     async function getplayers() {
@@ -164,226 +185,271 @@ export default function BasicTabs({ tabs, id }) {
     }
     getteams();
   }, [contest]);
+
+  useEffect(() => {
+    if (selectTeams.team) {
+      setOpen(true);
+    }
+  }, [selectTeams]);
+  useEffect(() => {
+    setSelectTeams({
+      open: false,
+      team: selectedTeam,
+    });
+  }, [selectedTeam]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleOpen = (i) => {
-    console.log("stillitis clicked");
     setModal(i);
-    setOpen(true);
+    setSelectTeams({ selected: true, team: null });
   };
   const handleClose = () => {
-    console.log("handleopenclose");
     setOpen(false);
   };
+
+  const handlejoin = (t) => {
+    setSelectTeams({ selected: false, team: t });
+  };
+  console.log(contest, "contest");
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="Contests" {...a11yProps(0)} />
-          <Tab
-            label={`My Contests(${contest && contest.length})`}
-            {...a11yProps(1)}
-          />
-          <Tab label={`My Teams(${team && team.length})`} {...a11yProps(2)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <ContestsContainer container item sm={12} xs={12}>
-          <ContestContainer>
-            <Contest>
-              <First>
-                <p>Prize Pool</p>
-                <p>Entry</p>
-              </First>
-              <First>
-                <h1>2.50 lacks</h1>
-                <First>
-                  <del>₹ 19</del>
-                  <FreeButton>Free</FreeButton>
-                </First>
-              </First>
-              <SliderContainer>
-                <Slider />
-              </SliderContainer>
-              <First>
-                <SpotsLeft>2 spots left</SpotsLeft>
-                <SpotsRight>3 spots</SpotsRight>
-              </First>
-            </Contest>
-            <Last>
-              ₹66
-              <EmojiEventsOutlinedIcon
-                style={{ margin: "0 15px", marginBottom: "3px" }}
+    <>
+      {!selectTeams.selected ? (
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab label="Contests" {...a11yProps(0)} />
+              <Tab
+                label={`My Contests(${contest && contest.length})`}
+                {...a11yProps(1)}
               />
-              25% Single
-            </Last>
-          </ContestContainer>
-          {tabs &&
-            tabs.map((tab) => (
-              <ContestContainer onClick={() => handleOpen(tab)}>
+              <Tab
+                label={`My Teams(${team && team.length})`}
+                {...a11yProps(2)}
+              />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            <ContestsContainer container item sm={12} xs={12}>
+              <ContestContainer>
                 <Contest>
                   <First>
                     <p>Prize Pool</p>
                     <p>Entry</p>
                   </First>
                   <First>
-                    <h1>{tab.price}</h1>
+                    <h1>2.50 lacks</h1>
                     <First>
                       <del>₹ 19</del>
-                      <FreeButton>
-                        ₹ {Math.floor(tab.price / tab.totalSpots)}
-                      </FreeButton>
+                      <FreeButton>Free</FreeButton>
                     </First>
                   </First>
                   <SliderContainer>
-                    <Slider
-                      defaultValue={tab.totalSpots - tab.spotsLeft}
-                      min={0}
-                      max={tab.totalSpots}
-                    />
+                    <Slider />
                   </SliderContainer>
                   <First>
-                    <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
-                    <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                    <SpotsLeft>2 spots left</SpotsLeft>
+                    <SpotsRight>3 spots</SpotsRight>
                   </First>
                 </Contest>
                 <Last>
-                  ₹{Math.floor(tab.price / tab.totalSpots)}
+                  ₹66
                   <EmojiEventsOutlinedIcon
                     style={{ margin: "0 15px", marginBottom: "3px" }}
                   />
-                  {Math.floor((tab.numWinners / tab.totalSpots) * 100)}% Single
+                  25% Single
                 </Last>
               </ContestContainer>
-            ))}
-          <ContestContainer>
-            <Contest>
-              <First>
-                <p>Prize Pool</p>
-                <p>Entry</p>
-              </First>
-              <First>
-                <h1>2.50 lacks</h1>
-                <First>
-                  <del>₹ 19</del>
-                  <FreeButton>free</FreeButton>
-                </First>
-              </First>
-              <SliderContainer>
-                <Slider />
-              </SliderContainer>
-              <First>
-                <SpotsLeft>2 spots left</SpotsLeft>
-                <SpotsRight>3 spots</SpotsRight>
-              </First>
-            </Contest>
-            <Last>
-              ₹66
-              <EmojiEventsOutlinedIcon
-                style={{ margin: "0 15px", marginBottom: "3px" }}
-              />
-              25% Single
-            </Last>
-          </ContestContainer>
-          <ContestContainer>
-            <Contest>
-              <First>
-                <p>Prize Pool</p>
-                <p>Entry</p>
-              </First>
-              <First>
-                <h1>2.50 lacks</h1>
-                <First>
-                  <del>₹ 19</del>
-                  <FreeButton>Free</FreeButton>
-                </First>
-              </First>
-              <SliderContainer>
-                <Slider />
-              </SliderContainer>
-              <First>
-                <SpotsLeft>2 spots left</SpotsLeft>
-                <SpotsRight>3 spots</SpotsRight>
-              </First>
-            </Contest>
-            <Last>
-              ₹66
-              <EmojiEventsOutlinedIcon
-                style={{ margin: "0 15px", marginBottom: "3px" }}
-              />
-              25% Single
-            </Last>
-            <ConfirmModal
-              open={open}
-              setOpen={setOpen}
-              handleclose={handleClose}
-              modal={modal}
-              teamid={team?.length > 0 && team[0]._id}
-              id={id}
-            />
-          </ContestContainer>
-        </ContestsContainer>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ContestsContainer container item sm={12} xs={12}>
-          {contest.length > 0 &&
-            contest.map((tab) => (
-              <ContestContainer onClick={() => handleOpen(tab)}>
+              {tabs &&
+                tabs.map((tab) => (
+                  <ContestContainer onClick={() => handleOpen(tab)}>
+                    <Contest>
+                      <First>
+                        <p>Prize Pool</p>
+                        <p>Entry</p>
+                      </First>
+                      <First>
+                        <h1>{tab.price}</h1>
+                        <First>
+                          <del>₹ 19</del>
+                          <FreeButton>
+                            ₹ {Math.floor(tab.price / tab.totalSpots)}
+                          </FreeButton>
+                        </First>
+                      </First>
+                      <SliderContainer>
+                        <Slider
+                          defaultValue={tab.totalSpots - tab.spotsLeft}
+                          min={0}
+                          max={tab.totalSpots}
+                        />
+                      </SliderContainer>
+                      <First>
+                        <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
+                        <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                      </First>
+                    </Contest>
+                    <Last>
+                      ₹{Math.floor(tab.price / tab.totalSpots)}
+                      <EmojiEventsOutlinedIcon
+                        style={{ margin: "0 15px", marginBottom: "3px" }}
+                      />
+                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}%
+                      Single
+                    </Last>
+                  </ContestContainer>
+                ))}
+              <ContestContainer>
                 <Contest>
                   <First>
                     <p>Prize Pool</p>
                     <p>Entry</p>
                   </First>
                   <First>
-                    <h1>{tab.price}</h1>
+                    <h1>2.50 lacks</h1>
                     <First>
                       <del>₹ 19</del>
-                      <FreeButton>
-                        ₹ {Math.floor(tab.price / tab.totalSpots)}
-                      </FreeButton>
+                      <FreeButton>free</FreeButton>
                     </First>
                   </First>
                   <SliderContainer>
-                    <Slider
-                      defaultValue={tab.totalSpots - tab.spotsLeft}
-                      min={0}
-                      max={tab.totalSpots}
-                    />
+                    <Slider />
                   </SliderContainer>
                   <First>
-                    <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
-                    <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                    <SpotsLeft>2 spots left</SpotsLeft>
+                    <SpotsRight>3 spots</SpotsRight>
                   </First>
                 </Contest>
                 <Last>
-                  ₹{Math.floor(tab.price / tab.totalSpots)}
+                  ₹66
                   <EmojiEventsOutlinedIcon
                     style={{ margin: "0 15px", marginBottom: "3px" }}
                   />
-                  {Math.floor((tab.numWinners / tab.totalSpots) * 100)}% Single
+                  25% Single
                 </Last>
               </ContestContainer>
+              <ContestContainer>
+                <Contest>
+                  <First>
+                    <p>Prize Pool</p>
+                    <p>Entry</p>
+                  </First>
+                  <First>
+                    <h1>2.50 lacks</h1>
+                    <First>
+                      <del>₹ 19</del>
+                      <FreeButton>Free</FreeButton>
+                    </First>
+                  </First>
+                  <SliderContainer>
+                    <Slider />
+                  </SliderContainer>
+                  <First>
+                    <SpotsLeft>2 spots left</SpotsLeft>
+                    <SpotsRight>3 spots</SpotsRight>
+                  </First>
+                </Contest>
+                <Last>
+                  ₹66
+                  <EmojiEventsOutlinedIcon
+                    style={{ margin: "0 15px", marginBottom: "3px" }}
+                  />
+                  25% Single
+                </Last>
+                <ConfirmModal
+                  open={open}
+                  setOpen={setOpen}
+                  handleclose={handleClose}
+                  modal={modal}
+                  teamid={selectedTeam?._id}
+                  id={id}
+                />
+              </ContestContainer>
+            </ContestsContainer>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <ContestsContainer container item sm={12} xs={12}>
+              {contest.length > 0 &&
+                contest.map((tab) => (
+                  <ContestContainer
+                    onClick={() => navigate(`/contestdetail/${tab._id}`)}
+                  >
+                    <Contest>
+                      <First>
+                        <p>Prize Pool</p>
+                        <p>Entry</p>
+                      </First>
+                      <First>
+                        <h1>{tab.price}</h1>
+                        <First>
+                          <del>₹ 19</del>
+                          <FreeButton>
+                            ₹ {Math.floor(tab.price / tab.totalSpots)}
+                          </FreeButton>
+                        </First>
+                      </First>
+                      <SliderContainer>
+                        <Slider
+                          defaultValue={tab.totalSpots - tab.spotsLeft}
+                          min={0}
+                          max={tab.totalSpots}
+                        />
+                      </SliderContainer>
+                      <First>
+                        <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
+                        <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                      </First>
+                    </Contest>
+                    <Last>
+                      ₹{Math.floor(tab.price / tab.totalSpots)}
+                      <EmojiEventsOutlinedIcon
+                        style={{ margin: "0 15px", marginBottom: "3px" }}
+                      />
+                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}%
+                      Single
+                    </Last>
+                  </ContestContainer>
+                ))}
+            </ContestsContainer>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            {team?.length > 0 &&
+              team.map((t) => (
+                <>
+                  <TeamShort players={t.players} plo={t} id={id} />
+                </>
+              ))}
+            <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
+              <AddCircleOutlineRoundedIcon />
+              create team
+            </CreateTeam>
+          </TabPanel>
+        </Box>
+      ) : (
+        team?.length > 0 && (
+          <>
+            <Heading>You can Enter 1 team in this contest</Heading>
+            {team.map((t) => (
+              <>
+                <SelectTeam
+                  players={t.players}
+                  plo={t}
+                  id={id}
+                  selectTeams={selectTeams}
+                  setSelectTeams={setSelectTeams}
+                  selectedTeam={selectedTeam}
+                  setSelectedTeam={setSelectedTeam}
+                />
+              </>
             ))}
-        </ContestsContainer>
-        <BaseTab contest={contest} teams={leaderboard} />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        {team?.length > 0 &&
-          team.map((t) => (
-            <>
-              <TeamShort players={t.players} plo={t} id={id} />
-            </>
-          ))}
-        <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
-          <AddCircleOutlineRoundedIcon />
-          create team
-        </CreateTeam>
-      </TabPanel>
-    </Box>
+            <JoinBtn onClick={handlejoin}>Join</JoinBtn>
+          </>
+        )
+      )}
+    </>
   );
 }
