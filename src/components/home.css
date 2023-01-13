@@ -39,16 +39,20 @@
   background-color: #f1f0f8;
   padding: 2vh 3vw;
   box-sizing: border-box;
-  min-height: 60vh;
+  min-height: 800px;
 }
+
 .match {
   background-color: #ffffff;
-  padding: 1vh 2vw;
-  margin-top: 2vh;
-  border-radius: 5px;
+  padding: 10px 20px;
   box-sizing: border-box;
   cursor: pointer;
-  box-shadow: 5px 5px 4px 2px #cecccc;
+}
+.matchcontainer {
+  box-shadow: 5px 2px 4px 2px #cecccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 15px 0;
 }
 .matchcenter {
   display: flex;
@@ -83,8 +87,9 @@
   color: #1ca14d;
   width: 12vw;
   box-sizing: border-box;
-  border-radius: 2px;
+  border-radius: 4px;
   display: inline-block;
+  border: 1px solid #1ca14d;
   text-align: center;
   font-weight: 700;
   font-size: 12px;
@@ -118,4 +123,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.bottom {
+  background-color: #f7f4f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 15px;
 }
