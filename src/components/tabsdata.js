@@ -12,6 +12,17 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ContestsContainer = styled(Grid)``;
+const Tabel = styled.div`
+  tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  td,th {
+    padding: 10px 10px;
+    text-align: center;
+  }
+`;
 const Container = styled.div`
   .MuiTabs-indicator {
     background-color: #ec1801 !important;
@@ -28,7 +39,7 @@ const Container = styled.div`
   }
   table,
   tr {
-    width: 300px;
+    width: 100%;
   }
   tr {
     display: flex;
@@ -39,7 +50,7 @@ const Container = styled.div`
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   width: 100%;
-  margin: 10px 0;
+  margin: 0;
 `;
 const Contest = styled.div`
   padding: 20px 20px;
@@ -89,7 +100,7 @@ const First = styled.div`
     align-items: center;
     justify-content: center;
     height: 40px;
-    padding: 0 10px;
+    padding: 10px 10px;
     font-family: "Open Sans";
     text-align: center;
     width: 100px;
@@ -124,7 +135,7 @@ const Last = styled.div`
   color: #888;
 `;
 const Paragraph = styled.p`
-  padding: 10px 15px;
+  padding: 15px 15px;
   color: rgba(0, 0, 0, 0.6);
 `;
 const Left = styled.div``;
@@ -175,7 +186,7 @@ export default function BasicTabs({ contest, teams }) {
   };
 
   return (
-    <Container style={{ marginLeft: "-15px", width: "115%" }}>
+    <Container style={{ width: "100%" }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -207,16 +218,16 @@ export default function BasicTabs({ contest, teams }) {
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel></LastPanel>
-        <table>
-          <tr>
-            <th>
-              <Paragraph>All Teams ({teams.length})</Paragraph>
-            </th>
-            <th>Points</th>
-            <th>Rank</th>
-          </tr>
+        <Tabel>
+          <table>
+            <tr>
+              <th>
+                <Paragraph>All Teams ({teams.length})</Paragraph>
+              </th>
+              <th>Points</th>
+              <th>Rank</th>
+            </tr>
 
-          <div style={{ marginLeft: "20px" }}>
             {teams.length > 0 &&
               teams
                 .sort((a, b) => a.points - b.points)
@@ -230,8 +241,8 @@ export default function BasicTabs({ contest, teams }) {
                     <td>{index + 1}</td>
                   </tr>
                 ))}
-          </div>
-        </table>
+          </table>
+        </Tabel>
       </TabPanel>
     </Container>
   );

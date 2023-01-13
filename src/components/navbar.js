@@ -14,7 +14,6 @@ import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
-import Navbar from "./navbar";
 
 const RightSide = styled.div`
   width: 90px;
@@ -66,7 +65,7 @@ const DeatilTop = styled.div`
   }
 `;
 
-export const Home = () => {
+export const Navbar = () => {
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
@@ -88,45 +87,56 @@ export const Home = () => {
   };
   return (
     <>
-      <Navbar />
-      <div className="matches">
-        {live
-          ? live.map((u) => (
-              <div
-                className="match"
-                onClick={() => navigate(`/contests/${u.id}`)}
-              >
-                <h5
-                  style={{
-                    color: "rgb(233,233,233)",
-                    height: "3vh",
-                    fontSize: "12px",
-                  }}
-                >
-                  {u.away.code} vs {u.home.code}
-                </h5>
-                <div className="matchcenter">
-                  <div className="matchlefts">
-                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                    <h5>{u.away.code}</h5>
-                  </div>
-                  <h5 className="time">{u.livestatus}</h5>
-                  <div className="matchrights">
-                    <h5> {u.home.code}</h5>
-                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
-                  </div>
-                </div>
-                <div className="mega">Mega</div>
-                <div className="meg">
-                  <h5>59 crores</h5>
-                </div>
-              </div>
-            ))
-          : null}
+      <div className="logintopbar">
+        <Account>account</Account>
+        <Center>
+          <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+          Dream11
+        </Center>
+        <RightSide>
+          <NotificationAddOutlinedIcon style={{ marginRight: "10px" }} />
+          <AccountBalanceWalletOutlinedIcon onClick={() => handleClick()} />
+        </RightSide>
       </div>
-      <Bottomnav />
+      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
+        <DeatilTop>
+          <p>total balance</p>
+          <h5>₹ 0</h5>
+        </DeatilTop>
+        <AddButton>add cash</AddButton>
+        <Deatil>
+          <p>Amount added</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+        <Deatil>
+          <p>winnings</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+        <Deatil>
+          <p>cash bonus</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+      </Drawer>
+      <div className="hometop">
+        <div className="hometopicon selectgame">
+          <SportsCricketIcon style={{ color: "#C41E22" }} />
+          <h5>Cricket</h5>
+        </div>
+        <div className="hometopicon">
+          <SportsSoccerIcon />
+          <h5>Football</h5>
+        </div>
+        <div className="hometopicon">
+          <SportsBasketballIcon />
+          <h5>Basketball</h5>
+        </div>
+        <div className="hometopicon">
+          <SportsHockeyIcon />
+          <h5>Hockey</h5>
+        </div>
+      </div>
     </>
   );
 };
 
-export default Home;
+export default Navbar;

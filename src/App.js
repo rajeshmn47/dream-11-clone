@@ -14,6 +14,7 @@ import SavedTeam from "./components/savedteam";
 import Contests from "./components/contests";
 import ContestDetail from "./components/contestdetail";
 import JoinedContests from "./components/joinedcontests";
+import Navbar from "./components/navbar";
 
 function App() {
   const dispatch = useDispatch();

@@ -11,7 +11,7 @@ import "./home.css";
 import "./create.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
@@ -71,7 +71,7 @@ const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   width: 100%;
-  margin: 10px 0;
+  margin: 0 0;
 `;
 const Contest = styled.div`
   padding: 20px 20px;
@@ -134,25 +134,47 @@ export const ContestDetail = () => {
   const [past, setPast] = useState([]);
   const [save, setSave] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [match, setMatch] = useState(null);
   const [contest, setContest] = useState(null);
   const { id } = useParams();
+  const history = useNavigate();
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
         `http://localhost:8000/getteamsofcontest/${id}`
       );
-      console.log(teamdata, "teamdata");
       const contestdata = await axios.get(
         `http://localhost:8000/getcontest/${id}`
       );
+      console.log(contestdata, "contest");
       setContest(contestdata.data.contest);
+      setMatch(teamdata.data.match);
       setLeaderboard(teamdata.data.teams);
     }
     getteams();
   }, [id]);
+  console.log(match,'match')
   return (
     <>
-      <ContestsContainer container item sm={12} xs={12}>
+      <ContestsContainer container>
+        <Top>
+          <LeftSide>
+            <WestIcon
+              onClick={() => history(-1)}
+              style={{ cursor: "pointer" }}
+            />
+            {match && (
+              <h1>
+                {match.teamAwayCode} Vs {match.teamHomeCode}
+              </h1>
+            )}
+          </LeftSide>
+          <RightSide>
+            <Brightness1Icon />
+            <AccountBalanceWalletOutlinedIcon />
+            <NotificationAddOutlinedIcon />
+          </RightSide>
+        </Top>
         {contest && (
           <ContestContainer>
             <Contest>
