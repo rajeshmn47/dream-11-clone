@@ -14,6 +14,7 @@ import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 
 const RightSide = styled.div`
   width: 90px;
@@ -24,6 +25,14 @@ const RightSide = styled.div`
 
 const Account = styled.h3`
   font-size: 12px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: red;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Center = styled.div`
   display: flex;
@@ -66,6 +75,9 @@ const DeatilTop = styled.div`
 `;
 
 export const Navbar = () => {
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
@@ -88,20 +100,25 @@ export const Navbar = () => {
   return (
     <>
       <div className="logintopbar">
-        <Account>account</Account>
+        <Account>{user?.username && user?.username.charAt(0)}</Account>
         <Center>
           <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
           Dream11
         </Center>
         <RightSide>
-          <NotificationAddOutlinedIcon style={{ marginRight: "10px" }} />
-          <AccountBalanceWalletOutlinedIcon onClick={() => handleClick()} />
+          <NotificationAddOutlinedIcon
+            style={{ marginRight: "10px", cursor: "pointer" }}
+          />
+          <AccountBalanceWalletOutlinedIcon
+            onClick={() => handleClick()}
+            style={{ cursor: "pointer" }}
+          />
         </RightSide>
       </div>
       <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
         <DeatilTop>
           <p>total balance</p>
-          <h5>₹ 0</h5>
+          <h5>₹ {user && user.wallet}</h5>
         </DeatilTop>
         <AddButton>add cash</AddButton>
         <Deatil>

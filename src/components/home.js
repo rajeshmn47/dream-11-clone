@@ -18,6 +18,7 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import Navbar from "./navbar";
 import { URL } from "../constants/userConstants";
+import { useSelector } from "react-redux";
 
 const RightSide = styled.div`
   width: 90px;
@@ -70,6 +71,10 @@ const DeatilTop = styled.div`
 `;
 
 export const Home = () => {
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
+  console.log(user, "user");
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
@@ -85,6 +90,13 @@ export const Home = () => {
       setPast(data.data.past.results);
     }
     getupcoming();
+  }, []);
+  useEffect(() => {
+    const servertoken =
+      localStorage.getItem("token") && localStorage.getItem("token");
+    if (!servertoken) {
+      navigate("/login");
+    }
   }, []);
 
   const handleClick = () => {

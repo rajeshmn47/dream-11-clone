@@ -6,7 +6,13 @@ import Home from "./components/home";
 import Players from "./components/players";
 import CreateTeam from "./components/createteam";
 import CreateTeamNew from "./components/createnew";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  BrowserRouter,
+  useNavigate,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
 import { useState, useEffect } from "react";
@@ -25,6 +31,7 @@ function App() {
     dispatch(loadUser());
     console.log(user, "or");
   }, [dispatch]);
+
   return (
     <>
       <BrowserRouter>
