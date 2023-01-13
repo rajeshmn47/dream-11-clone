@@ -153,7 +153,7 @@ export const ContestDetail = () => {
     }
     getteams();
   }, [id]);
-  console.log(match,'match')
+  console.log(match, "match");
   return (
     <>
       <ContestsContainer container>

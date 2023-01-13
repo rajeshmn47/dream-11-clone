@@ -18,7 +18,8 @@ const Tabel = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-  td,th {
+  td,
+  th {
     padding: 10px 10px;
     text-align: center;
   }

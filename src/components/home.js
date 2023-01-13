@@ -74,7 +74,9 @@ export const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get("http://localhost:8000/home");
+      const data = await axios.get(
+        "https://web-production-2c05.up.railway.app/home"
+      );
       console.log(data);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);
