@@ -192,7 +192,7 @@ export const Captain = ({ players }) => {
   };
   const handleSave = async () => {
     console.log("clicked next");
-    const data = await axios.post(`${URL}/${id}`, {
+    const data = await axios.post(`${URL}/saveteam/${id}`, {
       players: selectedPlayers,
       matchId: id,
       userid: user._id,
