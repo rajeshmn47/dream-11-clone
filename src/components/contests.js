@@ -85,7 +85,7 @@ export const Contests = ({ players }) => {
       setContests(data.data.contests);
     }
     getupcoming();
-  }, []);
+  }, [id]);
   return (
     <Container>
       <Top>

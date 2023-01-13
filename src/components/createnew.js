@@ -134,7 +134,7 @@ const NextButtonContainer = styled.div`
   padding: 0 10px;
   box-sizing: border-box;
   position: fixed;
-  bottom: 45%;
+  bottom: 15%;
 `;
 
 const NextButton = styled.button`
@@ -275,30 +275,31 @@ export const CreateTeam = () => {
                 ))}
           </NoPlayers>
           <CategoryTabs players={players} setPlayers={setPlayers} />
-
+          <NextButtonContainer>
+            <PrevButton>
+              <RemoveRedEyeOutlinedIcon />
+              Preview / Lineup
+              <GroupsRoundedIcon />
+            </PrevButton>
+            <NextButton
+              disabled={
+                players.filter((k) => k.isSelected === true).length < 11
+              }
+              className={
+                players.filter((k) => k.isSelected === true).length >= 11
+                  ? "notdisabled"
+                  : "disablednext"
+              }
+              onClick={() => handleNext()}
+            >
+              next
+            </NextButton>
+          </NextButtonContainer>
           <Bottomnav />
         </>
       ) : (
         <Next players={players.filter((k) => k.isSelected === true)} />
       )}
-      <NextButtonContainer>
-        <PrevButton>
-          <RemoveRedEyeOutlinedIcon />
-          Preview / Lineup
-          <GroupsRoundedIcon />
-        </PrevButton>
-        <NextButton
-          disabled={players.filter((k) => k.isSelected === true).length < 11}
-          className={
-            players.filter((k) => k.isSelected === true).length >= 11
-              ? "notdisabled"
-              : "disablednext"
-          }
-          onClick={() => handleNext()}
-        >
-          next
-        </NextButton>
-      </NextButtonContainer>
     </Container>
   );
 };

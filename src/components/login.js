@@ -6,6 +6,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { useState, react } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
@@ -93,6 +94,7 @@ export const Login = () => {
             </Button>
           </form>
           Forgot Password
+          <Link to="/register">Dont have a account?Sign up</Link>
         </Paper>
       </div>
     </>

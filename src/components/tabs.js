@@ -94,6 +94,7 @@ const CreateTeam = styled.div`
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   cursor: pointer;
+  margin-top: 10px;
 `;
 
 const Heading = styled.h3`

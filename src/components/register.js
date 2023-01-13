@@ -3,6 +3,8 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, react } from "react";
 import { URL } from "../constants/userConstants";
@@ -13,6 +15,7 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
 
@@ -43,7 +46,7 @@ export const Register = () => {
   return (
     <>
       <div className="registertopbar">
-        <ArrowBackIcon style={{ marginRight: "2vw" }} />
+        <ArrowBackIcon style={{ marginRight: "2vw" }} onClick={()=>navigate(-1)}/>
         register & play
       </div>
 
@@ -90,7 +93,7 @@ export const Register = () => {
           </form>
           forgot password
         </Paper>
-        <h5>Aleady a user?Log in</h5>
+        <Link to="/login">Aleady a user?Log in</Link>
       </div>
       <Otp
         open={open}

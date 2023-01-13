@@ -7,6 +7,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 import axios from "axios";
+import { URL } from "../constants/userConstants";
 import { useSelector } from "react-redux";
 
 const style = {
@@ -71,7 +72,7 @@ export default function ConfirmModal({
   console.log(modal, "modal");
   const join = async () => {
     const data = await axios.get(
-      `${URL}joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
+      `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
     );
     console.log(data);
   };
