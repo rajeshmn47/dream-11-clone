@@ -141,12 +141,8 @@ export const ContestDetail = () => {
   const history = useNavigate();
   useEffect(() => {
     async function getteams() {
-      const teamdata = await axios.get(
-        `${URL}/getteamsofcontest/${id}`
-      );
-      const contestdata = await axios.get(
-        `${URL}/getcontest/${id}`
-      );
+      const teamdata = await axios.get(`${URL}/getteamsofcontest/${id}`);
+      const contestdata = await axios.get(`${URL}/getcontest/${id}`);
       console.log(contestdata, "contest");
       setContest(contestdata.data.contest);
       setMatch(teamdata.data.match);

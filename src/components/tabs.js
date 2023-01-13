@@ -21,7 +21,6 @@ import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
 import { URL } from "../constants/userConstants";
 
-
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);

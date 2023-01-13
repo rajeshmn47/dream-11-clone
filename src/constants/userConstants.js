@@ -51,15 +51,13 @@ export const DELETE_USER_RESET = "DELETE_USER_RESET";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
-
-function geturl(){
-var current=process.env.REACT_APP_API;
-if(current=='local'){
-return 'http://localhost:8000';
-}
-else{
-   return 'https://web-production-2c05.up.railway.app';
-}
+function geturl() {
+  var current = process.env.REACT_APP_API;
+  if (current == "local") {
+    return "http://localhost:8000";
+  } else {
+    return "https://web-production-2c05.up.railway.app";
+  }
 }
 
-export const URL=geturl();
+export const URL = geturl();

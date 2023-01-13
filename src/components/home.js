@@ -72,13 +72,11 @@ export const Home = () => {
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
-  console.log(URL,'url')
+  console.log(URL, "url");
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(
-        `${URL}/home`
-      );
+      const data = await axios.get(`${URL}/home`);
       console.log(data);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);

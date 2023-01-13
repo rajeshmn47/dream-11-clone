@@ -9,7 +9,7 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_REQUEST,
   LOAD_USER_FAIL,
-  URL
+  URL,
 } from "../constants/userConstants";
 
 const headers = {

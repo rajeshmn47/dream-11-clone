@@ -17,7 +17,6 @@ import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { URL } from "../constants/userConstants";
 
-
 const CaptainSelector = styled.div``;
 const Player = styled.div`
   display: flex;

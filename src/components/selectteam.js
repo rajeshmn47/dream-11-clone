@@ -17,7 +17,6 @@ import styled from "@emotion/styled";
 import { Button, Grid } from "@mui/material";
 import { URL } from "../constants/userConstants";
 
-
 const Container = styled.div`
   margin: 20px 0;
 `;

@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../constants/userConstants";
 
-
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
   tr {
