@@ -21,6 +21,7 @@ import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
 import BasicTabs from "./tabsdata";
 import { Grid, Slider } from "@mui/material";
+import { URL } from "../constants/userConstants";
 
 const Top = styled.div`
   background-color: #000000;

@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { useState, react } from "react";
+import { URL } from "../constants/userConstants";
 import Otp from "./otp";
 
 export const Register = () => {
@@ -19,7 +20,7 @@ export const Register = () => {
     e.preventDefault();
 
     console.log(phonenumber, username, email, password);
-    const data = await axios.post("http://localhost:8000/auth/register", {
+    const data = await axios.post(`${URL}/auth/register`, {
       username: username,
       email: email,
       phonenumber: phonenumber,
@@ -30,7 +31,7 @@ export const Register = () => {
   };
 
   const handleotp = async () => {
-    const data = await axios.post("http://localhost:8000/auth/otp", {
+    const data = await axios.post(`${URL}/auth/otp`, {
       username: username,
       email: email,
       phonenumber: phonenumber,

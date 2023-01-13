@@ -25,6 +25,7 @@ import {
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
+import { URL } from "../constants/userConstants";
 
 const Container = styled.div`
   position: relative;
@@ -188,7 +189,7 @@ export const CreateTeam = () => {
     async function getupcoming() {
       console.log(id, "id");
       if (id) {
-        const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
+        const data = await axios.get(`${URL}/getplayers/${id}`);
         console.log(data);
 
         let players = data.data.players.teamAwayPlayers

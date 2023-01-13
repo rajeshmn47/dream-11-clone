@@ -9,6 +9,7 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_REQUEST,
   LOAD_USER_FAIL,
+  URL
 } from "../constants/userConstants";
 
 const headers = {
@@ -18,7 +19,7 @@ export const register = (myform) => async (dispatch) => {
   try {
     console.log(myform);
     dispatch({ type: REGISTER_USER_REQUEST });
-    const { data } = await axios.post("http://localhost:8000/auth/register", {
+    const { data } = await axios.post(`${URL}/auth/register`, {
       myform,
     });
     console.log(data);
@@ -37,7 +38,7 @@ export const login = (myform) => async (dispatch) => {
   try {
     console.log(myform);
     dispatch({ type: LOGIN_REQUEST });
-    const { data } = await axios.post("http://localhost:8000/auth/login", {
+    const { data } = await axios.post(`${URL}/auth/login`, {
       myform,
     });
     console.log(data);
@@ -55,7 +56,7 @@ export const loadUser = () => async (dispatch) => {
     const servertoken =
       localStorage.getItem("token") && localStorage.getItem("token");
     dispatch({ type: LOAD_USER_REQUEST });
-    const { data } = await axios("http://localhost:8000/auth/loaduser", {
+    const { data } = await axios(`${URL}/auth/loaduser`, {
       method: "get",
       headers: {
         ...headers,

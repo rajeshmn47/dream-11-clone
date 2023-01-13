@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
+import { URL } from "../constants/userConstants";
+
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -162,12 +164,12 @@ export default function BasicTabs({ tabs, id }) {
     async function getplayers() {
       if (user?._id) {
         const data = await axios.get(
-          `http://localhost:8000/getteam/?matchId=${id}&userid=${user._id}`
+          `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
         console.log(data, "data");
         setTeam(data.data.team);
         const contestdata = await axios.get(
-          `http://localhost:8000/getcontestsofuser/${id}?userid=${user._id}`
+          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
 
         setContest(contestdata.data.contests);
@@ -178,7 +180,7 @@ export default function BasicTabs({ tabs, id }) {
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
-        `http://localhost:8000/getteamsofcontest/${contest[0]._id}`
+        `${URL}/getteamsofcontest/${contest[0]._id}`
       );
       console.log(teamdata, "teamdata");
       setLeaderboard(teamdata.data.teams);

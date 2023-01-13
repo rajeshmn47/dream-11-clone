@@ -15,6 +15,8 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
+import { URL } from "../constants/userConstants";
+
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -276,7 +278,7 @@ export const TeamShort = ({ players, id, plo }) => {
   const [matchinfo, setMatchinfo] = useState([]);
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
+      const data = await axios.get(`${URL}/getplayers/${id}`);
 
       let h = data.data.players.teamHomePlayers.filter((f) => {
         return selectedPlayers.some((s) => {
@@ -299,7 +301,7 @@ export const TeamShort = ({ players, id, plo }) => {
 
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
+      const data = await axios.get(`${URL}/getplayers/${id}`);
       let cap = data.data.players.teamAwayPlayers
         .concat(data.data.players.teamHomePlayers)
         .filter((f) => {

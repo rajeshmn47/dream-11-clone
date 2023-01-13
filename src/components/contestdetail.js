@@ -20,6 +20,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import WestIcon from "@mui/icons-material/West";
 import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
+import { URL } from "../constants/userConstants";
 import BaseTab from "./tabsdata";
 import { Grid, Slider } from "@mui/material";
 
@@ -141,10 +142,10 @@ export const ContestDetail = () => {
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
-        `http://localhost:8000/getteamsofcontest/${id}`
+        `${URL}/getteamsofcontest/${id}`
       );
       const contestdata = await axios.get(
-        `http://localhost:8000/getcontest/${id}`
+        `${URL}/getcontest/${id}`
       );
       console.log(contestdata, "contest");
       setContest(contestdata.data.contest);

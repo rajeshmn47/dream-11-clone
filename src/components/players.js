@@ -9,6 +9,7 @@ import Steppr from "./stepper";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
+import { URL } from "../constants/userConstants";
 import {
   PlaylistAddCheckCircleSharp,
   SettingsApplicationsTwoTone,
@@ -31,7 +32,7 @@ export const Players = () => {
   const [players, setPlayers] = useState([]);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get("http://localhost:8000/home");
+      const data = await axios.get(`${URL}/home`);
       console.log(data);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);

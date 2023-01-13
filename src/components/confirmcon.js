@@ -71,7 +71,7 @@ export default function ConfirmModal({
   console.log(modal, "modal");
   const join = async () => {
     const data = await axios.get(
-      `http://localhost:8000/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
+      `${URL}joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
     );
     console.log(data);
   };

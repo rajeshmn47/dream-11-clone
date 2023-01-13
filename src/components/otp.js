@@ -4,6 +4,7 @@ import Drawer from "@mui/material/Drawer";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
+import { URL } from "../constants/userConstants";
 
 export const Otp = ({ open, setOpen, otp, setOtp, handleotp }) => {
   const toggleDrawer = () => {

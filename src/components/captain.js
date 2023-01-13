@@ -17,6 +17,7 @@ import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
 import { useParams } from "react-router-dom";
+import { URL } from "../constants/userConstants";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -191,7 +192,7 @@ export const Captain = ({ players }) => {
   };
   const handleSave = async () => {
     console.log("clicked next");
-    const data = await axios.post(`http://localhost:8000/saveteam/${id}`, {
+    const data = await axios.post(`${URL}/${id}`, {
       players: selectedPlayers,
       matchId: id,
       userid: user._id,

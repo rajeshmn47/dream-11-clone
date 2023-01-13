@@ -15,6 +15,7 @@ import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import Navbar from "./navbar";
+import { URL } from "../constants/userConstants";
 
 const RightSide = styled.div`
   width: 90px;
@@ -71,11 +72,12 @@ export const Home = () => {
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
+  console.log(URL,'url')
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
       const data = await axios.get(
-        "https://web-production-2c05.up.railway.app/home"
+        `${URL}/home`
       );
       console.log(data);
       setUpcoming(data.data.upcoming.results);

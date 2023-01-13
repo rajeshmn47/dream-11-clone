@@ -19,6 +19,7 @@ import {
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
+import { URL } from "../constants/userConstants";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -131,7 +132,7 @@ export const CreateTeam = () => {
   const [next, setNext] = useState(false);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`http://localhost:8000/getplayers/${id}`);
+      const data = await axios.get(`${URL}/getplayers/${id}`);
       console.log(data);
 
       let players = data.data.players.teamAwayPlayers

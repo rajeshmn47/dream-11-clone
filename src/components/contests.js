@@ -22,6 +22,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { unstable_HistoryRouter } from "react-router-dom";
 import SavedTeam from "./savedteam";
 import BasicTabs from "./tabs";
+import { URL } from "../constants/userConstants";
 
 const Top = styled.div`
   background-color: #000000;
@@ -77,8 +78,8 @@ export const Contests = ({ players }) => {
   console.log(id); //12345
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`http://localhost:8000/getcontests/${id}`);
-      const matchdata = await axios.get(`http://localhost:8000/getmatch/${id}`);
+      const data = await axios.get(`${URL}/getcontests/${id}`);
+      const matchdata = await axios.get(`${URL}/getmatch/${id}`);
       console.log(matchdata);
       setMatch(matchdata.data.match);
       setContests(data.data.contests);

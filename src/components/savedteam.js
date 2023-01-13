@@ -16,6 +16,7 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
+import { URL } from "../constants/userConstants";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -177,7 +178,7 @@ export const SavedTeam = () => {
   const [players, setPlayers] = useState(null);
   useEffect(() => {
     async function getteam() {
-      const data = await axios.get(`http://localhost:8000/getteam/${id}`);
+      const data = await axios.get(`${URL}/getteam/${id}`);
       console.log(data.data.team.players);
       setPlayers(data.data.team.players);
     }

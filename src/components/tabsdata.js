@@ -10,6 +10,8 @@ import { Grid } from "@mui/material";
 import Slider from "@mui/material/Slider";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../constants/userConstants";
+
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
