@@ -5,6 +5,8 @@ import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import PeopleIcon from "@mui/icons-material/People";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Button, Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
@@ -95,32 +97,41 @@ export const Home = () => {
         {live
           ? live.map((u) => (
               <div
-                className="match"
+                className="matchcontainer"
                 onClick={() => navigate(`/contests/${u.id}`)}
               >
-                <h5
-                  style={{
-                    color: "rgb(233,233,233)",
-                    height: "3vh",
-                    fontSize: "12px",
-                  }}
-                >
-                  {u.away.code} vs {u.home.code}
-                </h5>
-                <div className="matchcenter">
-                  <div className="matchlefts">
-                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                    <h5>{u.away.code}</h5>
-                  </div>
-                  <h5 className="time">{u.livestatus}</h5>
-                  <div className="matchrights">
-                    <h5> {u.home.code}</h5>
-                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                <div className="match">
+                  <h5
+                    style={{
+                      color: "rgb(233,233,233)",
+                      height: "3vh",
+                      fontSize: "12px",
+                    }}
+                  >
+                    {u.away.code} vs {u.home.code}
+                  </h5>
+                  <div className="matchcenter">
+                    <div className="matchlefts">
+                      <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                      <h5>{u.away.code}</h5>
+                    </div>
+                    <h5 className="time">{u.livestatus}</h5>
+                    <div className="matchrights">
+                      <h5> {u.home.code}</h5>
+                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                    </div>
                   </div>
                 </div>
-                <div className="mega">Mega</div>
-                <div className="meg">
-                  <h5>59 crores</h5>
+                <div className="bottom">
+                  <div>
+                    <div className="mega">Mega</div>
+                    <div className="meg">
+                      <h5>59 crores</h5>
+                    </div>
+                  </div>
+                  <div className="icon">
+                    <PersonOutlineOutlinedIcon style={{ color: "#d6d1d1" }} />
+                  </div>
                 </div>
               </div>
             ))
