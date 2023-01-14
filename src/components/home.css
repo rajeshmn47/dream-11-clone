@@ -4,6 +4,7 @@
   align-items: flex-end;
   height: 70px;
   box-shadow: 1px 1px 1px 1px rgb(148, 147, 147);
+  color: #5e5b5b;
 }
 .hometop h5 {
   margin: 1vh;
@@ -36,10 +37,12 @@
   text-transform: capitalize;
 }
 .matches {
-  background-color: #f1f0f8;
+  background-color: #efeff4;
   padding: 2vh 3vw;
   box-sizing: border-box;
+  height: auto;
   min-height: 800px;
+  overflow-x: scroll;
 }
 
 .match {
@@ -49,7 +52,7 @@
   cursor: pointer;
 }
 .matchcontainer {
-  box-shadow: 5px 2px 4px 2px #cecccc;
+  box-shadow: 2px 2px 4px 2px #cecccc;
   border-radius: 5px;
   overflow: hidden;
   margin: 15px 0;
@@ -123,6 +126,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #5e5b5b;
+  font-weight: 400;
 }
 .bottom {
   background-color: #f7f4f8;

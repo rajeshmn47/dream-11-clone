@@ -84,7 +84,8 @@ export const Home = () => {
   useEffect(() => {
     async function getupcoming() {
       const data = await axios.get(`${URL}/home`);
-      console.log(data);
+      const userdata = await axios.get(`${URL}/userdata`);
+      console.log(userdata.data);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);
       setPast(data.data.past.results);
@@ -118,6 +119,7 @@ export const Home = () => {
                       color: "rgb(233,233,233)",
                       height: "3vh",
                       fontSize: "12px",
+                      fontWeight: "800",
                     }}
                   >
                     {u.away.code} vs {u.home.code}

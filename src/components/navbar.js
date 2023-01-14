@@ -136,18 +136,29 @@ export const Navbar = () => {
       </Drawer>
       <div className="hometop">
         <div className="hometopicon selectgame">
-          <SportsCricketIcon style={{ color: "#C41E22" }} />
+          <SportsCricketIcon
+            style={{ color: "#C41E22", fontSize: "16px", fontWeight: "400" }}
+          />
           <h5>Cricket</h5>
         </div>
-        <div className="hometopicon">
+        <div
+          className="hometopicon"
+          style={{ fontSize: "16px", fontWeight: "400" }}
+        >
           <SportsSoccerIcon />
           <h5>Football</h5>
         </div>
-        <div className="hometopicon">
+        <div
+          className="hometopicon"
+          style={{ fontSize: "16px", fontWeight: "400" }}
+        >
           <SportsBasketballIcon />
           <h5>Basketball</h5>
         </div>
-        <div className="hometopicon">
+        <div
+          className="hometopicon"
+          style={{ fontSize: "16px", fontWeight: "400" }}
+        >
           <SportsHockeyIcon />
           <h5>Hockey</h5>
         </div>

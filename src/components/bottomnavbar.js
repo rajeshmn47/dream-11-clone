@@ -9,23 +9,23 @@ export const Bottomnav = () => {
     <>
       <div className="bottomnav">
         <div style={{ color: "#C41E22" }}>
-          <HomeOutlinedIcon />
+          <HomeOutlinedIcon style={{ fontSize: "22px" }} />
           Home
         </div>
         <div>
-          <EmojiEventsOutlinedIcon />
+          <EmojiEventsOutlinedIcon style={{ fontSize: "22px" }} />
           MyMatches
         </div>
         <div>
-          <FeedOutlinedIcon />
+          <FeedOutlinedIcon style={{ fontSize: "22px" }} />
           Feed
         </div>
         <div>
-          <GroupsOutlinedIcon />
+          <GroupsOutlinedIcon style={{ fontSize: "22px" }} />
           Groups
         </div>
         <div>
-          <MoreHorizOutlinedIcon />
+          <MoreHorizOutlinedIcon style={{ fontSize: "22px" }} />
           More
         </div>
       </div>

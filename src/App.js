@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
 import { useState, useEffect } from "react";
 import SavedTeam from "./components/savedteam";
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 import Contests from "./components/contests";
 import ContestDetail from "./components/contestdetail";
 import JoinedContests from "./components/joinedcontests";
@@ -34,9 +34,9 @@ function App() {
     dispatch(loadUser());
     console.log(user, "or");
   }, [dispatch]);
-  useEffect(()=>{
+  useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
-  },[])
+  }, []);
   return (
     <>
       <BrowserRouter>
