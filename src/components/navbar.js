@@ -143,21 +143,21 @@ export const Navbar = () => {
         </div>
         <div
           className="hometopicon"
-          style={{ fontSize: "16px", fontWeight: "400" }}
+          style={{ fontSize: "12px", fontWeight: "400" }}
         >
           <SportsSoccerIcon />
           <h5>Football</h5>
         </div>
         <div
           className="hometopicon"
-          style={{ fontSize: "16px", fontWeight: "400" }}
+          style={{ fontSize: "12px", fontWeight: "400" }}
         >
           <SportsBasketballIcon />
           <h5>Basketball</h5>
         </div>
         <div
           className="hometopicon"
-          style={{ fontSize: "16px", fontWeight: "400" }}
+          style={{ fontSize: "12px", fontWeight: "400" }}
         >
           <SportsHockeyIcon />
           <h5>Hockey</h5>
