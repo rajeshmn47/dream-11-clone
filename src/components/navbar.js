@@ -102,16 +102,16 @@ export const Navbar = () => {
       <div className="logintopbar">
         <Account>{user?.username && user?.username.charAt(0)}</Account>
         <Center>
-          <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+          <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" , fontSize: "20px"}} />
           Dream11
         </Center>
         <RightSide>
           <NotificationAddOutlinedIcon
-            style={{ marginRight: "10px", cursor: "pointer" }}
+            style={{ marginRight: "10px", cursor: "pointer", fontSize: "20px" }}
           />
           <AccountBalanceWalletOutlinedIcon
             onClick={() => handleClick()}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", fontSize: "20px" }}
           />
         </RightSide>
       </div>
