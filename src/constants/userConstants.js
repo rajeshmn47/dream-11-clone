@@ -60,4 +60,14 @@ function geturl() {
   }
 }
 
+function getfrontendurl() {
+  var current = process.env.REACT_APP_API;
+  if (current == "local") {
+    return "http://localhost:3000";
+  } else {
+    return "https://dream-11-clone-mern-stack.vercel.app";
+  }
+}
+
 export const URL = geturl();
+export const FURL = getfrontendurl();

@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
-import { URL } from "../constants/userConstants";
+import { URL, FURL } from "../constants/userConstants";
 import Loader from "./loader";
 
 const ContestsContainer = styled(Grid)``;
@@ -113,6 +113,16 @@ const JoinBtn = styled(Button)`
   margin-right: 50px;
 `;
 
+const JoincontestBtn = styled(Button)`
+  background-color: green;
+  color: #ffffff;
+  width: 180px;
+  margin: 0 auto !important;
+  &:hover {
+    background-color: green;
+  }
+`;
+
 const JoinButtoncontainer = styled.div`
   display: flex;
   align-items: center;
@@ -124,6 +134,14 @@ const JoinButtoncontainer = styled.div`
   width: 100%;
   z-index: 100000000000000000000000000000;
   background-color: #ffffff;
+`;
+
+const NoContests = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
 `;
 
 function TabPanel(props) {
@@ -160,6 +178,7 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs({ tabs, id }) {
+  const Background = `${FURL}/contest.png`;
   const [value, setValue] = React.useState(0);
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const [open, setOpen] = React.useState(false);
@@ -390,7 +409,7 @@ export default function BasicTabs({ tabs, id }) {
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ContestsContainer container item sm={12} xs={12}>
-              {contest.length > 0 &&
+              {contest.length > 0 ? (
                 contest.map((tab) => (
                   <ContestContainer
                     onClick={() => navigate(`/contestdetail/${tab._id}`)}
@@ -430,7 +449,15 @@ export default function BasicTabs({ tabs, id }) {
                       Single
                     </Last>
                   </ContestContainer>
-                ))}
+                ))
+              ) : (
+                <NoContests>
+                  <p> you have not joined a contest yet!</p>
+                  <img src={`${FURL}/contest.png`} alt="" />
+                  <p>What are you waiting for?</p>
+                  <JoincontestBtn>join a contest</JoincontestBtn>
+                </NoContests>
+              )}
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>

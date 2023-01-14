@@ -183,7 +183,7 @@ export const SavedTeam = () => {
   useEffect(() => {
     async function getteam() {
       const data = await axios.get(`${URL}/getteam/${id}`);
-      console.log(data.data.team.players);
+      console.log(data);
       setPlayers(data.data.team.players);
     }
     getteam();
