@@ -46,7 +46,10 @@ export const Register = () => {
   return (
     <>
       <div className="registertopbar">
-        <ArrowBackIcon style={{ marginRight: "2vw" }} onClick={()=>navigate(-1)}/>
+        <ArrowBackIcon
+          style={{ marginRight: "2vw" }}
+          onClick={() => navigate(-1)}
+        />
         register & play
       </div>
 

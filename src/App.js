@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadUser } from "./actions/userAction";
 import { useState, useEffect } from "react";
 import SavedTeam from "./components/savedteam";
+import ReactGA from 'react-ga';
 import Contests from "./components/contests";
 import ContestDetail from "./components/contestdetail";
 import JoinedContests from "./components/joinedcontests";
@@ -24,6 +25,8 @@ import Navbar from "./components/navbar";
 
 function App() {
   const dispatch = useDispatch();
+  const TRACKING_ID = "G-KWJM7ENB5Z";
+  ReactGA.initialize(TRACKING_ID);
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -31,7 +34,9 @@ function App() {
     dispatch(loadUser());
     console.log(user, "or");
   }, [dispatch]);
-
+  useEffect(()=>{
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  },[])
   return (
     <>
       <BrowserRouter>

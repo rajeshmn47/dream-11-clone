@@ -13,8 +13,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
+import CloseIcon from "@mui/icons-material/Close";
 import { Grid } from "@mui/material";
 import { URL } from "../constants/userConstants";
 
@@ -129,7 +131,7 @@ const PrevButton = styled.button`
 const Container = styled.div`
   background-image: url("./pitch.png");
   width: 100% !important;
-  height: 60vh !important;
+  height: 100vh !important;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -169,6 +171,7 @@ const Title = styled.p`
 `;
 
 export const SavedTeam = () => {
+  const navigate = useNavigate();
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const { id } = useParams();
@@ -227,6 +230,16 @@ export const SavedTeam = () => {
     <div>
       {players ? (
         <Container>
+          <div
+            style={{
+              position: "fixed",
+              top: "20px",
+              right: "20px",
+              cursor: "pointer",
+            }}
+          >
+            <CloseIcon onClick={() => navigate(-1)} />
+          </div>
           <Grid container justifyContent="space-evenly" justify="space-evenly">
             {players.slice(0, 2).map((p) => (
               <Grid item xs={6} sm={6}>

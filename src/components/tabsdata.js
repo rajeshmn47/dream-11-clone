@@ -24,6 +24,37 @@ const Tabel = styled.div`
     padding: 10px 10px;
     text-align: center;
   }
+  tr {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    border-bottom-color: currentcolor;
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+  th {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 10px;
+    font-family: "Open Sans";
+    text-align: center;
+    width: 100px !important;
+  }
+  td {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 10px 10px;
+    font-family: "Open Sans";
+    text-align: center;
+    width: 100px !important;
+  }
 `;
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -94,7 +125,8 @@ const First = styled.div`
     height: 40px;
     padding: 0 10px;
     font-family: "Open Sans";
-    width: 100px;
+    text-align: center;
+    width: 100px !important;
   }
   td {
     font-weight: 600;
@@ -105,7 +137,7 @@ const First = styled.div`
     padding: 10px 10px;
     font-family: "Open Sans";
     text-align: center;
-    width: 100px;
+    width: 100px !important;
   }
   width: 100%;
   h1 {
@@ -223,9 +255,7 @@ export default function BasicTabs({ contest, teams }) {
         <Tabel>
           <table>
             <tr>
-              <th>
-                <Paragraph>All Teams ({teams.length})</Paragraph>
-              </th>
+              <th>All Teams ({teams.length})</th>
               <th>Points</th>
               <th>Rank</th>
             </tr>
@@ -237,6 +267,7 @@ export default function BasicTabs({ contest, teams }) {
                   <tr
                     className={f._doc.userId === user._id ? "selected" : ""}
                     onClick={() => navigate(`/savedteam/${f._doc._id}`)}
+                    style={{ cursor: "pointer" }}
                   >
                     <td>{f.user.username}</td>
                     <td>{f._doc.points}</td>

@@ -73,6 +73,7 @@ const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   width: 100%;
   margin: 0 0;
+  cursor: pointer;
 `;
 const Contest = styled.div`
   padding: 20px 20px;

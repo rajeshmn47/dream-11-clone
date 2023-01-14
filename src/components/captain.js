@@ -16,7 +16,7 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import SavedTeam from "./savedteam";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { URL } from "../constants/userConstants";
 
 const CaptainSelector = styled.div``;
@@ -147,7 +147,7 @@ export const Captain = ({ players }) => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [vicecaptainId, setVicecaptainId] = useState(null);
   const [captainId, setCaptainId] = useState(null);
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const { id } = useParams();
@@ -201,7 +201,7 @@ export const Captain = ({ players }) => {
       vicecaptainId: vicecaptainId,
     });
     setSave(true);
-    navigate(`/contests/${id}`)
+    navigate(`/contests/${id}`);
   };
 
   function isCandVcselected(se) {
