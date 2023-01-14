@@ -207,6 +207,7 @@ const EachTeam = styled.div`
   box-shadow: 5px 5px 4px 2px #cecccc;
   border-radius: 5px;
   overflow: hidden;
+  margin: 15px 0;
 `;
 const Captain = styled.div`
   font-size: 12px;

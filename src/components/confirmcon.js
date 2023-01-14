@@ -92,7 +92,10 @@ export default function ConfirmModal({
           <FlexBox>
             <h5>Confirmation</h5>
             <h5>
-              <CloseRoundedIcon />
+              <CloseRoundedIcon
+                onClick={() => handleClose()}
+                style={{ cursor: "pointer" }}
+              />
             </h5>
           </FlexBox>
           <FlexBox>

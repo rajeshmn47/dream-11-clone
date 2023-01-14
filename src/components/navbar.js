@@ -102,7 +102,9 @@ export const Navbar = () => {
       <div className="logintopbar">
         <Account>{user?.username && user?.username.charAt(0)}</Account>
         <Center>
-          <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" , fontSize: "20px"}} />
+          <EmojiEventsOutlinedIcon
+            style={{ marginRight: "1vw", fontSize: "20px" }}
+          />
           Dream11
         </Center>
         <RightSide>

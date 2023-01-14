@@ -110,7 +110,7 @@ const JoinBtn = styled(Button)`
   background-color: green;
   color: #ffffff;
   width: 80px;
-  margin-left: 100px;
+  margin-right: 50px;
 `;
 
 const JoinButtoncontainer = styled.div`
