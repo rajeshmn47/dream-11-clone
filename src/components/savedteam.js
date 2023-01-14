@@ -19,6 +19,7 @@ import styled from "@emotion/styled";
 import CloseIcon from "@mui/icons-material/Close";
 import { Grid } from "@mui/material";
 import { URL } from "../constants/userConstants";
+import Loader from "./loader";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -282,7 +283,7 @@ export const SavedTeam = () => {
           </Grid>
         </Container>
       ) : (
-        <h1>ok</h1>
+        <Loader />
       )}
     </div>
   );

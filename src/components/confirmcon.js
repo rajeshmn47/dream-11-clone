@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { useNavigate } from "react-router-dom";
 import { Dialog } from "@mui/material";
 import styled from "@emotion/styled";
 import axios from "axios";
@@ -48,6 +49,7 @@ const JoinButton = styled.button`
   margin: 0 auto;
   text-transform: uppercase;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const Para = styled.p`
@@ -64,6 +66,7 @@ export default function ConfirmModal({
   contestid,
 }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const handleClose = () => {
     console.log("handleclose", setOpen);
     handleclose();
@@ -75,6 +78,7 @@ export default function ConfirmModal({
       `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
     );
     console.log(data);
+    setOpen(false);
   };
   return (
     <Dialog

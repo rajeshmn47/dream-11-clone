@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
 import { URL } from "../constants/userConstants";
+import Loader from "./loader";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -108,8 +109,21 @@ const Heading = styled.h3`
 const JoinBtn = styled(Button)`
   background-color: green;
   color: #ffffff;
-  width: 180px;
+  width: 80px;
   margin-left: 100px;
+`;
+
+const JoinButtoncontainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #dddddd;
+  width: 100%;
+  z-index: 100000000000000000000000000000;
+  background-color: #ffffff;
 `;
 
 function TabPanel(props) {
@@ -420,12 +434,15 @@ export default function BasicTabs({ tabs, id }) {
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {team?.length > 0 &&
+            {team?.length > 0 ? (
               team.map((t) => (
                 <>
                   <TeamShort players={t.players} plo={t} id={id} />
                 </>
-              ))}
+              ))
+            ) : (
+              <Loader />
+            )}
             <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
               <AddCircleOutlineRoundedIcon />
               create team
@@ -449,7 +466,10 @@ export default function BasicTabs({ tabs, id }) {
                 />
               </>
             ))}
-            <JoinBtn onClick={handlejoin}>Join</JoinBtn>
+            <JoinButtoncontainer>
+              <p>join with</p>
+              <JoinBtn onClick={handlejoin}>Join</JoinBtn>
+            </JoinButtoncontainer>
           </>
         )
       )}

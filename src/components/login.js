@@ -4,18 +4,28 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { useState, react } from "react";
+import { useState, react, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
 import { login } from "../actions/userAction";
 
 export const Login = () => {
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [user, isAuthenticated]);
 
   const handlesubmit = async (e) => {
     e.preventDefault();

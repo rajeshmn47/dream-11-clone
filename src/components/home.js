@@ -19,6 +19,8 @@ import styled from "@emotion/styled";
 import Navbar from "./navbar";
 import { URL } from "../constants/userConstants";
 import { useSelector } from "react-redux";
+import extractColors from "extract-colors";
+import Loader from "./loader";
 
 const RightSide = styled.div`
   width: 90px;
@@ -107,49 +109,51 @@ export const Home = () => {
     <>
       <Navbar />
       <div className="matches">
-        {live
-          ? live.map((u) => (
-              <div
-                className="matchcontainer"
-                onClick={() => navigate(`/contests/${u.id}`)}
-              >
-                <div className="match">
-                  <h5
-                    style={{
-                      color: "rgb(233,233,233)",
-                      height: "3vh",
-                      fontSize: "12px",
-                      fontWeight: "800",
-                    }}
-                  >
-                    {u.away.code} vs {u.home.code}
-                  </h5>
-                  <div className="matchcenter">
-                    <div className="matchlefts">
-                      <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                      <h5>{u.away.code}</h5>
-                    </div>
-                    <h5 className="time">{u.livestatus}</h5>
-                    <div className="matchrights">
-                      <h5> {u.home.code}</h5>
-                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
-                    </div>
+        {live?.length > 0 ? (
+          live.map((u) => (
+            <div
+              className="matchcontainer"
+              onClick={() => navigate(`/contests/${u.id}`)}
+            >
+              <div className="match">
+                <h5
+                  style={{
+                    color: "rgb(233,233,233)",
+                    height: "3vh",
+                    fontSize: "12px",
+                    fontWeight: "800",
+                  }}
+                >
+                  {u.away.code} vs {u.home.code}
+                </h5>
+                <div className="matchcenter">
+                  <div className="matchlefts">
+                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                    <h5>{u.away.code}</h5>
                   </div>
-                </div>
-                <div className="bottom">
-                  <div>
-                    <div className="mega">Mega</div>
-                    <div className="meg">
-                      <h5>59 crores</h5>
-                    </div>
-                  </div>
-                  <div className="icon">
-                    <PersonOutlineOutlinedIcon style={{ color: "#d6d1d1" }} />
+                  <h5 className="time">{u.livestatus}</h5>
+                  <div className="matchrights">
+                    <h5> {u.home.code}</h5>
+                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
                   </div>
                 </div>
               </div>
-            ))
-          : null}
+              <div className="bottom">
+                <div>
+                  <div className="mega">Mega</div>
+                  <div className="meg">
+                    <h5>59 crores</h5>
+                  </div>
+                </div>
+                <div className="icon">
+                  <PersonOutlineOutlinedIcon style={{ color: "#d6d1d1" }} />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
       <Bottomnav />
     </>

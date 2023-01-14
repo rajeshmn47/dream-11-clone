@@ -512,6 +512,7 @@ export const SelectTeam = ({
                   value={plo?._id}
                   checked={plo._id === team?._id}
                   onClick={() => handleChange(plo)}
+                  style={{ float: "right", marginRight: "10px" }}
                 />
               </Grid>
             </Team>

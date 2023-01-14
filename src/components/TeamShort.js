@@ -16,6 +16,7 @@ import { style } from "@mui/system";
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { URL } from "../constants/userConstants";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -275,6 +276,7 @@ export const TeamShort = ({ players, id, plo }) => {
   const [save, setSave] = useState(false);
   const [captains, setCaptains] = useState([]);
   const [matchinfo, setMatchinfo] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     async function filterDifferent() {
       const data = await axios.get(`${URL}/getplayers/${id}`);
@@ -364,7 +366,7 @@ export const TeamShort = ({ players, id, plo }) => {
   return (
     <div>
       {players ? (
-        <EachTeam>
+        <EachTeam onClick={() => navigate(`/savedteam/${plo._id}`)}>
           {matchinfo.length > 0 && captains.length > 0 && (
             <Top>
               <div>
@@ -436,7 +438,7 @@ export const TeamShort = ({ players, id, plo }) => {
           </Bottom>
         </EachTeam>
       ) : (
-        <h1>ok</h1>
+        <h1>select team</h1>
       )}
     </div>
   );

@@ -271,7 +271,7 @@ export default function BasicTabs({ contest, teams }) {
                   >
                     <td>{f.user.username}</td>
                     <td>{f._doc.points}</td>
-                    <td>{index + 1}</td>
+                    <td>#{index + 1}</td>
                   </tr>
                 ))}
           </table>
