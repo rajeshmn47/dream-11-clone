@@ -142,6 +142,9 @@ const NoContests = styled.div`
   align-items: center;
   flex-direction: column;
   height: 400px;
+  img{
+    max-width:100%;
+  }
 `;
 
 function TabPanel(props) {
