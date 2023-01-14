@@ -77,7 +77,7 @@ const Top = styled.div`
   justify-content: space-between;
   color: #595959;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(170, 170, 170, 0.15);
   padding: 5px 20px;
 `;
 
