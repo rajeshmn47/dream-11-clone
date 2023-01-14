@@ -41,7 +41,7 @@
   padding: 2vh 3vw;
   box-sizing: border-box;
   height: auto;
-  min-height: 800px;
+  min-height: 1300px;
   overflow-x: scroll;
 }
 
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 .matchcontainer {
-  box-shadow: 2px 2px 4px 2px #cecccc;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   overflow: hidden;
   margin: 15px 0;
@@ -130,7 +130,7 @@
   font-weight: 400;
 }
 .bottom {
-  background-color: #f7f4f8;
+  background-color: #f8f8f8;
   display: flex;
   justify-content: space-between;
   align-items: center;

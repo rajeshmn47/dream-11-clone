@@ -72,6 +72,15 @@ const DeatilTop = styled.div`
   }
 `;
 
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: #595959;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 5px 20px;
+`;
+
 export const Home = () => {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
@@ -115,10 +124,10 @@ export const Home = () => {
               className="matchcontainer"
               onClick={() => navigate(`/contests/${u.id}`)}
             >
-              <div className="match">
+              <Top>
                 <h5
                   style={{
-                    color: "rgb(233,233,233)",
+                    color: "#595959",
                     height: "3vh",
                     fontSize: "12px",
                     fontWeight: "800",
@@ -126,6 +135,9 @@ export const Home = () => {
                 >
                   {u.away.code} vs {u.home.code}
                 </h5>
+                <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+              </Top>
+              <div className="match">
                 <div className="matchcenter">
                   <div className="matchlefts">
                     <img src={u.teamAwayFlagUrl} alt="" width="40" />
@@ -146,7 +158,9 @@ export const Home = () => {
                   </div>
                 </div>
                 <div className="icon">
-                  <PersonOutlineOutlinedIcon style={{ color: "#d6d1d1" }} />
+                  <PersonOutlineOutlinedIcon
+                    style={{ color: "#595959", fontSize: "18px" }}
+                  />
                 </div>
               </div>
             </div>

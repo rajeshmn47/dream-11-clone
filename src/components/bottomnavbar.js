@@ -14,7 +14,7 @@ export const Bottomnav = () => {
         </div>
         <div>
           <EmojiEventsOutlinedIcon style={{ fontSize: "22px" }} />
-          MyMatches
+          My Matches
         </div>
         <div>
           <FeedOutlinedIcon style={{ fontSize: "22px" }} />
