@@ -25,7 +25,7 @@ import Navbar from "./components/navbar";
 
 function App() {
   const dispatch = useDispatch();
-  const TRACKING_ID = "G-KWJM7ENB5Z";
+  const TRACKING_ID = "G-YWB7BCRZML";
   ReactGA.initialize(TRACKING_ID);
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
