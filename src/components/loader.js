@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  position: absolute;
+  left: 47%;
+  top: 47%;
   display: flex;
   align-items: center;
   justify-content: center;

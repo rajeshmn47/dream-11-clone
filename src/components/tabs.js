@@ -142,8 +142,8 @@ const NoContests = styled.div`
   align-items: center;
   flex-direction: column;
   height: 400px;
-  img{
-    max-width:100%;
+  img {
+    max-width: 100%;
   }
 `;
 
@@ -458,7 +458,9 @@ export default function BasicTabs({ tabs, id }) {
                   <p> you have not joined a contest yet!</p>
                   <img src={`${FURL}/contest.png`} alt="" />
                   <p>What are you waiting for?</p>
-                  <JoincontestBtn>join a contest</JoincontestBtn>
+                  <JoincontestBtn onClick={() => setValue(0)}>
+                    join a contest
+                  </JoincontestBtn>
                 </NoContests>
               )}
             </ContestsContainer>
