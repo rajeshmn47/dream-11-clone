@@ -106,6 +106,13 @@
   justify-content: center;
   width: 17vw;
 }
+.completed {
+  color: #1ca14d !important;
+  font-size: 10px;
+  text-align: center;
+  justify-content: center;
+  width: 17vw;
+}
 .meg {
   display: inline-block;
   margin-left: 3vw;

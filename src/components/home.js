@@ -110,16 +110,18 @@ export const Home = () => {
       navigate("/login");
     }
   }, []);
-
+  console.log(past, live);
   const handleClick = () => {
     setOpen(true);
   };
   return (
     <>
       <Navbar />
+
       <div className="matches">
-        {live?.length > 0 ? (
-          live.map((u) => (
+        <h3>Completed matches</h3>
+        {past?.length > 0 ? (
+          past.map((u) => (
             <div
               className="matchcontainer"
               onClick={() => navigate(`/contests/${u.id}`)}
@@ -143,7 +145,64 @@ export const Home = () => {
                     <img src={u.teamAwayFlagUrl} alt="" width="40" />
                     <h5>{u.away.code}</h5>
                   </div>
-                  <h5 className="time">{u.livestatus}</h5>
+                  <h5 className={u.result == "Yes" ? "completed" : "time"}>
+                    {u.result === "Yes" && "Completed"}
+                  </h5>
+                  <div className="matchrights">
+                    <h5> {u.home.code}</h5>
+                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                  </div>
+                </div>
+              </div>
+              <div className="bottom">
+                <div>
+                  <div className="mega">Mega</div>
+                  <div className="meg">
+                    <h5>59 crores</h5>
+                  </div>
+                </div>
+                <div className="icon">
+                  <PersonOutlineOutlinedIcon
+                    style={{ color: "#595959", fontSize: "18px" }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <Loader />
+        )}
+      </div>
+      <div className="matches">
+        <h3>Upcoming matches</h3>
+        {upcoming?.length > 0 ? (
+          upcoming.map((u) => (
+            <div
+              className="matchcontainer"
+              onClick={() => navigate(`/contests/${u.id}`)}
+            >
+              <Top>
+                <h5
+                  style={{
+                    color: "#595959",
+                    height: "3vh",
+                    fontSize: "12px",
+                    fontWeight: "800",
+                  }}
+                >
+                  {u.away.code} vs {u.home.code}
+                </h5>
+                <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+              </Top>
+              <div className="match">
+                <div className="matchcenter">
+                  <div className="matchlefts">
+                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                    <h5>{u.away.code}</h5>
+                  </div>
+                  <h5 className={u.result == "Yes" ? "completed" : "time"}>
+                    {!(u.result === "Yes") ? "Upcoming" : "Completed"}
+                  </h5>
                   <div className="matchrights">
                     <h5> {u.home.code}</h5>
                     <img src={u.teamHomeFlagUrl} alt="" width="40" />
