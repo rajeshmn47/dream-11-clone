@@ -112,6 +112,8 @@
   text-align: center;
   justify-content: center;
   width: 17vw;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 .meg {
   display: inline-block;

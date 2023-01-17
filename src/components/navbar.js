@@ -14,7 +14,8 @@ import axios from "axios";
 import Bottomnav from "./bottomnavbar";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/userAction";
 
 const RightSide = styled.div`
   width: 90px;
@@ -82,6 +83,8 @@ export const Navbar = () => {
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
+  const [leftOpen, setLeftOpen] = useState(false);
+  const dispatch = useDispatch;
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
@@ -97,10 +100,16 @@ export const Navbar = () => {
   const handleClick = () => {
     setOpen(true);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <>
       <div className="logintopbar">
-        <Account>{user?.username && user?.username.charAt(0)}</Account>
+        <Account onClick={() => dispatch(logout())}>
+          {user?.username && user?.username.charAt(0)}
+        </Account>
         <Center>
           <EmojiEventsOutlinedIcon
             style={{ marginRight: "1vw", fontSize: "20px" }}
@@ -136,6 +145,7 @@ export const Navbar = () => {
           <h5>₹ 0</h5>
         </Deatil>
       </Drawer>
+
       <div className="hometop">
         <div className="hometopicon selectgame">
           <SportsCricketIcon

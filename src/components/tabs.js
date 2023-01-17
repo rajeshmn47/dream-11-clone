@@ -147,6 +147,8 @@ const NoContests = styled.div`
   }
 `;
 
+const StatusC = styled.div``;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -195,7 +197,6 @@ export default function BasicTabs({ tabs, id }) {
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
-  console.log(open, selectedTeam, selectTeams, "basicsoftabs");
 
   useEffect(() => {
     async function getplayers() {
@@ -203,23 +204,28 @@ export default function BasicTabs({ tabs, id }) {
         const data = await axios.get(
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
-        console.log(data, "data");
+        const joinedC = await axios.get(
+          `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+        );
+        console.log(joinedC, "joined");
         setTeam(data.data.team);
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
-
-        setContest(contestdata.data.contests);
+        let c = joinedC.data.contests.sort(
+          (b, a) => b.team.points - a.team.points
+        );
+        setContest([...c]);
       }
     }
     getplayers();
   }, [user]);
+  console.log(contest, "contest");
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
         `${URL}/getteamsofcontest/${contest[0]._id}`
       );
-      console.log(teamdata, "teamdata");
       setLeaderboard(teamdata.data.teams);
     }
     getteams();
@@ -415,32 +421,23 @@ export default function BasicTabs({ tabs, id }) {
               {contest.length > 0 ? (
                 contest.map((tab) => (
                   <ContestContainer
-                    onClick={() => navigate(`/contestdetail/${tab._id}`)}
+                    onClick={() =>
+                      navigate(`/contestdetail/${tab.contests._id}`)
+                    }
                   >
                     <Contest>
                       <First>
-                        <p>Prize Pool</p>
-                        <p>Entry</p>
+                        <p>Contests</p>
+                        <p>{tab.contests.totalSpots} spots</p>
                       </First>
                       <First>
-                        <h1>{tab.price}</h1>
-                        <First>
-                          <del>₹ 19</del>
-                          <FreeButton>
-                            ₹ {Math.floor(tab.price / tab.totalSpots)}
-                          </FreeButton>
-                        </First>
+                        <h1>glory awaits</h1>
+                        <First>guaranteed</First>
                       </First>
-                      <SliderContainer>
-                        <Slider
-                          defaultValue={tab.totalSpots - tab.spotsLeft}
-                          min={0}
-                          max={tab.totalSpots}
-                        />
-                      </SliderContainer>
+
                       <First>
-                        <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
-                        <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                        <SpotsLeft>{tab.team.points}</SpotsLeft>
+                        <SpotsRight>#{tab.contests.totalSpots} </SpotsRight>
                       </First>
                     </Contest>
                     <Last>
@@ -451,6 +448,7 @@ export default function BasicTabs({ tabs, id }) {
                       {Math.floor((tab.numWinners / tab.totalSpots) * 100)}%
                       Single
                     </Last>
+                    <StatusC>{}</StatusC>
                   </ContestContainer>
                 ))
               ) : (

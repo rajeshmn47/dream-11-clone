@@ -50,6 +50,15 @@ export const login = (myform) => async (dispatch) => {
   }
 };
 
+export const logout = () => async (dispatch) => {
+  try {
+    localStorage.removeItem("token");
+  } catch (error) {
+    console.log(error.response, "asdfgh");
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  }
+};
+
 export const loadUser = () => async (dispatch) => {
   try {
     console.log("rajivya");

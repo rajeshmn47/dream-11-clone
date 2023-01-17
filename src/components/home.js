@@ -94,15 +94,17 @@ export const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`${URL}/home`);
-      const userdata = await axios.get(`${URL}/userdata`);
-      console.log(userdata.data);
-      setUpcoming(data.data.upcoming.results);
-      setLive(data.data.live.results);
-      setPast(data.data.past.results);
+      if (user?._id) {
+        const data = await axios.get(`${URL}/home/${user._id}`);
+        const userdata = await axios.get(`${URL}/userdata`);
+        console.log(userdata.data);
+        setUpcoming(data.data.upcoming.results);
+        setLive(data.data.live.results);
+        setPast(data.data.past.results);
+      }
     }
     getupcoming();
-  }, []);
+  }, [user]);
   useEffect(() => {
     const servertoken =
       localStorage.getItem("token") && localStorage.getItem("token");
@@ -155,10 +157,21 @@ export const Home = () => {
                 </div>
               </div>
               <div className="bottom">
-                <div>
-                  <div className="mega">Mega</div>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "150px",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  {u.teams.length > 0 && (
+                    <div className="">{u.teams.length} teams</div>
+                  )}
                   <div className="meg">
-                    <h5>59 crores</h5>
+                    {u.contests.length > 0 && (
+                      <h5>{u.contests.length} contests</h5>
+                    )}
                   </div>
                 </div>
                 <div className="icon">

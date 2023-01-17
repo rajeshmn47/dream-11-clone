@@ -23,7 +23,29 @@ import { unstable_HistoryRouter } from "react-router-dom";
 import SavedTeam from "./savedteam";
 import BasicTabs from "./tabs";
 import { URL } from "../constants/userConstants";
+import { Grid } from "@mui/material";
 
+const TopContainer = styled.div`
+  background-color: #000000;
+  color: #ffffff;
+  p {
+    text-transform: capitalize;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 3px 0;
+    color: #757272;
+  }
+  padding: 10px 10px;
+`;
+
+const GreenMark = styled.span`
+  background-color: #1ca14d;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: block;
+  margin-right: 6px;
+`;
 const Top = styled.div`
   background-color: #000000;
   color: #ffffff;
@@ -71,6 +93,7 @@ const Container = styled.div`
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
   const [match, setMatch] = useState(null);
+  const [matchLive, setMatchLive] = useState(null);
   const search = useLocation().search;
   let history = useNavigate();
 
@@ -80,29 +103,67 @@ export const Contests = ({ players }) => {
     async function getupcoming() {
       const data = await axios.get(`${URL}/getcontests/${id}`);
       const matchdata = await axios.get(`${URL}/getmatch/${id}`);
-      console.log(matchdata);
+      const matchlivedata = await axios.get(`${URL}/getmatchlive/${id}`);
+      console.log(matchdata, matchlivedata, "match");
       setMatch(matchdata.data.match);
+      setMatchLive(matchlivedata.data.match);
       setContests(data.data.contests);
     }
     getupcoming();
   }, [id]);
   return (
     <Container>
-      <Top>
-        <LeftSide>
-          <WestIcon onClick={() => history(-1)} style={{ cursor: "pointer" }} />
-          {match && (
-            <h1>
-              {match.teamAwayCode} Vs {match.teamHomeCode}
-            </h1>
-          )}
-        </LeftSide>
-        <RightSide>
-          <Brightness1Icon />
-          <AccountBalanceWalletOutlinedIcon />
-          <NotificationAddOutlinedIcon />
-        </RightSide>
-      </Top>
+      <TopContainer>
+        <Top>
+          <LeftSide>
+            <WestIcon
+              onClick={() => history(-1)}
+              style={{ cursor: "pointer" }}
+            />
+            {match && (
+              <h1>
+                {match.teamAwayCode} Vs {match.teamHomeCode}
+              </h1>
+            )}
+          </LeftSide>
+          <RightSide>
+            <Brightness1Icon />
+            <AccountBalanceWalletOutlinedIcon />
+            <NotificationAddOutlinedIcon />
+          </RightSide>
+        </Top>
+        {matchLive && (
+          <>
+            <Grid container justifyContent="space-between" alignItems="center">
+              <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
+                <p>{match.teamHomeName}</p>
+                <p>
+                  {matchLive.runFI}/{matchLive.wicketsFI}({matchLive.oversFI})
+                </p>
+              </Grid>
+              <Grid
+                item
+                sm={4}
+                xs={4}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <GreenMark></GreenMark>
+                {matchLive.result == "Yes" ? "Completed" : "In Play"}
+              </Grid>
+              <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
+                <p> {match.teamAwayName}</p>
+                <p>
+                  {" "}
+                  {matchLive.runSI}/{matchLive.wicketsSI}({matchLive.oversSI})
+                </p>
+              </Grid>
+            </Grid>
+            <p style={{ textAlign: "center" }}>
+              {matchLive.status.split("(11b rem)").join("")}
+            </p>
+          </>
+        )}
+      </TopContainer>
       <Bottom>
         <BasicTabs tabs={contests} id={id} />
       </Bottom>

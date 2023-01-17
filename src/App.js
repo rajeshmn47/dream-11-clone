@@ -14,7 +14,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUser } from "./actions/userAction";
+import { loadUser, logout } from "./actions/userAction";
 import { useState, useEffect } from "react";
 import SavedTeam from "./components/savedteam";
 import ReactGA from "react-ga";
