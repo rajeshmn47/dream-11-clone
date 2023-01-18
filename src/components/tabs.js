@@ -185,7 +185,9 @@ function a11yProps(index) {
 export default function BasicTabs({ tabs, id }) {
   const Background = `${FURL}/contest.png`;
   const [value, setValue] = React.useState(0);
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
   const [open, setOpen] = React.useState(false);
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
@@ -207,15 +209,12 @@ export default function BasicTabs({ tabs, id }) {
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
-        console.log(joinedC, "joined");
+        console.log(joinedC.data.contests, "joined");
         setTeam(data.data.team);
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
-        let c = joinedC.data.contests.sort(
-          (b, a) => b.team.points - a.team.points
-        );
-        setContest([...c]);
+        setContest([...joinedC.data.contests]);
       }
     }
     getplayers();
@@ -428,7 +427,7 @@ export default function BasicTabs({ tabs, id }) {
                     <Contest>
                       <First>
                         <p>Contests</p>
-                        <p>{tab.contests.totalSpots} spots</p>
+                        <p>{tab?.contests?.totalSpots} spots</p>
                       </First>
                       <First>
                         <h1>glory awaits</h1>
@@ -436,8 +435,8 @@ export default function BasicTabs({ tabs, id }) {
                       </First>
 
                       <First>
-                        <SpotsLeft>{tab.team.points}</SpotsLeft>
-                        <SpotsRight>#{tab.contests.totalSpots} </SpotsRight>
+                        <SpotsLeft>{tab?.team?.points}</SpotsLeft>
+                        <SpotsRight>#{tab?.contests?.totalSpots} </SpotsRight>
                       </First>
                     </Contest>
                     <Last>
