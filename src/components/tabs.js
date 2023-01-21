@@ -103,7 +103,6 @@ const Last = styled.div`
   padding: 10px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   color: #888;
 `;
 
