@@ -241,8 +241,8 @@ const CaptainI = styled.div`
   position: absolute;
   border: 3px solid #000000;
   padding: 2px 2px;
-  left: -25%;
-  top: -25%;
+  left: -20%;
+  top: -20%;
   border-radius: 50%;
   font-size: 10px;
   display: flex;

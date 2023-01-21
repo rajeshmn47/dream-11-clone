@@ -29,8 +29,33 @@ const ContestContainer = styled.div`
   margin: 10px 0;
   cursor: pointer;
 `;
+
+const ContestContainerJ = styled.div`
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  width: 100%;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 10px;
+`;
+
 const Contest = styled.div`
   padding: 20px 20px;
+  border-radius: 5px;
+  .MuiSlider-thumb {
+    display: none !important;
+  }
+  .MuiSlider-track {
+    border: none;
+    background-color: #ec1801;
+    border-radius: inherit;
+  }
+  .MuiSlider-root {
+    color: #f25640;
+  }
+`;
+
+const ContestJ = styled.div`
+  padding: 10px 20px;
   border-radius: 5px;
   .MuiSlider-thumb {
     display: none !important;
@@ -78,7 +103,20 @@ const Last = styled.div`
   padding: 10px 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: #888;
+`;
+
+const LastJ = styled.div`
+  background-color: #f6f6f6;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #888;
+  h1 {
+    padding: 0 0 !important;
+  }
 `;
 
 const CreateTeam = styled.div`
@@ -147,7 +185,13 @@ const NoContests = styled.div`
   }
 `;
 
-const StatusC = styled.div``;
+const StatusC = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #fef4de;
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -419,36 +463,29 @@ export default function BasicTabs({ tabs, id }) {
             <ContestsContainer container item sm={12} xs={12}>
               {contest.length > 0 ? (
                 contest.map((tab) => (
-                  <ContestContainer
+                  <ContestContainerJ
                     onClick={() =>
                       navigate(`/contestdetail/${tab.contests._id}`)
                     }
                   >
-                    <Contest>
+                    <ContestJ>
                       <First>
                         <p>Contests</p>
                         <p>{tab?.contests?.totalSpots} spots</p>
                       </First>
-                      <First>
-                        <h1>glory awaits</h1>
-                        <First>guaranteed</First>
-                      </First>
+                    </ContestJ>
+                    <LastJ>
+                      <p>glory awaits</p>
+                      <First>guaranteed</First>
+                    </LastJ>
 
-                      <First>
-                        <SpotsLeft>{tab?.team?.points}</SpotsLeft>
-                        <SpotsRight>#{tab?.contests?.totalSpots} </SpotsRight>
-                      </First>
-                    </Contest>
-                    <Last>
-                      ₹{Math.floor(tab.price / tab.totalSpots)}
-                      <EmojiEventsOutlinedIcon
-                        style={{ margin: "0 15px", marginBottom: "3px" }}
-                      />
-                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}%
-                      Single
-                    </Last>
-                    <StatusC>{}</StatusC>
-                  </ContestContainer>
+                    <StatusC>
+                      <SpotsLeft>{tab?.team?.username}</SpotsLeft>
+                      <SpotsLeft>{tab?.team?.teamnumber}</SpotsLeft>
+                      <SpotsLeft>{tab?.team?.points}</SpotsLeft>
+                      <SpotsRight>#{tab?.team?.rank} </SpotsRight>
+                    </StatusC>
+                  </ContestContainerJ>
                 ))
               ) : (
                 <NoContests>
