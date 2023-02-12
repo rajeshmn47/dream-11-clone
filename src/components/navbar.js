@@ -16,6 +16,7 @@ import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/userAction";
+import LeftDrawer from "./leftDrawer";
 
 const RightSide = styled.div`
   width: 90px;
@@ -100,6 +101,9 @@ export const Navbar = () => {
   const handleClick = () => {
     setOpen(true);
   };
+  const handleLeftClick = () => {
+    setLeftOpen(true);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -107,7 +111,9 @@ export const Navbar = () => {
   return (
     <>
       <div className="logintopbar">
-        <Account onClick={() => dispatch(logout())}>
+        <LeftDrawer state={leftOpen} setState={setLeftOpen} />
+
+        <Account onClick={() => handleLeftClick()}>
           {user?.username && user?.username.charAt(0)}
         </Account>
         <Center>
@@ -126,7 +132,7 @@ export const Navbar = () => {
           />
         </RightSide>
       </div>
-      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
+      <Drawer anchor="top" open={open} onClose={() => setLeftOpen(false)}>
         <DeatilTop>
           <p>total balance</p>
           <h5>₹ {user && user.wallet}</h5>

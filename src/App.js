@@ -32,7 +32,7 @@ function App() {
   );
   useEffect(() => {
     dispatch(loadUser());
-    console.log(user, "or");
+    console.log(user, "or,and");
   }, [dispatch]);
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
