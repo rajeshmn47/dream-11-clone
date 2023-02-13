@@ -499,15 +499,12 @@ export default function BasicTabs({ tabs, id }) {
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {team?.length > 0 ? (
+            {team?.length > 0 &&
               team.map((t) => (
                 <>
                   <TeamShort players={t.players} plo={t} id={id} />
                 </>
-              ))
-            ) : (
-              <Loader />
-            )}
+              ))}
             <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
               <AddCircleOutlineRoundedIcon />
               create team
