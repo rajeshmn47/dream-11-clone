@@ -53,7 +53,7 @@
   flex-direction: column;
   height: 60vh;
   justify-content: space-between;
-  padding: 2vh 2vw;
+  padding: 0;
   box-sizing: border-box;
   text-align: center;
 }

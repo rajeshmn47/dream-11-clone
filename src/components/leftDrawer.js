@@ -10,9 +10,19 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import styled from "@emotion/styled";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { logout } from "../actions/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { BoyOutlined } from "@mui/icons-material";
+import { Grid } from "@mui/material";
 
 const Container = styled.div`
   .MuiTypography-body1 {
@@ -105,32 +115,124 @@ const Category = styled.h3`
   padding-left: 20px;
 `;
 
+const ListI = styled.div`
+  display: flex;
+  padding: 10px 0px;
+  align-items: center;
+`;
+
+const Account = styled.div`
+  height: 60px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DrawerContainer = styled.div`
+  .MuiDrawer-paper {
+    padding: 0px !important;
+  }
+  .MuiPaper-root {
+    padding: 0 !important;
+  }
+`;
+
+const Img = styled.img`
+  height: 40px;
+  display: block;
+  margin-left: 10px;
+`;
+
+const Name = styled.h6`
+  color: #ffffff;
+`;
 export default function LeftDrawer({ state, setState }) {
   const dispatch = useDispatch();
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
   const toggleDrawer = () => (event) => {
     setState(!state);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    window.location.reload();
+  };
+
   const ListA = (anchor) => (
-    <Container>
-      <Box
-        sx={{ width: 150 }}
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-      >
-        <Button onClick={dispatch(logout())}>logout</Button>
-      </Box>
-    </Container>
+    <Box
+      sx={{ width: 250, cursor: "pointer" }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <Account>
+        <Grid
+          container
+          spacing={2}
+          alignItems="center"
+          style={{ width: "100%", marginLefr: "0", marginTop: "0" }}
+        >
+          <Grid sm={3} xs={3}>
+            <Img
+              src="https://cdn.sportmonks.com/images/cricket/placeholder.png"
+              alt=""
+            />
+          </Grid>
+          <Grid sm={6} xs={6}>
+            <Name>{user && user.username}</Name>
+          </Grid>
+          <Grid sm={3} xs={3}>
+            <ChevronRightOutlinedIcon style={{ color: "#FFFFFF" }} />
+          </Grid>
+        </Grid>
+      </Account>
+      <Container>
+        <ListI>
+          <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
+          Balance
+        </ListI>
+        <ListI onClick={() => handleLogout()}>
+          <LogoutIcon style={{ width: "60px" }} /> Logout
+        </ListI>
+        <ListI>
+          <BoyOutlined style={{ width: "60px" }} /> Find People
+        </ListI>
+        <ListI>
+          <SportsEsportsOutlinedIcon style={{ width: "60px" }} /> How to Play
+        </ListI>
+        <ListI>
+          <GroupsOutlinedIcon style={{ width: "60px" }} /> Champions Club
+        </ListI>
+        <ListI>
+          <SettingsOutlinedIcon style={{ width: "60px" }} />
+          My Info & Settings
+        </ListI>
+        <ListI>
+          <MoreHorizOutlinedIcon style={{ width: "60px" }} />
+          more
+        </ListI>
+        <ListI>
+          <HelpOutlineOutlinedIcon style={{ width: "60px" }} />
+          Help & Support
+        </ListI>
+      </Container>
+    </Box>
   );
 
   return (
-    <Container>
-      <React.Fragment>
-        <Drawer open={state} onClose={toggleDrawer(false)}>
+    <React.Fragment>
+      <DrawerContainer>
+        <Drawer
+          open={state}
+          onClose={toggleDrawer(false)}
+          style={{ padding: "0 !important" }}
+        >
           <ListA />
         </Drawer>
-      </React.Fragment>
-    </Container>
+      </DrawerContainer>
+    </React.Fragment>
   );
 }

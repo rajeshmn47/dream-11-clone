@@ -110,10 +110,13 @@ export const Navbar = () => {
   };
   return (
     <>
+      {" "}
+      <LeftDrawer state={leftOpen} setState={setLeftOpen} />
       <div className="logintopbar">
-        <LeftDrawer state={leftOpen} setState={setLeftOpen} />
-
-        <Account onClick={() => handleLeftClick()}>
+        <Account
+          onClick={() => handleLeftClick()}
+          style={{ cursor: "pointer" }}
+        >
           {user?.username && user?.username.charAt(0)}
         </Account>
         <Center>
@@ -151,7 +154,6 @@ export const Navbar = () => {
           <h5>₹ 0</h5>
         </Deatil>
       </Drawer>
-
       <div className="hometop">
         <div className="hometopicon selectgame">
           <SportsCricketIcon
