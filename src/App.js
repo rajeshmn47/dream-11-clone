@@ -3,9 +3,11 @@ import "./App.css";
 import Register from "./components/register";
 import Login from "./components/login";
 import Home from "./components/home";
+import Test from "./components/test";
 import Players from "./components/players";
 import CreateTeam from "./components/createteam";
 import CreateTeamNew from "./components/createnew";
+import Counter from "./components/counter";
 import {
   Routes,
   Route,
@@ -50,6 +52,8 @@ function App() {
           <Route path="/savedteam/:id" element={<SavedTeam />} />
           <Route path="/contestdetail/:id" element={<ContestDetail />} />
           <Route path="/joined" element={<JoinedContests />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/counter" element={<Counter />} />
         </Routes>
       </BrowserRouter>
     </>
