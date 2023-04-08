@@ -56,7 +56,7 @@ function geturl() {
   if (current == "local") {
     return "http://localhost:8000";
   } else {
-    return "https://web-production-2c05.up.railway.app";
+    return "https://dreamelevenclonebackend-production.up.railway.app";
   }
 }
 
