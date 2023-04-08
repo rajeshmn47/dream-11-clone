@@ -42,7 +42,6 @@
   padding: 2vh 3vw;
   box-sizing: border-box;
   height: auto;
-  min-height: 600px;
   overflow-x: scroll;
 }
 

@@ -25,6 +25,8 @@ const style = {
 const Main = styled.div`
   width: 260px;
   height: 400px;
+  padding: 0 5px;
+  background-color: #ffffff;
   overflow: hidden;
   display: flex;
   justify-content: space-evenly;
@@ -45,7 +47,7 @@ const JoinButton = styled.button`
   background-color: #008a36;
   color: #ffffff;
   border: none;
-  padding: 10px 15px;
+  padding: 0px 15px;
   margin: 0 auto;
   text-transform: uppercase;
   border-radius: 5px;
@@ -86,6 +88,7 @@ export default function ConfirmModal({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      style={{ height: "400px" }}
     >
       {modal && (
         <Main>

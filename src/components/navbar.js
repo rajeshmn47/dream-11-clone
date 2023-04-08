@@ -59,7 +59,7 @@ const Deatil = styled.div`
   border-top: 1px solid #dddddd;
   margin-top: 10px;
   text-align: left;
-  padding: 10px 0;
+  padding: 10px 5px;
   p {
     color: rgba(0, 0, 0, 0.6);
     text-transform: uppercase;
@@ -135,7 +135,7 @@ export const Navbar = () => {
           />
         </RightSide>
       </div>
-      <Drawer anchor="top" open={open} onClose={() => setLeftOpen(false)}>
+      <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
         <DeatilTop>
           <p>total balance</p>
           <h5>₹ {user && user.wallet}</h5>
