@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Button, Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 import "./home.css";
 import Steppr from "./stepper";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ import { URL } from "../constants/userConstants";
 import { useSelector } from "react-redux";
 import extractColors from "extract-colors";
 import Loader from "./loader";
+import { getDisplayDate } from "../utils/dateformat";
 
 const RightSide = styled.div`
   width: 90px;
@@ -121,122 +123,142 @@ export const Home = () => {
       <Navbar />
 
       <div className="matches">
-        <h3>Completed matches</h3>
         {past?.length > 0 ? (
-          past.map((u) => (
-            <div
-              className="matchcontainer"
-              onClick={() => navigate(`/contests/${u.id}`)}
-            >
-              <Top>
-                <h5
-                  style={{
-                    color: "#595959",
-                    height: "3vh",
-                    fontSize: "12px",
-                    fontWeight: "800",
-                  }}
-                >
-                  {u.away.code} vs {u.home.code}
-                </h5>
-                <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
-              </Top>
-              <div className="match">
-                <div className="matchcenter">
-                  <div className="matchlefts">
-                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                    <h5>{u.away.code}</h5>
-                  </div>
-                  <h5 className={u.result == "Yes" ? "completed" : "time"}>
-                    {u.result === "Yes" && "Completed"}
+          <>
+            <h3>Completed matches</h3>
+            {past.map((u) => (
+              <div
+                className="matchcontainer"
+                onClick={() => navigate(`/contests/${u.id}`)}
+              >
+                <Top>
+                  <h5
+                    style={{
+                      color: "#595959",
+                      height: "3vh",
+                      fontSize: "12px",
+                      fontWeight: "800",
+                    }}
+                  >
+                    {u.away.code} vs {u.home.code}
                   </h5>
-                  <div className="matchrights">
-                    <h5> {u.home.code}</h5>
-                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                  <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+                </Top>
+                <div className="match">
+                  <div className="matchcenter">
+                    <div className="matchlefts">
+                      <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                      <h5>{u.away.code}</h5>
+                    </div>
+                    <div className={u.result == "Yes" ? "completed" : "time"}>
+                      {u.result === "Yes" && (
+                        <div>
+                          Completed
+                          <p
+                            style={{ color: "#5e5b5b", textTransform: "auto" }}
+                          >
+                            {getDisplayDate(u.date, "i")}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="matchrights">
+                      <h5> {u.home.code}</h5>
+                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bottom">
-                <div
-                  style={{
-                    display: "flex",
-                    width: "150px",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  {u.teams.length > 0 && (
-                    <div className="">{u.teams.length} teams</div>
-                  )}
-                  <div className="meg">
-                    {u.contests.length > 0 && (
-                      <h5>{u.contests.length} contests</h5>
+                <div className="bottom">
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "150px",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    {u.teams.length > 0 && (
+                      <div className="">{u.teams.length} teams</div>
                     )}
+                    <div className="meg">
+                      {u.contests.length > 0 && (
+                        <h5>{u.contests.length} contests</h5>
+                      )}
+                    </div>
+                  </div>
+                  <div className="icon">
+                    <PersonOutlineOutlinedIcon
+                      style={{ color: "#595959", fontSize: "18px" }}
+                    />
                   </div>
                 </div>
-                <div className="icon">
-                  <PersonOutlineOutlinedIcon
-                    style={{ color: "#595959", fontSize: "18px" }}
-                  />
-                </div>
               </div>
-            </div>
-          ))
+            ))}
+          </>
         ) : (
           <Loader />
         )}
       </div>
       <div className="matches">
-        <h3>Upcoming matches</h3>
         {upcoming?.length > 0 ? (
-          upcoming.map((u) => (
-            <div
-              className="matchcontainer"
-              onClick={() => navigate(`/contests/${u.id}`)}
-            >
-              <Top>
-                <h5
-                  style={{
-                    color: "#595959",
-                    height: "3vh",
-                    fontSize: "12px",
-                    fontWeight: "800",
-                  }}
-                >
-                  {u.away.code} vs {u.home.code}
-                </h5>
-                <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
-              </Top>
-              <div className="match">
-                <div className="matchcenter">
-                  <div className="matchlefts">
-                    <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                    <h5>{u.away.code}</h5>
-                  </div>
-                  <h5 className={u.result == "Yes" ? "completed" : "time"}>
-                    {!(u.result === "Yes") ? "Upcoming" : "Completed"}
+          <>
+            <h3>Upcoming matches</h3> (
+            {upcoming.map((u) => (
+              <div
+                className="matchcontainer"
+                onClick={() => navigate(`/contests/${u.id}`)}
+              >
+                <Top>
+                  <h5
+                    style={{
+                      color: "#595959",
+                      height: "3vh",
+                      fontSize: "12px",
+                      fontWeight: "800",
+                    }}
+                  >
+                    {u.away.code} vs {u.home.code}
                   </h5>
-                  <div className="matchrights">
-                    <h5> {u.home.code}</h5>
-                    <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                  <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+                </Top>
+                <div className="match">
+                  <div className="matchcenter">
+                    <div className="matchlefts">
+                      <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                      <h5>{u.away.code}</h5>
+                    </div>
+                    <h5 className={u.result == "Yes" ? "completed" : "time"}>
+                      {!(u.result === "Yes") ? (
+                        <p style={{ fontSize: "10px" }}>
+                          {getDisplayDate(u.date, "i")}
+                        </p>
+                      ) : (
+                        "Completed"
+                      )}
+                    </h5>
+                    <div className="matchrights">
+                      <h5> {u.home.code}</h5>
+                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                    </div>
+                  </div>
+                </div>
+                <div className="bottom">
+                  <div>
+                    <div className="mega">Mega</div>
+                    <div className="meg">
+                      <h5>59 crores</h5>
+                    </div>
+                  </div>
+                  <div className="icon">
+                    <PersonOutlineOutlinedIcon
+                      style={{ color: "#595959", fontSize: "18px" }}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="bottom">
-                <div>
-                  <div className="mega">Mega</div>
-                  <div className="meg">
-                    <h5>59 crores</h5>
-                  </div>
-                </div>
-                <div className="icon">
-                  <PersonOutlineOutlinedIcon
-                    style={{ color: "#595959", fontSize: "18px" }}
-                  />
-                </div>
-              </div>
-            </div>
-          ))
+            ))}
+            )
+          </>
         ) : (
           <Loader />
         )}

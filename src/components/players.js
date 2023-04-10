@@ -14,6 +14,7 @@ import {
   PlaylistAddCheckCircleSharp,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -26,21 +27,25 @@ const Player = styled.div`
   }
 `;
 export const Players = () => {
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [players, setPlayers] = useState([]);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`${URL}/home`);
-      console.log(data);
+      const data = await axios.get(`${URL}/home/${user?._id}`);
+      const datas = await axios.get(`${URL}/getplayers`);
+      console.log(datas);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);
       setPast(data.data.past.results);
       setPlayers(data.data.players);
     }
     getupcoming();
-  }, []);
+  }, [user]);
   return (
     <>
       <div className="logintopbar">
