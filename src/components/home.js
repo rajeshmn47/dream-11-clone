@@ -138,6 +138,8 @@ export const Home = () => {
                       height: "3vh",
                       fontSize: "12px",
                       fontWeight: "800",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
                     {u.away.code} vs {u.home.code}
