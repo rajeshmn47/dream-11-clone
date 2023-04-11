@@ -23,6 +23,10 @@ const RightSide = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 600px) {
+    width: auto;
+    justify-content: flex-end;
+  }
 `;
 
 const Account = styled.h3`
@@ -121,7 +125,7 @@ export const Navbar = () => {
         </Account>
         <Center>
           <EmojiEventsOutlinedIcon
-            style={{ marginRight: "1vw", fontSize: "20px" }}
+            style={{ marginRight: "10px", fontSize: "20px" }}
           />
           Dream11
         </Center>
