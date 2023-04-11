@@ -202,7 +202,7 @@ export const Home = () => {
       <div className="matches">
         {upcoming?.length > 0 ? (
           <>
-            <h3>Upcoming matches</h3> 
+            <h3>Upcoming matches</h3>
             {upcoming.map((u) => (
               <div
                 className="matchcontainer"
@@ -215,6 +215,8 @@ export const Home = () => {
                       height: "3vh",
                       fontSize: "12px",
                       fontWeight: "800",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
                     {u.away.code} vs {u.home.code}
@@ -243,7 +245,7 @@ export const Home = () => {
                   </div>
                 </div>
                 <div className="bottom">
-                  <div>
+                  <div className="meta">
                     <div className="mega">Mega</div>
                     <div className="meg">
                       <h5>59 crores</h5>
@@ -257,7 +259,6 @@ export const Home = () => {
                 </div>
               </div>
             ))}
-            
           </>
         ) : (
           <Loader />

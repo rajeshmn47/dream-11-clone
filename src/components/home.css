@@ -146,3 +146,11 @@
   align-items: center;
   padding: 3px 15px;
 }
+.icon {
+  display: flex;
+  align-items: center;
+}
+.meta {
+  display: flex;
+  align-items: center;
+}
