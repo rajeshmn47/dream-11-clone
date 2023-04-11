@@ -89,6 +89,10 @@ const Container = styled.div`
     text-transform: capitalize;
     font-family: "Open Sans";
   }
+  .MuiTabScrollButton-root {
+    width: 15px;
+    white-space:nowrap;
+  }
 `;
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);

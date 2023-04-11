@@ -20,8 +20,8 @@ export function getDisplayDate(date, sc) {
     } else {
       return "Today";
     }
-  } else if (diff <= 24 * 60 * 60 * 1000) {
-    return moment(date).format("DD MMM, HH:MM a");
+  } else if (Math.abs(diff) <= 24 * 60 * 60 * 1000) {
+    return "Tommorrow";
   } else if (
     today.getDate() - current.getDate() < 7 &&
     today.getMonth() == current.getMonth()
@@ -30,7 +30,7 @@ export function getDisplayDate(date, sc) {
     console.log(moment(date).format("DD MM"));
     return moment(date).format("DD MMM, HH:MM a"); // or format it what ever way you want
   } else {
-    return moment(date).format("DD/MM/YYYY");
+    return moment(date).format("DD MMM, HH:MM a");
   }
 }
 

@@ -83,6 +83,14 @@ const Top = styled.div`
   padding: 5px 20px;
 `;
 
+const Dot = styled.div`
+  background-color: #1ca14d !important;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+`;
+
 export const Home = () => {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
@@ -154,8 +162,24 @@ export const Home = () => {
                     </div>
                     <div className={u.result == "Yes" ? "completed" : "time"}>
                       {u.result === "Yes" && (
-                        <div>
-                          Completed
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            <Dot />
+                            Completed
+                          </div>
                           <p
                             style={{ color: "#5e5b5b", textTransform: "auto" }}
                           >

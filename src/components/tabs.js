@@ -307,7 +307,10 @@ export default function BasicTabs({ tabs, id }) {
             <Tabs
               value={value}
               onChange={handleChange}
-              aria-label="basic tabs example"
+              variant="scrollable"
+              scrollButtons={true}
+              allowScrollButtonsMobile
+              aria-label="scrollable force tabs example"
             >
               <Tab label="Contests" {...a11yProps(0)} />
               <Tab
@@ -318,6 +321,9 @@ export default function BasicTabs({ tabs, id }) {
                 label={`My Teams(${team && team.length})`}
                 {...a11yProps(2)}
               />
+              <Tab label={`Commentary`} {...a11yProps(3)} />
+              <Tab label={`Scorecard`} {...a11yProps(4)} />
+              <Tab label={`Stats`} {...a11yProps(4)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
