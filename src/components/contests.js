@@ -91,7 +91,7 @@ const Container = styled.div`
   }
   .MuiTabScrollButton-root {
     width: 15px;
-    white-space:nowrap;
+    white-space: nowrap;
   }
 `;
 export const Contests = ({ players }) => {

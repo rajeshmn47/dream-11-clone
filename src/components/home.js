@@ -22,7 +22,12 @@ import { URL } from "../constants/userConstants";
 import { useSelector } from "react-redux";
 import extractColors from "extract-colors";
 import Loader from "./loader";
-import { getDisplayDate } from "../utils/dateformat";
+import {
+  getDisplayDate,
+  hoursRemaining,
+  isTommorrow,
+  sameDayorNot,
+} from "../utils/dateformat";
 
 const RightSide = styled.div`
   width: 90px;
@@ -178,7 +183,9 @@ export const Home = () => {
                             }}
                           >
                             <Dot />
-                            Completed
+                            <h5 style={{ fontWeight: "600 !important" }}>
+                              Completed
+                            </h5>
                           </div>
                           <p
                             style={{ color: "#5e5b5b", textTransform: "auto" }}
@@ -252,21 +259,49 @@ export const Home = () => {
                 <div className="match">
                   <div className="matchcenter">
                     <div className="matchlefts">
-                      <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                      <img
+                        src={u.teamAwayFlagUrl}
+                        alt=""
+                        width="40"
+                        height="40"
+                        style={{ objectFit: "contain" }}
+                      />
                       <h5>{u.away.code}</h5>
                     </div>
                     <h5 className={u.result == "Yes" ? "completed" : "time"}>
                       {!(u.result === "Yes") ? (
-                        <p style={{ fontSize: "10px" }}>
-                          {getDisplayDate(u.date, "i")}
-                        </p>
+                        sameDayorNot(new Date(), new Date(u.date)) ||
+                        isTommorrow(new Date(), new Date(u.date)) ? (
+                          <div>
+                            <p>{hoursRemaining(u.date)}</p>
+                            <p
+                              style={{
+                                color: "#5e5b5b",
+                                textTransform: "auto",
+                              }}
+                            >
+                              {getDisplayDate(u.date, "i")}
+                            </p>
+                          </div>
+                        ) : (
+                          <p
+                            style={{ color: "#e10000", textTransform: "auto" }}
+                          >
+                            {getDisplayDate(u.date, "i")}
+                          </p>
+                        )
                       ) : (
                         "Completed"
                       )}
                     </h5>
                     <div className="matchrights">
                       <h5> {u.home.code}</h5>
-                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                      <img
+                        src={u.teamHomeFlagUrl}
+                        alt=""
+                        width="40"
+                        height="40"
+                      />
                     </div>
                   </div>
                 </div>
