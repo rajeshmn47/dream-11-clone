@@ -21,15 +21,14 @@ export function getDisplayDate(date, sc) {
     } else {
       return "Today";
     }
-  } else if (Math.abs(diff) <= 24 * 60 * 60 * 1000 * 3) {
+  } else if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2) {
+    console.log(Math.abs(diff) < 24 * 60 * 60 * 1000 * 2, "tomm");
     let a = moment(date).format("HH:mm a");
     return "Tommorrow, " + a;
   } else if (
     today.getDate() - current.getDate() < 7 &&
     today.getMonth() == current.getMonth()
   ) {
-    console.log(current.getDay() - 2, "day");
-    console.log(moment(date).format("DD MM"));
     return moment(date).format("DD MMM, HH:MM a"); // or format it what ever way you want
   } else {
     return moment(date).format("DD MMM, HH:MM a");
@@ -39,20 +38,12 @@ export function getDisplayDate(date, sc) {
 export function sameDayorNot(a, b) {
   let first = new Date(a);
   let second = new Date(b);
-  console.log(
-    first.getDate(),
-    second.getDate(),
-    first.getDay(),
-    second.getDay(),
-    "sameday"
-  );
   if (
     first.getDate() == second.getDate() &&
     first.getDay() == second.getDay()
   ) {
     return true;
   } else {
-    console.log(first.getDate(), second.getDate(), "etdate");
   }
 }
 
@@ -60,20 +51,12 @@ export function isTommorrow(a, b) {
   let first = new Date(a);
   let second = new Date(b);
   if (
-    first.getDate() == second.getDate() - 2 &&
-    first.getDay() == second.getDay() - 2 &&
+    first.getDate() == second.getDate() - 1 &&
+    first.getDay() == second.getDay() - 1 &&
     first.getMonth() == second.getMonth()
   ) {
-    console.log(
-      first.getDate(),
-      second.getDate() - 2,
-      first.getDay(),
-      second.getDay() - 2,
-      "tommorrow"
-    );
     return true;
   } else {
-    console.log(first.getDate(), second.getDate(), "etdate");
   }
 }
 
@@ -100,4 +83,22 @@ function getMinutes(x) {
   a = Math.floor(parseFloat(a) * 60);
   console.log(a, a[0], a[1], "getmins");
   return a;
+}
+
+export function setshow(d) {
+  let a = d;
+  let k = [];
+  let j = [];
+  const fall = a?.length > 0 && a?.forEach((b) => k.push(b.split("(")));
+  console.log(k, "fall");
+  k.forEach((element, index) => {
+    if (index % 2 == 1) {
+      j[index - 1] = { over: element[0], ...j[index - 1] };
+    } else {
+      j[index] = { fall: element[0], score: element[1], ...j[index] };
+    }
+  });
+  console.log(j, "j");
+  let ox = j.filter((c) => c);
+  return ox;
 }

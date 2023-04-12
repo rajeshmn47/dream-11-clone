@@ -169,7 +169,7 @@ export const Contests = ({ players }) => {
         )}
       </TopContainer>
       <Bottom>
-        <BasicTabs tabs={contests} id={id} />
+        <BasicTabs tabs={contests} id={id} g={match} />
       </Bottom>
     </Container>
   );

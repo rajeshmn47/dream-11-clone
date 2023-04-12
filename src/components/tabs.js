@@ -21,6 +21,7 @@ import { TeamShort } from "./TeamShort";
 import { SettingsSystemDaydream } from "@mui/icons-material";
 import { URL, FURL } from "../constants/userConstants";
 import Loader from "./loader";
+import ScoreCard from "./scorecard";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -192,6 +193,12 @@ const StatusC = styled.div`
   background-color: #fef4de;
 `;
 
+const TabP = styled(TabPanel)`
+  .MuiBox-root {
+    padding: 0 0 !important;
+  }
+`;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -225,7 +232,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ tabs, id }) {
+export default function BasicTabs({ tabs, id, g }) {
   const Background = `${FURL}/contest.png`;
   const [value, setValue] = React.useState(0);
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -234,6 +241,7 @@ export default function BasicTabs({ tabs, id }) {
   const [open, setOpen] = React.useState(false);
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
+  const [matchdata, setMatchdata] = React.useState();
   const [selectedTeam, setSelectedTeam] = React.useState(null);
   const [selectTeams, setSelectTeams] = React.useState({
     selected: false,
@@ -244,15 +252,21 @@ export default function BasicTabs({ tabs, id }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(id, "id");
+  }, [id]);
+
+  useEffect(() => {
     async function getplayers() {
-      if (user?._id) {
+      if (user?._id && id) {
         const data = await axios.get(
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
+        const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
+        console.log(matchdat.data.match, id, "matchdata");
+        setMatchdata(matchdat.data.match);
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
-        console.log(joinedC.data.contests, "joined");
         setTeam(data.data.team);
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
@@ -261,7 +275,7 @@ export default function BasicTabs({ tabs, id }) {
       }
     }
     getplayers();
-  }, [user]);
+  }, [user, id]);
   console.log(contest, "contest");
   useEffect(() => {
     async function getteams() {
@@ -516,6 +530,9 @@ export default function BasicTabs({ tabs, id }) {
               create team
             </CreateTeam>
           </TabPanel>
+          <TabP value={value} index={4}>
+            <ScoreCard data={matchdata} g={g} />
+          </TabP>
         </Box>
       ) : (
         team?.length > 0 && (

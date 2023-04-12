@@ -309,7 +309,7 @@ export const Home = () => {
                   <div className="meta">
                     <div className="mega">Mega</div>
                     <div className="meg">
-                      <h5>59 crores</h5>
+                      <h5 style={{ fontSize: "12px" }}>₹59 crores</h5>
                     </div>
                   </div>
                   <div className="icon">
