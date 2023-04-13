@@ -93,9 +93,9 @@ export function setshow(d) {
   console.log(k, "fall");
   k.forEach((element, index) => {
     if (index % 2 == 1) {
-      j[index - 1] = { over: element[0], ...j[index - 1] };
+      j[index - 1] = { over: element[0].replace(")", ""), ...j[index - 1] };
     } else {
-      j[index] = { fall: element[0], score: element[1], ...j[index] };
+      j[index] = { fall: element[0], score: element[1].replace(")", ""), ...j[index] };
     }
   });
   console.log(j, "j");
