@@ -22,6 +22,7 @@ import { SettingsSystemDaydream } from "@mui/icons-material";
 import { URL, FURL } from "../constants/userConstants";
 import Loader from "./loader";
 import ScoreCard from "./scorecard";
+import Commentary from "./commentary";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -337,7 +338,7 @@ export default function BasicTabs({ tabs, id, g }) {
               />
               <Tab label={`Commentary`} {...a11yProps(3)} />
               <Tab label={`Scorecard`} {...a11yProps(4)} />
-              <Tab label={`Stats`} {...a11yProps(4)} />
+              <Tab label={`Stats`} {...a11yProps(5)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -530,6 +531,9 @@ export default function BasicTabs({ tabs, id, g }) {
               create team
             </CreateTeam>
           </TabPanel>
+          <TabP value={value} index={3}>
+            <Commentary matchdata={matchdata} />
+          </TabP>
           <TabP value={value} index={4}>
             <ScoreCard data={matchdata} g={g} />
           </TabP>

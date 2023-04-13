@@ -95,7 +95,11 @@ export function setshow(d) {
     if (index % 2 == 1) {
       j[index - 1] = { over: element[0].replace(")", ""), ...j[index - 1] };
     } else {
-      j[index] = { fall: element[0], score: element[1].replace(")", ""), ...j[index] };
+      j[index] = {
+        fall: element[0],
+        score: element[1].replace(")", ""),
+        ...j[index],
+      };
     }
   });
   console.log(j, "j");

@@ -112,7 +112,7 @@ export const Home = () => {
       if (user?._id) {
         const data = await axios.get(`${URL}/home/${user._id}`);
         const userdata = await axios.get(`${URL}/userdata`);
-        console.log(userdata.data);
+        console.log(data, "data");
         setUpcoming(data.data.upcoming.results);
         setLive(data.data.live.results);
         setPast(data.data.past.results);
@@ -127,6 +127,9 @@ export const Home = () => {
       navigate("/login");
     }
   }, []);
+  useEffect(() => {
+    console.log(past, "past");
+  }, [past]);
   console.log(past, live);
   const handleClick = () => {
     setOpen(true);
@@ -188,7 +191,12 @@ export const Home = () => {
                             </h5>
                           </div>
                           <p
-                            style={{ color: "#5e5b5b", textTransform: "auto" }}
+                            style={{
+                              color: "#5e5b5b",
+                              textTransform: "auto",
+                              fontSize: "10px",
+                              marginTop: "2px",
+                            }}
                           >
                             {getDisplayDate(u.date, "i")}
                           </p>
@@ -211,7 +219,15 @@ export const Home = () => {
                     }}
                   >
                     {u.teams.length > 0 && (
-                      <div className="">{u.teams.length} teams</div>
+                      <h5
+                        className=""
+                        style={{
+                          textTransform: "capitalize",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {u.teams.length} teams
+                      </h5>
                     )}
                     <div className="meg">
                       {u.contests.length > 0 && (
@@ -278,6 +294,8 @@ export const Home = () => {
                               style={{
                                 color: "#5e5b5b",
                                 textTransform: "auto",
+                                fontSize: "10px",
+                                marginTop: "2px",
                               }}
                             >
                               {getDisplayDate(u.date, "i")}
