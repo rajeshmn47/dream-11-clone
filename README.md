@@ -2,7 +2,7 @@ I created a clone of DREAM 11 It has various features like
 <p>1)email otp authentication</p>
 <p>2)create teams</p>
 <p>3)join specific contests</p>
-<p>4)live commentary</p>
+<p>4)live commentary using socket.io</p>
 <p>5)live scores</p>
 <p>6)leaderboard</p>
 <p>7)winning the prize money of the joined contest...</p>
