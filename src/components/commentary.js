@@ -74,9 +74,13 @@ export const Commentary = ({ matchdata }) => {
       console.log(data, "new message");
     });
     return () => {
+      console.log('rajesh left component')
       socket.off("connect");
       socket.off("disconnect");
       socket.off("pong");
+      socket.emit("leave", {
+        matchid: matchdata.matchId,
+      });
     };
   }, []);
 
