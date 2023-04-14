@@ -1,3 +1,13 @@
+It has various features like
+1)email otp authentication
+2)create teams
+3)join specific contests
+4)live commentary
+5)live scores
+6)leaderboard
+7)winning the prize money of the joined contest...
+
+
 ![homescreen](https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png)
 ![Screenshot from 2023-04-13 06-53-35](https://user-images.githubusercontent.com/24763499/231621706-ea780be6-bc6f-4dc6-9dd8-577d7c49f9c7.png)
 
