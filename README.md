@@ -1,4 +1,4 @@
-It has various features like
+I created a clone of DREAM 11 It has various features like
 <p>1)email otp authentication</p>
 <p>2)create teams</p>
 <p>3)join specific contests</p>
