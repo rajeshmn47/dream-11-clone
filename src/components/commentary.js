@@ -4,7 +4,6 @@ import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import styled from "@emotion/styled";
-import { Konfettikanone } from "react-konfettikanone";
 import Cracker from "./Cracker";
 import io from "socket.io-client";
 import { useEffect, useState, useRef } from "react";
@@ -14,7 +13,7 @@ import { addconfetti, removeconfetti } from "../actions/userAction";
 
 const CommentaryContainer = styled.div`
   padding: 15px;
-  height: 200px;
+  height: 100%;
   overflow-y: scroll;
 `;
 
