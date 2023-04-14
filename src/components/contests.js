@@ -201,13 +201,6 @@ export const Contests = ({ players }) => {
       <Bottom>
         <BasicTabs tabs={contests} id={id} g={match} />
       </Bottom>
-      {confetti && (
-        <ReactCanvasConfetti
-          width={dimensions.width - 10}
-          height={dimensions.height - 10}
-          opacity={0.6}
-        />
-      )}
     </Container>
   );
 };

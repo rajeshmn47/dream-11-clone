@@ -7,10 +7,16 @@ import styled from "@emotion/styled";
 import { Konfettikanone } from "react-konfettikanone";
 import Cracker from "./Cracker";
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Animate from "./animate";
 import { addconfetti, removeconfetti } from "../actions/userAction";
+
+const CommentaryContainer = styled.div`
+  padding: 15px;
+  height: 200px;
+  overflow-y: scroll;
+`;
 
 const Comment = styled.div`
   display: flex;
@@ -66,6 +72,7 @@ export const Commentary = ({ matchdata }) => {
   const socket = io.connect("http://localhost:4000");
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [commentary, setCommentary] = useState([]);
+  const scrollit = useRef();
   const dispatch = useDispatch();
   const [launched, setLaunched] = useState(true);
   const [lastPong, setLastPong] = useState(null);
@@ -123,15 +130,18 @@ export const Commentary = ({ matchdata }) => {
     a.push(...commentary);
     a.push(value);
     console.log(a, "antara");
-    setCommentary([...a]);
+    setCommentary((commentary) => [value, ...commentary]);
+    let url = "./notifications.mp3";
+    let audio = new Audio(url);
+    audio.play();
   };
 
   return (
     <>
-      <div style={{ padding: "15px" }}>
+      <CommentaryContainer>
         {commentary?.map((p) => (
           <>
-            <Comment>
+            <Comment ref={scrollit}>
               <Event>
                 {p?.eventType == "wicket" ? (
                   <Wicket>w</Wicket>
@@ -145,7 +155,7 @@ export const Commentary = ({ matchdata }) => {
           </>
         ))}
         <Animate confetti={confetti} setConfetti={setConfetti} />
-      </div>
+      </CommentaryContainer>
     </>
   );
 };

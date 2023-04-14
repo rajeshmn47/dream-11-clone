@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import Register from "./components/register";
 import Login from "./components/login";
+import ReactCanvasConfetti from "react-confetti";
 import Home from "./components/home";
 import Test from "./components/test";
 import Players from "./components/players";
@@ -27,6 +28,26 @@ import Navbar from "./components/navbar";
 
 function App() {
   const dispatch = useDispatch();
+  const { confetti } = useSelector((state) => state.user);
+
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const showAnimation = () => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", showAnimation);
+    return () => {
+      window.removeEventListener("resize", showAnimation);
+    };
+  }, [dimensions]);
   const TRACKING_ID = "G-YWB7BCRZML";
   ReactGA.initialize(TRACKING_ID);
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -56,6 +77,13 @@ function App() {
           <Route path="/counter" element={<Counter />} />
         </Routes>
       </BrowserRouter>
+      {confetti && (
+        <ReactCanvasConfetti
+          width={dimensions.width - 10}
+          height={dimensions.height - 10}
+          opacity={0.6}
+        />
+      )}
     </>
   );
 }
