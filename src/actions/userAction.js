@@ -10,6 +10,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_FAIL,
   URL,
+  ADD_CONFETTI,
+  REMOVE_CONFETTI,
 } from "../constants/userConstants";
 
 const headers = {
@@ -53,6 +55,24 @@ export const login = (myform) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     localStorage.removeItem("token");
+  } catch (error) {
+    console.log(error.response, "asdfgh");
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  }
+};
+
+export const addconfetti = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_CONFETTI });
+  } catch (error) {
+    console.log(error.response, "asdfgh");
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  }
+};
+
+export const removeconfetti = () => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_CONFETTI });
   } catch (error) {
     console.log(error.response, "asdfgh");
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });

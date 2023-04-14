@@ -315,7 +315,7 @@ export default function BasicTabs({ tabs, id, g }) {
   };
   console.log(contest, "contest");
   return (
-    <>
+    <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -562,6 +562,6 @@ export default function BasicTabs({ tabs, id, g }) {
           </>
         )
       )}
-    </>
+    </div>
   );
 }

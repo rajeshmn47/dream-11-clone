@@ -10,6 +10,8 @@ import {
   LOAD_USER_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
+  ADD_CONFETTI,
+  REMOVE_CONFETTI,
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAIL,
@@ -89,7 +91,16 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: false,
         error: action.payload,
       };
-
+    case ADD_CONFETTI:
+      return {
+        ...state,
+        confetti: true,
+      };
+    case REMOVE_CONFETTI:
+      return {
+        ...state,
+        confetti: false,
+      };
     case CLEAR_ERRORS:
       return {
         ...state,

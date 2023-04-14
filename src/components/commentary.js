@@ -4,8 +4,13 @@ import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import styled from "@emotion/styled";
+import { Konfettikanone } from "react-konfettikanone";
+import Cracker from "./Cracker";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Animate from "./animate";
+import { addconfetti, removeconfetti } from "../actions/userAction";
 
 const Comment = styled.div`
   display: flex;
@@ -15,8 +20,8 @@ const Comment = styled.div`
 `;
 
 const Event = styled.div`
-  padding-right: 30px;
-  width: 45px;
+  padding-right: 20px;
+  width: 30px;
   font-family: "Open Sans" !important;
   overflow: hidden;
   text-align: center;
@@ -60,9 +65,14 @@ const Four = styled.p`
 export const Commentary = ({ matchdata }) => {
   const socket = io.connect("http://localhost:4000");
   const [isConnected, setIsConnected] = useState(socket.connected);
+  const [commentary, setCommentary] = useState([]);
+  const dispatch = useDispatch();
+  const [launched, setLaunched] = useState(true);
   const [lastPong, setLastPong] = useState(null);
-  console.log(matchdata.commentary, "iamcomment");
-
+  const [confetti, setConfetti] = useState(false);
+  useEffect(() => {
+    setCommentary([...matchdata.commentary.slice(0, 10)]);
+  }, []);
   useEffect(() => {
     socket.on("disconnect", () => {
       setIsConnected(false);
@@ -71,10 +81,22 @@ export const Commentary = ({ matchdata }) => {
       setLastPong(new Date().toISOString());
     });
     socket.on("newcommentary", async (data) => {
-      console.log(data, "new message");
+      addcommentary({ ...data.commentary });
+      console.log(data.commentary.eventType, data.commentary, "newcommentary");
+      if (
+        data.commentary.eventType == "wicket" ||
+        data.commentary.eventType == "four" ||
+        data.commentary.eventType == "six"
+      ) {
+        console.log("confetti");
+        dispatch(addconfetti());
+        setTimeout(() => {
+          dispatch(removeconfetti());
+        }, 13000);
+      }
     });
     return () => {
-      console.log('rajesh left component')
+      console.log("rajesh left component");
       socket.off("connect");
       socket.off("disconnect");
       socket.off("pong");
@@ -94,15 +116,20 @@ export const Commentary = ({ matchdata }) => {
         });
       }
     });
-    socket.on("newcommentary", async (data) => {
-      console.log(data, "commentary");
-    });
   }, [matchdata]);
+
+  const addcommentary = (value) => {
+    let a = [];
+    a.push(...commentary);
+    a.push(value);
+    console.log(a, "antara");
+    setCommentary([...a]);
+  };
 
   return (
     <>
       <div style={{ padding: "15px" }}>
-        {matchdata.commentary?.map((p) => (
+        {commentary?.map((p) => (
           <>
             <Comment>
               <Event>
@@ -113,10 +140,11 @@ export const Commentary = ({ matchdata }) => {
                 ) : null}
                 {p?.overNum}
               </Event>
-              <Des>{p?.comment_text.replace("$", "")}</Des>
+              <Des>{p?.comment_text?.replace("$", "")}</Des>
             </Comment>
           </>
         ))}
+        <Animate confetti={confetti} setConfetti={setConfetti} />
       </div>
     </>
   );

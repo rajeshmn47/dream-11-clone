@@ -31,6 +31,10 @@ const Top = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 15px 0;
+  position: fixed;
+  height: 140px;
+  top: 0;
+  left: 0;
 `;
 
 const Bottom = styled.div``;

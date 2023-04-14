@@ -21,6 +21,8 @@ import styled from "@emotion/styled";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { unstable_HistoryRouter } from "react-router-dom";
 import SavedTeam from "./savedteam";
+import { useSelector, useDispatch } from "react-redux";
+import ReactCanvasConfetti from "react-confetti";
 import BasicTabs from "./tabs";
 import { URL } from "../constants/userConstants";
 import { Grid } from "@mui/material";
@@ -36,6 +38,11 @@ const TopContainer = styled.div`
     color: #757272;
   }
   padding: 10px 10px;
+  position: fixed;
+  height: 140px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 `;
 
 const GreenMark = styled.span`
@@ -55,7 +62,10 @@ const Top = styled.div`
   padding: 15px 0;
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+  margin-top: 150px;
+  z-index: 10;
+`;
 const LeftSide = styled.div`
   width: 150px;
   display: flex;
@@ -98,6 +108,26 @@ export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
   const [match, setMatch] = useState(null);
   const [matchLive, setMatchLive] = useState(null);
+  const { confetti } = useSelector((state) => state.user);
+
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const showAnimation = () => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", showAnimation);
+    return () => {
+      window.removeEventListener("resize", showAnimation);
+    };
+  }, [dimensions]);
   const search = useLocation().search;
   let history = useNavigate();
 
@@ -171,6 +201,13 @@ export const Contests = ({ players }) => {
       <Bottom>
         <BasicTabs tabs={contests} id={id} g={match} />
       </Bottom>
+      {confetti && (
+        <ReactCanvasConfetti
+          width={dimensions.width - 10}
+          height={dimensions.height - 10}
+          opacity={0.6}
+        />
+      )}
     </Container>
   );
 };
