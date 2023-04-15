@@ -44,7 +44,7 @@ const Center = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 700;
 `;
 
