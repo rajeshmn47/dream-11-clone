@@ -193,7 +193,7 @@ export const Contests = ({ players }) => {
               </Grid>
             </Grid>
             <p style={{ textAlign: "center" }}>
-              {matchLive.status.split("(11b rem)").join("")}
+              {matchLive?.status?.split("(11b rem)").join("")}
             </p>
           </>
         )}

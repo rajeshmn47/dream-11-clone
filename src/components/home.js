@@ -249,6 +249,101 @@ export const Home = () => {
         )}
       </div>
       <div className="matches">
+        {live?.length > 0 ? (
+          <>
+            <h3>Live matches</h3>
+            {live.map((u) => (
+              <div
+                className="matchcontainer"
+                onClick={() => navigate(`/contests/${u.id}`)}
+              >
+                <Top>
+                  <h5
+                    style={{
+                      color: "#595959",
+                      height: "3vh",
+                      fontSize: "12px",
+                      fontWeight: "800",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {u.away.code} vs {u.home.code}
+                  </h5>
+                  <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+                </Top>
+                <div className="match">
+                  <div className="matchcenter">
+                    <div className="matchlefts">
+                      <img
+                        src={u.teamAwayFlagUrl}
+                        alt=""
+                        width="40"
+                        height="40"
+                        style={{ objectFit: "contain" }}
+                      />
+                      <h5>{u.away.code}</h5>
+                    </div>
+                    <h5 className={u.result == "Yes" ? "completed" : "time"}>
+                      {!(u.result === "Yes") ? (
+                        sameDayorNot(new Date(), new Date(u.date)) ||
+                        isTommorrow(new Date(), new Date(u.date)) ? (
+                          <div>
+                            <p>{hoursRemaining(u.date)}</p>
+                            <p
+                              style={{
+                                color: "#5e5b5b",
+                                textTransform: "auto",
+                                fontSize: "10px",
+                                marginTop: "2px",
+                              }}
+                            >
+                              {getDisplayDate(u.date, "i")}
+                            </p>
+                          </div>
+                        ) : (
+                          <p
+                            style={{ color: "#e10000", textTransform: "auto" }}
+                          >
+                            {getDisplayDate(u.date, "i")}
+                          </p>
+                        )
+                      ) : (
+                        "Completed"
+                      )}
+                    </h5>
+                    <div className="matchrights">
+                      <h5> {u.home.code}</h5>
+                      <img
+                        src={u.teamHomeFlagUrl}
+                        alt=""
+                        width="40"
+                        height="40"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="bottom">
+                  <div className="meta">
+                    <div className="mega">Mega</div>
+                    <div className="meg">
+                      <h5 style={{ fontSize: "12px" }}>₹59 crores</h5>
+                    </div>
+                  </div>
+                  <div className="icon">
+                    <PersonOutlineOutlinedIcon
+                      style={{ color: "#595959", fontSize: "18px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <Loader />
+        )}
+      </div>
+      <div className="matches">
         {upcoming?.length > 0 ? (
           <>
             <h3>Upcoming matches</h3>
