@@ -68,7 +68,7 @@ const Four = styled.p`
 `;
 
 export const Commentary = ({ matchdata }) => {
-  const socket = io.connect("http://localhost:4000");
+  const socket = io.connect("http://192.168.43.39:4000");
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [commentary, setCommentary] = useState([]);
   const scrollit = useRef();
