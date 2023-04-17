@@ -2,8 +2,8 @@ import moment from "moment";
 const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
 let value = "";
-export function getDisplayDate(date, sc) {
-  let today = new Date();
+export function getDisplayDate(date, sc, d) {
+  let today = new Date(d);
   let current = new Date(date);
   today.setHours(0);
   today.setMinutes(0);
@@ -60,22 +60,32 @@ export function isTommorrow(a, b) {
   }
 }
 
-export function hoursRemaining(date) {
-  let a = new Date();
+export function hoursRemaining(date,i, d) {
+  console.log(date,i,d,'yui')
+  let a = new Date(d?.getTime()+(5 * 60 * 60 * 1000));
   let b = new Date(date);
   let c = Math.floor(
     b.getTime() / (60 * 60 * 1000) - a.getTime() / (60 * 60 * 1000)
   );
   let z = b.getTime() / (60 * 60 * 1000) - a.getTime() / (60 * 60 * 1000);
-  let e = getMinutes(z);
-  console.log(
-    b.getTime() / (24 * 60 * 60 * 1000) -
-      (a.getTime() / (24 * 60 * 60 * 1000), "hoursremain")
-  );
-  let s =
-    sameDayorNot(new Date(), new Date(date)) ||
-    isTommorrow(new Date(), new Date(date));
-  return s ? `${c}h ${e}m` : null;
+  if (z > 1) {
+    let e = getMinutes(z);
+    console.log(
+      b.getTime() / (24 * 60 * 60 * 1000) -
+        (a.getTime() / (24 * 60 * 60 * 1000), "hoursremain")
+    );
+    let s =
+      sameDayorNot(new Date(), new Date(date)) ||
+      isTommorrow(new Date(), new Date(date));
+    return s ? `${c}h ${e}m` : null;
+  } else {
+    let diff = z % (1000 * 60 * 60);
+    var min = Math.floor((diff / (1000 * 60)));
+    diff = diff % (1000 * 60);
+    var sec = new Date(d).getSeconds(Math.floor((diff / (1000))));
+    diff = diff % (1000);
+    return `${min}m ${sec}s`;
+  }
 }
 
 function getMinutes(x) {

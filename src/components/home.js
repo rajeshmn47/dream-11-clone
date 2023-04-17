@@ -102,11 +102,21 @@ export const Home = () => {
   );
   console.log(user, "user");
   const [upcoming, setUpcoming] = useState([]);
+  const [date, setDate] = useState();
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
   console.log(URL, "url");
   const navigate = useNavigate();
+  useEffect(() => {
+    var i = setInterval(() => {
+      setDate(new Date());
+      console.log(date,'datenew')
+    }, 1000);
+    return () => {
+      clearInterval(i);
+    };
+  }, []);
   useEffect(() => {
     async function getupcoming() {
       if (user?._id) {
@@ -130,7 +140,7 @@ export const Home = () => {
   useEffect(() => {
     console.log(past, "past");
   }, [past]);
-  console.log(past, live);
+  console.log(past, upcoming);
   const handleClick = () => {
     setOpen(true);
   };
@@ -289,7 +299,7 @@ export const Home = () => {
                         sameDayorNot(new Date(), new Date(u.date)) ||
                         isTommorrow(new Date(), new Date(u.date)) ? (
                           <div>
-                            <p>{hoursRemaining(u.date)}</p>
+                            <p>{hoursRemaining(u.date,'k', date)}</p>
                             <p
                               style={{
                                 color: "#5e5b5b",
@@ -298,14 +308,14 @@ export const Home = () => {
                                 marginTop: "2px",
                               }}
                             >
-                              {getDisplayDate(u.date, "i")}
+                              {getDisplayDate(u.date, "i", date)}
                             </p>
                           </div>
                         ) : (
                           <p
                             style={{ color: "#e10000", textTransform: "auto" }}
                           >
-                            {getDisplayDate(u.date, "i")}
+                            {getDisplayDate(u.date, "i", date)}
                           </p>
                         )
                       ) : (
@@ -384,7 +394,7 @@ export const Home = () => {
                         sameDayorNot(new Date(), new Date(u.date)) ||
                         isTommorrow(new Date(), new Date(u.date)) ? (
                           <div>
-                            <p>{hoursRemaining(u.date)}</p>
+                            <p>{hoursRemaining(u.date,'k',date)}</p>
                             <p
                               style={{
                                 color: "#5e5b5b",
@@ -426,6 +436,9 @@ export const Home = () => {
                     </div>
                   </div>
                   <div className="icon">
+                    <span>
+                      {u.lineups}
+                    </span>
                     <PersonOutlineOutlinedIcon
                       style={{ color: "#595959", fontSize: "18px" }}
                     />

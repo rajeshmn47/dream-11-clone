@@ -105,9 +105,9 @@ export const ScoreCard = ({ data, g }) => {
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
-    console.log(data?.fowFI.split(","), "scorecard");
-    let a = [...data.fowFI.split(",")];
-    let lmn = [...data.fowSI.split(",")];
+    console.log(data?.fowFI?.split(","), "scorecard");
+    let a = [...data?.fowFI?.split(",")];
+    let lmn = [...data?.fowSI?.split(",")];
     setFow([...setshow(a)]);
     setFowsSI([...setshow(lmn)]);
   }, [data]);
