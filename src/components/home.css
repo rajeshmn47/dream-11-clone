@@ -78,10 +78,13 @@
   justify-content: space-between;
   align-items: center;
 }
-.matchcenter img{
-    height: 40px !important;
-    width:40px !important;
-    object-fit: contain;
+.matchcenter img {
+  height: 40px !important;
+  width: 40px !important;
+  object-fit: contain;
+}
+.homecontainer{
+  margin-bottom: 40px;
 }
 .matchrights {
   display: flex;
