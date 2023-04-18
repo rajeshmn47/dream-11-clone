@@ -289,8 +289,6 @@ export const Home = () => {
                         src={u.teamAwayFlagUrl}
                         alt=""
                         width="40"
-                        height="40"
-                        style={{ objectFit: "contain" }}
                       />
                       <h5>{u.away.code}</h5>
                     </div>
@@ -328,7 +326,7 @@ export const Home = () => {
                         src={u.teamHomeFlagUrl}
                         alt=""
                         width="40"
-                        height="40"
+                    
                       />
                     </div>
                   </div>
@@ -384,8 +382,7 @@ export const Home = () => {
                         src={u.teamAwayFlagUrl}
                         alt=""
                         width="40"
-                        height="40"
-                        style={{ objectFit: "contain" }}
+                     
                       />
                       <h5>{u.away.code}</h5>
                     </div>
@@ -423,7 +420,7 @@ export const Home = () => {
                         src={u.teamHomeFlagUrl}
                         alt=""
                         width="40"
-                        height="40"
+                    
                       />
                     </div>
                   </div>
