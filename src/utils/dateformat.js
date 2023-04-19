@@ -107,7 +107,7 @@ export function setshow(d) {
     } else {
       j[index] = {
         fall: element[0],
-        score: element[1].replace(")", ""),
+        score: element[1]?.replace(")", ""),
         ...j[index],
       };
     }

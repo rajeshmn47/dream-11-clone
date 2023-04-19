@@ -90,9 +90,9 @@ export const Commentary = ({ matchdata }) => {
       addcommentary({ ...data.commentary });
       console.log(data.commentary.eventType, data.commentary, "newcommentary");
       if (
-        data.commentary.eventType == "wicket" ||
-        data.commentary.eventType == "four" ||
-        data.commentary.eventType == "six"
+        data.commentary.eventType.toLowerCase() == "wicket" ||
+        data.commentary.eventType.toLowerCase() == "four" ||
+        data.commentary.eventType.toLowerCase() == "six"
       ) {
         console.log("confetti");
         dispatch(addconfetti());
@@ -142,10 +142,12 @@ export const Commentary = ({ matchdata }) => {
           <>
             <Comment ref={scrollit}>
               <Event>
-                {p?.eventType == "wicket" ? (
+                {p?.eventType == "WICKET" ? (
                   <Wicket>w</Wicket>
-                ) : p?.eventType == "four" ? (
+                ) : p?.eventType == "FOUR" ? (
                   <Four>4</Four>
+                ) : p?.eventType == "SIX" ? (
+                  <Four>6</Four>
                 ) : null}
                 {p?.overNum}
               </Event>
