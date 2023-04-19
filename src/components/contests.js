@@ -170,7 +170,15 @@ export const Contests = ({ players }) => {
           <>
             <Grid container justifyContent="space-between" alignItems="center">
               <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
-                <p>{match.teamHomeName}</p>
+                <p
+                  style={{
+                    height: "15px",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  {match.teamHomeName}
+                </p>
                 <p>
                   {matchLive.runFI}/{matchLive.wicketsFI}({matchLive.oversFI})
                 </p>
@@ -185,7 +193,16 @@ export const Contests = ({ players }) => {
                 {matchLive.result == "Yes" ? "Completed" : "In Play"}
               </Grid>
               <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
-                <p> {match.teamAwayName}</p>
+                <p
+                  style={{
+                    height: "15px",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  {" "}
+                  {match.teamAwayName}
+                </p>
                 <p>
                   {" "}
                   {matchLive.runSI}/{matchLive.wicketsSI}({matchLive.oversSI})

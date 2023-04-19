@@ -8,6 +8,7 @@ import Test from "./components/test";
 import Players from "./components/players";
 import CreateTeam from "./components/createteam";
 import CreateTeamNew from "./components/createnew";
+import Completed from "./components/completed";
 import Counter from "./components/counter";
 import {
   Routes,
@@ -67,6 +68,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/completed/:id" element={<Completed />} />
           <Route path="/players" element={<Players />} />
           <Route path="/createnew/:id" element={<CreateTeamNew />} />
           <Route path="/contests/:id" element={<Contests />} />
