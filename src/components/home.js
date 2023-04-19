@@ -373,6 +373,17 @@ export const Home = () => {
                       >
                         {u.away.code} vs {u.home.code}
                       </h5>
+                      <span
+                        style={{
+                          marginLeft: "90px",
+                          color: "#1ca14d",
+                          fontSize: "12px",
+                          fontWeight: "700",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        {u.lineups}
+                      </span>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
                       />
@@ -430,7 +441,6 @@ export const Home = () => {
                         </div>
                       </div>
                       <div className="icon">
-                        <span>{u.lineups}</span>
                         <PersonOutlineOutlinedIcon
                           style={{ color: "#595959", fontSize: "18px" }}
                         />
