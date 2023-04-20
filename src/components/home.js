@@ -170,7 +170,7 @@ export const Home = () => {
       <Navbar />
       {!loading ? (
         <div className="homecontainer">
-          <CricketBg id="section1">
+           {past?.length > 0 ? (<CricketBg id="section1">
             {past?.length > 0 ? (
               <>
                 <TopDiv>
@@ -300,7 +300,7 @@ export const Home = () => {
                 ))}
               </>
             ) : null}
-          </CricketBg>
+          </CricketBg>):null}
           <div className="matches">
             {live?.length > 0 ? (
               <>
