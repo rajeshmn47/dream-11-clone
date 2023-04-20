@@ -404,7 +404,7 @@ export const Home = () => {
                         <h5
                           className={u.result == "Yes" ? "completed" : "time"}
                         >
-                          {!(u.result === "Yes") ? (
+                          {!(u.result == "Yes") ? (
                             sameDayorNot(new Date(), new Date(u.date)) ||
                             isTommorrow(new Date(), new Date(u.date)) ? (
                               <div>
@@ -417,7 +417,7 @@ export const Home = () => {
                                     marginTop: "2px",
                                   }}
                                 >
-                                  {getDisplayDate(u.date, "i")}
+                                  {getDisplayDate(u.date, "i",date)}
                                 </p>
                               </div>
                             ) : (
