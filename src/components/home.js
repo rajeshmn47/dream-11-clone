@@ -417,7 +417,7 @@ export const Home = () => {
                                     marginTop: "2px",
                                   }}
                                 >
-                                  {getDisplayDate(u.date, "i",date)}
+                                  {getDisplayDate(u.date, "i", date)}
                                 </p>
                               </div>
                             ) : (
