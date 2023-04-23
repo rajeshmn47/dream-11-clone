@@ -140,7 +140,7 @@ export const Home = () => {
     async function getupcoming() {
       if (user?._id) {
         const data = await axios.get(`${URL}/home/${user._id}`);
-        const userdata = await axios.get(`${URL}/userdata`);
+        const userdata = await axios.get(`${URL}/getallusers`);
         console.log(data, "data");
         setLoading(true);
         setUpcoming(data.data.upcoming.results);
