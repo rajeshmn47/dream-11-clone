@@ -238,7 +238,7 @@ export const CreateTeam = () => {
           <NoPlayers container spacing={2}>
             <PlayersIndicator container spacing={2}>
               <Grid item xs={3} sm={3}>
-                Playersiooo
+                Players
                 <p>{players.filter((p) => p.isSelected).length}/11</p>
               </Grid>
               <Grid item xs={3} sm={3}>

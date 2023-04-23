@@ -159,7 +159,7 @@ export const Captain = ({ players }) => {
       isViceCaptain: false,
     }));
     setSelectedPlayers([...pl]);
-  }, []);
+  }, [players]);
   console.log(selectedPlayers, "select");
   const handleCaptain = (i) => {
     let op = players.map((p) => {
