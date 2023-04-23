@@ -177,7 +177,7 @@ export const Contests = ({ players }) => {
                     overflow: "hidden",
                   }}
                 >
-                  {match.teamHomeName}
+                  {matchLive.titleFI}
                 </p>
                 <p>
                   {matchLive.runFI}/{matchLive.wicketsFI}({matchLive.oversFI})
@@ -201,7 +201,7 @@ export const Contests = ({ players }) => {
                   }}
                 >
                   {" "}
-                  {match.teamAwayName}
+                  {matchLive.titleSI}
                 </p>
                 <p>
                   {" "}

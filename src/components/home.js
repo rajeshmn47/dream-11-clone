@@ -306,7 +306,7 @@ export const Home = () => {
           <div className="matches">
             {live?.length > 0 ? (
               <>
-                <h3>Live matches</h3>
+                <h3>Live Matches</h3>
                 {live.map((u) => (
                   <div
                     className="matchcontainer"
@@ -363,7 +363,7 @@ export const Home = () => {
           <div className="matches">
             {upcoming?.length > 0 ? (
               <>
-                <h3>Upcoming matches</h3>
+                <h3>Upcoming Matches</h3>
                 {upcoming.map((u) => (
                   <div
                     className="matchcontainer"

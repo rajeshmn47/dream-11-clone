@@ -3,16 +3,33 @@ import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Bottomnav = () => {
+  const { user, isAuthenticated, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname, "location");
   return (
     <>
       <div className="bottomnav">
-        <div style={{ color: "#C41E22" }}>
+        <div
+          onClick={() => navigate(`/`)}
+          className={location.pathname == `/` ? "selectedrt" : "notselectedrt"}
+        >
           <HomeOutlinedIcon style={{ fontSize: "22px" }} />
           Home
         </div>
-        <div>
+        <div
+          onClick={() => navigate(`/completed/${user?._id}`)}
+          className={
+            location.pathname == `/completed/${user._id}`
+              ? "selectedrt"
+              : "notselectedrt"
+          }
+        >
           <EmojiEventsOutlinedIcon style={{ fontSize: "22px" }} />
           My Matches
         </div>

@@ -170,8 +170,8 @@ export const ScoreCard = ({ data, g }) => {
                 <th>W</th>
                 <th>Eco</th>
               </tr>
-              {data?.teamHomePlayers?.length > 0 &&
-                data.teamHomePlayers.map((t) => (
+              {data?.teamAwayPlayers?.length > 0 &&
+                data.teamAwayPlayers.map((t) => (
                   <tr>
                     <Td style={{ textTransform: "capitalize" }}>
                       <Name>{t.playerName}</Name>
@@ -231,8 +231,8 @@ export const ScoreCard = ({ data, g }) => {
                 <th>6s</th>
                 <th>S/R</th>
               </tr>
-              {data?.teamHomePlayers?.length > 0 &&
-                data.teamHomePlayers.map((t) => (
+              {data?.teamAwayPlayers?.length > 0 &&
+                data.teamAwayPlayers.map((t) => (
                   <tr>
                     <Td style={{ textTransform: "capitalize" }}>
                       <Name>{t.playerName}</Name>
@@ -254,8 +254,8 @@ export const ScoreCard = ({ data, g }) => {
                 <th>W</th>
                 <th>Eco</th>
               </tr>
-              {data?.teamAwayPlayers?.length > 0 &&
-                data.teamAwayPlayers.map((t) => (
+              {data?.teamHomePlayers?.length > 0 &&
+                data.teamHomePlayers.map((t) => (
                   <tr>
                     <Td style={{ textTransform: "capitalize" }}>
                       <Name>{t.playerName}</Name>
