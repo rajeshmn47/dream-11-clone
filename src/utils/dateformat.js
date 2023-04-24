@@ -62,7 +62,7 @@ export function isTommorrow(a, b) {
 
 export function hoursRemaining(date, i, d) {
   console.log(date, i, d, "yui");
-  let a = new Date(d?.getTime() + 5 * 60 * 60 * 1000);
+  let a = new Date(d?.getTime());
   let b = new Date(date);
   let c = Math.floor(
     b.getTime() / (60 * 60 * 1000) - a.getTime() / (60 * 60 * 1000)
@@ -80,11 +80,12 @@ export function hoursRemaining(date, i, d) {
     return s ? `${c}h ${e}m` : null;
   } else {
     let diff = z % (1000 * 60 * 60);
-    var min = Math.floor(diff / (1000 * 60));
+    var mi=(diff*60).toString().split('.')[0]
+    var min = Math.floor(diff / (  60));
     diff = diff % (1000 * 60);
     var sec = new Date(d).getSeconds(Math.floor(diff / 1000));
     diff = diff % 1000;
-    return `${min}m ${sec}s`;
+    return `${mi}m ${sec}s`;
   }
 }
 

@@ -228,7 +228,7 @@ export const SavedTeam = () => {
     return a && b;
   };
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {players ? (
         <Container>
           <div
