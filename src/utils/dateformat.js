@@ -83,7 +83,7 @@ export function hoursRemaining(date, i, d) {
     var mi=(diff*60).toString().split('.')[0]
     var min = Math.floor(diff / (  60));
     diff = diff % (1000 * 60);
-    var sec = new Date(d).getSeconds(Math.floor(diff / 1000));
+    var sec = 60-(new Date(d).getSeconds(Math.floor(diff / 1000)));
     diff = diff % 1000;
     return `${mi}m ${sec}s`;
   }
