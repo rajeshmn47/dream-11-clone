@@ -11,6 +11,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
 import { login } from "../actions/userAction";
+import styled from "@emotion/styled";
+
+const Err=styled.p`
+color:red;`
 
 export const Login = () => {
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -102,6 +106,7 @@ export const Login = () => {
             >
               Log in
             </Button>
+      {error&& <Err>{error}</Err>}
           </form>
           Forgot Password
           <Link to="/register">Dont have a account?Sign up</Link>
