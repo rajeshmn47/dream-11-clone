@@ -52,6 +52,18 @@ export const login = (myform) => async (dispatch) => {
   }
 };
 
+export const forgot = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: LOGIN_REQUEST });
+    const { data } = await axios.get(`${URL}/auth/forgot-password/${email}`);
+    localStorage.setItem("token", data.token);
+    dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+  } catch (error) {
+    console.log(error.response, "asdfgh");
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  }
+};
+
 export const logout = () => async (dispatch) => {
   try {
     localStorage.removeItem("token");

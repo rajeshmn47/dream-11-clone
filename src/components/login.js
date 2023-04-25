@@ -47,7 +47,7 @@ export const Login = () => {
 
       <div className="register">
         <Paper style={{ padding: "2vh 2vw" }}>
-          <h5>LOG IN & PLAY</h5>
+          <h5 style={{ marginBottom: "10px" }}>LOG IN & PLAY</h5>
           <div
             style={{
               display: "flex",
@@ -109,7 +109,7 @@ export const Login = () => {
             </Button>
             {error && <Err>{error}</Err>}
           </form>
-          Forgot Password
+          <Link to="/forgot-password">forgot password</Link>
           <Link to="/register">Dont have a account?Sign up</Link>
         </Paper>
       </div>

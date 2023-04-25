@@ -11,7 +11,16 @@ const Err = styled.p`
   color: red;
 `;
 
-export const Otp = ({ open, setOpen, otp, setOtp, handleotp, err }) => {
+export const NewPassword = ({
+  open,
+  setOpen,
+  password,
+  setPassword,
+  confirmPassword,
+  setConfirmPassword,
+  handlenewPassword,
+  err,
+}) => {
   const toggleDrawer = () => {
     console.log("rajesh");
     setOpen(false);
@@ -43,19 +52,25 @@ export const Otp = ({ open, setOpen, otp, setOtp, handleotp, err }) => {
         >
           <Paper style={{ padding: "5vh 2vw", width: "90%", height: "30%" }}>
             <TextField
-              placeholder="enter otp you recieved on your mail"
+              placeholder="enter password"
               variant="standard"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              placeholder="confirm your password"
+              variant="standard"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Button
               variant="contained"
               type="submit"
               disableElevation
               style={{ backgroundColor: "#24B937" }}
-              onClick={() => handleotp()}
+              onClick={() => handlenewPassword()}
             >
-              Confirm otp
+              submit
             </Button>
             {err && <Err>{err}</Err>}
           </Paper>
@@ -65,4 +80,4 @@ export const Otp = ({ open, setOpen, otp, setOtp, handleotp, err }) => {
   );
 };
 
-export default Otp;
+export default NewPassword;

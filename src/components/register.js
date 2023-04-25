@@ -9,12 +9,18 @@ import axios from "axios";
 import { useState, react } from "react";
 import { URL } from "../constants/userConstants";
 import Otp from "./otp";
+import styled from "@emotion/styled";
+
+const Err = styled.p`
+  color: red;
+`;
 
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
@@ -30,7 +36,12 @@ export const Register = () => {
       password: password,
     });
     console.log(data);
-    setOpen(true);
+    if (data.data.success) {
+      setErr(data.data.message);
+      setOpen(true);
+    } else {
+      setErr(data.data.message);
+    }
   };
 
   const handleotp = async () => {
@@ -41,7 +52,8 @@ export const Register = () => {
       password: password,
       otp: otp,
     });
-    console.log(data);
+    console.log(data.data.message);
+    setErr(data.data.message);
   };
   return (
     <>
@@ -94,7 +106,8 @@ export const Register = () => {
               Register
             </Button>
           </form>
-          forgot password
+          {err && <Err>{err}</Err>}
+          <Link to="/forgot-password">forgot password</Link>
         </Paper>
         <Link to="/login">Aleady a user?Log in</Link>
       </div>
@@ -104,6 +117,7 @@ export const Register = () => {
         otp={otp}
         setOtp={setOtp}
         handleotp={handleotp}
+        err={err}
       />
     </>
   );

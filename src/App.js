@@ -26,6 +26,7 @@ import Contests from "./components/contests";
 import ContestDetail from "./components/contestdetail";
 import JoinedContests from "./components/joinedcontests";
 import Navbar from "./components/navbar";
+import { ForgotPassword } from "./components/forget-password";
 
 function App() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ function App() {
           <Route path="/players" element={<Players />} />
           <Route path="/createnew/:id" element={<CreateTeamNew />} />
           <Route path="/contests/:id" element={<Contests />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/savedteam/:id" element={<SavedTeam />} />
           <Route path="/contestdetail/:id" element={<ContestDetail />} />
           <Route path="/joined" element={<JoinedContests />} />

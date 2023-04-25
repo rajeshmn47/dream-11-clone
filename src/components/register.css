@@ -26,6 +26,15 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.forgotform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .registertopbar {
   background-color: #c41e22;
   color: #ffffff;
