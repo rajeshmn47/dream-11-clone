@@ -3,7 +3,7 @@
   padding: 2vh 2vw;
   box-sizing: border-box;
   text-align: center;
-  height: 90vh;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   padding: 2vh 2vw;
   box-sizing: border-box;
   text-align: center;
-  height: 90vh;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,7 +21,7 @@
   padding: 2vh 2vw;
   box-sizing: border-box;
   text-align: center;
-  height: 30vh;
+  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,9 +51,10 @@
 .MuiPaper-root {
   display: flex;
   flex-direction: column;
-  height: 60vh;
+  height: 320px;
   justify-content: space-between;
   padding: 0;
   box-sizing: border-box;
   text-align: center;
+  margin-bottom: 15px;
 }
