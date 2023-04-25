@@ -38,12 +38,12 @@ export const register = (myform) => async (dispatch) => {
 
 export const login = (myform) => async (dispatch) => {
   try {
-    console.log(myform,'huccha');
+    console.log(myform, "huccha");
     dispatch({ type: LOGIN_REQUEST });
     const { data } = await axios.post(`${URL}/auth/login`, {
       myform,
     });
-    console.log(data,'hucchi');
+    console.log(data, "hucchi");
     localStorage.setItem("token", data.token);
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
