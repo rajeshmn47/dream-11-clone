@@ -266,7 +266,7 @@ export const Home = () => {
                       </div>
                       <div
                         className="bottom"
-                        style={{ position: "relative", padding: "6px 10px" }}
+                        style={{ position: "relative", padding: "6px 10px" ,fontSize: '12px'}}
                       >
                         <div
                           style={{
@@ -281,13 +281,16 @@ export const Home = () => {
                               className=""
                               style={{
                                 textTransform: "capitalize",
-                                fontSize: "14px",
+                                fontSize: "12px",
                               }}
                             >
                               {u.teams.length} teams
                             </h5>
                           )}
-                          <div className="meg">
+                          <div className="meg"   style={{
+                                textTransform: "capitalize",
+                                fontSize: "12px",
+                              }}>
                             {u.contests.length > 0 && (
                               <h5>{u.contests.length} contests</h5>
                             )}
