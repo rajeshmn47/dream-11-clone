@@ -115,6 +115,8 @@ const TopDiv = styled.div`
 const ViewAll = styled(Button)`
   color: #ffffff;
   text-transform: capitalize;
+  font-weight: 800;
+  font-size: 18px;
 `;
 export const Home = () => {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
