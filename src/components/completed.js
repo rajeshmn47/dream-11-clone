@@ -95,7 +95,7 @@ const Top = styled.div`
   color: #595959;
   align-items: center;
   border-bottom: 1px solid rgba(170, 170, 170, 0.15);
-  padding: 5px 20px;
+  padding: 5px 15px;
   background-color: #ffffff;
 `;
 
