@@ -27,6 +27,7 @@ import ContestDetail from "./components/contestdetail";
 import JoinedContests from "./components/joinedcontests";
 import Navbar from "./components/navbar";
 import { ForgotPassword } from "./components/forget-password";
+import Payment from "./components/payment";
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ function App() {
           <Route path="/joined" element={<JoinedContests />} />
           <Route path="/test" element={<Test />} />
           <Route path="/counter" element={<Counter />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

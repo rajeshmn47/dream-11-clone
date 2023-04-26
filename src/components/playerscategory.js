@@ -138,6 +138,15 @@ const RemoveButton = styled.button`
   margin-right: 15px;
   cursor: pointer;
 `;
+
+const NoLineups=styled.h3`
+color:#ec1801;
+padding: 0 10px;
+text-align:center;
+height: 100px;
+margin-top: 15px;
+`
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -312,7 +321,8 @@ export default function CategoryTabs({
                       )}
                     </EachPlayer>
                   ))
-              : null}
+              : <NoLineups>
+              Lineups not out yet,check 30 minutes before the game</NoLineups>}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -349,7 +359,8 @@ export default function CategoryTabs({
                       )}
                     </EachPlayer>
                   ))
-              : null}
+              : <NoLineups>
+              Lineups not out yet,check 30 minutes before the game</NoLineups>}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -386,7 +397,8 @@ export default function CategoryTabs({
                       )}
                     </EachPlayer>
                   ))
-              : null}
+              : <NoLineups>
+              Lineups not out yet,check 30 minutes before the game</NoLineups>}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={3}>
@@ -423,7 +435,8 @@ export default function CategoryTabs({
                       )}
                     </EachPlayer>
                   ))
-              : null}
+              :<NoLineups>
+              Lineups not out yet,check 30 minutes before the game</NoLineups>}
           </PlayersList>
         </TabPanel>
       </Box>

@@ -144,7 +144,7 @@ export const Navbar = () => {
           <p>total balance</p>
           <h5>₹ {user && user.wallet}</h5>
         </DeatilTop>
-        <AddButton>add cash</AddButton>
+        <AddButton onClick={() => navigate("/payment")}>add cash</AddButton>
         <Deatil>
           <p>Amount added</p>
           <h5>₹ 0</h5>

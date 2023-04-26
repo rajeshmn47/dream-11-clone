@@ -121,6 +121,10 @@ const NextButton = styled.button`
   z-index: 1000000000000000000000000;
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
 `;
+
+const NoLineups=styled.h3`
+color:#ec1801;
+`
 export const CreateTeam = () => {
   const PlayersNumber = new Array(11).fill(null);
   const [TeamArray, setTeamArray] = useState(new Array(11).fill(null));
@@ -227,7 +231,8 @@ export const CreateTeam = () => {
                     )}
                   </EachPlayer>
                 ))
-              : null}
+              : <NoLineups>
+                Lineups not out yet,check 30 minutes before the game</NoLineups>}
           </PlayersList>
           <NextButtonContainer>
             <NextButton
