@@ -394,17 +394,15 @@ export const Home = () => {
                       >
                         {u.away.code} vs {u.home.code}
                       </h5>
-                      <span
+                      <h5
                         style={{
                           marginLeft: "90px",
-                          color: "#1ca14d",
-                          fontSize: "12px",
-                          fontWeight: "700",
+                          color: "rgb(31, 169, 81)",
                           fontFamily: "Montserrat",
                         }}
                       >
                         {u.lineups}
-                      </span>
+                      </h5>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
                       />
