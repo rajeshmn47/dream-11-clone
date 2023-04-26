@@ -241,7 +241,7 @@ export const Completed = () => {
                     </div>
                     <div
                       className="bottom"
-                      style={{ position: "relative", padding: "6px 10px" }}
+                      style={{ position: "relative", padding: "6px 15px" }}
                     >
                       <div
                         style={{
