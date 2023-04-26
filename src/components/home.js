@@ -95,7 +95,7 @@ const Top = styled.div`
   color: #595959;
   align-items: center;
   border-bottom: 1px solid rgba(170, 170, 170, 0.15);
-  padding: 5px 20px;
+  padding: 5px 15px;
   background-color: #ffffff;
 `;
 
@@ -266,7 +266,11 @@ export const Home = () => {
                       </div>
                       <div
                         className="bottom"
-                        style={{ position: "relative", padding: "6px 10px" ,fontSize: '12px'}}
+                        style={{
+                          position: "relative",
+                          padding: "6px 15px",
+                          fontSize: "12px",
+                        }}
                       >
                         <div
                           style={{
@@ -287,10 +291,13 @@ export const Home = () => {
                               {u.teams.length} teams
                             </h5>
                           )}
-                          <div className="meg"   style={{
-                                textTransform: "capitalize",
-                                fontSize: "12px",
-                              }}>
+                          <div
+                            className="meg"
+                            style={{
+                              textTransform: "capitalize",
+                              fontSize: "12px",
+                            }}
+                          >
                             {u.contests.length > 0 && (
                               <h5>{u.contests.length} contests</h5>
                             )}

@@ -32,7 +32,7 @@ const Top = styled.div`
   width: 100%;
   padding: 15px 0;
   position: fixed;
-  height: 140px;
+  height: 50px;
   top: 0;
   left: 0;
 `;
@@ -77,7 +77,7 @@ const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   width: 100%;
   margin: 0 0;
-  margin-top: 160px !important;
+  margin-top: 70px !important;
   cursor: pointer;
 `;
 const Contest = styled.div`
