@@ -11,7 +11,7 @@ import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import SelectTeam from "./selectteam";
-import ConfirmModal from "./confirmcon";
+import ConfirmModal from "./confirmcontest";
 import BaseTab from "./tabsdata";
 import SavedTeam from "./savedteam";
 import axios from "axios";
