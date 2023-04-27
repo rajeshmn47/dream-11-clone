@@ -154,6 +154,7 @@ export const Cron = () => {
   const [save, setSave] = useState(false);
   useEffect(() => {
   async function getcron(){
+    await axios.get(`${URL}/addlivedetails`)
     await axios.get(`${URL}/addlivescore`)
     await axios.get(`${URL}/updateteams`)
   }
