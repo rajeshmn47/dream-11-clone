@@ -1,4 +1,6 @@
 import logo from "./logo.svg";
+import axios from "axios";
+import { URL } from "./constants/userConstants";
 import "./App.css";
 import Register from "./components/register";
 import Login from "./components/login";
@@ -59,6 +61,12 @@ function App() {
   );
   useEffect(() => {
     dispatch(loadUser());
+    async function add_data(){
+    await axios.get(`${URL}/addlivedetails`)
+    await axios.get(`${URL}/addlivescore`)
+    await axios.get(`${URL}/updateteams`)
+    }
+    add_data()
     console.log(user, "or,and");
   }, [dispatch]);
   useEffect(() => {
