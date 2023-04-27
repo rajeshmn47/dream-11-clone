@@ -118,6 +118,11 @@ const ViewAll = styled(Button)`
   font-weight: 800;
   font-size: 18px;
 `;
+
+const Spanner=styled.div`
+width: 20px;
+height: 5px;
+`
 export const Home = () => {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   console.log(user, "user");
@@ -347,7 +352,10 @@ export const Home = () => {
                           <img src={u.teamAwayFlagUrl} alt="" width="40" />
                           <h5>{u.away.code}</h5>
                         </div>
+                        <div>
                         <h5 className={"completed"}>live</h5>
+                        <Spanner></Spanner>
+                        </div>
                         <div className="matchrights">
                           <h5> {u.home.code}</h5>
                           <img src={u.teamHomeFlagUrl} alt="" width="40" />
