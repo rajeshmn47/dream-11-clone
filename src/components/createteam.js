@@ -122,9 +122,9 @@ const NextButton = styled.button`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
 `;
 
-const NoLineups=styled.h3`
-color:#ec1801;
-`
+const NoLineups = styled.h3`
+  color: #ec1801;
+`;
 export const CreateTeam = () => {
   const PlayersNumber = new Array(11).fill(null);
   const [TeamArray, setTeamArray] = useState(new Array(11).fill(null));
@@ -201,38 +201,41 @@ export const CreateTeam = () => {
                 ))}
           </NoPlayers>
           <PlayersList>
-            {players.length > 0
-              ? players.map((p) => (
-                  <EachPlayer
-                    className={p.isSelected ? "selected" : "notselected"}
-                  >
-                    <img src={p.image} alt="" />
-                    <h1>{p.playerName}</h1>
-                    {p.isSelected ? (
-                      <RemoveButton onClick={() => handleRemove(p._id)}>
-                        <RemoveCircleOutlineRoundedIcon />
-                      </RemoveButton>
-                    ) : (
-                      <AddButton
-                        onClick={() => handleClick(p._id)}
-                        disabled={
-                          players.filter((k) => k.isSelected === true).length >=
-                          11
-                        }
-                        className={
-                          players.filter((k) => k.isSelected === true).length >=
-                          11
-                            ? "disabled"
-                            : "notdisabled"
-                        }
-                      >
-                        <AddCircleOutlineRoundedIcon />
-                      </AddButton>
-                    )}
-                  </EachPlayer>
-                ))
-              : <NoLineups>
-                Lineups not out yet,check 30 minutes before the game</NoLineups>}
+            {players.length > 0 ? (
+              players.map((p) => (
+                <EachPlayer
+                  className={p.isSelected ? "selected" : "notselected"}
+                >
+                  <img src={p.image} alt="" />
+                  <h1>{p.playerName}</h1>
+                  {p.isSelected ? (
+                    <RemoveButton onClick={() => handleRemove(p._id)}>
+                      <RemoveCircleOutlineRoundedIcon />
+                    </RemoveButton>
+                  ) : (
+                    <AddButton
+                      onClick={() => handleClick(p._id)}
+                      disabled={
+                        players.filter((k) => k.isSelected === true).length >=
+                        11
+                      }
+                      className={
+                        players.filter((k) => k.isSelected === true).length >=
+                        11
+                          ? "disabled"
+                          : "notdisabled"
+                      }
+                    >
+                      <AddCircleOutlineRoundedIcon />
+                    </AddButton>
+                  )}
+                </EachPlayer>
+              ))
+            ) : (
+              <NoLineups>
+                Lineups not out yet,check 30 minutes before the game
+              </NoLineups>
+            )}
           </PlayersList>
           <NextButtonContainer>
             <NextButton

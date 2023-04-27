@@ -139,13 +139,13 @@ const RemoveButton = styled.button`
   cursor: pointer;
 `;
 
-const NoLineups=styled.h3`
-color:#ec1801;
-padding: 0 10px;
-text-align:center;
-height: 100px;
-margin-top: 15px;
-`
+const NoLineups = styled.h3`
+  color: #ec1801;
+  padding: 0 10px;
+  text-align: center;
+  height: 100px;
+  margin-top: 15px;
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -289,154 +289,166 @@ export default function CategoryTabs({
         </Box>
         <TabPanel value={value} index={0}>
           <PlayersList>
-            {players.length > 0
-              ? players
-                  .filter((p) => p.position === "wicketkeeper")
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <img src={p.image} alt="" />
-                      <h1>{p.playerName}</h1>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
-                        >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              : <NoLineups>
-              Lineups not out yet,check 30 minutes before the game</NoLineups>}
+            {players.length > 0 ? (
+              players
+                .filter((p) => p.position === "wicketkeeper")
+                .map((p) => (
+                  <EachPlayer
+                    className={p.isSelected ? "selected" : "notselected"}
+                  >
+                    <img src={p.image} alt="" />
+                    <h1>{p.playerName}</h1>
+                    {p.isSelected ? (
+                      <RemoveButton onClick={() => handleRemove(p._id)}>
+                        <RemoveCircleOutlineRoundedIcon />
+                      </RemoveButton>
+                    ) : (
+                      <AddButton
+                        onClick={() => handleClick(p._id)}
+                        disabled={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                        }
+                        className={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                            ? "disabled"
+                            : "notdisabled"
+                        }
+                      >
+                        <AddCircleOutlineRoundedIcon />
+                      </AddButton>
+                    )}
+                  </EachPlayer>
+                ))
+            ) : (
+              <NoLineups>
+                Lineups not out yet,check 30 minutes before the game
+              </NoLineups>
+            )}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PlayersList>
-            {players.length > 0
-              ? players
-                  .filter((p) => p.position === "batsman")
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <img src={p.image} alt="" />
-                      <h1>{p.playerName}</h1>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
-                        >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              : <NoLineups>
-              Lineups not out yet,check 30 minutes before the game</NoLineups>}
+            {players.length > 0 ? (
+              players
+                .filter((p) => p.position === "batsman")
+                .map((p) => (
+                  <EachPlayer
+                    className={p.isSelected ? "selected" : "notselected"}
+                  >
+                    <img src={p.image} alt="" />
+                    <h1>{p.playerName}</h1>
+                    {p.isSelected ? (
+                      <RemoveButton onClick={() => handleRemove(p._id)}>
+                        <RemoveCircleOutlineRoundedIcon />
+                      </RemoveButton>
+                    ) : (
+                      <AddButton
+                        onClick={() => handleClick(p._id)}
+                        disabled={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                        }
+                        className={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                            ? "disabled"
+                            : "notdisabled"
+                        }
+                      >
+                        <AddCircleOutlineRoundedIcon />
+                      </AddButton>
+                    )}
+                  </EachPlayer>
+                ))
+            ) : (
+              <NoLineups>
+                Lineups not out yet,check 30 minutes before the game
+              </NoLineups>
+            )}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={2}>
           <PlayersList>
-            {players.length > 0
-              ? players
-                  .filter((p) => p.position === "allrounder")
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <img src={p.image} alt="" />
-                      <h1>{p.playerName}</h1>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
-                        >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              : <NoLineups>
-              Lineups not out yet,check 30 minutes before the game</NoLineups>}
+            {players.length > 0 ? (
+              players
+                .filter((p) => p.position === "allrounder")
+                .map((p) => (
+                  <EachPlayer
+                    className={p.isSelected ? "selected" : "notselected"}
+                  >
+                    <img src={p.image} alt="" />
+                    <h1>{p.playerName}</h1>
+                    {p.isSelected ? (
+                      <RemoveButton onClick={() => handleRemove(p._id)}>
+                        <RemoveCircleOutlineRoundedIcon />
+                      </RemoveButton>
+                    ) : (
+                      <AddButton
+                        onClick={() => handleClick(p._id)}
+                        disabled={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                        }
+                        className={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                            ? "disabled"
+                            : "notdisabled"
+                        }
+                      >
+                        <AddCircleOutlineRoundedIcon />
+                      </AddButton>
+                    )}
+                  </EachPlayer>
+                ))
+            ) : (
+              <NoLineups>
+                Lineups not out yet,check 30 minutes before the game
+              </NoLineups>
+            )}
           </PlayersList>
         </TabPanel>
         <TabPanel value={value} index={3}>
           <PlayersList>
-            {players.length > 0
-              ? players
-                  .filter((p) => p.position === "bowler")
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <img src={p.image} alt="" />
-                      <h1>{p.playerName}</h1>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
-                        >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              :<NoLineups>
-              Lineups not out yet,check 30 minutes before the game</NoLineups>}
+            {players.length > 0 ? (
+              players
+                .filter((p) => p.position === "bowler")
+                .map((p) => (
+                  <EachPlayer
+                    className={p.isSelected ? "selected" : "notselected"}
+                  >
+                    <img src={p.image} alt="" />
+                    <h1>{p.playerName}</h1>
+                    {p.isSelected ? (
+                      <RemoveButton onClick={() => handleRemove(p._id)}>
+                        <RemoveCircleOutlineRoundedIcon />
+                      </RemoveButton>
+                    ) : (
+                      <AddButton
+                        onClick={() => handleClick(p._id)}
+                        disabled={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                        }
+                        className={
+                          players.filter((k) => k.isSelected === true).length >=
+                          11
+                            ? "disabled"
+                            : "notdisabled"
+                        }
+                      >
+                        <AddCircleOutlineRoundedIcon />
+                      </AddButton>
+                    )}
+                  </EachPlayer>
+                ))
+            ) : (
+              <NoLineups>
+                Lineups not out yet,check 30 minutes before the game
+              </NoLineups>
+            )}
           </PlayersList>
         </TabPanel>
       </Box>

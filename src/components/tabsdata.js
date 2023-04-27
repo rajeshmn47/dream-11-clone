@@ -262,7 +262,7 @@ export default function BasicTabs({ contest, teams }) {
 
             {teams.length > 0 &&
               teams
-                .sort((a, b) => a.points - b.points)
+                .sort((a, b) => b._doc.points - a._doc.points)
                 .map((f, index) => (
                   <tr
                     className={f._doc.userId === user._id ? "selected" : ""}

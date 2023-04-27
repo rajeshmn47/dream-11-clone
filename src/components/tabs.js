@@ -57,7 +57,7 @@ const Contest = styled.div`
 `;
 
 const ContestJ = styled.div`
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 5px;
   .MuiSlider-thumb {
     display: none !important;
@@ -110,7 +110,7 @@ const Last = styled.div`
 
 const LastJ = styled.div`
   background-color: #f6f6f6;
-  padding: 10px 10px;
+  padding: 10px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -263,25 +263,25 @@ export default function BasicTabs({ tabs, id, g }) {
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
         const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
-        console.log(matchdat.data.match, id, "matchdata");
+        console.log(data, id, "matchdata");
         setMatchdata(matchdat.data.match);
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
-        setTeam(data.data.team);
+        console.log(contest, id, user._id, team, "contest");
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
         setContest([...joinedC.data.contests]);
+        setTeam([...data.data.team]);
       }
     }
     getplayers();
   }, [user, id]);
-  console.log(contest, "contest");
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
-        `${URL}/getteamsofcontest/${contest[0]._id}`
+        `${URL}/getteamsofcontest/${contest[0]?._id}`
       );
       setLeaderboard(teamdata.data.teams);
     }
@@ -492,6 +492,11 @@ export default function BasicTabs({ tabs, id, g }) {
                       <First>
                         <p>Contests</p>
                         <p>{tab?.contests?.totalSpots} spots</p>
+                        <h5
+                          style={{ color: "#008a36", fontFamily: "OpenSans" }}
+                        >
+                          u won {tab?.team.won}rs!
+                        </h5>
                       </First>
                     </ContestJ>
                     <LastJ>

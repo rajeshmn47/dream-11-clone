@@ -152,7 +152,8 @@ export const ContestDetail = () => {
       console.log(contestdata, "contest");
       setContest(contestdata.data.contest);
       setMatch(teamdata.data.match);
-      setLeaderboard(teamdata.data.teams);
+      let t = teamdata.data.teams.sort((a, b) => a.points - b.points);
+      setLeaderboard([...t]);
     }
     getteams();
   }, [id]);

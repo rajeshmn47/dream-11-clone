@@ -269,6 +269,9 @@ export const Completed = () => {
                         </div>
                       </div>
                       <div className="icon">
+                        <h5 style={{ marginRight: "10px", color: "#1ca14d" }}>
+                          u won {u.won}rs !
+                        </h5>
                         <PersonOutlineOutlinedIcon
                           style={{ color: "#595959", fontSize: "18px" }}
                         />
