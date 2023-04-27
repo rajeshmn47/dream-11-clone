@@ -142,6 +142,7 @@ function Payment() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="amount to be added"
+          size="small"
         />
         <button
           className="paybtn"
