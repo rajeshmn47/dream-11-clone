@@ -9,7 +9,7 @@ I created a clone of DREAM 11 It has various features like
 <p>7)winning the prize money of the joined contest...</p>
 
 <p>
-<img src="https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png" width="328"  height="600"  style="margin-right: 30px"/>
+<img src="https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png" width="328"  height="600"  style="margin-right: 90px"/>
 <img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="328"   height="600"  style="margin-right: 30px"/>
 </p>
 <p>
