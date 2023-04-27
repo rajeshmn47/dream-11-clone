@@ -8,7 +8,6 @@ I created a clone of DREAM 11 It has various features like
 <p>6)leaderboard</p>
 <p>7)winning the prize money of the joined contest...</p>
 
-![Screen Shot 2023-04-24 at 18 12 30](https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png)
 <img src="https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png" width="128"/>
 
 ![homescreen](https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png)
