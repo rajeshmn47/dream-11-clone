@@ -61,12 +61,6 @@ function App() {
   );
   useEffect(() => {
     dispatch(loadUser());
-    async function add_data(){
-    await axios.get(`${URL}/addlivedetails`)
-    await axios.get(`${URL}/addlivescore`)
-    await axios.get(`${URL}/updateteams`)
-    }
-    add_data()
     console.log(user, "or,and");
   }, [dispatch]);
   useEffect(() => {
