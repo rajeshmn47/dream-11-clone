@@ -9,23 +9,23 @@ I created a clone of DREAM 11 It has various features like
 <p>7)winning the prize money of the joined contest...</p>
 
 <p>
-<img src="https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png" width="328"  height="600"  style="margin-right: 90px"/>
+<img src="https://user-images.githubusercontent.com/24763499/233999758-f503f51c-4d99-4e22-9e25-69a5a12978c8.png" width="398"  height="600"  style="margin-right: 90px"/>
  <span><img src="./aligner.png" height=50 width=150 /></span> 
-<img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="328"   height="600"  style="margin-right: 30px"/>
+<img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="398"   height="600"  style="margin-right: 30px"/>
 </p>
 
 
 <p>
-<img src="https://user-images.githubusercontent.com/24763499/231621706-ea780be6-bc6f-4dc6-9dd8-577d7c49f9c7.png" width="328"   height="600" style="margin-right: 90px"/>
+<img src="https://user-images.githubusercontent.com/24763499/231621706-ea780be6-bc6f-4dc6-9dd8-577d7c49f9c7.png" width="398"   height="600" style="margin-right: 90px"/>
  <span><img src="./aligner.png" height=50 width=150 /></span> 
-<img src="https://user-images.githubusercontent.com/24763499/212312487-4f49ee29-d0ec-422b-9dc2-8bb918dc6614.png" width="328"  height="500"/>
+<img src="https://user-images.githubusercontent.com/24763499/212312487-4f49ee29-d0ec-422b-9dc2-8bb918dc6614.png" width="398"  height="500"/>
 </p>
 
 
 <p>
-<img src="https://user-images.githubusercontent.com/24763499/231621529-85eda44e-cdf7-428d-a565-741ce34d9425.png" width="328"   height="500"/>
+<img src="https://user-images.githubusercontent.com/24763499/231621529-85eda44e-cdf7-428d-a565-741ce34d9425.png" width="398"   height="500"/>
  <span><img src="./aligner.png" height=50 width=150 /></span> 
-<img src="https://user-images.githubusercontent.com/24763499/212457726-7fe157ba-01b6-4669-acca-8413c2194cc0.png" width="328"   height="500"/>
+<img src="https://user-images.githubusercontent.com/24763499/212457726-7fe157ba-01b6-4669-acca-8413c2194cc0.png" width="398"   height="500"/>
 </p>
 
 
