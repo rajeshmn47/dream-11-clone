@@ -82,7 +82,7 @@ function App() {
           <Route path="/contestdetail/:id" element={<ContestDetail />} />
           <Route path="/joined" element={<JoinedContests />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/cron" element={<Cron/>} />
+          <Route path="/cron" element={<Cron />} />
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
         </Routes>

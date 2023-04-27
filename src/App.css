@@ -48,3 +48,13 @@
 .notselectedrt {
   cursor: pointer;
 }
+.paybtn {
+  background-color: #c41e22;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  height: 35px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: 600;
+}

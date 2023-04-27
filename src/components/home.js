@@ -355,11 +355,13 @@ export const Home = () => {
                         </div>
                         <div
                           style={{
-                          width:'40px',
-                          textAlign:'center'
+                            width: "40px",
+                            textAlign: "center",
                           }}
                         >
-                          <h5 style={{color:'#1ca14d',marginBottom:'3px'}}>live</h5>
+                          <h5 style={{ color: "#1ca14d", marginBottom: "3px" }}>
+                            live
+                          </h5>
                           <LinearProgress color="success" />
                         </div>
                         <div className="matchrights">

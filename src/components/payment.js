@@ -31,10 +31,13 @@ const Logo = styled.div`
 `;
 
 const Title = styled.p`
-  font-size: 32px;
+  font-size: 20px;
   font-weight: 600;
   color: #282c3f;
+  text-align:center;
+  margin-bottom: 5px;
 `;
+
 
 const Wallet = styled.img`
   height: 50px;
@@ -55,6 +58,13 @@ const WarningText = styled.p`
   padding-right: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  margin-top: 50px;
 `;
 
 function Payment() {
@@ -126,8 +136,13 @@ function Payment() {
 
   return (
     <>
-      <>
-        <TextField value={amount} onChange={(e) => setAmount(e.target.value)} />
+      <Container>
+        <Title>Add Amount</Title>
+        <TextField
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="amount to be added"
+        />
         <button
           className="paybtn"
           onClick={handlePayment}
@@ -135,7 +150,7 @@ function Payment() {
         >
           Pay
         </button>
-      </>
+      </Container>
     </>
   );
 }
