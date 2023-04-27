@@ -19,8 +19,11 @@ I created a clone of DREAM 11 It has various features like
 <img src="https://user-images.githubusercontent.com/24763499/231621529-85eda44e-cdf7-428d-a565-741ce34d9425.png" width="328"   height="500"/>
 <img src="https://user-images.githubusercontent.com/24763499/212457726-7fe157ba-01b6-4669-acca-8413c2194cc0.png" width="328"   height="500"/>
 </p>
-
+<p>
 <img src="https://user-images.githubusercontent.com/24763499/212457733-cd239d1a-fd45-4189-aac4-bc8d28e73a62.png"  width="328"  height="500"/>
+<img src="https://user-images.githubusercontent.com/24763499/210806922-a0b21cdc-c444-4e27-ab84-e1e7ebbfc3ca.png"  width="328"  height="500"/>
+<img src="https://user-images.githubusercontent.com/24763499/210806961-5d84176a-8738-46f4-ae70-f80d771f6401.png"  width="328"  height="500"/>
+</>
 
 ![Screenshot from 2023-01-05 20-14-42](https://user-images.githubusercontent.com/24763499/210806922-a0b21cdc-c444-4e27-ab84-e1e7ebbfc3ca.png)
 ![Screenshot from 2023-01-05 20-14-34](https://user-images.githubusercontent.com/24763499/210806961-5d84176a-8738-46f4-ae70-f80d771f6401.png)
