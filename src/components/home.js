@@ -9,6 +9,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Button, Drawer } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "./home.css";
@@ -119,10 +120,10 @@ const ViewAll = styled(Button)`
   font-size: 18px;
 `;
 
-const Spanner=styled.div`
-width: 20px;
-height: 5px;
-`
+const Spanner = styled.div`
+  width: 20px;
+  height: 5px;
+`;
 export const Home = () => {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   console.log(user, "user");
@@ -352,9 +353,14 @@ export const Home = () => {
                           <img src={u.teamAwayFlagUrl} alt="" width="40" />
                           <h5>{u.away.code}</h5>
                         </div>
-                        <div>
-                        <h5 className={"completed"}>live</h5>
-                        <Spanner></Spanner>
+                        <div
+                          style={{
+                          width:'40px',
+                          textAlign:'center'
+                          }}
+                        >
+                          <h5 style={{color:'#1ca14d',marginBottom:'3px'}}>live</h5>
+                          <LinearProgress color="success" />
                         </div>
                         <div className="matchrights">
                           <h5> {u.home.code}</h5>

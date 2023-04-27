@@ -153,16 +153,16 @@ export const Cron = () => {
   const { id } = useParams();
   const [save, setSave] = useState(false);
   useEffect(() => {
-  async function getcron(){
-    await axios.get(`${URL}/addlivedetails`)
-    await axios.get(`${URL}/addlivescore`)
-    await axios.get(`${URL}/updateteams`)
-  }
-  getcron()
+    async function getcron() {
+      await axios.get(`${URL}/addlivedetails`);
+      await axios.get(`${URL}/addlivescore`);
+      await axios.get(`${URL}/updateteams`);
+    }
+    getcron();
   }, []);
   return (
     <>
-    <h5>cron jobs</h5>
+      <h5>cron jobs</h5>
     </>
   );
 };
