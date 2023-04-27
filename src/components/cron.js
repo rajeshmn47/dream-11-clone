@@ -155,6 +155,7 @@ export const Cron = () => {
   useEffect(() => {
   async function getcron(){
     await axios.get(`${URL}/addlivescore`)
+    await axios.get(`${URL}/updateteams`)
   }
   getcron()
   }, []);
