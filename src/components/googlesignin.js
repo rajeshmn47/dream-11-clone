@@ -3,9 +3,12 @@ import { GoogleLogin } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../constants/userConstants";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loadUser } from "../actions/userAction";
 
 export default function Logingoogle() {
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   const onGoogleSuccess = async (response) => {
     const access_token = response.tokenId;
@@ -14,7 +17,8 @@ export default function Logingoogle() {
     });
     console.log(data);
     localStorage.setItem("token", data.server_token);
-    window.location.reload();
+    dispatch(loadUser());
+    history("/");
   };
 
   const onGoogleFailure = (err) => {
@@ -34,7 +38,7 @@ export default function Logingoogle() {
         color: "white",
       }}
     >
-      <p style={{textAlign:'center'}}>Google Oauth Sign In</p>
+      <p style={{ textAlign: "center" }}>Google Oauth Sign In</p>
       <GoogleLogin
         clientId="711974125982-gaeieriu9q60ctbps2qpbjitv0374d7l.apps.googleusercontent.com"
         buttonText="Sign in with Google"
