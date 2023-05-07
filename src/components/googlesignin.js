@@ -34,7 +34,7 @@ export default function Logingoogle() {
         color: "white",
       }}
     >
-      <h1>Google Oauth Sign In</h1>
+      <p style={{textAlign:'center'}}>Google Oauth Sign In</p>
       <GoogleLogin
         clientId="711974125982-gaeieriu9q60ctbps2qpbjitv0374d7l.apps.googleusercontent.com"
         buttonText="Sign in with Google"
