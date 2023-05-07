@@ -177,7 +177,7 @@ export default function LeftDrawer({ state, setState }) {
         >
           <Grid sm={3} xs={3}>
             <Img
-              src="https://cdn.sportmonks.com/images/cricket/placeholder.png"
+              src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
               alt=""
             />
           </Grid>

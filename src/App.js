@@ -31,6 +31,7 @@ import Navbar from "./components/navbar";
 import { ForgotPassword } from "./components/forget-password";
 import Payment from "./components/payment";
 import Cron from "./components/cron";
+import Logingoogle from "./components/googlesignin";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ function App() {
           <Route path="/cron" element={<Cron />} />
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/googlelogin" element={<Logingoogle />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

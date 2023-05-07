@@ -64,8 +64,12 @@ export const Login = () => {
                 marginRight: "1vw",
                 height: "30px",
               }}
+              onClick={() =>
+                alert("not working yet,only google login is working")
+              }
             >
-              Facebook
+              <img src="./github.svg" alt="" />
+              Github
             </Button>
             <Button
               variant="contained"
@@ -76,7 +80,9 @@ export const Login = () => {
                 width: "50%",
                 height: "30px",
               }}
+              onClick={() => navigate("/googlelogin")}
             >
+              <img src="./google.svg" alt="" style={{ marginRight: "5px" }} />
               Google
             </Button>
           </div>
