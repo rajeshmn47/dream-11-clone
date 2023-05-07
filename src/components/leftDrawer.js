@@ -179,6 +179,7 @@ export default function LeftDrawer({ state, setState }) {
             <Img
               src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
               alt=""
+              style={{borderRadius:"50%"}}
             />
           </Grid>
           <Grid sm={6} xs={6}>
