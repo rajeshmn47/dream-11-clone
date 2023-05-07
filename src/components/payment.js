@@ -101,6 +101,7 @@ function Payment() {
           console.log(err);
         } finally {
           handleData();
+          navigate('/')
         }
       },
       theme: {

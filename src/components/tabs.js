@@ -110,7 +110,7 @@ const Last = styled.div`
 
 const LastJ = styled.div`
   background-color: #f6f6f6;
-  padding: 10px 5px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
