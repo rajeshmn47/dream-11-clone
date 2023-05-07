@@ -34,10 +34,9 @@ const Title = styled.p`
   font-size: 20px;
   font-weight: 600;
   color: #282c3f;
-  text-align:center;
+  text-align: center;
   margin-bottom: 5px;
 `;
-
 
 const Wallet = styled.img`
   height: 50px;
