@@ -62,7 +62,7 @@ export const Login = () => {
                 color: "black",
                 width: "50%",
                 marginRight: "1vw",
-                height: "35px",
+                height: "30px",
               }}
             >
               Facebook
@@ -74,7 +74,7 @@ export const Login = () => {
                 backgroundColor: "#FFFFFF",
                 color: "black",
                 width: "50%",
-                height: "35px",
+                height: "30px",
               }}
             >
               Google
