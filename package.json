@@ -15,6 +15,7 @@
     "country-flags-svg": "^1.1.6",
     "dompurify": "^3.0.1",
     "extract-colors": "^2.0.4",
+    "firebase": "^9.21.0",
     "moment": "^2.29.4",
     "prettier": "^2.8.1",
     "razorpay": "^2.8.6",
