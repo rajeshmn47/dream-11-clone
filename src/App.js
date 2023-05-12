@@ -32,6 +32,7 @@ import { ForgotPassword } from "./components/forget-password";
 import Payment from "./components/payment";
 import Cron from "./components/cron";
 import Logingoogle from "./components/googlesignin";
+import AddCommentary from "./components/addcommentary";
 
 function App() {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/googlelogin" element={<Logingoogle />} />
+          <Route path="/addcommentary" element={<AddCommentary />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

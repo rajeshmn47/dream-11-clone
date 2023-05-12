@@ -10,18 +10,35 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Animate from "./animate";
 import { addconfetti, removeconfetti } from "../actions/userAction";
+import db from "../firebase";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  orderBy,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { RemoveRedEyeSharp } from "@mui/icons-material";
 
 const CommentaryContainer = styled.div`
-  padding: 15px;
+  padding: 15px 0;
   height: 100%;
   overflow-y: scroll;
 `;
-
+const Left = styled.div`
+  font-size: 14px;
+`;
 const Comment = styled.div`
   display: flex;
   align-items: flex-start;
   font-family: "Open Sans" !important;
-  padding: 5px 0;
+  padding: 5px 15px;
 `;
 
 const Event = styled.div`
@@ -39,6 +56,7 @@ const Des = styled.p`
   width: 280px;
   line-height: 20px;
   line-break: break;
+  font-size: 14px;
 `;
 
 const Wicket = styled.p`
@@ -67,9 +85,27 @@ const Four = styled.p`
   color: #ffffff;
 `;
 
+const Break = styled.div`
+  padding: 4px 15px;
+  background-color: #fafafa;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  p {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+  }
+`;
+
+const BreakBot = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Commentary = ({ matchdata }) => {
-  const socket = io.connect("http://192.168.43.39:4000");
-  const [isConnected, setIsConnected] = useState(socket.connected);
   const [commentary, setCommentary] = useState([]);
   const scrollit = useRef();
   const dispatch = useDispatch();
@@ -77,82 +113,87 @@ export const Commentary = ({ matchdata }) => {
   const [lastPong, setLastPong] = useState(null);
   const [confetti, setConfetti] = useState(false);
   useEffect(() => {
-    setCommentary([...matchdata.commentary.slice(0, 10)]);
-  }, []);
-  useEffect(() => {
-    socket.on("disconnect", () => {
-      setIsConnected(false);
-    });
-    socket.on("ponged", () => {
-      setLastPong(new Date().toISOString());
-    });
-    socket.on("newcommentary", async (data) => {
-      addcommentary({ ...data.commentary });
-      console.log(data.commentary.eventType, data.commentary, "newcommentary");
-      if (
-        data.commentary.eventType.toLowerCase() == "wicket" ||
-        data.commentary.eventType.toLowerCase() == "four" ||
-        data.commentary.eventType.toLowerCase() == "six"
-      ) {
-        console.log("confetti");
-        dispatch(addconfetti());
-        setTimeout(() => {
-          dispatch(removeconfetti());
-        }, 13000);
+    async function getdata(m) {
+      console.log(matchdata, matchdata.cmtMatchId, "comment");
+      if (matchdata.cmtMatchId) {
+        console.log(m, "commentary");
+        const docRef = doc(db, "cities", matchdata.cmtMatchId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          console.log("Document data:", docSnap.data());
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }
+        const unsub = onSnapshot(
+          doc(db, "cities", matchdata?.cmtMatchId),
+          (doc) => {
+            console.log("Current data: ", doc.data());
+            if (doc.data()) {
+              setCommentary([...doc.data().capital.reverse()]);
+            }
+          }
+        );
       }
-    });
-    return () => {
-      console.log("rajesh left component");
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("pong");
-      socket.emit("leave", {
-        matchid: matchdata.matchId,
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("connect");
-      setIsConnected(true);
-      if (matchdata.matchId) {
-        socket.emit("join", {
-          matchid: matchdata.matchId,
-        });
-      }
-    });
+    }
+    getdata(matchdata);
+    //onSnapshot((docRef, "cities"), (snapshot) => {
+    // let array = []; // Get users all recent talks and render that in leftColumn content
+    // console.log(snapshot, "snaps");
+    //});
   }, [matchdata]);
-
-  const addcommentary = (value) => {
-    let a = [];
-    a.push(...commentary);
-    a.push(value);
-    console.log(a, "antara");
-    setCommentary((commentary) => [value, ...commentary]);
-    let url = "./notifications.mp3";
-    let audio = new Audio(url);
-    audio.play();
-  };
-
   return (
     <>
       <CommentaryContainer>
-        {commentary?.map((p) => (
+        {commentary?.reverse().map((p) => (
           <>
-            <Comment ref={scrollit}>
-              <Event>
-                {p?.eventType == "WICKET" ? (
-                  <Wicket>w</Wicket>
-                ) : p?.eventType == "FOUR" ? (
-                  <Four>4</Four>
-                ) : p?.eventType == "SIX" ? (
-                  <Four>6</Four>
-                ) : null}
-                {p?.overNum}
-              </Event>
-              <Des>{p?.comment_text?.replace("$", "")}</Des>
-            </Comment>
+            {p?.event == "over-break" ? (
+              <>
+                <Break>
+                  <h5>End of over{p?.overSeparator.overNum}</h5>
+                  <BreakBot>
+                    <p>{p?.overSeparator.bowlNames[0]}</p>
+                    <p>{p?.overSeparator.runs} runs</p>
+                    <p>{p?.overSeparator.bowlwickets} wickets</p>
+                    <p>{p?.overSeparator.batTeamName}</p>
+                    <p>
+                      {p?.overSeparator.score}/{p?.overSeparator.wickets}
+                    </p>
+                  </BreakBot>
+                </Break>
+                <Comment ref={scrollit}>
+                  <Left>
+                    <Event>
+                      {p?.event == "WICKET" ? (
+                        <Wicket>w</Wicket>
+                      ) : p?.event == "FOUR" ? (
+                        <Four>4</Four>
+                      ) : p?.event == "SIX" ? (
+                        <Four>6</Four>
+                      ) : null}
+                    </Event>
+                    {p?.overNumber}
+                  </Left>
+                  <Des>{p?.commText?.replace("$", "")}</Des>
+                </Comment>
+              </>
+            ) : (
+              <Comment ref={scrollit}>
+                <Left>
+                  <Event>
+                    {p?.event == "WICKET" ? (
+                      <Wicket>w</Wicket>
+                    ) : p?.event == "FOUR" ? (
+                      <Four>4</Four>
+                    ) : p?.event == "SIX" ? (
+                      <Four>6</Four>
+                    ) : null}
+                  </Event>
+                  {p?.overNumber}
+                </Left>
+                <Des>{p?.commText?.replace("$", "")}</Des>
+              </Comment>
+            )}
           </>
         ))}
         <Animate confetti={confetti} setConfetti={setConfetti} />

@@ -79,6 +79,8 @@ export const Login = () => {
                 color: "black",
                 width: "50%",
                 height: "30px",
+                display: "flex",
+                alignItems: "center",
               }}
               onClick={() => navigate("/googlelogin")}
             >

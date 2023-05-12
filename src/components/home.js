@@ -151,8 +151,14 @@ export const Home = () => {
         const userdata = await axios.get(`${URL}/getallusers`);
         console.log(data, "data");
         setLoading(true);
-        setUpcoming(data.data.upcoming.results);
-        setLive(data.data.live.results);
+        let urr = data.data.upcoming.results.sort(function (a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+        let lrr = data.data.live.results.sort(function (a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+        setUpcoming([...urr]);
+        setLive([...lrr]);
         setPast(data.data.past.results);
         setLoading(false);
       }

@@ -170,43 +170,57 @@ export const Contests = ({ players }) => {
           <>
             <Grid container justifyContent="space-between" alignItems="center">
               <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
-                <p
-                  style={{
-                    height: "15px",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                  }}
-                >
-                  {matchLive.titleFI}
-                </p>
-                <p>
-                  {matchLive.runFI}/{matchLive.wicketsFI}({matchLive.oversFI})
-                </p>
+                {matchLive?.runFI && (
+                  <>
+                    <p
+                      style={{
+                        height: "15px",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {matchLive.titleFI}
+                    </p>
+                    <p>
+                      {matchLive.runFI}/{matchLive.wicketsFI}(
+                      {matchLive.oversFI})
+                    </p>
+                  </>
+                )}
               </Grid>
               <Grid
                 item
                 sm={4}
                 xs={4}
-                style={{ display: "flex", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
                 <GreenMark></GreenMark>
                 {matchLive.result == "Yes" ? "Completed" : "In Play"}
               </Grid>
               <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
-                <p
-                  style={{
-                    height: "15px",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                  }}
-                >
-                  {" "}
-                  {matchLive.titleSI}
-                </p>
-                <p>
-                  {" "}
-                  {matchLive.runSI}/{matchLive.wicketsSI}({matchLive.oversSI})
-                </p>
+                {matchLive?.runSI && (
+                  <>
+                    <p
+                      style={{
+                        height: "15px",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {" "}
+                      {matchLive.titleSI}
+                    </p>
+                    <p>
+                      {" "}
+                      {matchLive.runSI}/{matchLive.wicketsSI}(
+                      {matchLive.oversSI})
+                    </p>
+                  </>
+                )}
               </Grid>
             </Grid>
             <p style={{ textAlign: "center" }}>

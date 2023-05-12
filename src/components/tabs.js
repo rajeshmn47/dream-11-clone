@@ -252,9 +252,7 @@ export default function BasicTabs({ tabs, id, g }) {
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(id, "id");
-  }, [id]);
+  useEffect(() => {}, [id]);
 
   useEffect(() => {
     async function getplayers() {
@@ -263,12 +261,10 @@ export default function BasicTabs({ tabs, id, g }) {
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
         const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
-        console.log(data, id, "matchdata");
         setMatchdata(matchdat.data.match);
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
-        console.log(contest, id, user._id, team, "contest");
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
@@ -278,6 +274,7 @@ export default function BasicTabs({ tabs, id, g }) {
     }
     getplayers();
   }, [user, id]);
+  console.log(matchdata, "match");
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
@@ -313,7 +310,6 @@ export default function BasicTabs({ tabs, id, g }) {
   const handlejoin = (t) => {
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(contest, "contest");
   return (
     <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
@@ -327,7 +323,7 @@ export default function BasicTabs({ tabs, id, g }) {
               allowScrollButtonsMobile
               aria-label="scrollable force tabs example"
             >
-              <Tab label="Contests" {...a11yProps(0)} />
+              <Tab label="Contests" {...a11yProps(3)} />
               <Tab
                 label={`My Contests(${contest && contest.length})`}
                 {...a11yProps(1)}
@@ -336,12 +332,12 @@ export default function BasicTabs({ tabs, id, g }) {
                 label={`My Teams(${team && team.length})`}
                 {...a11yProps(2)}
               />
-              <Tab label={`Commentary`} {...a11yProps(3)} />
+              <Tab label={`Commentary`} {...a11yProps(0)} />
               <Tab label={`Scorecard`} {...a11yProps(4)} />
               <Tab label={`Stats`} {...a11yProps(5)} />
             </Tabs>
           </Box>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={3}>
             <ContestsContainer container item sm={12} xs={12}>
               <ContestContainer>
                 <Contest>
@@ -492,11 +488,13 @@ export default function BasicTabs({ tabs, id, g }) {
                       <First>
                         <p>Contests</p>
                         <p>{tab?.contests?.totalSpots} spots</p>
-                        <h5
-                          style={{ color: "#008a36", fontFamily: "OpenSans" }}
-                        >
-                          u won {tab?.team.won}rs!
-                        </h5>
+                        {matchdata?.result == "Yes" && (
+                          <h5
+                            style={{ color: "#008a36", fontFamily: "OpenSans" }}
+                          >
+                            u won {tab?.team.won}rs!
+                          </h5>
+                        )}
                       </First>
                     </ContestJ>
                     <LastJ>
@@ -536,7 +534,7 @@ export default function BasicTabs({ tabs, id, g }) {
               create team
             </CreateTeam>
           </TabPanel>
-          <TabP value={value} index={3}>
+          <TabP value={value} index={0}>
             <Commentary matchdata={matchdata} />
           </TabP>
           <TabP value={value} index={4}>
