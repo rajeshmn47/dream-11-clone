@@ -1,5 +1,5 @@
 export function getkeys() {
-  let hours = new Date().getHours()-15;
+  let hours = new Date().getHours() - 15;
   console.log(hours, "totalhits");
   if (hours > 6) {
     let keyindex = Math.floor(hours / 3);

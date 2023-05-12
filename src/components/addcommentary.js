@@ -176,12 +176,15 @@ export const AddCommentary = () => {
     }
     const washingtonRef = doc(db, "cities", "DS");
   };
-  return (
-    <>
-      <CommentaryContainer>rajesh</CommentaryContainer>
-      <Button onClick={() => handleSubmit()}>submit</Button>
-    </>
-  );
+  setTimeout(() => {
+    return (
+      <>
+        <CommentaryContainer>rajesh</CommentaryContainer>
+        <Button onClick={() => handleSubmit()}>submit</Button>
+      </>
+    );
+  }, 500);
+ 
 };
 
 export default AddCommentary;

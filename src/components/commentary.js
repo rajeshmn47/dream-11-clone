@@ -33,6 +33,11 @@ const CommentaryContainer = styled.div`
 `;
 const Left = styled.div`
   font-size: 14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding-right: 20px;
 `;
 const Comment = styled.div`
   display: flex;
@@ -42,7 +47,6 @@ const Comment = styled.div`
 `;
 
 const Event = styled.div`
-  padding-right: 20px;
   width: 30px;
   font-family: "Open Sans" !important;
   overflow: hidden;
@@ -112,6 +116,7 @@ export const Commentary = ({ matchdata }) => {
   const [launched, setLaunched] = useState(true);
   const [lastPong, setLastPong] = useState(null);
   const [confetti, setConfetti] = useState(false);
+  console.log(commentary, "commentary");
   useEffect(() => {
     async function getdata(m) {
       console.log(matchdata, matchdata.cmtMatchId, "comment");
@@ -131,7 +136,20 @@ export const Commentary = ({ matchdata }) => {
             console.log("Current data: ", doc.data());
             if (doc.data()) {
               setCommentary([...doc.data().capital.reverse()]);
+              if (commentary[0].event == "SIX") {
+                dispatch(addconfetti())
+                dispatch(removeconfetti())
+              }
+              if (commentary[0].event == "FOUR") {
+                dispatch(addconfetti())
+                dispatch(removeconfetti())
+              }
+              if(commentary[0].event=="WICKET"){
+                dispatch(addconfetti())
+                dispatch(removeconfetti())
+              }
             }
+
           }
         );
       }
@@ -145,7 +163,7 @@ export const Commentary = ({ matchdata }) => {
   return (
     <>
       <CommentaryContainer>
-        {commentary?.reverse().map((p) => (
+        {commentary?.map((p) => (
           <>
             {p?.event == "over-break" ? (
               <>
