@@ -337,37 +337,8 @@ export default function BasicTabs({ tabs, id, g }) {
               <Tab label={`Stats`} {...a11yProps(5)} />
             </Tabs>
           </Box>
-          <TabPanel value={value} index={3}>
+          <TabPanel value={value} index={0}>
             <ContestsContainer container item sm={12} xs={12}>
-              <ContestContainer>
-                <Contest>
-                  <First>
-                    <p>Prize Pool</p>
-                    <p>Entry</p>
-                  </First>
-                  <First>
-                    <h1>2.50 lacks</h1>
-                    <First>
-                      <del>₹ 19</del>
-                      <FreeButton>Free</FreeButton>
-                    </First>
-                  </First>
-                  <SliderContainer>
-                    <Slider />
-                  </SliderContainer>
-                  <First>
-                    <SpotsLeft>2 spots left</SpotsLeft>
-                    <SpotsRight>3 spots</SpotsRight>
-                  </First>
-                </Contest>
-                <Last>
-                  ₹66
-                  <EmojiEventsOutlinedIcon
-                    style={{ margin: "0 15px", marginBottom: "3px" }}
-                  />
-                  25% Single
-                </Last>
-              </ContestContainer>
               {tabs &&
                 tabs.map((tab) => (
                   <ContestContainer onClick={() => handleOpen(tab)}>
@@ -534,7 +505,7 @@ export default function BasicTabs({ tabs, id, g }) {
               create team
             </CreateTeam>
           </TabPanel>
-          <TabP value={value} index={0}>
+          <TabP value={value} index={3}>
             <Commentary matchdata={matchdata} />
           </TabP>
           <TabP value={value} index={4}>
