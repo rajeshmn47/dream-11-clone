@@ -168,7 +168,7 @@ export const Commentary = ({ matchdata }) => {
             {p?.event == "over-break" ? (
               <>
                 <Break>
-                  <h5>End of over{p?.overSeparator.overNum}</h5>
+                  <h5>End of over {p?.overSeparator.overNum}</h5>
                   <BreakBot>
                     <p>{p?.overSeparator.bowlNames[0]}</p>
                     <p>{p?.overSeparator.runs} runs</p>
