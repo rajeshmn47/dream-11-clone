@@ -14,6 +14,7 @@ import { addconfetti, removeconfetti } from "../actions/userAction";
 import db from "../firebase";
 import { setDoc } from "firebase/firestore";
 import { getDatabase, ref, push, set } from "firebase/database";
+import {getkeys} from "../apikeys";
 import {
   addDoc,
   collection,
@@ -97,7 +98,7 @@ export const AddCommentary = () => {
             url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
             headers: {
               "X-RapidAPI-Key":
-                "f6c54e8046msh9ade928a37f126bp15dc9fjsnbdbaac07848f",
+                "3ddef92f6emsh8301b1a8e1fd478p15bb8bjsnd0bb5446cadc",
               "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
             },
           };
@@ -118,8 +119,8 @@ export const AddCommentary = () => {
               console.log("No such document!");
             }
             console.log(response.data.commentaryList);
-            let a = response.data.commentaryList[6];
-            if (docSnap.data().capital) {
+            let a = response.data.commentaryList[0];
+            if (docSnap?.data()?.capital) {
               await setDoc(washingtonRef, {
                 capital: [...docSnap.data().capital, a],
               });
