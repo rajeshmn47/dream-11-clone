@@ -14,7 +14,7 @@ import { addconfetti, removeconfetti } from "../actions/userAction";
 import db from "../firebase";
 import { setDoc } from "firebase/firestore";
 import { getDatabase, ref, push, set } from "firebase/database";
-import {getkeys} from "../apikeys";
+import { getkeys } from "../apikeys";
 import {
   addDoc,
   collection,
@@ -87,56 +87,54 @@ const Four = styled.p`
 
 export const AddCommentary = () => {
   const [matchIds, setMatchIds] = useState([]);
-  useEffect(() => {
-    async function getmatches() {
-      const data = await axios.get(`${URL}/livematches`);
-      for (let i = 0; i < data.data.matches.length; i++) {
-        if (data.data.matches[i].cmtMatchId.length > 3) {
-          console.log(data.data.matches[i].cmtMatchId, "id");
-          const options = {
-            method: "GET",
-            url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
-            headers: {
-              "X-RapidAPI-Key":
-                "3ddef92f6emsh8301b1a8e1fd478p15bb8bjsnd0bb5446cadc",
-              "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
-            },
-          };
-          try {
-            const washingtonRef = doc(
-              db,
-              "cities",
-              data.data.matches[i].cmtMatchId
-            );
-            const response = await axios.request(options);
-            const docRef = doc(db, "cities", data.data.matches[i].cmtMatchId);
-            const docSnap = await getDoc(docRef);
+  async function getmatches() {
+    const data = await axios.get(`${URL}/livematches`);
+    for (let i = 0; i < data.data.matches.length; i++) {
+      if (data.data.matches[i].cmtMatchId.length > 3) {
+        console.log(data.data.matches[i].cmtMatchId, "id");
+        const options = {
+          method: "GET",
+          url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
+          headers: {
+            "X-RapidAPI-Key":
+              "3ddef92f6emsh8301b1a8e1fd478p15bb8bjsnd0bb5446cadc",
+            "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
+          },
+        };
+        try {
+          const washingtonRef = doc(
+            db,
+            "cities",
+            data.data.matches[i].cmtMatchId
+          );
+          const response = await axios.request(options);
+          const docRef = doc(db, "cities", data.data.matches[i].cmtMatchId);
+          const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-              console.log("Document data:", docSnap.data());
-            } else {
-              // docSnap.data() will be undefined in this case
-              console.log("No such document!");
-            }
-            console.log(response.data.commentaryList);
-            let a = response.data.commentaryList[0];
-            if (docSnap?.data()?.capital) {
-              await setDoc(washingtonRef, {
-                capital: [...docSnap.data().capital, a],
-              });
-            } else {
-              await setDoc(washingtonRef, {
-                capital: [a],
-              });
-            }
-          } catch (error) {
-            console.error(error);
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+          } else {
+            // docSnap.data() will be undefined in this case
+            console.log("No such document!");
           }
+          console.log(response.data.commentaryList);
+          let a = response.data.commentaryList[0];
+          if (docSnap?.data()?.capital) {
+            await setDoc(washingtonRef, {
+              capital: [...docSnap.data().capital, a],
+            });
+          } else {
+            await setDoc(washingtonRef, {
+              capital: [a],
+            });
+          }
+        } catch (error) {
+          console.error(error);
         }
       }
     }
-    getmatches();
-  }, []);
+  }
+  getmatches();
   const handleSubmit = async () => {
     const options = {
       method: "GET",
