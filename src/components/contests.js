@@ -42,6 +42,7 @@ const TopContainer = styled.div`
   height: 140px;
   top: 0;
   left: 0;
+  width: 100%;
   z-index: 1000;
 `;
 
