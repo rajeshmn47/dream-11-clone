@@ -68,7 +68,7 @@ const Wicket = styled.p`
   display: flex;
   align-items: center;
   font-size: 12px;
-  justify-content: center;
+  ju./stify-content: center;
   color: #ffffff;
 `;
 
@@ -97,7 +97,7 @@ export const AddCommentary = () => {
           url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
           headers: {
             "X-RapidAPI-Key":
-              "3ddef92f6emsh8301b1a8e1fd478p15bb8bjsnd0bb5446cadc",
+            "36bfaeaf2bmshf3d4c6a7d578422p138403jsn352bedc63511",
             "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
           },
         };
@@ -140,7 +140,7 @@ export const AddCommentary = () => {
       method: "GET",
       url: "https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/41881/comm",
       headers: {
-        "X-RapidAPI-Key": "f6c54e8046msh9ade928a37f126bp15dc9fjsnbdbaac07848f",
+        "X-RapidAPI-Key": "22e5eb9581msh463d68b77f60aedp15ca87jsn7178d984f2fc",
         "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
       },
     };

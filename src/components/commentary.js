@@ -136,17 +136,24 @@ export const Commentary = ({ matchdata }) => {
             console.log("Current data: ", doc.data());
             if (doc.data()) {
               setCommentary([...doc.data().capital.reverse()]);
+              console.log(commentary[0],'0')
               if (commentary[0].event == "SIX") {
                 dispatch(addconfetti())
-                dispatch(removeconfetti())
+                setTimeout(() => {
+                  dispatch(removeconfetti())
+                }, 4000);
               }
-              if (commentary[0].event == "FOUR") {
+              else if (commentary[0].event == "FOUR") {
                 dispatch(addconfetti())
-                dispatch(removeconfetti())
+                setTimeout(() => {
+                  dispatch(removeconfetti())
+                }, 4000);
               }
-              if(commentary[0].event=="WICKET"){
+              else if((commentary[0].event=="WICKET")||(commentary[0].event=="over-break,WICKET")){
                 dispatch(addconfetti())
-                dispatch(removeconfetti())
+                setTimeout(() => {
+                  dispatch(removeconfetti())
+                }, 4000);
               }
             }
 
@@ -182,7 +189,7 @@ export const Commentary = ({ matchdata }) => {
                 <Comment ref={scrollit}>
                   <Left>
                     <Event>
-                      {p?.event == "WICKET" ? (
+                      {((p?.event == "WICKET")||(p?.event=='over-break,WICKET')) ? (
                         <Wicket>w</Wicket>
                       ) : p?.event == "FOUR" ? (
                         <Four>4</Four>

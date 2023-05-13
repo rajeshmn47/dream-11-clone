@@ -243,6 +243,7 @@ export default function BasicTabs({ tabs, id, g }) {
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
   const [matchdata, setMatchdata] = React.useState();
+  const [matchnl, setMatchNl] = React.useState();
   const [selectedTeam, setSelectedTeam] = React.useState(null);
   const [selectTeams, setSelectTeams] = React.useState({
     selected: false,
@@ -261,7 +262,9 @@ export default function BasicTabs({ tabs, id, g }) {
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
         const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
+        const matchnl = await axios.get(`${URL}/getmatch/${id}`);
         setMatchdata(matchdat.data.match);
+        setMatchNl(matchnl.data.match)
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
@@ -506,7 +509,7 @@ export default function BasicTabs({ tabs, id, g }) {
             </CreateTeam>
           </TabPanel>
           <TabP value={value} index={3}>
-            <Commentary matchdata={matchdata} />
+            <Commentary matchdata={matchnl} />
           </TabP>
           <TabP value={value} index={4}>
             <ScoreCard data={matchdata} g={g} />
