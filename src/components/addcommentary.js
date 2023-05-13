@@ -97,7 +97,7 @@ export const AddCommentary = () => {
           url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
           headers: {
             "X-RapidAPI-Key":
-            "36bfaeaf2bmshf3d4c6a7d578422p138403jsn352bedc63511",
+              "36bfaeaf2bmshf3d4c6a7d578422p138403jsn352bedc63511",
             "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
           },
         };
@@ -184,7 +184,6 @@ export const AddCommentary = () => {
       </>
     );
   }, 500);
- 
 };
 
 export default AddCommentary;

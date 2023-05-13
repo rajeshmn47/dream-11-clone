@@ -23,6 +23,7 @@ import { URL, FURL } from "../constants/userConstants";
 import Loader from "./loader";
 import ScoreCard from "./scorecard";
 import Commentary from "./commentary";
+import Stats from "./stats";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -264,7 +265,7 @@ export default function BasicTabs({ tabs, id, g }) {
         const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
         const matchnl = await axios.get(`${URL}/getmatch/${id}`);
         setMatchdata(matchdat.data.match);
-        setMatchNl(matchnl.data.match)
+        setMatchNl(matchnl.data.match);
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
@@ -513,6 +514,9 @@ export default function BasicTabs({ tabs, id, g }) {
           </TabP>
           <TabP value={value} index={4}>
             <ScoreCard data={matchdata} g={g} />
+          </TabP>
+          <TabP value={value} index={5}>
+            <Stats matchdata={matchdata} />
           </TabP>
         </Box>
       ) : (
