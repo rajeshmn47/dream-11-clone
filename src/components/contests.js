@@ -133,7 +133,7 @@ const Separator = styled.div`
 `;
 
 const Batsman = styled.div`
-  width: 170px;
+  width: 140px;
   font-size: 12px;
   margin-right: 10px;
 `;
