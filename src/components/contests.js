@@ -55,7 +55,7 @@ const TopContainer = styled.div`
     padding: 3px 0;
     color: #757272;
   }
-  padding: 10px 10px;
+  padding: 10px 20px;
   position: fixed;
   height: 160px;
   top: 0;
@@ -87,9 +87,9 @@ const Bottom = styled.div`
   z-index: 10;
 `;
 const LeftSide = styled.div`
-  width: 150px;
+  width: 120px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   h1 {
     font-size: 16px;
@@ -99,9 +99,9 @@ const LeftSide = styled.div`
 `;
 
 const RightSide = styled.div`
-  width: 190px;
+  width: 130px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
