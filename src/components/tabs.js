@@ -327,7 +327,7 @@ export default function BasicTabs({ tabs, id, g }) {
               allowScrollButtonsMobile
               aria-label="scrollable force tabs example"
             >
-              <Tab label="Contests" {...a11yProps(3)} />
+              <Tab label="Contests" {...a11yProps(0)} />
               <Tab
                 label={`My Contests(${contest && contest.length})`}
                 {...a11yProps(1)}
@@ -336,7 +336,7 @@ export default function BasicTabs({ tabs, id, g }) {
                 label={`My Teams(${team && team.length})`}
                 {...a11yProps(2)}
               />
-              <Tab label={`Commentary`} {...a11yProps(0)} />
+              <Tab label={`Commentary`} {...a11yProps(3)} />
               <Tab label={`Scorecard`} {...a11yProps(4)} />
               <Tab label={`Stats`} {...a11yProps(5)} />
             </Tabs>
@@ -365,6 +365,7 @@ export default function BasicTabs({ tabs, id, g }) {
                           defaultValue={tab.totalSpots - tab.spotsLeft}
                           min={0}
                           max={tab.totalSpots}
+                          disabled
                         />
                       </SliderContainer>
                       <First>
@@ -382,6 +383,14 @@ export default function BasicTabs({ tabs, id, g }) {
                     </Last>
                   </ContestContainer>
                 ))}
+              <ConfirmModal
+                open={open}
+                setOpen={setOpen}
+                handleclose={handleClose}
+                modal={modal}
+                teamid={selectedTeam?._id}
+                id={id}
+              />
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={1}>

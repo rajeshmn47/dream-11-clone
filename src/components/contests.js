@@ -161,7 +161,7 @@ const BowlTop = styled.div`
 const BottomT = styled.div`
   display: flex;
   margin-top: 3px;
-  justify-content:space-between;
+  justify-content: space-between;
 `;
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
