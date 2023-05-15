@@ -57,11 +57,12 @@ const TopContainer = styled.div`
   }
   padding: 10px 10px;
   position: fixed;
-  height: 140px;
+  height: 160px;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  box-sizing: border-box;
 `;
 
 const GreenMark = styled.span`
@@ -128,7 +129,7 @@ const Separator = styled.div`
   margin-top: 5px;
   height: 1px;
   background-color: #757272;
-  width: 94%;
+  width: 100%;
 `;
 
 const Batsman = styled.div`
@@ -160,6 +161,7 @@ const BowlTop = styled.div`
 const BottomT = styled.div`
   display: flex;
   margin-top: 3px;
+  justify-content:space-between;
 `;
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
