@@ -14,7 +14,7 @@ export function showBalls(balls) {
   console.log(arr,'arrty')
   let rem = 6 - arr?.length;
   if (rem > 0) {
-    for (let i = 0; i < rem + 1; i++) {
+    for (let i = 0; i < rem; i++) {
       arr.push("E");
     }
   }
