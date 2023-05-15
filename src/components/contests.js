@@ -154,10 +154,12 @@ const BowlTop = styled.div`
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  margin-top: 1px;
 `;
 
 const BottomT = styled.div`
   display: flex;
+  margin-top: 3px;
 `;
 export const Contests = ({ players }) => {
   const [contests, setContests] = useState([]);
@@ -227,6 +229,7 @@ export const Contests = ({ players }) => {
       const data = await axios.get(`${URL}/getcontests/${id}`);
       const matchdata = await axios.get(`${URL}/getmatch/${id}`);
       const matchlivedata = await axios.get(`${URL}/getmatchlive/${id}`);
+      console.log(data, "contestdata");
       console.log(matchdata, matchlivedata, "match");
       setMatch(matchdata.data.match);
       setMatchLive(matchlivedata.data.match);
@@ -259,7 +262,7 @@ export const Contests = ({ players }) => {
           <>
             <Grid container justifyContent="space-between" alignItems="center">
               <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
-                {matchLive?.runFI && livescore && (
+                {matchLive?.runFI && livescore?.matchScoreDetails && (
                   <>
                     <p
                       style={{
@@ -293,7 +296,7 @@ export const Contests = ({ players }) => {
                 {matchLive.result == "Yes" ? "Completed" : "In Play"}
               </Grid>
               <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
-                {matchLive?.runSI && (
+                {matchLive?.runSI && livescore?.matchScoreDetails && (
                   <>
                     <p
                       style={{

@@ -13,11 +13,12 @@ const Container = styled.div`
 
 const Special = styled.div`
   background-color: red;
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
   border-radius: 50%;
   color: #ffffff;
   margin-right: 3px;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,11 +26,12 @@ const Special = styled.div`
 
 const Empty = styled.div`
   background-color: #675e5e;
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
+  font-size: 10px;
   border-radius: 50%;
   border-style: dotted;
-  border: 1px solid #fff;
+  border: 1px dotted #fff;
   margin-right: 3px;
   display: flex;
   align-items: center;
@@ -38,12 +40,13 @@ const Empty = styled.div`
 
 const Normal = styled.div`
   background-color: #675e5e;
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
   border-radius: 50%;
   margin-right: 3px;
   display: flex;
   align-items: center;
+  font-size: 10px;
   justify-content: center;
 `;
 function check(a) {

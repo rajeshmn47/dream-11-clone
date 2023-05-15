@@ -214,7 +214,6 @@ export const Home = () => {
                         <h5
                           style={{
                             color: "#595959",
-                            height: "3vh",
                             fontSize: "12px",
                             fontWeight: "800",
                             display: "flex",
@@ -340,7 +339,6 @@ export const Home = () => {
                       <h5
                         style={{
                           color: "#595959",
-                          height: "3vh",
                           fontSize: "12px",
                           fontWeight: "800",
                           display: "flex",
@@ -407,7 +405,6 @@ export const Home = () => {
                       <h5
                         style={{
                           color: "#595959",
-                          height: "3vh",
                           fontSize: "12px",
                           fontWeight: "800",
                           display: "flex",
