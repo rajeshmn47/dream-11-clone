@@ -55,6 +55,9 @@ const Contest = styled.div`
   .MuiSlider-root {
     color: #f25640;
   }
+  .MuiSlider-rail {
+  background-color: red !important;
+  }
 `;
 
 const ContestJ = styled.div`
@@ -70,6 +73,9 @@ const ContestJ = styled.div`
   }
   .MuiSlider-root {
     color: #f25640;
+  }
+  .MuiSlider-rail {
+  background-color: red !important;
   }
 `;
 
@@ -365,7 +371,7 @@ export default function BasicTabs({ tabs, id, g }) {
                           defaultValue={tab.totalSpots - tab.spotsLeft}
                           min={0}
                           max={tab.totalSpots}
-                          disabled
+                        disabled
                         />
                       </SliderContainer>
                       <First>
