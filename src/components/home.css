@@ -51,7 +51,7 @@
   cursor: pointer;
 }
 .matchcontainer {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   overflow: hidden;
   margin: 15px 0;
