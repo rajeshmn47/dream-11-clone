@@ -197,12 +197,14 @@ const columns = [
   {
     field: "playerName",
     headerName: "PLAYERS",
+    flex: 0.5,
     width: 180,
     editable: true,
   },
   {
     field: "points",
     headerName: "POINTS",
+    flex: 0.5,
     width: 180,
     editable: true,
   },
