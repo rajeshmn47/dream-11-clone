@@ -321,7 +321,13 @@ export const Contests = ({ players }) => {
                 )}
               </Grid>
             </Grid>
-            <p style={{ textAlign: "center" }}>
+            <p
+              style={{
+                textAlign: "center",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
               {matchLive?.status?.split("(11b rem)").join("")}
             </p>
           </>

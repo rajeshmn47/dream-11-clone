@@ -56,7 +56,7 @@ const Contest = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-  background-color: red !important;
+    background-color: red !important;
   }
 `;
 
@@ -75,7 +75,7 @@ const ContestJ = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-  background-color: red !important;
+    background-color: red !important;
   }
 `;
 
@@ -371,7 +371,7 @@ export default function BasicTabs({ tabs, id, g }) {
                           defaultValue={tab.totalSpots - tab.spotsLeft}
                           min={0}
                           max={tab.totalSpots}
-                        disabled
+                          disabled
                         />
                       </SliderContainer>
                       <First>
@@ -465,7 +465,7 @@ export default function BasicTabs({ tabs, id, g }) {
             <ScoreCard data={matchdata} g={g} />
           </TabP>
           <TabP value={value} index={5}>
-            <Stats matchdata={matchdata} />
+            <Stats matchdata={matchdata} team={team} />
           </TabP>
         </Box>
       ) : (

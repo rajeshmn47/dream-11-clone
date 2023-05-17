@@ -218,7 +218,7 @@ export const Commentary = ({ matchdata }) => {
                   {p?.overNumber}
                 </Left>
                 <Des>{p?.commText?.replace("$", "")}</Des>
-               </Comment>
+              </Comment>
             )}
           </>
         ))}

@@ -281,7 +281,6 @@ export const TeamShort = ({ players, id, plo }) => {
   useEffect(() => {
     async function filterDifferent() {
       const data = await axios.get(`${URL}/getplayers/${id}`);
-
       let h = data.data.players.teamHomePlayers.filter((f) => {
         return selectedPlayers.some((s) => {
           return f.playerId === s.playerId;
