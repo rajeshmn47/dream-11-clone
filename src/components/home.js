@@ -88,6 +88,7 @@ const CricketBg = styled.div`
   height: 150px;
   margin-bottom: 60px;
   position: relative;
+  background-size: cover;
 `;
 
 const Top = styled.div`
