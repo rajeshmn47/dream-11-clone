@@ -1,3 +1,4 @@
+![WhatsApp Image 2023-05-25 at 9 40 29 PM](https://github.com/rajeshmn47/dream-11-clone-mern-stack/assets/24763499/2a8a4ee1-3fc3-4105-b3b4-f3c02ce50f7f)
 I created a clone of DREAM 11 It has various features like
 
 <p>1)email otp authentication</p>
