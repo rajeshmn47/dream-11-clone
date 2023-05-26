@@ -60,6 +60,7 @@
   box-shadow: 0 0 4px rgba(181, 176, 176, 0.15);
   border-radius: 5px;
   overflow: hidden;
+  background-color: transparent !important;
   margin: 10px 0;
   position: absolute;
   left: 10px;
