@@ -1,20 +1,12 @@
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import styled from "@emotion/styled";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { Button } from "@mui/material";
 import axios from "axios";
-import styled from "@emotion/styled";
-import Cracker from "./Cracker";
-import io from "socket.io-client";
-import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Animate from "./animate";
-import { addconfetti, removeconfetti } from "../actions/userAction";
-import db from "../firebase";
-import { setDoc } from "firebase/firestore";
-import { getDatabase, ref, push, set } from "firebase/database";
-import { getkeys } from "../apikeys";
+import { getDatabase, push, ref, set } from "firebase/database";
 import {
   addDoc,
   collection,
@@ -23,11 +15,20 @@ import {
   getDoc,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
-import { Button } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import io from "socket.io-client";
+
+import { addconfetti, removeconfetti } from "../actions/userAction";
+import { getkeys } from "../apikeys";
 import { URL } from "../constants/userConstants";
+import db from "../firebase";
+import Animate from "./animate";
+import Cracker from "./Cracker";
 
 const CommentaryContainer = styled.div`
   padding: 15px;
@@ -118,7 +119,7 @@ export const AddCommentary = () => {
             console.log("No such document!");
           }
           console.log(response.data.commentaryList);
-          let a = response.data.commentaryList[0];
+          const a = response.data.commentaryList[0];
           if (docSnap?.data()?.capital) {
             await setDoc(washingtonRef, {
               capital: [...docSnap.data().capital, a],
@@ -158,7 +159,7 @@ export const AddCommentary = () => {
         console.log("No such document!");
       }
       console.log(response.data.commentaryList);
-      let a =
+      const a =
         response.data.commentaryList[response.data.commentaryList.length - 1];
       await setDoc(washingtonRef, {
         capital: [...docSnap.data().capital, a],
@@ -176,14 +177,15 @@ export const AddCommentary = () => {
     }
     const washingtonRef = doc(db, "cities", "DS");
   };
-  setTimeout(() => {
-    return (
+  setTimeout(
+    () => (
       <>
         <CommentaryContainer>rajesh</CommentaryContainer>
         <Button onClick={() => handleSubmit()}>submit</Button>
       </>
-    );
-  }, 500);
+    ),
+    500
+  );
 };
 
 export default AddCommentary;

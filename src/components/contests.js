@@ -1,49 +1,55 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import Tab from "@mui/material/Tab";
 import "./home.css";
 import "./create.css";
-import { addconfetti, removeconfetti } from "../actions/userAction";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import WestIcon from "@mui/icons-material/West";
+
 import styled from "@emotion/styled";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { unstable_HistoryRouter } from "react-router-dom";
-import SavedTeam from "./savedteam";
-import { useSelector, useDispatch } from "react-redux";
-import ReactCanvasConfetti from "react-confetti";
-import BasicTabs from "./tabs";
-import { URL } from "../constants/userConstants";
-import db from "../firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { getDoc } from "firebase/firestore";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import Brightness1Icon from "@mui/icons-material/Brightness1";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import WestIcon from "@mui/icons-material/West";
+import { Grid } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import axios from "axios";
+import { getDatabase, onValue, ref } from "firebase/database";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   onSnapshot,
-  query,
   orderBy,
+  query,
   setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
-import { Grid } from "@mui/material";
-import { showName } from "../utils/name";
+import { useEffect, useState } from "react";
+import ReactCanvasConfetti from "react-confetti";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  unstable_HistoryRouter,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+
+import { addconfetti, removeconfetti } from "../actions/userAction";
+import { URL } from "../constants/userConstants";
+import db from "../firebase";
 import { showBalls } from "../utils/lastballs";
+import { showName } from "../utils/name";
+import Bottomnav from "./bottomnavbar";
+import SavedTeam from "./savedteam";
 import ShowOver from "./showover";
+import Steppr from "./stepper";
+import BasicTabs from "./tabs";
 
 const TopContainer = styled.div`
   background-color: #000000;
@@ -87,7 +93,7 @@ const Bottom = styled.div`
   z-index: 10;
 `;
 const LeftSide = styled.div`
-  width: 120px;
+  width: 150px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -163,7 +169,7 @@ const BottomT = styled.div`
   margin-top: 3px;
   justify-content: space-between;
 `;
-export const Contests = ({ players }) => {
+export function Contests({ players }) {
   const [contests, setContests] = useState([]);
   const [match, setMatch] = useState(null);
   const dispatch = useDispatch();
@@ -184,10 +190,10 @@ export const Contests = ({ players }) => {
   };
   useEffect(() => {
     async function getdata(m) {
-      console.log(match, match?.cmtMatchId, "comment");
-      if (match?.cmtMatchId) {
+      console.log(match, match?.matchId, "comment");
+      if (match?.matchId) {
         console.log(m, "commentary");
-        const docRef = doc(db, "cities", match.cmtMatchId);
+        const docRef = doc(db, "cities", match.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
@@ -195,23 +201,20 @@ export const Contests = ({ players }) => {
           // docSnap.data() will be undefined in this case
           console.log("No such document!");
         }
-        const unsub = onSnapshot(
-          doc(db, "cities", match?.cmtMatchId),
-          (doc) => {
-            console.log("Current data: ", doc.data());
-            if (doc.data()) {
-              setCommentary([...doc.data().capital]);
-              setLivescore({ ...doc.data().miniscore });
-            }
+        const unsub = onSnapshot(doc(db, "cities", match?.matchId), (doc) => {
+          console.log("Current data: ", doc.data());
+          if (doc.data()) {
+            setCommentary([...doc.data().capital]);
+            setLivescore({ ...doc.data().miniscore });
           }
-        );
+        });
       }
     }
     getdata(match);
-    //onSnapshot((docRef, "cities"), (snapshot) => {
+    // onSnapshot((docRef, "cities"), (snapshot) => {
     // let array = []; // Get users all recent talks and render that in leftColumn content
     // console.log(snapshot, "snaps");
-    //});
+    // });
   }, [match]);
   console.log(livescore?.matchScoreDetails.inningsScoreList, "livescore");
 
@@ -221,11 +224,11 @@ export const Contests = ({ players }) => {
       window.removeEventListener("resize", showAnimation);
     };
   }, [dimensions]);
-  const search = useLocation().search;
-  let history = useNavigate();
+  const { search } = useLocation();
+  const history = useNavigate();
 
   const { id } = useParams();
-  console.log(id); //12345
+  console.log(id); // 12345
   useEffect(() => {
     async function getupcoming() {
       const data = await axios.get(`${URL}/getcontests/${id}`);
@@ -250,7 +253,8 @@ export const Contests = ({ players }) => {
             />
             {match && (
               <h1>
-                {match.teamAwayCode} Vs {match.teamHomeCode}
+                {match.teamAwayCode} Vs
+                {match.teamHomeCode}
               </h1>
             )}
           </LeftSide>
@@ -294,7 +298,7 @@ export const Contests = ({ players }) => {
                   justifyContent: "center",
                 }}
               >
-                <GreenMark></GreenMark>
+                <GreenMark />
                 {matchLive.result == "Yes" ? "Completed" : "In Play"}
               </Grid>
               <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
@@ -364,6 +368,6 @@ export const Contests = ({ players }) => {
       </Bottom>
     </Container>
   );
-};
+}
 
 export default Contests;

@@ -58,3 +58,11 @@
   margin-top: 10px;
   font-weight: 600;
 }
+
+.triangle::before {
+  content: "";
+  display: block;
+  padding-top: 86.6%;
+  background-color: red;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}

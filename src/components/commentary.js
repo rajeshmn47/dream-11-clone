@@ -1,30 +1,31 @@
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import styled from "@emotion/styled";
+import { RemoveRedEyeSharp } from "@mui/icons-material";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import styled from "@emotion/styled";
-import Cracker from "./Cracker";
-import io from "socket.io-client";
-import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Animate from "./animate";
-import { addconfetti, removeconfetti } from "../actions/userAction";
-import db from "../firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { getDoc } from "firebase/firestore";
+import { getDatabase, onValue, ref } from "firebase/database";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   onSnapshot,
-  query,
   orderBy,
+  query,
   setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
-import { RemoveRedEyeSharp } from "@mui/icons-material";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import io from "socket.io-client";
+
+import { addconfetti, removeconfetti } from "../actions/userAction";
+import db from "../firebase";
+import Animate from "./animate";
+import Cracker from "./Cracker";
 
 const CommentaryContainer = styled.div`
   padding: 15px 0;
@@ -109,7 +110,7 @@ const BreakBot = styled.div`
   justify-content: space-between;
 `;
 
-export const Commentary = ({ matchdata }) => {
+export function Commentary({ matchdata }) {
   const [commentary, setCommentary] = useState([]);
   const scrollit = useRef();
   const dispatch = useDispatch();
@@ -119,10 +120,10 @@ export const Commentary = ({ matchdata }) => {
   console.log(commentary, "commentary");
   useEffect(() => {
     async function getdata(m) {
-      console.log(matchdata, matchdata.cmtMatchId, "comment");
-      if (matchdata.cmtMatchId) {
+      console.log(matchdata, matchdata.matchId, "comment");
+      if (matchdata.matchId) {
         console.log(m, "commentary");
-        const docRef = doc(db, "cities", matchdata.cmtMatchId);
+        const docRef = doc(db, "cities", matchdata.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
@@ -131,7 +132,7 @@ export const Commentary = ({ matchdata }) => {
           console.log("No such document!");
         }
         const unsub = onSnapshot(
-          doc(db, "cities", matchdata?.cmtMatchId),
+          doc(db, "cities", matchdata?.matchId),
           (doc) => {
             console.log("Current data: ", doc.data());
             if (doc.data()) {
@@ -162,52 +163,36 @@ export const Commentary = ({ matchdata }) => {
       }
     }
     getdata(matchdata);
-    //onSnapshot((docRef, "cities"), (snapshot) => {
+    // onSnapshot((docRef, "cities"), (snapshot) => {
     // let array = []; // Get users all recent talks and render that in leftColumn content
     // console.log(snapshot, "snaps");
-    //});
+    // });
   }, [matchdata]);
   return (
-    <>
-      <CommentaryContainer>
-        {commentary?.map((p) => (
-          <>
-            {p?.event == "over-break" ? (
-              <>
-                <Break>
-                  <h5>End of over {p?.overSeparator.overNum}</h5>
-                  <BreakBot>
-                    <p>{p?.overSeparator.bowlNames[0]}</p>
-                    <p>{p?.overSeparator.runs} runs</p>
-                    <p>{p?.overSeparator.bowlwickets} wickets</p>
-                    <p>{p?.overSeparator.batTeamName}</p>
-                    <p>
-                      {p?.overSeparator.score}/{p?.overSeparator.wickets}
-                    </p>
-                  </BreakBot>
-                </Break>
-                <Comment ref={scrollit}>
-                  <Left>
-                    <Event>
-                      {p?.event == "WICKET" ||
-                      p?.event == "over-break,WICKET" ? (
-                        <Wicket>w</Wicket>
-                      ) : p?.event == "FOUR" ? (
-                        <Four>4</Four>
-                      ) : p?.event == "SIX" ? (
-                        <Four>6</Four>
-                      ) : null}
-                    </Event>
-                    {p?.overNumber}
-                  </Left>
-                  <Des>{p?.commText?.replace("$", "")}</Des>
-                </Comment>
-              </>
-            ) : (
+    <CommentaryContainer>
+      {commentary?.map((p) => (
+        <>
+          {p?.event == "over-break" ? (
+            <>
+              <Break>
+                <h5>
+                  End of over
+                  {p?.overSeparator.overNum}
+                </h5>
+                <BreakBot>
+                  <p>{p?.overSeparator.bowlNames[0]}</p>
+                  <p>{p?.overSeparator.runs} runs</p>
+                  <p>{p?.overSeparator.bowlwickets} wickets</p>
+                  <p>{p?.overSeparator.batTeamName}</p>
+                  <p>
+                    {p?.overSeparator.score}/{p?.overSeparator.wickets}
+                  </p>
+                </BreakBot>
+              </Break>
               <Comment ref={scrollit}>
                 <Left>
                   <Event>
-                    {p?.event == "WICKET" ? (
+                    {p?.event == "WICKET" || p?.event == "over-break,WICKET" ? (
                       <Wicket>w</Wicket>
                     ) : p?.event == "FOUR" ? (
                       <Four>4</Four>
@@ -219,13 +204,29 @@ export const Commentary = ({ matchdata }) => {
                 </Left>
                 <Des>{p?.commText?.replace("$", "")}</Des>
               </Comment>
-            )}
-          </>
-        ))}
-        <Animate confetti={confetti} setConfetti={setConfetti} />
-      </CommentaryContainer>
-    </>
+            </>
+          ) : (
+            <Comment ref={scrollit}>
+              <Left>
+                <Event>
+                  {p?.event == "WICKET" ? (
+                    <Wicket>w</Wicket>
+                  ) : p?.event == "FOUR" ? (
+                    <Four>4</Four>
+                  ) : p?.event == "SIX" ? (
+                    <Four>6</Four>
+                  ) : null}
+                </Event>
+                {p?.overNumber}
+              </Left>
+              <Des>{p?.commText?.replace("$", "")}</Des>
+            </Comment>
+          )}
+        </>
+      ))}
+      <Animate confetti={confetti} setConfetti={setConfetti} />
+    </CommentaryContainer>
   );
-};
+}
 
 export default Commentary;

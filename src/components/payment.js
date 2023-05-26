@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import Axios from "axios";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { URL } from "../constants/userConstants";
-// import Confirmation from "./Confirmation";
-import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { TextField, useRadioGroup } from "@mui/material";
+import Axios from "axios";
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import Confirmation from "./Confirmation";
+import { useNavigate } from "react-router-dom";
+
+import { URL } from "../constants/userConstants";
 
 const Wrapper = styled.div`
   font-family: system-ui !important;
@@ -93,7 +94,7 @@ function Payment() {
           const url = `${URL}/payment/capture/${paymentId}/${amount}`;
           const captureResponse = await Axios.post(url, {});
           const successObj = JSON.parse(captureResponse.data);
-          const captured = successObj.captured;
+          const { captured } = successObj;
           if (captured) {
             console.log("success");
           }
@@ -111,12 +112,12 @@ function Payment() {
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   }
-  let data = {
+  const data = {
     id: user._id,
-    amount: amount,
+    amount,
   };
   const handleData = () => {
-    var config = {
+    const config = {
       method: "patch",
       url: `${URL}/payment/addamount/`,
       headers: {
@@ -126,33 +127,27 @@ function Payment() {
     };
 
     axios(config)
-      .then(function (response) {
+      .then((response) => {
         console.log(JSON.stringify(response.data));
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error.response.data);
       });
   };
 
   return (
-    <>
-      <Container>
-        <Title>Add Amount</Title>
-        <TextField
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="amount to be added"
-          size="small"
-        />
-        <button
-          className="paybtn"
-          onClick={handlePayment}
-          // onClick={handleData}
-        >
-          Pay
-        </button>
-      </Container>
-    </>
+    <Container>
+      <Title>Add Amount</Title>
+      <TextField
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="amount to be added"
+        size="small"
+      />
+      <button className="paybtn" onClick={handlePayment}>
+        Pay
+      </button>
+    </Container>
   );
 }
 

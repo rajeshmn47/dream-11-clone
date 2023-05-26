@@ -1,8 +1,9 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import * as React from "react";
+
 import { URL } from "../constants/userConstants";
 
 const steps = ["Select Match", "Create Team", "Join Contest"];

@@ -1,35 +1,25 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import PeopleIcon from "@mui/icons-material/People";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import { Button, Drawer } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import LinearProgress from "@mui/material/LinearProgress";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
 import "./home.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import styled from "@emotion/styled";
-import Navbar from "./navbar";
-import { URL } from "../constants/userConstants";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import { Button } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import extractColors from "extract-colors";
-import Loader from "./loader";
+import { useNavigate } from "react-router-dom";
+
+import { URL } from "../constants/userConstants";
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
 } from "../utils/dateformat";
+import Bottomnav from "./bottomnavbar";
+import Loader from "./loader";
+import Navbar from "./navbar";
 
 const RightSide = styled.div`
   width: 90px;
@@ -125,7 +115,7 @@ const Spanner = styled.div`
   width: 20px;
   height: 5px;
 `;
-export const Home = () => {
+export function Home() {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   console.log(user, "user");
   const [upcoming, setUpcoming] = useState([]);
@@ -137,7 +127,7 @@ export const Home = () => {
   console.log(URL, "url");
   const navigate = useNavigate();
   useEffect(() => {
-    var i = setInterval(() => {
+    const i = setInterval(() => {
       setDate(new Date());
       console.log(date, "datenew");
     }, 1000);
@@ -152,12 +142,12 @@ export const Home = () => {
         const userdata = await axios.get(`${URL}/getallusers`);
         console.log(data, "data");
         setLoading(true);
-        let urr = data.data.upcoming.results.sort(function (a, b) {
-          return new Date(a.date) - new Date(b.date);
-        });
-        let lrr = data.data.live.results.sort(function (a, b) {
-          return new Date(a.date) - new Date(b.date);
-        });
+        const urr = data.data.upcoming.results.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        const lrr = data.data.live.results.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
         setUpcoming([...urr]);
         setLive([...lrr]);
         setPast(data.data.past.results);
@@ -221,7 +211,8 @@ export const Home = () => {
                             alignItems: "center",
                           }}
                         >
-                          {u.away.code} vs {u.home.code}
+                          {u.away.code} vs
+                          {u.home.code}
                         </h5>
                         <NotificationAddOutlinedIcon
                           style={{ fontSize: "18px" }}
@@ -303,14 +294,16 @@ export const Home = () => {
                               {u.teams.length} teams
                             </h5>
                           )}
-                          <div
-                            className="meg"
-                          >
+                          <div className="meg">
                             {u.contests.length > 0 && (
-                              <h5  style={{
-                                textTransform: "lowercase",
-                                fontSize: "12px",
-                              }}>{u.contests.length} contests</h5>
+                              <h5
+                                style={{
+                                  textTransform: "lowercase",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                {u.contests.length} contests
+                              </h5>
                             )}
                           </div>
                         </div>
@@ -345,7 +338,8 @@ export const Home = () => {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs {u.home.code}
+                        {u.away.code} vs
+                        {u.home.code}
                       </h5>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
@@ -411,7 +405,8 @@ export const Home = () => {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs {u.home.code}
+                        {u.away.code} vs
+                        {u.home.code}
                       </h5>
                       <h5
                         style={{
@@ -496,6 +491,6 @@ export const Home = () => {
       <Bottomnav />
     </>
   );
-};
+}
 
 export default Home;

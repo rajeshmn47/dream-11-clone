@@ -1,31 +1,35 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import BasicTabs from "./tabs";
-import CategoryTabs from "./playerscategory";
-import styled from "@emotion/styled";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import Next from "./captain";
+
+import styled from "@emotion/styled";
 import {
   PlaylistAddCheckCircleSharp,
   SendTimeExtension,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { Grid } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
+import Bottomnav from "./bottomnavbar";
+import Next from "./captain";
+import CategoryTabs from "./categorytabs";
+import LiveCategoryTabs from "./playerscategory";
+import Steppr from "./stepper";
+import BasicTabs from "./tabs";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   position: relative;
@@ -180,34 +184,79 @@ const Code = styled.p`
   text-transform: uppercase;
   color: #9c9898 !important;
 `;
-export const CreateTeam = () => {
+export function CreateTeam() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [match, setMatch] = useState(null);
   const { id } = useParams();
   const [players, setPlayers] = useState([]);
   const [next, setNext] = useState(false);
+  const [nonPlayers, setNonPlayers] = useState([]);
+  const [lmPlayers, setLmplayers] = useState([]);
+  const [live, setLive] = useState();
   useEffect(() => {
     async function getupcoming() {
-      console.log(id, "id");
       if (id) {
         const data = await axios.get(`${URL}/getplayers/${id}`);
-        console.log(data);
-
-        let players = data.data.players.teamAwayPlayers
-          .concat(data.data.players.teamHomePlayers)
+        setLive(data.data.live);
+        if (!data.data.live) {
+          const players = data.data.matchdetails.teamAwayPlayers
+            .concat(data.data.matchdetails.teamHomePlayers)
+            .map((obj) => ({
+              ...obj,
+              isSelected: false,
+            }));
+          setPlayers([...players]);
+        } else {
+          const players = data.data.matchdetails.teamAwayPlayers
+            .splice(0, 11)
+            .concat(data.data.matchdetails.teamHomePlayers.splice(0, 11))
+            .map((obj) => ({
+              ...obj,
+              isSelected: false,
+            }));
+          setPlayers([...players]);
+        }
+        setMatch(data.data.matchdetails);
+        const k = data.data.matchdetails.teamHomePlayers;
+        const l = data.data.matchdetails.teamAwayPlayers;
+        const nonp = k
+          .splice(k.length - 11, k.length)
+          .concat(l.splice(l.length - 11, l.length))
           .map((obj) => ({
             ...obj,
             isSelected: false,
           }));
-        setPlayers([...players]);
-        setMatch(data.data.matchdetails);
+        setNonPlayers([...nonp]);
+        const lm = k
+          .splice(k.length - 5, k.length)
+          .concat(l.splice(l.length - 8, l.length))
+          .map((obj) => ({
+            ...obj,
+            isSelected: false,
+          }));
+        setLmplayers([...lm]);
       }
     }
     getupcoming();
   }, [id]);
-
-  console.log(players);
+  useEffect(() => {
+    async function getplayers() {
+      if (user?._id && match) {
+        const data = await axios.get(
+          `${URL}/getteam/${match?.titleFI}/${match.titleSI}`
+        );
+        const moredata = await axios.get(
+          `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`
+        );
+        console.log(data.data.lmplayers, moredata.data.lmplayers, "lmplayers");
+        setLmplayers([...data.data.lmplayers]);
+      }
+    }
+    getplayers();
+  }, [match, user]);
+  console.log(match, "matchdata");
   const handleClick = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = true;
       }
@@ -217,7 +266,7 @@ export const CreateTeam = () => {
   };
 
   const handleRemove = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = false;
       }
@@ -227,7 +276,6 @@ export const CreateTeam = () => {
   };
 
   const handleNext = () => {
-    console.log("clicked next");
     setNext(true);
   };
 
@@ -239,7 +287,10 @@ export const CreateTeam = () => {
             <PlayersIndicator container spacing={2}>
               <Grid item xs={3} sm={3}>
                 Players
-                <p>{players.filter((p) => p.isSelected).length}/11</p>
+                <p>
+                  {players.filter((p) => p.isSelected).length}
+                  /11
+                </p>
               </Grid>
               <Grid item xs={3} sm={3}>
                 <Code>{match?.teamAwayCode}</Code>
@@ -259,7 +310,7 @@ export const CreateTeam = () => {
                 .filter((k) => k.isSelected === true)
                 .map((p, index) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
-                    <NoPlayer></NoPlayer>
+                    <NoPlayer />
                   </Grid>
                 ))}
             {players.filter((k) => k.isSelected === true).length <= 11 &&
@@ -270,11 +321,26 @@ export const CreateTeam = () => {
                 )
                 .map((g) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
-                    <BlankPlayer></BlankPlayer>
+                    <BlankPlayer />
                   </Grid>
                 ))}
           </NoPlayers>
-          <CategoryTabs players={players} setPlayers={setPlayers} />
+          {live ? (
+            <LiveCategoryTabs
+              players={players}
+              setPlayers={setPlayers}
+              match={match}
+              nonPlayers={nonPlayers}
+            />
+          ) : (
+            <CategoryTabs
+              players={players}
+              setPlayers={setPlayers}
+              match={match}
+              nonPlayers={nonPlayers}
+              lmPlayers={lmPlayers}
+            />
+          )}
           <NextButtonContainer>
             <PrevButton>
               <RemoveRedEyeOutlinedIcon />
@@ -302,6 +368,6 @@ export const CreateTeam = () => {
       )}
     </Container>
   );
-};
+}
 
 export default CreateTeam;

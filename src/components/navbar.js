@@ -1,22 +1,24 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import "./home.css";
+
+import styled from "@emotion/styled";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Button, Drawer } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import "./home.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { logout } from "../actions/userAction";
+import Bottomnav from "./bottomnavbar";
 import LeftDrawer from "./leftDrawer";
+import Steppr from "./stepper";
 
 const RightSide = styled.div`
   width: 90px;
@@ -80,7 +82,7 @@ const DeatilTop = styled.div`
   }
 `;
 
-export const Navbar = () => {
+export function Navbar() {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -142,7 +144,7 @@ export const Navbar = () => {
       <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
         <DeatilTop>
           <p>total balance</p>
-          <h5>₹ {user && user.wallet}</h5>
+          <h5>₹{user && user.wallet}</h5>
         </DeatilTop>
         <AddButton onClick={() => navigate("/payment")}>add cash</AddButton>
         <Deatil>
@@ -189,6 +191,6 @@ export const Navbar = () => {
       </div>
     </>
   );
-};
+}
 
 export default Navbar;

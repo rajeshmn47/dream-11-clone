@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import React from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { setshow } from "../utils/dateformat";
 
 const Container = styled.div`
@@ -100,14 +100,14 @@ const Scores = styled.div`
   align-items: center;
   font-size: 14px;
 `;
-export const ScoreCard = ({ data, g }) => {
+export function ScoreCard({ data, g }) {
   const [expanded, setExpanded] = React.useState("panel2");
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
     console.log(data?.fowFI?.split(","), "scorecard");
-    let a = [...data?.fowFI?.split(",")];
-    let lmn = [...data?.fowSI?.split(",")];
+    const a = [...data?.fowFI?.split(",")];
+    const lmn = [...data?.fowSI?.split(",")];
     setFow([...setshow(a)]);
     setFowsSI([...setshow(lmn)]);
   }, [data]);
@@ -116,179 +116,177 @@ export const ScoreCard = ({ data, g }) => {
     setExpanded(isExpanded ? panel : false);
   };
   return (
-    <>
-      <Container>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-          className={expanded == "panel1" ? "expanded" : "not"}
+    <Container>
+      <Accordion
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+        className={expanded == "panel1" ? "expanded" : "not"}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <MatchData>
-              <Code>{g?.teamHomeCode}</Code>
+          <MatchData>
+            <Code>{g?.teamHomeCode}</Code>
 
-              <Scores>
-                <Overs>{`(${data?.oversFI} overs)`}</Overs>{" "}
-                {`${data.runFI}/${data.wicketsFI}`}
-              </Scores>
-            </MatchData>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Table>
-              <tr>
-                <Th>Batter</Th>
-                <th>R</th>
-                <th>B</th>
-                <th>4s</th>
-                <th>6s</th>
-                <th>S/R</th>
-              </tr>
-              {data?.teamHomePlayers?.length > 0 &&
-                data.teamHomePlayers.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.playerName}</Name>
-                    </Td>
-                    <td>{t.runs}</td>
-                    <td>{t.balls}</td>
-                    <td>{t.fours}</td>
-                    <td>{t.sixes}</td>
-                    <td>{t.strikeRate}</td>
-                  </tr>
-                ))}
-            </Table>
-            <Table>
-              <tr>
-                <Th>Bowler</Th>
-                <th>O</th>
-                <th>M</th>
-                <th>R</th>
-                <th>W</th>
-                <th>Eco</th>
-              </tr>
-              {data?.teamAwayPlayers?.length > 0 &&
-                data.teamAwayPlayers.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.playerName}</Name>
-                    </Td>
-                    <td>{t.overs}</td>
-                    <td>{t.maidens}</td>
-                    <td>{t.runsConceded}</td>
-                    <td>{t.wickets}</td>
-                    <td>{t.economy}</td>
-                  </tr>
-                ))}
-            </Table>
-            <Table>
-              <tr>
-                <Th>Fall Of Wickets</Th>
-                <th>Score</th>
-                <th>Over</th>
-              </tr>
-              {fow?.length > 0 &&
-                fow.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.score}</Name>
-                    </Td>
-                    <td>{t.fall}</td>
-                    <td>{t.over}</td>
-                  </tr>
-                ))}
-            </Table>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-          className={expanded == "panel2" ? "expanded" : "not"}
+            <Scores>
+              <Overs>{`(${data?.oversFI} overs)`}</Overs>{" "}
+              {`${data.runFI}/${data.wicketsFI}`}
+            </Scores>
+          </MatchData>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Table>
+            <tr>
+              <Th>Batter</Th>
+              <th>R</th>
+              <th>B</th>
+              <th>4s</th>
+              <th>6s</th>
+              <th>S/R</th>
+            </tr>
+            {data?.teamHomePlayers?.length > 0 &&
+              data.teamHomePlayers.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.playerName}</Name>
+                  </Td>
+                  <td>{t.runs}</td>
+                  <td>{t.balls}</td>
+                  <td>{t.fours}</td>
+                  <td>{t.sixes}</td>
+                  <td>{t.strikeRate}</td>
+                </tr>
+              ))}
+          </Table>
+          <Table>
+            <tr>
+              <Th>Bowler</Th>
+              <th>O</th>
+              <th>M</th>
+              <th>R</th>
+              <th>W</th>
+              <th>Eco</th>
+            </tr>
+            {data?.teamAwayPlayers?.length > 0 &&
+              data.teamAwayPlayers.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.playerName}</Name>
+                  </Td>
+                  <td>{t.overs}</td>
+                  <td>{t.maidens}</td>
+                  <td>{t.runsConceded}</td>
+                  <td>{t.wickets}</td>
+                  <td>{t.economy}</td>
+                </tr>
+              ))}
+          </Table>
+          <Table>
+            <tr>
+              <Th>Fall Of Wickets</Th>
+              <th>Score</th>
+              <th>Over</th>
+            </tr>
+            {fow?.length > 0 &&
+              fow.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.score}</Name>
+                  </Td>
+                  <td>{t.fall}</td>
+                  <td>{t.over}</td>
+                </tr>
+              ))}
+          </Table>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel2"}
+        onChange={handleChange("panel2")}
+        className={expanded == "panel2" ? "expanded" : "not"}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <MatchData>
-              <Code>{g?.teamAwayCode}</Code>
-              <Scores>
-                <Overs>{`(${data?.oversSI} overs)`}</Overs>{" "}
-                {`${data.runSI}/${data.wicketsSI}`}{" "}
-              </Scores>{" "}
-            </MatchData>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Table>
-              <tr>
-                <Th>Batter</Th>
-                <th>R</th>
-                <th>B</th>
-                <th>4s</th>
-                <th>6s</th>
-                <th>S/R</th>
-              </tr>
-              {data?.teamAwayPlayers?.length > 0 &&
-                data.teamAwayPlayers.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.playerName}</Name>
-                    </Td>
-                    <td>{t.runs}</td>
-                    <td>{t.balls}</td>
-                    <td>{t.fours}</td>
-                    <td>{t.sixes}</td>
-                    <td>{t.strikeRate}</td>
-                  </tr>
-                ))}
-            </Table>
-            <Table>
-              <tr>
-                <Th>Bowler</Th>
-                <th>O</th>
-                <th>M</th>
-                <th>R</th>
-                <th>W</th>
-                <th>Eco</th>
-              </tr>
-              {data?.teamHomePlayers?.length > 0 &&
-                data.teamHomePlayers.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.playerName}</Name>
-                    </Td>
-                    <td>{t.overs}</td>
-                    <td>{t.maidens}</td>
-                    <td>{t.runsConceded}</td>
-                    <td>{t.wickets}</td>
-                    <td>{Math.floor(t.economy * 10) / 10}</td>
-                  </tr>
-                ))}
-            </Table>
-            <Table>
-              <tr>
-                <Th>Fall Of Wickets</Th>
-                <th>Score</th>
-                <th>Over</th>
-              </tr>
-              {fowsSi?.length > 0 &&
-                fowsSi.map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
-                      <Name>{t.score}</Name>
-                    </Td>
-                    <td>{t.fall}</td>
-                    <td>{t.over}</td>
-                  </tr>
-                ))}
-            </Table>
-          </AccordionDetails>
-        </Accordion>
-      </Container>
-    </>
+          <MatchData>
+            <Code>{g?.teamAwayCode}</Code>
+            <Scores>
+              <Overs>{`(${data?.oversSI} overs)`}</Overs>{" "}
+              {`${data.runSI}/${data.wicketsSI}`}{" "}
+            </Scores>{" "}
+          </MatchData>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Table>
+            <tr>
+              <Th>Batter</Th>
+              <th>R</th>
+              <th>B</th>
+              <th>4s</th>
+              <th>6s</th>
+              <th>S/R</th>
+            </tr>
+            {data?.teamAwayPlayers?.length > 0 &&
+              data.teamAwayPlayers.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.playerName}</Name>
+                  </Td>
+                  <td>{t.runs}</td>
+                  <td>{t.balls}</td>
+                  <td>{t.fours}</td>
+                  <td>{t.sixes}</td>
+                  <td>{t.strikeRate}</td>
+                </tr>
+              ))}
+          </Table>
+          <Table>
+            <tr>
+              <Th>Bowler</Th>
+              <th>O</th>
+              <th>M</th>
+              <th>R</th>
+              <th>W</th>
+              <th>Eco</th>
+            </tr>
+            {data?.teamHomePlayers?.length > 0 &&
+              data.teamHomePlayers.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.playerName}</Name>
+                  </Td>
+                  <td>{t.overs}</td>
+                  <td>{t.maidens}</td>
+                  <td>{t.runsConceded}</td>
+                  <td>{t.wickets}</td>
+                  <td>{Math.floor(t.economy * 10) / 10}</td>
+                </tr>
+              ))}
+          </Table>
+          <Table>
+            <tr>
+              <Th>Fall Of Wickets</Th>
+              <th>Score</th>
+              <th>Over</th>
+            </tr>
+            {fowsSi?.length > 0 &&
+              fowsSi.map((t) => (
+                <tr>
+                  <Td style={{ textTransform: "capitalize" }}>
+                    <Name>{t.score}</Name>
+                  </Td>
+                  <td>{t.fall}</td>
+                  <td>{t.over}</td>
+                </tr>
+              ))}
+          </Table>
+        </AccordionDetails>
+      </Accordion>
+    </Container>
   );
-};
+}
 export default ScoreCard;

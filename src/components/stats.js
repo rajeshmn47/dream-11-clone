@@ -1,38 +1,45 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import { alpha, styled } from "@mui/material/styles";
-import { DataGrid, gridClasses } from "@mui/x-data-grid";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import BasicTabs from "./tabs";
-import CategoryTabs from "./playerscategory";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
-import axios from "axios";
-import { Box } from "@mui/material";
-import Bottomnav from "./bottomnavbar";
-import Next from "./captain";
+
 import {
   PlaylistAddCheckCircleSharp,
   SendTimeExtension,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { Box, Grid } from "@mui/material";
+import { alpha, styled } from "@mui/material/styles";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import { DataGrid, gridClasses } from "@mui/x-data-grid";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
 import { getrowClass } from "../utils/getrowclass";
+import Bottomnav from "./bottomnavbar";
+import Next from "./captain";
+import CategoryTabs from "./playerscategory";
 import StatsName from "./statsname";
+import Steppr from "./stepper";
+import BasicTabs from "./tabs";
 
 const columns = [
-  { field: "playerId", headerName: "ID", width: 0, hide: true, editable: true },
+  {
+    field: "playerId",
+    headerName: "ID",
+    width: 0,
+    hide: true,
+    editable: true,
+  },
   {
     field: "playerName",
     headerName: "PLAYERS",
@@ -150,7 +157,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
 }));
 
-export const Stats = ({ matchdata, team }) => {
+export function Stats({ matchdata, team }) {
   const [match, setMatch] = useState(null);
   const { id } = useParams();
   const [players, setPlayers] = useState([]);
@@ -159,17 +166,13 @@ export const Stats = ({ matchdata, team }) => {
   const [next, setNext] = useState(false);
   console.log(team, "matchdata");
   useEffect(() => {
-    let all = [];
+    const all = [];
     if (team?.length > 0) {
       team.forEach((t) => {
         all.push(...t.players);
       });
     }
     setAllplayers([...all]);
-    let ko = allPlayers.find((k) => {
-      return k.playerName == "piyush chawla";
-    });
-    console.log(ko, allPlayers, "ko");
   }, [team]);
   useEffect(() => {
     async function getupcoming() {
@@ -177,7 +180,7 @@ export const Stats = ({ matchdata, team }) => {
       if (id) {
         const data = await axios.get(`${URL}/getplayers/${id}`);
         console.log(data);
-        let players = data.data.players.teamAwayPlayers
+        const players = data.data.players.teamAwayPlayers
           .concat(data.data.players.teamHomePlayers)
           .map((obj) => ({
             ...obj,
@@ -198,7 +201,7 @@ export const Stats = ({ matchdata, team }) => {
 
   console.log(players, allPlayers);
   const handleClick = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = true;
       }
@@ -208,7 +211,7 @@ export const Stats = ({ matchdata, team }) => {
   };
 
   const handleRemove = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = false;
       }
@@ -229,8 +232,8 @@ export const Stats = ({ matchdata, team }) => {
         columns={columns}
         disableRowSelectionOnClick
         getRowId={(row) => row.playerId}
-        showCellVerticalBorder={true}
-        showColumnVerticalBorder={true}
+        showCellVerticalBorder
+        showColumnVerticalBorder
         columnHeaderHeight={42}
         rowHeight={42}
         initialState={{
@@ -247,6 +250,6 @@ export const Stats = ({ matchdata, team }) => {
       />
     </Box>
   );
-};
+}
 
 export default Stats;

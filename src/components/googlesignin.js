@@ -1,10 +1,11 @@
+import axios from "axios";
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import { useNavigate } from "react-router-dom";
-import { URL } from "../constants/userConstants";
-import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { loadUser } from "../actions/userAction";
+import { URL } from "../constants/userConstants";
 
 export default function Logingoogle() {
   const history = useNavigate();
@@ -45,7 +46,7 @@ export default function Logingoogle() {
         onSuccess={onGoogleSuccess}
         onFailure={onGoogleFailure}
         className="google-login-button"
-        cookiePolicy={"single_host_origin"}
+        cookiePolicy="single_host_origin"
       />
     </div>
   );

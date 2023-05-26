@@ -1,23 +1,25 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import { useSelector } from "react-redux";
 import "./home.css";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import { style } from "@mui/system";
+
 import styled from "@emotion/styled";
-import SavedTeam from "./savedteam";
-import { useParams, useNavigate } from "react-router-dom";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { style } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
+import Bottomnav from "./bottomnavbar";
+import SavedTeam from "./savedteam";
+import Steppr from "./stepper";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -140,7 +142,7 @@ const Description = styled.div`
     margin-top: 17px;
   }
 `;
-export const Cron = () => {
+export function Cron() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   console.log(user);
   const [upcoming, setUpcoming] = useState([]);
@@ -160,11 +162,7 @@ export const Cron = () => {
     }
     getcron();
   }, []);
-  return (
-    <>
-      <h5>cron jobs</h5>
-    </>
-  );
-};
+  return <h5>cron jobs</h5>;
+}
 
 export default Cron;

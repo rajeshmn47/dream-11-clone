@@ -1,5 +1,5 @@
 export function showName(name) {
-  let a = name?.split(" ")[0].charAt(0).toUpperCase();
-  let b = name?.split(" ")[1];
-  return a + " " + b;
+  const a = name?.split(" ")[0].charAt(0).toUpperCase();
+  const b = name?.split(" ")[1];
+  return `${a} ${b}`;
 }

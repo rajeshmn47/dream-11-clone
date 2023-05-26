@@ -1,8 +1,9 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+
 import CrackerSVG1 from "../assets/3crackers.svg";
 import CrackerSVG2 from "../assets/4crackers.svg";
 
-const Cracker = ({ isAnimated }) => {
+function Cracker({ isAnimated }) {
   const [animation, setAnimation] = useState(false);
 
   const RightRocket = useRef();
@@ -31,6 +32,6 @@ const Cracker = ({ isAnimated }) => {
       )}
     </section>
   );
-};
+}
 
 export default Cracker;

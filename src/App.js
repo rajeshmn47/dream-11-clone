@@ -1,38 +1,28 @@
-import logo from "./logo.svg";
-import axios from "axios";
-import { URL } from "./constants/userConstants";
 import "./App.css";
-import Register from "./components/register";
-import Login from "./components/login";
+
+import { useEffect, useState } from "react";
 import ReactCanvasConfetti from "react-confetti";
-import Home from "./components/home";
-import Test from "./components/test";
-import Players from "./components/players";
-import CreateTeam from "./components/createteam";
-import CreateTeamNew from "./components/createnew";
-import Completed from "./components/completed";
-import Counter from "./components/counter";
-import {
-  Routes,
-  Route,
-  Link,
-  BrowserRouter,
-  useNavigate,
-} from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { loadUser, logout } from "./actions/userAction";
-import { useState, useEffect } from "react";
-import SavedTeam from "./components/savedteam";
 import ReactGA from "react-ga";
-import Contests from "./components/contests";
-import ContestDetail from "./components/contestdetail";
-import JoinedContests from "./components/joinedcontests";
-import Navbar from "./components/navbar";
-import { ForgotPassword } from "./components/forget-password";
-import Payment from "./components/payment";
-import Cron from "./components/cron";
-import Logingoogle from "./components/googlesignin";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { loadUser } from "./actions/userAction";
 import AddCommentary from "./components/addcommentary";
+import Completed from "./components/completed";
+import ContestDetail from "./components/contestdetail";
+import Contests from "./components/contests";
+import Counter from "./components/counter";
+import CreateTeamNew from "./components/createnew";
+import { ForgotPassword } from "./components/forget-password";
+import Logingoogle from "./components/googlesignin";
+import Home from "./components/home";
+import JoinedContests from "./components/joinedcontests";
+import Login from "./components/login";
+import Payment from "./components/payment";
+import Players from "./components/players";
+import Register from "./components/register";
+import SavedTeam from "./components/savedteam";
+import Test from "./components/test";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,7 +74,6 @@ function App() {
           <Route path="/contestdetail/:id" element={<ContestDetail />} />
           <Route path="/joined" element={<JoinedContests />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/cron" element={<Cron />} />
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/googlelogin" element={<Logingoogle />} />

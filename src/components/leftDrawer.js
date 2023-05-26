@@ -1,28 +1,29 @@
-import * as React from "react";
+import styled from "@emotion/styled";
+import { BoyOutlined } from "@mui/icons-material";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MailIcon from "@mui/icons-material/Mail";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import styled from "@emotion/styled";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import { logout } from "../actions/userAction";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BoyOutlined } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+
+import { logout } from "../actions/userAction";
 
 const Container = styled.div`
   .MuiTypography-body1 {
@@ -161,79 +162,79 @@ export default function LeftDrawer({ state, setState }) {
     window.location.reload();
   };
 
-  const ListA = (anchor) => (
-    <Box
-      sx={{ width: 250, cursor: "pointer" }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <Account>
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          style={{ width: "100%", marginLefr: "0", marginTop: "0" }}
-        >
-          <Grid sm={3} xs={3}>
-            <Img
-              src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
-              alt=""
-              style={{ borderRadius: "50%" }}
-            />
+  function ListA(anchor) {
+    return (
+      <Box
+        sx={{ width: 250, cursor: "pointer" }}
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+      >
+        <Account>
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            style={{ width: "100%", marginLefr: "0", marginTop: "0" }}
+          >
+            <Grid sm={3} xs={3}>
+              <Img
+                src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
+                alt=""
+                style={{ borderRadius: "50%" }}
+              />
+            </Grid>
+            <Grid sm={6} xs={6}>
+              <Name>{user && user.username}</Name>
+            </Grid>
+            <Grid sm={3} xs={3}>
+              <ChevronRightOutlinedIcon style={{ color: "#FFFFFF" }} />
+            </Grid>
           </Grid>
-          <Grid sm={6} xs={6}>
-            <Name>{user && user.username}</Name>
-          </Grid>
-          <Grid sm={3} xs={3}>
-            <ChevronRightOutlinedIcon style={{ color: "#FFFFFF" }} />
-          </Grid>
-        </Grid>
-      </Account>
-      <Container>
-        <ListI>
-          <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
-          Balance
-        </ListI>
-        <ListI onClick={() => handleLogout()}>
-          <LogoutIcon style={{ width: "60px" }} /> Logout
-        </ListI>
-        <ListI>
-          <BoyOutlined style={{ width: "60px" }} /> Find People
-        </ListI>
-        <ListI>
-          <SportsEsportsOutlinedIcon style={{ width: "60px" }} /> How to Play
-        </ListI>
-        <ListI>
-          <GroupsOutlinedIcon style={{ width: "60px" }} /> Champions Club
-        </ListI>
-        <ListI>
-          <SettingsOutlinedIcon style={{ width: "60px" }} />
-          My Info & Settings
-        </ListI>
-        <ListI>
-          <MoreHorizOutlinedIcon style={{ width: "60px" }} />
-          more
-        </ListI>
-        <ListI>
-          <HelpOutlineOutlinedIcon style={{ width: "60px" }} />
-          Help & Support
-        </ListI>
-      </Container>
-    </Box>
-  );
+        </Account>
+        <Container>
+          <ListI>
+            <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
+            Balance
+          </ListI>
+          <ListI onClick={() => handleLogout()}>
+            <LogoutIcon style={{ width: "60px" }} /> Logout
+          </ListI>
+          <ListI>
+            <BoyOutlined style={{ width: "60px" }} /> Find People
+          </ListI>
+          <ListI>
+            <SportsEsportsOutlinedIcon style={{ width: "60px" }} /> How to Play
+          </ListI>
+          <ListI>
+            <GroupsOutlinedIcon style={{ width: "60px" }} /> Champions Club
+          </ListI>
+          <ListI>
+            <SettingsOutlinedIcon style={{ width: "60px" }} />
+            My Info & Settings
+          </ListI>
+          <ListI>
+            <MoreHorizOutlinedIcon style={{ width: "60px" }} />
+            more
+          </ListI>
+          <ListI>
+            <HelpOutlineOutlinedIcon style={{ width: "60px" }} />
+            Help & Support
+          </ListI>
+        </Container>
+      </Box>
+    );
+  }
 
   return (
-    <React.Fragment>
-      <DrawerContainer>
-        <Drawer
-          open={state}
-          onClose={toggleDrawer(false)}
-          style={{ padding: "0 !important" }}
-        >
-          <ListA />
-        </Drawer>
-      </DrawerContainer>
-    </React.Fragment>
+    <DrawerContainer>
+      <Drawer
+        open={state}
+        onClose={toggleDrawer(false)}
+        style={{ padding: "0 !important" }}
+      >
+        <ListA />
+      </Drawer>
+    </DrawerContainer>
   );
 }

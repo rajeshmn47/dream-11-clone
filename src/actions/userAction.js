@@ -1,17 +1,18 @@
 import axios from "axios";
+
 import {
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_REQUEST,
-  LOGIN_FAIL,
-  REGISTER_USER_FAIL,
-  LOAD_USER_SUCCESS,
-  LOAD_USER_REQUEST,
-  LOAD_USER_FAIL,
-  URL,
   ADD_CONFETTI,
+  LOAD_USER_FAIL,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  REGISTER_USER_FAIL,
+  REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
   REMOVE_CONFETTI,
+  URL,
 } from "../constants/userConstants";
 
 const headers = {
@@ -102,7 +103,7 @@ export const loadUser = () => async (dispatch) => {
       headers: {
         ...headers,
         "Content-Type": "application/json",
-        servertoken: servertoken,
+        servertoken,
       },
     });
     console.log(data);

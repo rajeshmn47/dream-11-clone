@@ -1,11 +1,11 @@
 export function getkeys() {
-  let hours = new Date().getHours() - 15;
+  const hours = new Date().getHours() - 15;
   console.log(hours, "totalhits");
   if (hours > 6) {
-    let keyindex = Math.floor(hours / 3);
-    let keyi = Math.floor(keyindex / 250);
+    const keyindex = Math.floor(hours / 3);
+    const keyi = Math.floor(keyindex / 250);
     console.log(keyi, "index");
-    let keys = [
+    const keys = [
       "29c032b76emsh6616803b28338c2p19f6c1jsn8c7ad47ac806",
       "3e774772f1mshd335b4ddbbd2512p194714jsnb9cc15174c3b",
       "f6c54e8046msh9ade928a37f126bp15dc9fjsnbdbaac07848f",

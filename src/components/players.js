@@ -1,20 +1,22 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import styled from "@emotion/styled";
 import "./home.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { URL } from "../constants/userConstants";
+
+import styled from "@emotion/styled";
 import {
   PlaylistAddCheckCircleSharp,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+import { URL } from "../constants/userConstants";
+import Bottomnav from "./bottomnavbar";
+import Steppr from "./stepper";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -26,7 +28,7 @@ const Player = styled.div`
     width: 150px !important;
   }
 `;
-export const Players = () => {
+export function Players() {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -91,6 +93,6 @@ export const Players = () => {
       <Bottomnav />
     </>
   );
-};
+}
 
 export default Players;

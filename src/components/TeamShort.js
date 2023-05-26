@@ -1,22 +1,25 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import "./home.css";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import { style } from "@mui/system";
+
 import styled from "@emotion/styled";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Grid } from "@mui/material";
-import { URL } from "../constants/userConstants";
+import { style } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+
+import { URL } from "../constants/userConstants";
+import { getImgurl } from "../utils/img_url";
+import Bottomnav from "./bottomnavbar";
+import Steppr from "./stepper";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -269,7 +272,7 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: #000000;
 `;
-export const TeamShort = ({ players, id, plo }) => {
+export function TeamShort({ players, id, plo }) {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -281,17 +284,13 @@ export const TeamShort = ({ players, id, plo }) => {
   useEffect(() => {
     async function filterDifferent() {
       const data = await axios.get(`${URL}/getplayers/${id}`);
-      let h = data.data.players.teamHomePlayers.filter((f) => {
-        return selectedPlayers.some((s) => {
-          return f.playerId === s.playerId;
-        });
-      }).length;
-      let o = data.data.players.teamAwayPlayers.filter((f) => {
-        return selectedPlayers.some((s) => {
-          return f.playerId === s.playerId;
-        });
-      }).length;
-      let a = [
+      const h = data.data.players.teamHomePlayers.filter((f) =>
+        selectedPlayers.some((s) => f.playerId === s.playerId)
+      ).length;
+      const o = data.data.players.teamAwayPlayers.filter((f) =>
+        selectedPlayers.some((s) => f.playerId === s.playerId)
+      ).length;
+      const a = [
         { awayCode: data.data.matchdetails.teamAwayCode, number: o },
         { homeCode: data.data.matchdetails.teamHomeCode, number: h },
       ];
@@ -303,16 +302,12 @@ export const TeamShort = ({ players, id, plo }) => {
   useEffect(() => {
     async function filterDifferent() {
       const data = await axios.get(`${URL}/getplayers/${id}`);
-      let cap = data.data.players.teamAwayPlayers
+      const cap = data.data.players.teamAwayPlayers
         .concat(data.data.players.teamHomePlayers)
-        .filter((f) => {
-          return f.playerId == plo.captainId;
-        });
-      let vcap = data.data.players.teamAwayPlayers
+        .filter((f) => f.playerId == plo.captainId);
+      const vcap = data.data.players.teamAwayPlayers
         .concat(data.data.players.teamHomePlayers)
-        .filter((f) => {
-          return f.playerId == plo.viceCaptainId;
-        });
+        .filter((f) => f.playerId == plo.viceCaptainId);
 
       setCaptains([...cap, ...vcap]);
     }
@@ -320,18 +315,18 @@ export const TeamShort = ({ players, id, plo }) => {
   }, [plo]);
 
   useEffect(() => {
-    let pl = players.map((obj) => ({
+    const pl = players.map((obj) => ({
       ...obj,
     }));
     setSelectedPlayers([...pl]);
   }, [id]);
 
   const handleCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isCaptain = false;
       return p;
     });
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p._id === i) {
         p.isCaptain = true;
       }
@@ -341,11 +336,11 @@ export const TeamShort = ({ players, id, plo }) => {
   };
 
   const handleViceCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isViceCaptain = false;
       return p;
     });
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p._id === i) {
         p.isViceCaptain = true;
       }
@@ -358,8 +353,8 @@ export const TeamShort = ({ players, id, plo }) => {
   };
 
   const isCandVcselected = () => {
-    let a = selectedPlayers.find((s) => s.isCaptain);
-    let b = selectedPlayers.find((s) => s.isViceCaptain);
+    const a = selectedPlayers.find((s) => s.isCaptain);
+    const b = selectedPlayers.find((s) => s.isViceCaptain);
     return a && b;
   };
   console.log(matchinfo, captains, "cap");
@@ -381,24 +376,30 @@ export const TeamShort = ({ players, id, plo }) => {
                 <CaptainI>
                   <span>c</span>
                 </CaptainI>
-                <img src={captains[0].image} alt="" />
+                <img
+                  src={getImgurl(captains[0].playerId, captains[0].playerName)}
+                  alt=""
+                />
 
                 <Captain>
                   <p>
-                    {captains[0].playerName.split(" ")[0].charAt(0) +
-                      " " +
-                      captains[0].playerName.split(" ")[1]}
+                    {`${captains[0].playerName.split(" ")[0].charAt(0)} ${
+                      captains[0].playerName.split(" ")[1]
+                    }`}
                   </p>
                 </Captain>
               </CaptainsContainer>
               <CaptainsContainer>
                 <VcaptainI>vc</VcaptainI>
-                <img src={captains[1].image} alt="" />
+                <img
+                  src={getImgurl(captains[1].playerId, captains[1].playerName)}
+                  alt=""
+                />
                 <VCaptain>
                   <p>
-                    {captains[1].playerName.split(" ")[0].charAt(0) +
-                      " " +
-                      captains[1].playerName.split(" ")[1]}
+                    {`${captains[1].playerName.split(" ")[0].charAt(0)} ${
+                      captains[1].playerName.split(" ")[1]
+                    }`}
                   </p>
                 </VCaptain>
               </CaptainsContainer>
@@ -442,6 +443,6 @@ export const TeamShort = ({ players, id, plo }) => {
       )}
     </div>
   );
-};
+}
 
 export default TeamShort;

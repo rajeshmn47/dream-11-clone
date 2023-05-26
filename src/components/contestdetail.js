@@ -1,28 +1,30 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import Tab from "@mui/material/Tab";
 import "./home.css";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import WestIcon from "@mui/icons-material/West";
+
 import styled from "@emotion/styled";
-import SavedTeam from "./savedteam";
-import { URL } from "../constants/userConstants";
-import BaseTab from "./tabsdata";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import Brightness1Icon from "@mui/icons-material/Brightness1";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import WestIcon from "@mui/icons-material/West";
 import { Grid, Slider } from "@mui/material";
+import Tab from "@mui/material/Tab";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { URL } from "../constants/userConstants";
+import Bottomnav from "./bottomnavbar";
+import SavedTeam from "./savedteam";
+import Steppr from "./stepper";
+import BaseTab from "./tabsdata";
 
 const Top = styled.div`
   background-color: #000000;
@@ -134,7 +136,7 @@ const Last = styled.div`
 
 const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
 
-export const ContestDetail = () => {
+export function ContestDetail() {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -152,7 +154,7 @@ export const ContestDetail = () => {
       console.log(contestdata, "contest");
       setContest(contestdata.data.contest);
       setMatch(teamdata.data.match);
-      let t = teamdata.data.teams.sort((a, b) => a.points - b.points);
+      const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
       setLeaderboard([...t]);
     }
     getteams();
@@ -169,7 +171,8 @@ export const ContestDetail = () => {
             />
             {match && (
               <h1>
-                {match.teamAwayCode} Vs {match.teamHomeCode}
+                {match.teamAwayCode} Vs
+                {match.teamHomeCode}
               </h1>
             )}
           </LeftSide>
@@ -221,6 +224,6 @@ export const ContestDetail = () => {
       <BaseTab contest={contest} teams={leaderboard} />
     </>
   );
-};
+}
 
 export default ContestDetail;

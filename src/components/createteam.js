@@ -1,25 +1,27 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import styled from "@emotion/styled";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import Next from "./captain";
+
+import styled from "@emotion/styled";
 import {
   PlaylistAddCheckCircleSharp,
   SendTimeExtension,
   SettingsApplicationsTwoTone,
 } from "@mui/icons-material";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { Grid } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
+import Bottomnav from "./bottomnavbar";
+import Next from "./captain";
+import Steppr from "./stepper";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -125,7 +127,7 @@ const NextButton = styled.button`
 const NoLineups = styled.h3`
   color: #ec1801;
 `;
-export const CreateTeam = () => {
+export function CreateTeam() {
   const PlayersNumber = new Array(11).fill(null);
   const [TeamArray, setTeamArray] = useState(new Array(11).fill(null));
   const [upcoming, setUpcoming] = useState([]);
@@ -139,7 +141,7 @@ export const CreateTeam = () => {
       const data = await axios.get(`${URL}/getplayers/${id}`);
       console.log(data);
 
-      let players = data.data.players.teamAwayPlayers
+      const players = data.data.players.teamAwayPlayers
         .concat(data.data.players.teamHomePlayers)
         .map((obj) => ({
           ...obj,
@@ -151,7 +153,7 @@ export const CreateTeam = () => {
   }, []);
   console.log(players);
   const handleClick = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = true;
       }
@@ -161,7 +163,7 @@ export const CreateTeam = () => {
   };
 
   const handleRemove = (i) => {
-    let po = players.map((p) => {
+    const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = false;
       }
@@ -185,7 +187,7 @@ export const CreateTeam = () => {
                 .filter((k) => k.isSelected === true)
                 .map((p, index) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
-                    <NoPlayer></NoPlayer>
+                    <NoPlayer />
                   </Grid>
                 ))}
             {players.filter((k) => k.isSelected === true).length <= 11 &&
@@ -196,7 +198,7 @@ export const CreateTeam = () => {
                 )
                 .map((g) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
-                    <BlankPlayer></BlankPlayer>
+                    <BlankPlayer />
                   </Grid>
                 ))}
           </NoPlayers>
@@ -259,6 +261,6 @@ export const CreateTeam = () => {
       )}
     </>
   );
-};
+}
 
 export default CreateTeam;

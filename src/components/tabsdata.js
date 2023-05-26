@@ -1,15 +1,16 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
-import Box from "@mui/material/Box";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
+import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
+import * as React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
 
 const ContestsContainer = styled(Grid)``;
@@ -251,7 +252,7 @@ export default function BasicTabs({ contest, teams }) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
-        <LastPanel></LastPanel>
+        <LastPanel />
         <Tabel>
           <table>
             <tr>

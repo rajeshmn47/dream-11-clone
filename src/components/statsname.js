@@ -15,7 +15,7 @@ const Container = styled.div`
     align-items: center;
   }
 `;
-export const StatsName = (props) => {
+export function StatsName(props) {
   const { hasFocus, value, playerName } = props;
 
   return (
@@ -27,6 +27,6 @@ export const StatsName = (props) => {
       />
     </Container>
   );
-};
+}
 
 export default StatsName;

@@ -1,25 +1,27 @@
 import "./register.css";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+
+import styled from "@emotion/styled";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { useState, react, useEffect } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
+import { react, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { URL } from "../constants/userConstants";
+import { Link, useNavigate } from "react-router-dom";
+
 import { login } from "../actions/userAction";
-import styled from "@emotion/styled";
-import Otp from "./otp";
+import { URL } from "../constants/userConstants";
 import NewPassword from "./newpassword";
+import Otp from "./otp";
 
 const Err = styled.p`
   color: red;
 `;
 
-export const ForgotPassword = () => {
+export function ForgotPassword() {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -51,8 +53,8 @@ export const ForgotPassword = () => {
   };
   const handleotp = async () => {
     const data = await axios.post(`${URL}/auth/forgot-password-otp`, {
-      email: email,
-      otp: otp,
+      email,
+      otp,
     });
     console.log(data);
     setErr(data.data.message);
@@ -62,8 +64,8 @@ export const ForgotPassword = () => {
   };
   const handlenewPassword = async () => {
     const data = await axios.post(`${URL}/auth/changepassword`, {
-      email: email,
-      password: password,
+      email,
+      password,
     });
     console.log(data);
     setErr(data.data.message);
@@ -155,6 +157,6 @@ export const ForgotPassword = () => {
       )}
     </>
   );
-};
+}
 
 export default ForgotPassword;

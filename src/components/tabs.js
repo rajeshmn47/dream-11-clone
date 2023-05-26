@@ -1,29 +1,30 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
-import Box from "@mui/material/Box";
+import { SettingsSystemDaydream } from "@mui/icons-material";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Button, Grid } from "@mui/material";
+import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { useNavigate } from "react-router-dom";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import SelectTeam from "./selectteam";
-import ConfirmModal from "./confirmcontest";
-import BaseTab from "./tabsdata";
-import SavedTeam from "./savedteam";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import * as React from "react";
 import { useEffect } from "react";
-import { TeamShort } from "./TeamShort";
-import { SettingsSystemDaydream } from "@mui/icons-material";
-import { URL, FURL } from "../constants/userConstants";
-import Loader from "./loader";
-import ScoreCard from "./scorecard";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { FURL, URL } from "../constants/userConstants";
 import Commentary from "./commentary";
+import ConfirmModal from "./confirmcontest";
+import Loader from "./loader";
+import SavedTeam from "./savedteam";
+import ScoreCard from "./scorecard";
+import SelectTeam from "./selectteam";
 import Stats from "./stats";
+import BaseTab from "./tabsdata";
+import { TeamShort } from "./TeamShort";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -329,7 +330,7 @@ export default function BasicTabs({ tabs, id, g }) {
               value={value}
               onChange={handleChange}
               variant="scrollable"
-              scrollButtons={true}
+              scrollButtons
               allowScrollButtonsMobile
               aria-label="scrollable force tabs example"
             >
@@ -342,9 +343,9 @@ export default function BasicTabs({ tabs, id, g }) {
                 label={`My Teams(${team && team.length})`}
                 {...a11yProps(2)}
               />
-              <Tab label={`Commentary`} {...a11yProps(3)} />
-              <Tab label={`Scorecard`} {...a11yProps(4)} />
-              <Tab label={`Stats`} {...a11yProps(5)} />
+              <Tab label="Commentary" {...a11yProps(3)} />
+              <Tab label="Scorecard" {...a11yProps(4)} />
+              <Tab label="Stats" {...a11yProps(5)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -416,7 +417,8 @@ export default function BasicTabs({ tabs, id, g }) {
                           <h5
                             style={{ color: "#008a36", fontFamily: "OpenSans" }}
                           >
-                            u won {tab?.team.won}rs!
+                            u won {tab?.team.won}
+                            rs!
                           </h5>
                         )}
                       </First>
@@ -430,7 +432,7 @@ export default function BasicTabs({ tabs, id, g }) {
                       <SpotsLeft>{tab?.team?.username}</SpotsLeft>
                       <SpotsLeft>{tab?.team?.teamnumber}</SpotsLeft>
                       <SpotsLeft>{tab?.team?.points}</SpotsLeft>
-                      <SpotsRight>#{tab?.team?.rank} </SpotsRight>
+                      <SpotsRight>#{tab?.team?.rank}</SpotsRight>
                     </StatusC>
                   </ContestContainerJ>
                 ))
@@ -449,9 +451,7 @@ export default function BasicTabs({ tabs, id, g }) {
           <TabPanel value={value} index={2}>
             {team?.length > 0 &&
               team.map((t) => (
-                <>
-                  <TeamShort players={t.players} plo={t} id={id} />
-                </>
+                <TeamShort players={t.players} plo={t} id={id} />
               ))}
             <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
               <AddCircleOutlineRoundedIcon />
@@ -473,17 +473,15 @@ export default function BasicTabs({ tabs, id, g }) {
           <>
             <Heading>You can Enter 1 team in this contest</Heading>
             {team.map((t) => (
-              <>
-                <SelectTeam
-                  players={t.players}
-                  plo={t}
-                  id={id}
-                  selectTeams={selectTeams}
-                  setSelectTeams={setSelectTeams}
-                  selectedTeam={selectedTeam}
-                  setSelectedTeam={setSelectedTeam}
-                />
-              </>
+              <SelectTeam
+                players={t.players}
+                plo={t}
+                id={id}
+                selectTeams={selectTeams}
+                setSelectTeams={setSelectTeams}
+                selectedTeam={selectedTeam}
+                setSelectedTeam={setSelectedTeam}
+              />
             ))}
             <JoinButtoncontainer>
               <p>join with</p>

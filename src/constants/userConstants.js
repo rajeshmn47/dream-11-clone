@@ -53,21 +53,19 @@ export const DELETE_USER_RESET = "DELETE_USER_RESET";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 function geturl() {
-  var current = process.env.REACT_APP_API;
+  const current = process.env.REACT_APP_API;
   if (current == "local") {
     return "http://localhost:8000";
-  } else {
-    return "https://backendforpuand-dream11.onrender.com";
   }
+  return "https://backendforpuand-dream11.onrender.com";
 }
 
 function getfrontendurl() {
-  var current = process.env.REACT_APP_API;
+  const current = process.env.REACT_APP_API;
   if (current == "local") {
     return "http://localhost:3000";
-  } else {
-    return "https://dream-11-clone-mern-stack.vercel.app";
   }
+  return "https://dream-11-clone-mern-stack.vercel.app";
 }
 
 export const URL = geturl();

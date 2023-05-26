@@ -1,23 +1,25 @@
 import "./register.css";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+
+import styled from "@emotion/styled";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { useState, react, useEffect } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
+import { react, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { URL } from "../constants/userConstants";
+import { Link, useNavigate } from "react-router-dom";
+
 import { login } from "../actions/userAction";
-import styled from "@emotion/styled";
+import { URL } from "../constants/userConstants";
 
 const Err = styled.p`
   color: red;
 `;
 
-export const Login = () => {
+export function Login() {
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -35,7 +37,7 @@ export const Login = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
-    const formdata = { email: email, password: password };
+    const formdata = { email, password };
     dispatch(login(formdata));
   };
   return (
@@ -125,6 +127,6 @@ export const Login = () => {
       </div>
     </>
   );
-};
+}
 
 export default Login;

@@ -1,25 +1,27 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import "./home.css";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { style } from "@mui/system";
+
 import styled from "@emotion/styled";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Grid } from "@mui/material";
+import { style } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
+import { getImgurl } from "../utils/img_url";
+import Bottomnav from "./bottomnavbar";
 import Loader from "./loader";
+import Steppr from "./stepper";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -171,7 +173,7 @@ const Title = styled.p`
   justify-content: center;
 `;
 
-export const SavedTeam = () => {
+export function SavedTeam() {
   const navigate = useNavigate();
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -190,11 +192,11 @@ export const SavedTeam = () => {
   }, [id]);
 
   const handleCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isCaptain = false;
       return p;
     });
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p._id === i) {
         p.isCaptain = true;
       }
@@ -205,11 +207,11 @@ export const SavedTeam = () => {
   };
 
   const handleViceCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isViceCaptain = false;
       return p;
     });
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p._id === i) {
         p.isViceCaptain = true;
       }
@@ -223,8 +225,8 @@ export const SavedTeam = () => {
   };
 
   const isCandVcselected = () => {
-    let a = selectedPlayers.find((s) => s.isCaptain);
-    let b = selectedPlayers.find((s) => s.isViceCaptain);
+    const a = selectedPlayers.find((s) => s.isCaptain);
+    const b = selectedPlayers.find((s) => s.isViceCaptain);
     return a && b;
   };
   return (
@@ -245,7 +247,7 @@ export const SavedTeam = () => {
             {players.slice(0, 2).map((p) => (
               <Grid item xs={6} sm={6}>
                 <PlayerP>
-                  <img src={p.image} alt="" />
+                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -255,7 +257,7 @@ export const SavedTeam = () => {
             {players.slice(2, 6).map((p) => (
               <Grid item xs={3} sm={3}>
                 <PlayerP>
-                  <img src={p.image} alt="" />
+                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -265,7 +267,7 @@ export const SavedTeam = () => {
             {players.slice(6, 8).map((p) => (
               <Grid item xs={6} sm={6}>
                 <PlayerP>
-                  <img src={p.image} alt="" />
+                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -275,7 +277,7 @@ export const SavedTeam = () => {
             {players.slice(8, 11).map((p) => (
               <Grid item xs={4} sm={4}>
                 <PlayerP>
-                  <img src={p.image} alt="" />
+                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -287,6 +289,6 @@ export const SavedTeam = () => {
       )}
     </div>
   );
-};
+}
 
 export default SavedTeam;

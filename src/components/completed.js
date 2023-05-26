@@ -1,34 +1,36 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import "./home.css";
+
+import styled from "@emotion/styled";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import PeopleIcon from "@mui/icons-material/People";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Button, Drawer } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import "./home.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import styled from "@emotion/styled";
-import Navbar from "./navbar";
-import { URL } from "../constants/userConstants";
-import { useSelector } from "react-redux";
 import extractColors from "extract-colors";
-import Loader from "./loader";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { URL } from "../constants/userConstants";
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
 } from "../utils/dateformat";
+import Bottomnav from "./bottomnavbar";
+import Loader from "./loader";
+import Navbar from "./navbar";
+import Steppr from "./stepper";
 
 const RightSide = styled.div`
   width: 90px;
@@ -114,7 +116,7 @@ const TopDiv = styled.div`
 const ViewAll = styled(Button)`
   color: #ffffff;
 `;
-export const Completed = () => {
+export function Completed() {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -124,7 +126,7 @@ export const Completed = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    var i = setInterval(() => {
+    const i = setInterval(() => {
       setDate(new Date());
     }, 1000);
     return () => {
@@ -184,7 +186,8 @@ export const Completed = () => {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs {u.home.code}
+                        {u.away.code} vs
+                        {u.home.code}
                       </h5>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
@@ -270,7 +273,8 @@ export const Completed = () => {
                       </div>
                       <div className="icon">
                         <h5 style={{ marginRight: "10px", color: "#1ca14d" }}>
-                          u won {u.won}rs !
+                          u won {u.won}
+                          rs !
                         </h5>
                         <PersonOutlineOutlinedIcon
                           style={{ color: "#595959", fontSize: "18px" }}
@@ -289,6 +293,6 @@ export const Completed = () => {
       <Bottomnav />
     </>
   );
-};
+}
 
 export default Completed;

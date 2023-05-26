@@ -1,23 +1,26 @@
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import { useSelector } from "react-redux";
 import "./home.css";
 import "./create.css";
-import Steppr from "./stepper";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Bottomnav from "./bottomnavbar";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import { style } from "@mui/system";
+
 import styled from "@emotion/styled";
-import SavedTeam from "./savedteam";
-import { useParams, useNavigate } from "react-router-dom";
+import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import SportsCricketIcon from "@mui/icons-material/SportsCricket";
+import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import { style } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
+import { getImgurl } from "../utils/img_url";
+import Bottomnav from "./bottomnavbar";
+import SavedTeam from "./savedteam";
+import Steppr from "./stepper";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -140,7 +143,7 @@ const Description = styled.div`
     margin-top: 17px;
   }
 `;
-export const Captain = ({ players }) => {
+export function Captain({ players }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   console.log(user);
   const [upcoming, setUpcoming] = useState([]);
@@ -153,7 +156,7 @@ export const Captain = ({ players }) => {
   const { id } = useParams();
   const [save, setSave] = useState(false);
   useEffect(() => {
-    let pl = players.map((obj) => ({
+    const pl = players.map((obj) => ({
       ...obj,
       isCaptain: false,
       isViceCaptain: false,
@@ -162,12 +165,12 @@ export const Captain = ({ players }) => {
   }, [players]);
   console.log(selectedPlayers, "select");
   const handleCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isCaptain = false;
       return p;
     });
     setCaptainId(i);
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p.playerId === i) {
         p.isCaptain = true;
       }
@@ -178,12 +181,12 @@ export const Captain = ({ players }) => {
   };
 
   const handleViceCaptain = (i) => {
-    let op = players.map((p) => {
+    const op = players.map((p) => {
       p.isViceCaptain = false;
       return p;
     });
     setVicecaptainId(i);
-    let po = op.map((p) => {
+    const po = op.map((p) => {
       if (p.playerId === i) {
         p.isViceCaptain = true;
       }
@@ -197,8 +200,8 @@ export const Captain = ({ players }) => {
       players: selectedPlayers,
       matchId: id,
       userid: user._id,
-      captainId: captainId,
-      vicecaptainId: vicecaptainId,
+      captainId,
+      vicecaptainId,
     });
     setSave(true);
     navigate(`/contests/${id}`);
@@ -206,8 +209,8 @@ export const Captain = ({ players }) => {
 
   function isCandVcselected(se) {
     console.log("r", selectedPlayers);
-    let a = se.find((s) => s.isCaptain === true);
-    let b = se.find((s) => s.isViceCaptain === true);
+    const a = se.find((s) => s.isCaptain === true);
+    const b = se.find((s) => s.isViceCaptain === true);
     console.log(a, b, a & b);
     return a && b;
   }
@@ -223,7 +226,7 @@ export const Captain = ({ players }) => {
             {selectedPlayers.map((p) => (
               <Player>
                 <Name>
-                  <img src={p.image} alt="" />
+                  <img src={getImgurl(p.playerId, p.image)} alt="" />
                   <h1>{p.playerName}</h1>
                 </Name>
                 <CaptainC
@@ -261,6 +264,6 @@ export const Captain = ({ players }) => {
       )}
     </>
   );
-};
+}
 
 export default Captain;

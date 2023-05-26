@@ -1,21 +1,22 @@
 import "./register.css";
+
+import styled from "@emotion/styled";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { useState, react } from "react";
+import { react, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { URL } from "../constants/userConstants";
 import Otp from "./otp";
-import styled from "@emotion/styled";
 
 const Err = styled.p`
   color: red;
 `;
 
-export const Register = () => {
+export function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
@@ -30,10 +31,10 @@ export const Register = () => {
 
     console.log(phonenumber, username, email, password);
     const data = await axios.post(`${URL}/auth/register`, {
-      username: username,
-      email: email,
-      phonenumber: phonenumber,
-      password: password,
+      username,
+      email,
+      phonenumber,
+      password,
     });
     console.log(data);
     if (data.data.success) {
@@ -46,11 +47,11 @@ export const Register = () => {
 
   const handleotp = async () => {
     const data = await axios.post(`${URL}/auth/otp`, {
-      username: username,
-      email: email,
-      phonenumber: phonenumber,
-      password: password,
-      otp: otp,
+      username,
+      email,
+      phonenumber,
+      password,
+      otp,
     });
     console.log(data.data.message);
     setErr(data.data.message);
@@ -121,6 +122,6 @@ export const Register = () => {
       />
     </>
   );
-};
+}
 
 export default Register;

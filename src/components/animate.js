@@ -1,8 +1,9 @@
-import Cracker from "./Cracker";
-import DecorationSmall from "./assets/DiwaSmall.svg";
+import { useEffect, useState } from "react";
 import ReactCanvasConfetti from "react-confetti";
 import { useWindowSize } from "react-use";
-import { useEffect, useState } from "react";
+
+import DecorationSmall from "./assets/DiwaSmall.svg";
+import Cracker from "./Cracker";
 
 function Animate({ confetti, setConfetti }) {
   const { width, height } = useWindowSize();
