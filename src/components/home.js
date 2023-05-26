@@ -296,7 +296,7 @@ export const Home = () => {
                             <h5
                               className=""
                               style={{
-                                textTransform: "capitalize",
+                                textTransform: "lowercase",
                                 fontSize: "12px",
                               }}
                             >
@@ -305,13 +305,12 @@ export const Home = () => {
                           )}
                           <div
                             className="meg"
-                            style={{
-                              textTransform: "capitalize",
-                              fontSize: "12px",
-                            }}
                           >
                             {u.contests.length > 0 && (
-                              <h5>{u.contests.length} contests</h5>
+                              <h5  style={{
+                                textTransform: "lowercase",
+                                fontSize: "12px",
+                              }}>{u.contests.length} contests</h5>
                             )}
                           </div>
                         </div>
