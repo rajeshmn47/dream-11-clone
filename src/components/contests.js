@@ -243,128 +243,137 @@ export function Contests({ players }) {
   }, [id]);
   return (
     <Container>
-      <TopContainer>
-        <Top>
-          <LeftSide>
-            <WestIcon
-              onClick={() => history(-1)}
-              style={{ cursor: "pointer" }}
-            />
-            {match && (
-              <h1>
-                {match.teamAwayCode} Vs
-                <span style={{ marginLeft: "8px" }}>{match.teamHomeCode}</span>
-              </h1>
-            )}
-          </LeftSide>
-          <RightSide>
-            <Brightness1Icon />
-            <AccountBalanceWalletOutlinedIcon />
-            <NotificationAddOutlinedIcon />
-          </RightSide>
-        </Top>
-        {matchLive && (
-          <>
-            <Grid container justifyContent="space-between" alignItems="center">
-              <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
-                {matchLive?.runFI && livescore?.matchScoreDetails && (
-                  <>
-                    <p
-                      style={{
-                        height: "15px",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {matchLive.titleFI}
-                    </p>
-                    <p>
-                      {livescore.matchScoreDetails.inningsScoreList[0]?.score}/
-                      {livescore.matchScoreDetails.inningsScoreList[0]
-                        ?.wickets || 0}
-                      ({livescore.matchScoreDetails.inningsScoreList[0]?.overs})
-                    </p>
-                  </>
-                )}
-              </Grid>
+      <>
+        <TopContainer>
+          <Top>
+            <LeftSide>
+              <WestIcon
+                onClick={() => history(-1)}
+                style={{ cursor: "pointer" }}
+              />
+              {match && (
+                <h1>
+                  {match.teamAwayCode} Vs
+                  <span style={{ marginLeft: "8px" }}>
+                    {match.teamHomeCode}
+                  </span>
+                </h1>
+              )}
+            </LeftSide>
+            <RightSide>
+              <Brightness1Icon />
+              <AccountBalanceWalletOutlinedIcon />
+              <NotificationAddOutlinedIcon />
+            </RightSide>
+          </Top>
+          {matchLive?.runFI && livescore?.matchScoreDetails && (
+            <>
               <Grid
-                item
-                sm={4}
-                xs={4}
+                container
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
+                  <p
+                    style={{
+                      height: "15px",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {matchLive.titleFI}
+                  </p>
+                  <p>
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.score}/
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.wickets ||
+                      0}
+                    ({livescore.matchScoreDetails.inningsScoreList[0]?.overs})
+                  </p>
+                </Grid>
+                <Grid
+                  item
+                  sm={4}
+                  xs={4}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <GreenMark />
+                  {matchLive.result == "Complete" ? "Completed" : "In Play"}
+                </Grid>
+                <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
+                  {matchLive?.runSI && livescore?.matchScoreDetails && (
+                    <>
+                      <p
+                        style={{
+                          height: "15px",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {" "}
+                        {matchLive.titleSI}
+                      </p>
+                      <p>
+                        {" "}
+                        {livescore.matchScoreDetails.inningsScoreList[1]?.score}
+                        /
+                        {livescore.matchScoreDetails.inningsScoreList[1]
+                          ?.wickets || 0}
+                        (
+                        {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
+                        )
+                      </p>
+                    </>
+                  )}
+                </Grid>
+              </Grid>
+              <p
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
                 }}
               >
-                <GreenMark />
-                {matchLive.result == "Complete" ? "Completed" : "In Play"}
-              </Grid>
-              <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
-                {matchLive?.runSI && livescore?.matchScoreDetails && (
-                  <>
-                    <p
-                      style={{
-                        height: "15px",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {" "}
-                      {matchLive.titleSI}
-                    </p>
-                    <p>
-                      {" "}
-                      {livescore.matchScoreDetails.inningsScoreList[1]?.score}/
-                      {livescore.matchScoreDetails.inningsScoreList[1]
-                        ?.wickets || 0}
-                      ({livescore.matchScoreDetails.inningsScoreList[1]?.overs})
-                    </p>
-                  </>
-                )}
-              </Grid>
-            </Grid>
-            <p
-              style={{
-                textAlign: "center",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-              }}
-            >
-              {matchLive?.status?.split("(11b rem)").join("")}
-            </p>
-          </>
-        )}
-        <Separator />
-        <BottomT>
-          <Batsman>
-            <BowlTop>
-              <Name>{showName(livescore?.batsmanStriker?.batName)}</Name>
-              {livescore?.batsmanStriker?.batRuns}(
-              {livescore?.batsmanStriker?.batBalls})
-            </BowlTop>
-            <BowlTop>
-              <Name>{showName(livescore?.batsmanNonStriker?.batName)}</Name>
-              {livescore?.batsmanNonStriker?.batRuns}(
-              {livescore?.batsmanNonStriker?.batBalls})
-            </BowlTop>
-          </Batsman>
-          <Bowler>
-            <BowlTop>
-              <Name>{showName(livescore?.bowlerStriker?.bowlName)}</Name>
-              {livescore?.bowlerStriker?.bowlWkts}/
-              {livescore?.bowlerStriker?.bowlRuns}(
-              {livescore?.bowlerStriker?.bowlOvs})
-            </BowlTop>
-            <BowlTop>
-              <ShowOver arr={livescore?.recentOvsStats} />
-            </BowlTop>
-          </Bowler>
-        </BottomT>
-      </TopContainer>
-      <Bottom>
-        <BasicTabs tabs={contests} id={id} g={match} />
-      </Bottom>
+                {matchLive?.status?.split("(11b rem)").join("")}
+              </p>
+              <Separator />
+              <BottomT>
+                <Batsman>
+                  <BowlTop>
+                    <Name>{showName(livescore?.batsmanStriker?.batName)}</Name>
+                    {livescore?.batsmanStriker?.batRuns}(
+                    {livescore?.batsmanStriker?.batBalls})
+                  </BowlTop>
+                  <BowlTop>
+                    <Name>
+                      {showName(livescore?.batsmanNonStriker?.batName)}()
+                    </Name>
+                    {livescore?.batsmanNonStriker?.batRuns}(
+                    {livescore?.batsmanNonStriker?.batBalls})
+                  </BowlTop>
+                </Batsman>
+                <Bowler>
+                  <BowlTop>
+                    <Name>{showName(livescore?.bowlerStriker?.bowlName)}</Name>
+                    {livescore?.bowlerStriker?.bowlWkts}/
+                    {livescore?.bowlerStriker?.bowlRuns}(
+                    {livescore?.bowlerStriker?.bowlOvs})
+                  </BowlTop>
+                  <BowlTop>
+                    <ShowOver arr={livescore?.recentOvsStats} />
+                  </BowlTop>
+                </Bowler>
+              </BottomT>
+            </>
+          )}
+        </TopContainer>
+        <Bottom>
+          <BasicTabs tabs={contests} id={id} g={match} />
+        </Bottom>
+      </>
     </Container>
   );
 }

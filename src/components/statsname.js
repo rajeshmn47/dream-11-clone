@@ -22,10 +22,7 @@ export function StatsName(props) {
   return (
     <Container className="dream">
       <p>{value}</p>
-      <img
-        className="dreamicon"
-        src={`${FURL}/dreamteam.jpeg`}
-      />
+      <img className="dreamicon" src={`${FURL}/dreamteam.jpeg`} />
     </Container>
   );
 }
