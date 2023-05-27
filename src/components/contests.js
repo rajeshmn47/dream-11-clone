@@ -181,7 +181,6 @@ export function Contests({ players }) {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-
   const showAnimation = () => {
     setDimensions({
       width: window.innerWidth,
@@ -253,8 +252,8 @@ export function Contests({ players }) {
             />
             {match && (
               <h1>
-                {match.teamAwayCode} Vs
-                {match.teamHomeCode}
+                {match.teamAwayCode} Vs 
+                <span style={{marginLeft:'8px'}}>{match.teamHomeCode}</span>
               </h1>
             )}
           </LeftSide>
@@ -299,7 +298,7 @@ export function Contests({ players }) {
                 }}
               >
                 <GreenMark />
-                {matchLive.result == "Yes" ? "Completed" : "In Play"}
+                {matchLive.result == "Complete" ? "Completed" : "In Play"}
               </Grid>
               <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
                 {matchLive?.runSI && livescore?.matchScoreDetails && (
