@@ -1,17 +1,18 @@
 import styled from "@emotion/styled";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { URL } from "../constants/userConstants";
+import { FURL, URL } from "../constants/userConstants";
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
@@ -32,6 +33,7 @@ const Tabel = styled.div`
     border-bottom: 1px solid;
     border-bottom-color: currentcolor;
     border-color: rgba(0, 0, 0, 0.12);
+    text-align: center;
   }
   th {
     color: rgba(0, 0, 0, 0.6);
@@ -43,7 +45,6 @@ const Tabel = styled.div`
     padding: 0 10px;
     font-family: "Open Sans";
     text-align: center;
-    width: 100px !important;
   }
   td {
     font-weight: 600;
@@ -54,7 +55,9 @@ const Tabel = styled.div`
     padding: 10px 10px;
     font-family: "Open Sans";
     text-align: center;
-    width: 100px !important;
+  }
+  #morewidth {
+    width: 200px;
   }
 `;
 const Container = styled.div`
@@ -80,6 +83,24 @@ const Container = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+`;
+
+const Profile = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  img {
+    width: 25px;
+    margin-right: 5px;
+  }
+`;
+
+const Name = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 9px;
 `;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
@@ -178,6 +199,13 @@ const Left = styled.div``;
 const Right = styled.div``;
 
 const LastPanel = styled.div``;
+
+const Won = styled.div`
+  color: #1ca14d;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+`;
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -256,7 +284,7 @@ export default function BasicTabs({ contest, teams }) {
         <Tabel>
           <table>
             <tr>
-              <th>All Teams ({teams.length})</th>
+              <th id="morewidth">All Teams ({teams.length})</th>
               <th>Points</th>
               <th>Rank</th>
             </tr>
@@ -270,7 +298,25 @@ export default function BasicTabs({ contest, teams }) {
                     onClick={() => navigate(`/savedteam/${f._doc._id}`)}
                     style={{ cursor: "pointer" }}
                   >
-                    <td>{f.user.username}</td>
+                    <td style={{ width: "200px !important" }} id="morewidth">
+                      <Profile>
+                        <img src={`${FURL}/profilepic.png`} alt="" />
+                        <Name>
+                          {f.user.username}
+                          <Won>
+                            <EmojiEventsOutlinedIcon
+                              style={{
+                                color: "#1ca14d !important",
+                                fontSize: "16px",
+                                marginTop: "3px",
+                                marginRight: "5px",
+                              }}
+                            />
+                            <p>you won ₹500</p>
+                          </Won>
+                        </Name>
+                      </Profile>
+                    </td>
                     <td>{f._doc.points}</td>
                     <td>#{index + 1}</td>
                   </tr>

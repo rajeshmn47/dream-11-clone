@@ -252,8 +252,8 @@ export function Contests({ players }) {
             />
             {match && (
               <h1>
-                {match.teamAwayCode} Vs 
-                <span style={{marginLeft:'8px'}}>{match.teamHomeCode}</span>
+                {match.teamAwayCode} Vs
+                <span style={{ marginLeft: "8px" }}>{match.teamHomeCode}</span>
               </h1>
             )}
           </LeftSide>

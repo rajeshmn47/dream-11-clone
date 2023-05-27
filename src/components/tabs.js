@@ -14,7 +14,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { FURL, URL } from "../constants/userConstants";
 import Commentary from "./commentary";
 import ConfirmModal from "./confirmcontest";
@@ -429,10 +429,26 @@ export default function BasicTabs({ tabs, id, g }) {
                     </LastJ>
 
                     <StatusC>
-                      <SpotsLeft>{tab?.team?.username}</SpotsLeft>
+                      <SpotsLeft>
+                        {tab?.team?.username}
+                        <p style={{ color: "#1ca14d", fontSize: "12px" }}>
+                          IN WINNING ZONE
+                        </p>
+                      </SpotsLeft>
                       <SpotsLeft>{tab?.team?.teamnumber}</SpotsLeft>
                       <SpotsLeft>{tab?.team?.points}</SpotsLeft>
-                      <SpotsRight>#{tab?.team?.rank}</SpotsRight>
+                      <SpotsRight
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        #{tab?.team?.rank}
+                        <ArrowUpwardIcon
+                          style={{
+                            color: "#1ca14d",
+                            fontSize: "18px",
+                            marginLeft: "5px",
+                          }}
+                        />
+                      </SpotsRight>
                     </StatusC>
                   </ContestContainerJ>
                 ))

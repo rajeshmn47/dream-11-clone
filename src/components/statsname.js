@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
+import { FURL } from "../constants/userConstants";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   .dreamicon {
     display: none;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     margin-left: 5px;
   }
   .dream {
@@ -23,7 +24,7 @@ export function StatsName(props) {
       <p>{value}</p>
       <img
         className="dreamicon"
-        src="https://console.cron-job.org/static/media/logo-darkbg.7c9e65a9b10032c2a262.png"
+        src={`${FURL}/dreamteam.jpeg`}
       />
     </Container>
   );
