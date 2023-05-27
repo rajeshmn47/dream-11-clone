@@ -9,7 +9,7 @@ const Container = styled.div`
     display: none;
     height: 20px;
     width: 20px;
-    margin-left: 5px;
+    margin-left: 15px;
   }
   .dream {
     display: flex;
