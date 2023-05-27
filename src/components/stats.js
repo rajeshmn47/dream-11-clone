@@ -162,6 +162,7 @@ export function Stats({ matchdata, team }) {
   const { id } = useParams();
   const [players, setPlayers] = useState([]);
   const [allPlayers, setAllplayers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [dreamTeam, setDreamTeam] = useState([]);
   const [next, setNext] = useState(false);
   console.log(team, "matchdata");
@@ -178,7 +179,9 @@ export function Stats({ matchdata, team }) {
     async function getupcoming() {
       console.log(id, "id");
       if (id) {
+        setLoading(true);
         const data = await axios.get(`${URL}/getplayers/${id}`);
+        setLoading(false);
         console.log(data);
         const players = data.data.players.teamAwayPlayers
           .concat(data.data.players.teamHomePlayers)
@@ -228,6 +231,7 @@ export function Stats({ matchdata, team }) {
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <StripedDataGrid
+        loading={loading}
         rows={players}
         columns={columns}
         disableRowSelectionOnClick
