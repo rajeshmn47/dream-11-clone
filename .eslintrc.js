@@ -1,22 +1,19 @@
 /*module.exports = {
-  /*env: {
+env: {
     browser: true,
     es2021: true,
   },
-  DISABLE_ESLINT_PLUGIN:true,
-  extends: ["plugin:react/recommended", "airbnb"],
+  extends: ["airbnb"],
   overrides: [],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "simple-import-sort"],
+  plugins: ["simple-import-sort"],
   rules: {},
   rules: {
     // increase the severity of rules so they are auto-fixable
-   // "simple-import-sort/imports": "error",
-    //"simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
   },
-
-};
+}
 */

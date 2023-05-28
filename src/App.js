@@ -10,7 +10,6 @@ import { loadUser } from "./actions/userAction";
 import AddCommentary from "./components/addcommentary";
 import Completed from "./components/completed";
 import ContestDetail from "./components/contestdetail";
-import Contests from "./components/contests";
 import Counter from "./components/counter";
 import CreateTeamNew from "./components/createnew";
 import { ForgotPassword } from "./components/forget-password";
@@ -18,6 +17,7 @@ import Logingoogle from "./components/googlesignin";
 import Home from "./components/home";
 import JoinedContests from "./components/joinedcontests";
 import Login from "./components/login";
+import Contests from "./components/MatchDetails";
 import Payment from "./components/payment";
 import Players from "./components/players";
 import Register from "./components/register";
@@ -53,7 +53,6 @@ function App() {
   );
   useEffect(() => {
     dispatch(loadUser());
-    console.log(user, "or,and");
   }, [dispatch]);
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);

@@ -138,7 +138,6 @@ export function Completed() {
       if (user?._id) {
         setLoading(true);
         const data = await axios.get(`${URL}/completed/${user._id}`);
-        console.log(data.data.completed.results, "data");
         setPast(data.data.completed.results);
         setLoading(false);
       }
@@ -152,9 +151,6 @@ export function Completed() {
       navigate("/login");
     }
   }, []);
-  useEffect(() => {
-    console.log(past, "past");
-  }, [past]);
   const handleClick = () => {
     setOpen(true);
   };
@@ -186,8 +182,11 @@ export function Completed() {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs
-                        {u.home.code}
+                        <span style={{ marginRight: "5px" }}>
+                          {u.away.code}
+                        </span>{" "}
+                        vs
+                        <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
                       </h5>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
@@ -259,7 +258,7 @@ export function Completed() {
                             className=""
                             style={{
                               textTransform: "capitalize",
-                              fontSize: "14px",
+                              fontSize: "12px",
                             }}
                           >
                             {u.teams.length} teams
@@ -267,7 +266,14 @@ export function Completed() {
                         )}
                         <div className="meg">
                           {u.contests.length > 0 && (
-                            <h5>{u.contests.length} contests</h5>
+                            <h5
+                              style={{
+                                textTransform: "capitalize",
+                                fontSize: "12px",
+                              }}
+                            >
+                              {u.contests.length} contests
+                            </h5>
                           )}
                         </div>
                       </div>

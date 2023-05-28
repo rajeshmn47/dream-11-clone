@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { SettingsSystemDaydream } from "@mui/icons-material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -13,17 +14,18 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAlert } from "react-alert";
 import { FURL, URL } from "../constants/userConstants";
 import Commentary from "./commentary";
 import ConfirmModal from "./confirmcontest";
+import BaseTab from "./ContestTabs";
+import { LeaderBoard } from "./leaderboard";
 import Loader from "./loader";
 import SavedTeam from "./savedteam";
-import ScoreCard from "./scorecard";
+import ScoreCard from "./scorecard/scorecard";
 import SelectTeam from "./selectteam";
 import Stats from "./stats";
-import BaseTab from "./tabsdata";
 import { TeamShort } from "./TeamShort";
 
 const ContestsContainer = styled(Grid)``;
@@ -241,18 +243,18 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ tabs, id, g }) {
-  const Background = `${FURL}/contest.png`;
+export default function MatchTabs({ tabs, g }) {
   const [value, setValue] = React.useState(0);
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
+  const { id } = useParams();
+  const { match_details, matchlive } = useSelector((state) => state.match);
   const [open, setOpen] = React.useState(false);
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
-  const [matchdata, setMatchdata] = React.useState();
-  const [matchnl, setMatchNl] = React.useState();
   const [selectedTeam, setSelectedTeam] = React.useState(null);
+  const alert = useAlert();
   const [selectTeams, setSelectTeams] = React.useState({
     selected: false,
     team: null,
@@ -261,23 +263,14 @@ export default function BasicTabs({ tabs, id, g }) {
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {}, [id]);
-
   useEffect(() => {
     async function getplayers() {
       if (user?._id && id) {
         const data = await axios.get(
           `${URL}/getteam/?matchId=${id}&userid=${user._id}`
         );
-        const matchdat = await axios.get(`${URL}/getmatchlive/${id}`);
-        const matchnl = await axios.get(`${URL}/getmatch/${id}`);
-        setMatchdata(matchdat.data.match);
-        setMatchNl(matchnl.data.match);
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
-        );
-        const contestdata = await axios.get(
-          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
         setContest([...joinedC.data.contests]);
         setTeam([...data.data.team]);
@@ -285,7 +278,6 @@ export default function BasicTabs({ tabs, id, g }) {
     }
     getplayers();
   }, [user, id]);
-  console.log(matchdata, "match");
   useEffect(() => {
     async function getteams() {
       const teamdata = await axios.get(
@@ -318,7 +310,13 @@ export default function BasicTabs({ tabs, id, g }) {
     setOpen(false);
   };
 
-  const handlejoin = (t) => {
+  const handlejoin = async (t) => {
+    console.log("join contest");
+    const joinedC = await axios.get(
+      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    );
+    setContest([...joinedC.data.contests]);
+    alert.success("contest joined successfully");
     setSelectTeams({ selected: false, team: t });
   };
   return (
@@ -400,6 +398,7 @@ export default function BasicTabs({ tabs, id, g }) {
               />
             </ContestsContainer>
           </TabPanel>
+
           <TabPanel value={value} index={1}>
             <ContestsContainer container item sm={12} xs={12}>
               {contest.length > 0 ? (
@@ -413,7 +412,7 @@ export default function BasicTabs({ tabs, id, g }) {
                       <First>
                         <p>Contests</p>
                         <p>{tab?.contests?.totalSpots} spots</p>
-                        {matchdata?.result == "Yes" && (
+                        {match_details?.result == "Yes" && (
                           <h5
                             style={{ color: "#008a36", fontFamily: "OpenSans" }}
                           >
@@ -467,7 +466,13 @@ export default function BasicTabs({ tabs, id, g }) {
           <TabPanel value={value} index={2}>
             {team?.length > 0 &&
               team.map((t) => (
-                <TeamShort players={t.players} plo={t} id={id} />
+                <TeamShort
+                  match={matchlive || match_details}
+                  match_info={match_details}
+                  players={t.players}
+                  plo={t}
+                  id={id}
+                />
               ))}
             <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
               <AddCircleOutlineRoundedIcon />
@@ -475,13 +480,13 @@ export default function BasicTabs({ tabs, id, g }) {
             </CreateTeam>
           </TabPanel>
           <TabP value={value} index={3}>
-            <Commentary matchdata={matchnl} />
+            <Commentary matchdata={match_details} />
           </TabP>
           <TabP value={value} index={4}>
-            <ScoreCard data={matchdata} g={g} />
+            <ScoreCard data={matchlive} g={g} />
           </TabP>
           <TabP value={value} index={5}>
-            <Stats matchdata={matchdata} team={team} />
+            <Stats matchdata={matchlive || match_details} team={team} />
           </TabP>
         </Box>
       ) : (
@@ -497,6 +502,7 @@ export default function BasicTabs({ tabs, id, g }) {
                 setSelectTeams={setSelectTeams}
                 selectedTeam={selectedTeam}
                 setSelectedTeam={setSelectedTeam}
+                match={matchlive || match_details}
               />
             ))}
             <JoinButtoncontainer>

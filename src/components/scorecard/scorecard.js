@@ -6,7 +6,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 
-import { setshow } from "../utils/dateformat";
+import { setshow } from "../../utils/dateformat";
+import ScoreTable from "./scoretable";
 
 const Container = styled.div`
   .MuiPaper-root {
@@ -105,7 +106,6 @@ export function ScoreCard({ data, g }) {
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
-    console.log(data?.fowFI?.split(","), "scorecard");
     const a = [...data?.fowFI?.split(",")];
     const lmn = [...data?.fowSI?.split(",")];
     setFow([...setshow(a)]);
@@ -137,52 +137,8 @@ export function ScoreCard({ data, g }) {
           </MatchData>
         </AccordionSummary>
         <AccordionDetails>
-          <Table>
-            <tr>
-              <Th>Batter</Th>
-              <th>R</th>
-              <th>B</th>
-              <th>4s</th>
-              <th>6s</th>
-              <th>S/R</th>
-            </tr>
-            {data?.teamHomePlayers?.length > 0 &&
-              data.teamHomePlayers.map((t) => (
-                <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.playerName}</Name>
-                  </Td>
-                  <td>{t.runs}</td>
-                  <td>{t.balls}</td>
-                  <td>{t.fours}</td>
-                  <td>{t.sixes}</td>
-                  <td>{t.strikeRate}</td>
-                </tr>
-              ))}
-          </Table>
-          <Table>
-            <tr>
-              <Th>Bowler</Th>
-              <th>O</th>
-              <th>M</th>
-              <th>R</th>
-              <th>W</th>
-              <th>Eco</th>
-            </tr>
-            {data?.teamAwayPlayers?.length > 0 &&
-              data.teamAwayPlayers.map((t) => (
-                <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.playerName}</Name>
-                  </Td>
-                  <td>{t.overs}</td>
-                  <td>{t.maidens}</td>
-                  <td>{t.runsConceded}</td>
-                  <td>{t.wickets}</td>
-                  <td>{t.economy}</td>
-                </tr>
-              ))}
-          </Table>
+          <ScoreTable rows={data.teamAwayPlayers} batsmen />
+          <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
           <Table>
             <tr>
               <Th>Fall Of Wickets</Th>
@@ -221,52 +177,8 @@ export function ScoreCard({ data, g }) {
           </MatchData>
         </AccordionSummary>
         <AccordionDetails>
-          <Table>
-            <tr>
-              <Th>Batter</Th>
-              <th>R</th>
-              <th>B</th>
-              <th>4s</th>
-              <th>6s</th>
-              <th>S/R</th>
-            </tr>
-            {data?.teamAwayPlayers?.length > 0 &&
-              data.teamAwayPlayers.map((t) => (
-                <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.playerName}</Name>
-                  </Td>
-                  <td>{t.runs}</td>
-                  <td>{t.balls}</td>
-                  <td>{t.fours}</td>
-                  <td>{t.sixes}</td>
-                  <td>{t.strikeRate}</td>
-                </tr>
-              ))}
-          </Table>
-          <Table>
-            <tr>
-              <Th>Bowler</Th>
-              <th>O</th>
-              <th>M</th>
-              <th>R</th>
-              <th>W</th>
-              <th>Eco</th>
-            </tr>
-            {data?.teamHomePlayers?.length > 0 &&
-              data.teamHomePlayers.map((t) => (
-                <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.playerName}</Name>
-                  </Td>
-                  <td>{t.overs}</td>
-                  <td>{t.maidens}</td>
-                  <td>{t.runsConceded}</td>
-                  <td>{t.wickets}</td>
-                  <td>{Math.floor(t.economy * 10) / 10}</td>
-                </tr>
-              ))}
-          </Table>
+          <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
+          <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
           <Table>
             <tr>
               <Th>Fall Of Wickets</Th>

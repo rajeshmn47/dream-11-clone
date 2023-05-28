@@ -117,16 +117,13 @@ export function Commentary({ matchdata }) {
   const [launched, setLaunched] = useState(true);
   const [lastPong, setLastPong] = useState(null);
   const [confetti, setConfetti] = useState(false);
-  console.log(commentary, "commentary");
   useEffect(() => {
     async function getdata(m) {
-      console.log(matchdata, matchdata.matchId, "comment");
       if (matchdata.matchId) {
-        console.log(m, "commentary");
         const docRef = doc(db, "cities", matchdata.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
+          console.log("Document data:");
         } else {
           // docSnap.data() will be undefined in this case
           console.log("No such document!");
@@ -134,29 +131,10 @@ export function Commentary({ matchdata }) {
         const unsub = onSnapshot(
           doc(db, "cities", matchdata?.matchId),
           (doc) => {
-            console.log("Current data: ", doc.data());
+            console.log("Current data: ");
             if (doc.data()) {
               setCommentary([...doc.data().capital.reverse()]);
-              console.log(commentary[0], "0");
-              if (commentary[0].event == "SIX") {
-                dispatch(addconfetti());
-                setTimeout(() => {
-                  dispatch(removeconfetti());
-                }, 4000);
-              } else if (commentary[0].event == "FOUR") {
-                dispatch(addconfetti());
-                setTimeout(() => {
-                  dispatch(removeconfetti());
-                }, 4000);
-              } else if (
-                commentary[0].event == "WICKET" ||
-                commentary[0].event == "over-break,WICKET"
-              ) {
-                dispatch(addconfetti());
-                setTimeout(() => {
-                  dispatch(removeconfetti());
-                }, 4000);
-              }
+              console.log("0");
             }
           }
         );
@@ -168,6 +146,29 @@ export function Commentary({ matchdata }) {
     // console.log(snapshot, "snaps");
     // });
   }, [matchdata]);
+  console.log(commentary, "com");
+  useEffect(() => {
+    if (commentary[0]?.event == "SIX") {
+      dispatch(addconfetti());
+      setTimeout(() => {
+        dispatch(removeconfetti());
+      }, 4000);
+    } else if (commentary[0]?.event == "FOUR") {
+      dispatch(addconfetti());
+      setTimeout(() => {
+        dispatch(removeconfetti());
+      }, 4000);
+    } else if (
+      commentary[0]?.event == "WICKET" ||
+      commentary[0]?.event == "over-break,WICKET"
+    ) {
+      dispatch(addconfetti());
+      setTimeout(() => {
+        dispatch(removeconfetti());
+      }, 4000);
+    }
+  }, [commentary]);
+
   return (
     <CommentaryContainer>
       {commentary?.map((p) => (
@@ -219,7 +220,7 @@ export function Commentary({ matchdata }) {
                 </Event>
                 {p?.overNumber}
               </Left>
-              <Des>{p?.commText?.replace("$", "")}</Des>
+              <Des>{p?.commText?.replace("$", "").replace("B0", "")}</Des>
             </Comment>
           )}
         </>

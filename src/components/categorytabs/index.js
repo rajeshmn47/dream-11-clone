@@ -29,8 +29,8 @@ import {
 } from "../../utils/img_url";
 import Announced from "../Announced";
 import ConfirmModal from "../confirmcontest";
+import BaseTab from "../ContestTabs";
 import SavedTeam from "../savedteam";
-import BaseTab from "../tabsdata";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -130,7 +130,7 @@ const EachPlayer = styled.div`
   border-bottom: 1px solid #e7e7e7;
   border-left: none;
   border-right: none;
-  padding: 20px 0;
+  padding: 0px 0;
 `;
 
 const AddButton = styled.button`
@@ -171,7 +171,7 @@ const Center = styled.div`
   justify-content: center;
   width: 150px;
   h1 {
-    font-size: 14px;
+    font-size: 14px !important;
     line-height: 1;
   }
 `;

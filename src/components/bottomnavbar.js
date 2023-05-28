@@ -10,7 +10,6 @@ export function Bottomnav() {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname, "location");
   return (
     <div className="bottomnav">
       <div

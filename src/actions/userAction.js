@@ -94,7 +94,6 @@ export const removeconfetti = () => async (dispatch) => {
 
 export const loadUser = () => async (dispatch) => {
   try {
-    console.log("rajivya");
     const servertoken =
       localStorage.getItem("token") && localStorage.getItem("token");
     dispatch({ type: LOAD_USER_REQUEST });
@@ -106,7 +105,6 @@ export const loadUser = () => async (dispatch) => {
         servertoken,
       },
     });
-    console.log(data);
     if (data.message) {
       dispatch({ type: LOAD_USER_SUCCESS, payload: data.message });
     }

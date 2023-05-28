@@ -53,7 +53,6 @@ export function Register() {
       password,
       otp,
     });
-    console.log(data.data.message);
     setErr(data.data.message);
   };
   return (

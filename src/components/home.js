@@ -1,4 +1,5 @@
 import "./home.css";
+
 import styled from "@emotion/styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
@@ -139,8 +140,6 @@ export function Home() {
     async function getupcoming() {
       if (user?._id) {
         const data = await axios.get(`${URL}/home/${user._id}`);
-        const userdata = await axios.get(`${URL}/getallusers`);
-        console.log(data, "data");
         setLoading(true);
         const urr = data.data.upcoming.results.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
@@ -163,10 +162,6 @@ export function Home() {
       navigate("/login");
     }
   }, []);
-  useEffect(() => {
-    console.log(past, "past");
-  }, [past]);
-  console.log(past, upcoming);
   const handleClick = () => {
     setOpen(true);
   };
@@ -211,8 +206,13 @@ export function Home() {
                             alignItems: "center",
                           }}
                         >
-                          {u.away.code} vs
-                          {u.home.code}
+                          <span style={{ marginRight: "5px" }}>
+                            {u.away.code}
+                          </span>{" "}
+                          vs
+                          <span style={{ marginLeft: "5px" }}>
+                            {u.home.code}
+                          </span>
                         </h5>
                         <NotificationAddOutlinedIcon
                           style={{ fontSize: "18px" }}
@@ -338,8 +338,11 @@ export function Home() {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs
-                        {u.home.code}
+                        <span style={{ marginRight: "5px" }}>
+                          {u.away.code}
+                        </span>{" "}
+                        vs
+                        <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
                       </h5>
                       <NotificationAddOutlinedIcon
                         style={{ fontSize: "18px" }}
@@ -405,8 +408,11 @@ export function Home() {
                           alignItems: "center",
                         }}
                       >
-                        {u.away.code} vs
-                        {u.home.code}
+                        <span style={{ marginRight: "5px" }}>
+                          {u.away.code}
+                        </span>{" "}
+                        vs
+                        <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
                       </h5>
                       <h5
                         style={{

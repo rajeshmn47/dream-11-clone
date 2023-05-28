@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
-import { getImgurl } from "../utils/img_url";
+import { checkar, checkwk, getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
 import Steppr from "./stepper";
 
@@ -272,7 +272,7 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: #000000;
 `;
-export function TeamShort({ players, id, plo }) {
+export function TeamShort({ match, match_info, players, id, plo }) {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -283,16 +283,15 @@ export function TeamShort({ players, id, plo }) {
   const navigate = useNavigate();
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`${URL}/getplayers/${id}`);
-      const h = data.data.players.teamHomePlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
+      const h = match.teamHomePlayers.filter((f) =>
+        selectedPlayers.some((s) => f.playerId == s.playerId)
       ).length;
-      const o = data.data.players.teamAwayPlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
+      const o = match.teamAwayPlayers.filter((f) =>
+        selectedPlayers.some((s) => f.playerId == s.playerId)
       ).length;
       const a = [
-        { awayCode: data.data.matchdetails.teamAwayCode, number: o },
-        { homeCode: data.data.matchdetails.teamHomeCode, number: h },
+        { awayCode: match_info.teamAwayCode, number: o },
+        { homeCode: match_info.teamHomeCode, number: h },
       ];
       setMatchinfo([...a]);
     }
@@ -301,18 +300,17 @@ export function TeamShort({ players, id, plo }) {
 
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`${URL}/getplayers/${id}`);
-      const cap = data.data.players.teamAwayPlayers
-        .concat(data.data.players.teamHomePlayers)
+      const cap = match.teamAwayPlayers
+        .concat(match.teamHomePlayers)
         .filter((f) => f.playerId == plo.captainId);
-      const vcap = data.data.players.teamAwayPlayers
-        .concat(data.data.players.teamHomePlayers)
+      const vcap = match.teamAwayPlayers
+        .concat(match.teamHomePlayers)
         .filter((f) => f.playerId == plo.viceCaptainId);
 
       setCaptains([...cap, ...vcap]);
     }
     filterDifferent();
-  }, [plo]);
+  }, [plo, match]);
 
   useEffect(() => {
     const pl = players.map((obj) => ({
@@ -357,7 +355,6 @@ export function TeamShort({ players, id, plo }) {
     const b = selectedPlayers.find((s) => s.isViceCaptain);
     return a && b;
   };
-  console.log(matchinfo, captains, "cap");
   return (
     <div>
       {players ? (
@@ -409,10 +406,7 @@ export function TeamShort({ players, id, plo }) {
             <Each item xs={3} sm={3}>
               WK
               <span>
-                {
-                  selectedPlayers.filter((f) => f.position === "wicketkeeper")
-                    .length
-                }
+                {selectedPlayers.filter((f) => checkwk(f.position)).length}
               </span>
             </Each>
             <Each item xs={3} sm={3}>
@@ -424,10 +418,7 @@ export function TeamShort({ players, id, plo }) {
             <Each item xs={3} sm={3}>
               AR{" "}
               <span>
-                {
-                  selectedPlayers.filter((f) => f.position === "allrounder")
-                    .length
-                }{" "}
+                {selectedPlayers.filter((f) => checkar(f.position)).length}{" "}
               </span>
             </Each>
             <Each item xs={3} sm={3}>

@@ -92,7 +92,6 @@ export const AddCommentary = () => {
     const data = await axios.get(`${URL}/livematches`);
     for (let i = 0; i < data.data.matches.length; i++) {
       if (data.data.matches[i].cmtMatchId.length > 3) {
-        console.log(data.data.matches[i].cmtMatchId, "id");
         const options = {
           method: "GET",
           url: `https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/${data.data.matches[i].cmtMatchId}/comm`,
@@ -113,12 +112,9 @@ export const AddCommentary = () => {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
           } else {
             // docSnap.data() will be undefined in this case
-            console.log("No such document!");
           }
-          console.log(response.data.commentaryList);
           const a = response.data.commentaryList[0];
           if (docSnap?.data()?.capital) {
             await setDoc(washingtonRef, {
@@ -153,12 +149,10 @@ export const AddCommentary = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
       }
-      console.log(response.data.commentaryList);
       const a =
         response.data.commentaryList[response.data.commentaryList.length - 1];
       await setDoc(washingtonRef, {
@@ -170,7 +164,7 @@ export const AddCommentary = () => {
     const docRef = doc(db, "cities", "DS");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+      console.log("Document data:");
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");

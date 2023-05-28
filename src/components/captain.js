@@ -21,6 +21,7 @@ import { getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
 import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
+import { useAlert } from "react-alert";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -144,15 +145,13 @@ const Description = styled.div`
   }
 `;
 export function Captain({ players }) {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   console.log(user);
-  const [upcoming, setUpcoming] = useState([]);
+  const alert = useAlert();
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [vicecaptainId, setVicecaptainId] = useState(null);
   const [captainId, setCaptainId] = useState(null);
   const navigate = useNavigate();
-  const [live, setLive] = useState([]);
-  const [past, setPast] = useState([]);
   const { id } = useParams();
   const [save, setSave] = useState(false);
   useEffect(() => {
@@ -204,14 +203,13 @@ export function Captain({ players }) {
       vicecaptainId,
     });
     setSave(true);
+    alert.success(data.data.message);
     navigate(`/contests/${id}`);
   };
 
   function isCandVcselected(se) {
-    console.log("r", selectedPlayers);
     const a = se.find((s) => s.isCaptain === true);
     const b = se.find((s) => s.isViceCaptain === true);
-    console.log(a, b, a & b);
     return a && b;
   }
   return (

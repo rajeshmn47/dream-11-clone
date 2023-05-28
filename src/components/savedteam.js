@@ -185,7 +185,6 @@ export function SavedTeam() {
   useEffect(() => {
     async function getteam() {
       const data = await axios.get(`${URL}/getteam/${id}`);
-      console.log(data);
       setPlayers(data.data.team.players);
     }
     getteam();
@@ -202,7 +201,6 @@ export function SavedTeam() {
       }
       return p;
     });
-    console.log("clicked", po);
     setSelectedPlayers([...po]);
   };
 
@@ -220,7 +218,6 @@ export function SavedTeam() {
     setSelectedPlayers([...po]);
   };
   const handleSave = async () => {
-    console.log("clicked next");
     setSave(true);
   };
 

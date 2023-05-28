@@ -27,10 +27,10 @@ import { URL } from "../constants/userConstants";
 import { getrowClass } from "../utils/getrowclass";
 import Bottomnav from "./bottomnavbar";
 import Next from "./captain";
+import BasicTabs from "./MatchTabs";
 import CategoryTabs from "./playerscategory";
 import StatsName from "./statsname";
 import Steppr from "./stepper";
-import BasicTabs from "./tabs";
 
 const columns = [
   {
@@ -165,7 +165,6 @@ export function Stats({ matchdata, team }) {
   const [loading, setLoading] = useState(false);
   const [dreamTeam, setDreamTeam] = useState([]);
   const [next, setNext] = useState(false);
-  console.log(team, "matchdata");
   useEffect(() => {
     const all = [];
     if (team?.length > 0) {
@@ -177,12 +176,10 @@ export function Stats({ matchdata, team }) {
   }, [team]);
   useEffect(() => {
     async function getupcoming() {
-      console.log(id, "id");
       if (id) {
         setLoading(true);
         const data = await axios.get(`${URL}/getplayers/${id}`);
         setLoading(false);
-        console.log(data);
         const players = data.data.players.teamAwayPlayers
           .concat(data.data.players.teamHomePlayers)
           .map((obj) => ({
@@ -201,8 +198,6 @@ export function Stats({ matchdata, team }) {
     }
     getupcoming();
   }, [id]);
-
-  console.log(players, allPlayers);
   const handleClick = (i) => {
     const po = players.map((p) => {
       if (p._id === i) {
@@ -224,7 +219,6 @@ export function Stats({ matchdata, team }) {
   };
 
   const handleNext = () => {
-    console.log("clicked next");
     setNext(true);
   };
 

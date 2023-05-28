@@ -23,8 +23,8 @@ import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl, isUnAnnounced } from "../utils/img_url";
 import Announced from "./Announced";
 import ConfirmModal from "./confirmcontest";
+import BaseTab from "./ContestTabs";
 import SavedTeam from "./savedteam";
-import BaseTab from "./tabsdata";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -237,7 +237,6 @@ export default function LiveCategoryTabs({
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
-  console.log(open, "basicsoftabs");
 
   useEffect(() => {
     async function getplayers() {
@@ -245,11 +244,9 @@ export default function LiveCategoryTabs({
         const data = await axios.get(
           `${URL}/getteam/${match?.teamHomeName}/${match?.teamAwayName}`
         );
-        console.log(data, "data");
         const contestdata = await axios.get(
           `${URL}/getcontestsofuser/${id}?userid=${user._id}`
         );
-        console.log(contestdata);
         setContest(contestdata.data.contests);
       }
     }

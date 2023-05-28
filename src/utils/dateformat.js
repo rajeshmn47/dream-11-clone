@@ -23,7 +23,6 @@ export function getDisplayDate(date, sc, d) {
     return "Today";
   }
   if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2) {
-    console.log(Math.abs(diff) < 24 * 60 * 60 * 1000 * 2, "tomm");
     const a = moment(date).format("HH:mm a");
     return `Tommorrow, ${a}`;
   }
@@ -60,7 +59,6 @@ export function isTommorrow(a, b) {
 }
 
 export function hoursRemaining(date, i, d) {
-  console.log(date, i, d, "yui");
   const a = new Date(d?.getTime());
   const b = new Date(date);
   const c = Math.floor(
@@ -69,10 +67,6 @@ export function hoursRemaining(date, i, d) {
   const z = b.getTime() / (60 * 60 * 1000) - a.getTime() / (60 * 60 * 1000);
   if (z > 1) {
     const e = getMinutes(z);
-    console.log(
-      b.getTime() / (24 * 60 * 60 * 1000) -
-        (a.getTime() / (24 * 60 * 60 * 1000), "hoursremain")
-    );
     const s =
       sameDayorNot(new Date(), new Date(date)) ||
       isTommorrow(new Date(), new Date(date));
@@ -90,7 +84,6 @@ export function hoursRemaining(date, i, d) {
 function getMinutes(x) {
   let a = `.${Math.floor(x.toString().split(".")[1])}`;
   a = Math.floor(parseFloat(a) * 60);
-  console.log(a, a[0], a[1], "getmins");
   return a;
 }
 
@@ -99,7 +92,6 @@ export function setshow(d) {
   const k = [];
   const j = [];
   const fall = a?.length > 0 && a?.forEach((b) => k.push(b.split("(")));
-  console.log(k, "fall");
   k.forEach((element, index) => {
     if (index % 2 == 1) {
       j[index - 1] = { over: element[0].replace(")", ""), ...j[index - 1] };
@@ -111,7 +103,6 @@ export function setshow(d) {
       };
     }
   });
-  console.log(j, "j");
   const ox = j.filter((c) => c);
   return ox;
 }

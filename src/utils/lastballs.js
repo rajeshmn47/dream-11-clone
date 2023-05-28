@@ -1,5 +1,4 @@
 export function showBalls(balls) {
-  console.log(balls, "balls");
   const k = balls?.arr?.split("|");
   let a;
   if (k.length < 2) {
@@ -11,7 +10,6 @@ export function showBalls(balls) {
   }
   let arr = a?.split(" ");
   arr = arr.filter((a) => !(a == ""));
-  console.log(arr, "arrty");
   const rem = 6 - arr?.length;
   if (rem > 0) {
     for (let i = 0; i < rem; i++) {

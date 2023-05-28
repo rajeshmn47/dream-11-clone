@@ -40,16 +40,17 @@ import {
   useParams,
 } from "react-router-dom";
 
+import { getmatch } from "../actions/matchAction";
 import { addconfetti, removeconfetti } from "../actions/userAction";
 import { URL } from "../constants/userConstants";
 import db from "../firebase";
 import { showBalls } from "../utils/lastballs";
 import { showName } from "../utils/name";
 import Bottomnav from "./bottomnavbar";
+import MatchTabs from "./MatchTabs";
 import SavedTeam from "./savedteam";
 import ShowOver from "./showover";
 import Steppr from "./stepper";
-import BasicTabs from "./tabs";
 
 const TopContainer = styled.div`
   background-color: #000000;
@@ -169,12 +170,10 @@ const BottomT = styled.div`
   margin-top: 3px;
   justify-content: space-between;
 `;
-export function Contests({ players }) {
+export function MatchDetails({ players }) {
+  const { match_details, matchlive } = useSelector((state) => state.match);
   const [contests, setContests] = useState([]);
-  const [match, setMatch] = useState(null);
   const dispatch = useDispatch();
-  const [matchLive, setMatchLive] = useState(null);
-  const { confetti } = useSelector((state) => state.user);
   const [commentary, setCommentary] = useState([]);
   const [livescore, setLivescore] = useState();
   const [dimensions, setDimensions] = useState({
@@ -189,33 +188,30 @@ export function Contests({ players }) {
   };
   useEffect(() => {
     async function getdata(m) {
-      console.log(match, match?.matchId, "comment");
-      if (match?.matchId) {
-        console.log(m, "commentary");
-        const docRef = doc(db, "cities", match.matchId);
+      if (match_details?.matchId) {
+        const docRef = doc(db, "cities", match_details.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log("Document data:", docSnap.data());
         } else {
           // docSnap.data() will be undefined in this case
-          console.log("No such document!");
         }
-        const unsub = onSnapshot(doc(db, "cities", match?.matchId), (doc) => {
-          console.log("Current data: ", doc.data());
-          if (doc.data()) {
-            setCommentary([...doc.data().capital]);
-            setLivescore({ ...doc.data().miniscore });
+        const unsub = onSnapshot(
+          doc(db, "cities", match_details?.matchId),
+          (doc) => {
+            if (doc.data()) {
+              setCommentary([...doc.data().capital]);
+              setLivescore({ ...doc.data().miniscore });
+            }
           }
-        });
+        );
       }
     }
-    getdata(match);
+    getdata(match_details);
     // onSnapshot((docRef, "cities"), (snapshot) => {
     // let array = []; // Get users all recent talks and render that in leftColumn content
     // console.log(snapshot, "snaps");
     // });
-  }, [match]);
-  console.log(livescore?.matchScoreDetails.inningsScoreList, "livescore");
+  }, [match_details]);
 
   useEffect(() => {
     window.addEventListener("resize", showAnimation);
@@ -227,16 +223,10 @@ export function Contests({ players }) {
   const history = useNavigate();
 
   const { id } = useParams();
-  console.log(id); // 12345
   useEffect(() => {
+    dispatch(getmatch(id));
     async function getupcoming() {
       const data = await axios.get(`${URL}/getcontests/${id}`);
-      const matchdata = await axios.get(`${URL}/getmatch/${id}`);
-      const matchlivedata = await axios.get(`${URL}/getmatchlive/${id}`);
-      console.log(data, "contestdata");
-      console.log(matchdata, matchlivedata, "match");
-      setMatch(matchdata.data.match);
-      setMatchLive(matchlivedata.data.match);
       setContests(data.data.contests);
     }
     getupcoming();
@@ -251,11 +241,11 @@ export function Contests({ players }) {
                 onClick={() => history(-1)}
                 style={{ cursor: "pointer" }}
               />
-              {match && (
+              {match_details && (
                 <h1>
-                  {match.teamAwayCode} Vs
+                  {match_details.teamAwayCode} Vs
                   <span style={{ marginLeft: "8px" }}>
-                    {match.teamHomeCode}
+                    {match_details.teamHomeCode}
                   </span>
                 </h1>
               )}
@@ -266,7 +256,7 @@ export function Contests({ players }) {
               <NotificationAddOutlinedIcon />
             </RightSide>
           </Top>
-          {matchLive?.runFI && livescore?.matchScoreDetails && (
+          {matchlive?.runFI && livescore?.matchScoreDetails && (
             <>
               <Grid
                 container
@@ -281,7 +271,7 @@ export function Contests({ players }) {
                       overflow: "hidden",
                     }}
                   >
-                    {matchLive.titleFI}
+                    {matchlive.titleFI}
                   </p>
                   <p>
                     {livescore.matchScoreDetails.inningsScoreList[0]?.score}/
@@ -301,10 +291,10 @@ export function Contests({ players }) {
                   }}
                 >
                   <GreenMark />
-                  {matchLive.result == "Complete" ? "Completed" : "In Play"}
+                  {matchlive.result == "Complete" ? "Completed" : "In Play"}
                 </Grid>
                 <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
-                  {matchLive?.runSI && livescore?.matchScoreDetails && (
+                  {matchlive?.runSI && livescore?.matchScoreDetails && (
                     <>
                       <p
                         style={{
@@ -314,7 +304,7 @@ export function Contests({ players }) {
                         }}
                       >
                         {" "}
-                        {matchLive.titleSI}
+                        {matchlive.titleSI}
                       </p>
                       <p>
                         {" "}
@@ -337,7 +327,7 @@ export function Contests({ players }) {
                   overflow: "hidden",
                 }}
               >
-                {matchLive?.status?.split("(11b rem)").join("")}
+                {matchlive?.status?.split("(11b rem)").join("")}
               </p>
               <Separator />
               <BottomT>
@@ -349,7 +339,8 @@ export function Contests({ players }) {
                   </BowlTop>
                   <BowlTop>
                     <Name>
-                      {showName(livescore?.batsmanNonStriker?.batName)}()
+                      {showName(livescore?.batsmanNonStriker?.batName)}
+                      ()
                     </Name>
                     {livescore?.batsmanNonStriker?.batRuns}(
                     {livescore?.batsmanNonStriker?.batBalls})
@@ -371,11 +362,11 @@ export function Contests({ players }) {
           )}
         </TopContainer>
         <Bottom>
-          <BasicTabs tabs={contests} id={id} g={match} />
+          <MatchTabs tabs={contests} id={id} g={match_details} />
         </Bottom>
       </>
     </Container>
   );
 }
 
-export default Contests;
+export default MatchDetails;

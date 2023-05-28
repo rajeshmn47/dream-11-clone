@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import * as React from "react";
+import { useAlert } from "react-alert";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -70,18 +71,22 @@ export default function ConfirmModal({
 }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const alert = useAlert();
   const handleClose = () => {
-    console.log("handleclose", setOpen);
     handleclose();
     setOpen(false);
   };
-  console.log(modal, "modal");
   const join = async () => {
-    const data = await axios.get(
-      `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
-    );
-    console.log(data);
-    setOpen(false);
+    try {
+      const data = await axios.get(
+        `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
+      );
+      alert.success("joined contest successfully");
+      setOpen(false);
+    } catch (e) {
+      alert.error(e.response.data.message);
+      setOpen(false);
+    }
   };
   return (
     <Dialog

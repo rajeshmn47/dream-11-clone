@@ -317,6 +317,7 @@ export function SelectTeam({
   allteams,
   setSelectedTeam,
   selectedTeam,
+  match,
 }) {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -328,37 +329,34 @@ export function SelectTeam({
   const [matchinfo, setMatchinfo] = useState([]);
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`${URL}/getplayers/${id}`);
-
-      const h = data.data.players.teamHomePlayers.filter((f) =>
+      const h = match.teamHomePlayers.filter((f) =>
         selectedPlayers.some((s) => f.playerId === s.playerId)
       ).length;
-      const o = data.data.players.teamAwayPlayers.filter((f) =>
+      const o = match.teamAwayPlayers.filter((f) =>
         selectedPlayers.some((s) => f.playerId === s.playerId)
       ).length;
       const a = [
-        { awayCode: data.data.matchdetails.teamAwayCode, number: o },
-        { homeCode: data.data.matchdetails.teamHomeCode, number: h },
+        { awayCode: match.teamAwayCode, number: o },
+        { homeCode: match.teamHomeCode, number: h },
       ];
       setMatchinfo([...a]);
     }
     filterDifferent();
-  }, [id, selectedPlayers, plo]);
+  }, [match, selectedPlayers, plo]);
 
   useEffect(() => {
     async function filterDifferent() {
-      const data = await axios.get(`${URL}/getplayers/${id}`);
-      const cap = data.data.players.teamAwayPlayers
-        .concat(data.data.players.teamHomePlayers)
+      const cap = match.teamAwayPlayers
+        .concat(match.teamHomePlayers)
         .filter((f) => f.playerId == plo.captainId);
-      const vcap = data.data.players.teamAwayPlayers
-        .concat(data.data.players.teamHomePlayers)
+      const vcap = match.teamAwayPlayers
+        .concat(match.teamHomePlayers)
         .filter((f) => f.playerId == plo.viceCaptainId);
 
       setCaptains([...cap, ...vcap]);
     }
     filterDifferent();
-  }, [plo]);
+  }, [plo, match]);
 
   useEffect(() => {
     const pl = players.map((obj) => ({
@@ -405,11 +403,9 @@ export function SelectTeam({
   };
 
   const handleChange = (i) => {
-    console.log("handlechange", i);
     setSelectedTeam(i);
   };
 
-  console.log(plo, team, "cap");
   return (
     <Container>
       <Teams>

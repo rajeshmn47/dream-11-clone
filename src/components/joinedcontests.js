@@ -12,7 +12,8 @@ import { Grid, Slider } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import axios from "axios";
 import { useState } from "react";
-import BasicTabs from "./tabsdata";
+
+import BasicTabs from "./ContestTabs";
 
 const Top = styled.div`
   background-color: #000000;

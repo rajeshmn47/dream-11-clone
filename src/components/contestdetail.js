@@ -24,7 +24,8 @@ import { URL } from "../constants/userConstants";
 import Bottomnav from "./bottomnavbar";
 import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
-import BaseTab from "./tabsdata";
+import ContestTabs from "./ContestTabs";
+import MatchTabs from "./MatchTabs";
 
 const Top = styled.div`
   background-color: #000000;
@@ -151,7 +152,6 @@ export function ContestDetail() {
     async function getteams() {
       const teamdata = await axios.get(`${URL}/getteamsofcontest/${id}`);
       const contestdata = await axios.get(`${URL}/getcontest/${id}`);
-      console.log(contestdata, "contest");
       setContest(contestdata.data.contest);
       setMatch(teamdata.data.match);
       const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
@@ -159,7 +159,6 @@ export function ContestDetail() {
     }
     getteams();
   }, [id]);
-  console.log(match, "match");
   return (
     <>
       <ContestsContainer container>
@@ -171,8 +170,9 @@ export function ContestDetail() {
             />
             {match && (
               <h1>
-                {match.teamAwayCode} Vs
-                {match.teamHomeCode}
+                <span style={{ marginRight: "5px" }}>{match.teamAwayCode}</span>
+                vs
+                <span style={{ marginLeft: "5px" }}>{match.teamHomeCode}</span>
               </h1>
             )}
           </LeftSide>
@@ -221,7 +221,7 @@ export function ContestDetail() {
           </ContestContainer>
         )}
       </ContestsContainer>
-      <BaseTab contest={contest} teams={leaderboard} />
+      <ContestTabs contest={contest} leaderboard={leaderboard} />
     </>
   );
 }

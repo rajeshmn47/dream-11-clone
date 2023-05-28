@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
@@ -239,7 +239,7 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs({ contest, teams }) {
+export default function ContestTabs({ contest, leaderboard }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
@@ -284,13 +284,13 @@ export default function BasicTabs({ contest, teams }) {
         <Tabel>
           <table>
             <tr>
-              <th id="morewidth">All Teams ({teams.length})</th>
+              <th id="morewidth">All Teams ({leaderboard.length})</th>
               <th>Points</th>
               <th>Rank</th>
             </tr>
 
-            {teams.length > 0 &&
-              teams
+            {leaderboard.length > 0 &&
+              leaderboard
                 .sort((a, b) => b._doc.points - a._doc.points)
                 .map((f, index) => (
                   <tr
