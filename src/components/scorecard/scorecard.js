@@ -101,7 +101,7 @@ const Scores = styled.div`
   align-items: center;
   font-size: 14px;
 `;
-export function ScoreCard({ data, g }) {
+export function ScoreCard({ data, g, livescore }) {
   const [expanded, setExpanded] = React.useState("panel2");
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
@@ -111,7 +111,7 @@ export function ScoreCard({ data, g }) {
     setFow([...setshow(a)]);
     setFowsSI([...setshow(lmn)]);
   }, [data]);
-
+  console.log(livescore, "livescore");
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -138,7 +138,7 @@ export function ScoreCard({ data, g }) {
         </AccordionSummary>
         <AccordionDetails>
           <ScoreTable rows={data.teamAwayPlayers} batsmen />
-          <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
+          <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
           <Table>
             <tr>
               <Th>Fall Of Wickets</Th>
@@ -178,7 +178,7 @@ export function ScoreCard({ data, g }) {
         </AccordionSummary>
         <AccordionDetails>
           <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
-          <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
+          <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
           <Table>
             <tr>
               <Th>Fall Of Wickets</Th>

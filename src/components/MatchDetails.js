@@ -362,7 +362,12 @@ export function MatchDetails({ players }) {
           )}
         </TopContainer>
         <Bottom>
-          <MatchTabs tabs={contests} id={id} g={match_details} />
+          <MatchTabs
+            tabs={contests}
+            id={id}
+            g={match_details}
+            livescore={livescore}
+          />
         </Bottom>
       </>
     </Container>

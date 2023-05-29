@@ -142,18 +142,20 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               <th>S/R</th>
             </tr>
             {rows?.length > 0 &&
-              rows.map((t) => (
-                <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.playerName}</Name>
-                  </Td>
-                  <td>{t.runs}</td>
-                  <td>{t.balls}</td>
-                  <td>{t.fours}</td>
-                  <td>{t.sixes}</td>
-                  <td>{t.strikeRate}</td>
-                </tr>
-              ))}
+              rows
+                .filter((k) => k.balls > 0)
+                .map((t) => (
+                  <tr>
+                    <Td style={{ textTransform: "capitalize" }}>
+                      <Name>{t.playerName}</Name>
+                    </Td>
+                    <td>{t.runs}</td>
+                    <td>{t.balls}</td>
+                    <td>{t.fours}</td>
+                    <td>{t.sixes}</td>
+                    <td>{t.strikeRate}</td>
+                  </tr>
+                ))}
           </Table>
         </>
       ) : null}

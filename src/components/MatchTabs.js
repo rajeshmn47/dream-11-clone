@@ -243,7 +243,7 @@ function a11yProps(index) {
   };
 }
 
-export default function MatchTabs({ tabs, g }) {
+export default function MatchTabs({ tabs, g, livescore }) {
   const [value, setValue] = React.useState(0);
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
@@ -483,7 +483,7 @@ export default function MatchTabs({ tabs, g }) {
             <Commentary matchdata={match_details} />
           </TabP>
           <TabP value={value} index={4}>
-            <ScoreCard data={matchlive} g={g} />
+            <ScoreCard data={matchlive} g={g} livescore={livescore} />
           </TabP>
           <TabP value={value} index={5}>
             <Stats matchdata={matchlive || match_details} team={team} />

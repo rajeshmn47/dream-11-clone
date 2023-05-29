@@ -83,26 +83,11 @@ const DeatilTop = styled.div`
 `;
 
 export function Navbar() {
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
-  );
-  const [upcoming, setUpcoming] = useState([]);
-  const [live, setLive] = useState([]);
-  const [past, setPast] = useState([]);
+  const { user } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
   const dispatch = useDispatch;
   const navigate = useNavigate();
-  useEffect(() => {
-    async function getupcoming() {
-      const data = await axios.get(`${URL}/home`);
-      console.log(data);
-      setUpcoming(data.data.upcoming.results);
-      setLive(data.data.live.results);
-      setPast(data.data.past.results);
-    }
-    getupcoming();
-  }, []);
 
   const handleClick = () => {
     setOpen(true);
