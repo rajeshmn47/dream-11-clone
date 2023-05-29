@@ -118,19 +118,16 @@ const Spanner = styled.div`
 `;
 export function Home() {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
-  console.log(user, "user");
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState();
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
-  console.log(URL, "url");
   const navigate = useNavigate();
   useEffect(() => {
     const i = setInterval(() => {
       setDate(new Date());
-      console.log(date, "datenew");
     }, 1000);
     return () => {
       clearInterval(i);
