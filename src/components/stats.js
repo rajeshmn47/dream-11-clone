@@ -60,7 +60,6 @@ const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
     backgroundColor: "#fef4de",
-    backgroundImage: "url(./google.svg)",
     ".dreamicon": {
       display: "block",
     },
@@ -94,7 +93,6 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   [`& .${gridClasses.row}.prime`]: {
     backgroundColor: "#fef4de",
-    backgroundImage: "url(./google.svg)",
     "&:hover, &.Mui-hovered": {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
       "@media (hover: none)": {
