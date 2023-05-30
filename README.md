@@ -2,6 +2,7 @@ This project is a clone of DREAM 11 It has various features like
 
 <p>1)email otp authentication</p>
 <p>2)forgot password</p>
+<p>3)showing list of matches upcoming</p>
 <p>3)create teams,edit teams,remove teams</p>
 <p>4)join specific contests</p>
 <p>5)live commentary using firebase realtime database</p>
