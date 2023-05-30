@@ -2,14 +2,14 @@ This project is a clone of DREAM 11 It has various features like
 
 <p>1)email otp authentication</p>
 <p>2)forgot password</p>
-<p>3)create teams</p>
+<p>3)create teams,edit teams,remove teams</p>
 <p>4)join specific contests</p>
 <p>5)live commentary using firebase realtime database</p>
 <p>6)live scores</p>
 <p>7)leaderboard</p>
 <p>8)winning the prize money of the joined contest based on the position in leaderboard</p>
 <p>9)constant updating of the players points</p>
-
+<p>10)secure backend to prevent various bot attacks</p>
 <p>
 <img src="https://github.com/rajeshmn47/dream-11-clone-mern-stack/assets/24763499/2a8a4ee1-3fc3-4105-b3b4-f3c02ce50f7f" width="328"  height="600"  style="margin-right: 90px"/>
  <span><img src="./aligner.png" height=50 width=150 /></span> 
