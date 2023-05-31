@@ -10,23 +10,18 @@ import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { style } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
 import Steppr from "./stepper";
-import Team from "./Team";
 
-const Container = styled.div`
-  margin: 20px 0;
-`;
-const Teams = styled.div`
-  padding: 0 15px;
-`;
+const CaptainSelector = styled.div``;
 const Player = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -211,42 +206,11 @@ const Each = styled(Grid)`
   }
 `;
 
-const TeamContainer = styled(Grid)`
-  margin-left: 0;
-  label:before {
-    /*styles outer circle*/
-    content: " ";
-    display: inline-block;
-    position: relative;
-    top: 5px;
-    margin: 0 5px 0 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 11px;
-    border: 2px solid green;
-    background-color: transparent;
-  }
-
-  label {
-    position: relative;
-  }
-  input[type="radio"]:checked + label:after {
-    /*styles inside circle*/
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    top: 6px; /* I have changed the top and left so this is in the centre */
-    left: 6px;
-    content: " ";
-    display: block;
-    background-color: blue;
-  }
-`;
-const EachTeam = styled(Grid)`
+const EachTeam = styled.div`
   box-shadow: 5px 5px 4px 2px #cecccc;
   border-radius: 5px;
   overflow: hidden;
+  margin: 15px 0;
 `;
 const Captain = styled.div`
   font-size: 12px;
@@ -280,8 +244,8 @@ const CaptainI = styled.div`
   position: absolute;
   border: 3px solid #000000;
   padding: 2px 2px;
-  left: -25%;
-  top: -25%;
+  left: -20%;
+  top: -20%;
   border-radius: 50%;
   font-size: 10px;
   display: flex;
@@ -308,141 +272,85 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: #000000;
 `;
-
-export function SelectTeam({
-  players,
-  id,
-  plo,
-  SelectTeams,
-  setSelectTeams,
-  allteams,
-  setSelectedTeam,
-  selectedTeam,
-  match,
-  matchdetails,
-}) {
-  const [upcoming, setUpcoming] = useState([]);
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [live, setLive] = useState([]);
-  const [past, setPast] = useState([]);
-  const [save, setSave] = useState(false);
-  const [captains, setCaptains] = useState([]);
-  const [team, setTeam] = useState(null);
-  const [matchinfo, setMatchinfo] = useState([]);
-  useEffect(() => {
-    async function filterDifferent() {
-      const h = match.teamHomePlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
-      ).length;
-      const o = match.teamAwayPlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
-      ).length;
-      const a = [
-        { awayCode: matchdetails.teamAwayCode, number: o },
-        { homeCode: matchdetails.teamHomeCode, number: h },
-      ];
-      setMatchinfo([...a]);
-    }
-    filterDifferent();
-  }, [match, selectedPlayers, plo]);
-
-  useEffect(() => {
-    async function filterDifferent() {
-      const cap = match.teamAwayPlayers
-        .concat(match.teamHomePlayers)
-        .filter((f) => f.playerId == plo.captainId);
-      const vcap = match.teamAwayPlayers
-        .concat(match.teamHomePlayers)
-        .filter((f) => f.playerId == plo.viceCaptainId);
-
-      setCaptains([...cap, ...vcap]);
-    }
-    filterDifferent();
-  }, [plo, match]);
-
-  useEffect(() => {
-    const pl = players.map((obj) => ({
-      ...obj,
-    }));
-    setSelectedPlayers([...pl]);
-  }, [id]);
-
-  const handleCaptain = (i) => {
-    const op = players.map((p) => {
-      p.isCaptain = false;
-      return p;
-    });
-    const po = op.map((p) => {
-      if (p._id === i) {
-        p.isCaptain = true;
-      }
-      return p;
-    });
-    setSelectedPlayers([...po]);
-  };
-
-  const handleViceCaptain = (i) => {
-    const op = players.map((p) => {
-      p.isViceCaptain = false;
-      return p;
-    });
-    const po = op.map((p) => {
-      if (p._id === i) {
-        p.isViceCaptain = true;
-      }
-      return p;
-    });
-    setSelectedPlayers([...po]);
-  };
-  const handleSave = async () => {
-    setSave(true);
-  };
-
-  const isCandVcselected = () => {
-    const a = selectedPlayers.find((s) => s.isCaptain);
-    const b = selectedPlayers.find((s) => s.isViceCaptain);
-    return a && b;
-  };
-
-  const handleChange = (i) => {
-    setSelectedTeam(i);
-  };
-
+export function Team({ matchinfo, captains, selectedPlayers, id }) {
+  const navigate = useNavigate();
   return (
-    <Container>
-      <Teams>
-        {players ? (
-          <TeamContainer
-            container
-            alignItems="center"
-            justifyContent="space-between"
-            spacing={1}
-          >
-            <Grid item sm={10} xs={10}>
-              <Team
-                matchinfo={matchinfo}
-                captains={captains}
-                selectedPlayers={selectedPlayers}
-                id={plo._id}
-              />
-            </Grid>
-            <Grid item sm={2} xs={2}>
-              <input
-                type="radio"
-                name="site_name"
-                value={plo?._id}
-                checked={plo._id === team?._id}
-                onClick={() => handleChange(plo)}
-                style={{ float: "right", marginRight: "10px" }}
-              />
-            </Grid>
-          </TeamContainer>
-        ) : (
-          <h1>ok</h1>
-        )}
-      </Teams>
-    </Container>
+    <EachTeam onClick={() => navigate(`/savedteam/${id}`)}>
+      {matchinfo.length > 0 && captains.length > 0 && (
+        <Top>
+          <div>
+            <h3>{matchinfo[0].awayCode}</h3>
+            <p>{matchinfo[0].number}</p>
+          </div>
+          <div>
+            <h3>{matchinfo[1].homeCode}</h3>
+            <p>{matchinfo[1].number}</p>
+          </div>
+          <CaptainsContainer>
+            <CaptainI>
+              <span>c</span>
+            </CaptainI>
+            <img
+              src={getImgurl(captains[0].playerId, captains[0].playerName)}
+              alt=""
+            />
+
+            <Captain>
+              <p>
+                {`${captains[0].playerName.split(" ")[0].charAt(0)} ${
+                  captains[0].playerName.split(" ")[1]
+                }`}
+              </p>
+            </Captain>
+          </CaptainsContainer>
+          <CaptainsContainer>
+            <VcaptainI>vc</VcaptainI>
+            <img
+              src={getImgurl(captains[1].playerId, captains[1].playerName)}
+              alt=""
+            />
+            <VCaptain>
+              <p>
+                {`${captains[1].playerName.split(" ")[0].charAt(0)} ${
+                  captains[1].playerName.split(" ")[1]
+                }`}
+              </p>
+            </VCaptain>
+          </CaptainsContainer>
+        </Top>
+      )}
+      <Bottom container spacing={1}>
+        <Each item xs={3} sm={3}>
+          WK{" "}
+          <span>
+            {selectedPlayers.filter((f) => checkwk(f.position)).length}
+          </span>
+        </Each>
+        <Each item xs={3} sm={3}>
+          BAT{" "}
+          <span>
+            {
+              selectedPlayers.filter(
+                (f) => f.position == "batsmen" || f.position == "batsman"
+              ).length
+            }{" "}
+          </span>
+        </Each>
+        <Each item xs={3} sm={3}>
+          AR{" "}
+          <span>
+            {selectedPlayers.filter((f) => checkar(f.position)).length}{" "}
+          </span>
+        </Each>
+        <Each item xs={3} sm={3}>
+          BOWL{" "}
+          <span>
+            {selectedPlayers.filter((f) => f.position === "bowler").length}
+          </span>
+        </Each>
+      </Bottom>
+    </EachTeam>
   );
 }
 
-export default SelectTeam;
+export default Team;

@@ -23,13 +23,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { URL } from "../constants/userConstants";
-import Bottomnav from "./bottomnavbar";
-import Next from "./captain";
+import { URL } from "../../constants/userConstants";
+import Bottomnav from "../bottomnavbar";
+import Next from "../captain";
 import CategoryTabs from "./categorytabs";
-import BasicTabs from "./MatchTabs";
+import BasicTabs from "../MatchTabs";
 import LiveCategoryTabs from "./playerscategory";
-import Steppr from "./stepper";
+import Steppr from "../stepper";
 
 const Container = styled.div`
   position: relative;

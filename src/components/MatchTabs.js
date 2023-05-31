@@ -27,7 +27,8 @@ import ScoreCard from "./scorecard/scorecard";
 import SelectTeam from "./selectteam";
 import Stats from "./stats";
 import { TeamShort } from "./TeamShort";
-
+import { leaderboardChanges } from "../utils/leaderboardchanges";
+import EmojiEventsOutlined from "@mui/icons-material/EmojiEventsOutlined";
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
@@ -123,6 +124,7 @@ const LastJ = styled.div`
   padding: 5px 10px;
   display: flex;
   align-items: center;
+  font-size: 12px;
   justify-content: space-between;
   color: #888;
   h1 {
@@ -202,12 +204,51 @@ const StatusC = styled.div`
   align-items: center;
   padding: 5px 10px;
   background-color: #fef4de;
+  border-bottom: 1px solid;
+  border-bottom-color: currentcolor;
+  border-color: rgba(106, 106, 106, 0.12);
 `;
 
 const TabP = styled(TabPanel)`
   .MuiBox-root {
     padding: 0 0 !important;
   }
+`;
+
+const M = styled.div`
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: flex;
+  border: 1px solid #888;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  margin-right: 5px;
+`;
+
+const C = styled.div`
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: 1px solid #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+`;
+
+const F = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: lowercase;
+  font-size: 10px;
+  margin-right: 5px;
 `;
 
 function TabPanel(props) {
@@ -272,6 +313,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
         const joinedC = await axios.get(
           `${URL}/getjoinedcontest/${id}?userid=${user._id}`
         );
+        leaderboardChanges(joinedC.data.contests);
         setContest([...joinedC.data.contests]);
         setTeam([...data.data.team]);
       }
@@ -316,9 +358,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
       `${URL}/getjoinedcontest/${id}?userid=${user._id}`
     );
     setContest([...joinedC.data.contests]);
+    leaderboardChanges(joinedC.data.contests);
     alert.success("contest joined successfully");
     setSelectTeams({ selected: false, team: t });
   };
+  console.log(user, "user");
   return (
     <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
@@ -410,8 +454,19 @@ export default function MatchTabs({ tabs, g, livescore }) {
                   >
                     <ContestJ>
                       <First>
-                        <p>Contests</p>
-                        <p>{tab?.contests?.totalSpots} spots</p>
+                        <div>
+                          <p>Prize Pool</p>₹{tab?.contest?.price}
+                        </div>
+                        <div>
+                          <p>spots</p>
+                          <p>{tab?.contest?.totalSpots}</p>
+                        </div>
+                        <div>
+                          <p>Entry</p>
+                          <p>
+                            ₹{tab?.contest?.price / tab?.contest?.totalSpots}
+                          </p>
+                        </div>
                         {match_details?.result == "Yes" && (
                           <h5
                             style={{ color: "#008a36", fontFamily: "OpenSans" }}
@@ -423,32 +478,46 @@ export default function MatchTabs({ tabs, g, livescore }) {
                       </First>
                     </ContestJ>
                     <LastJ>
-                      <p>glory awaits</p>
-                      <First>guaranteed</First>
-                    </LastJ>
-
-                    <StatusC>
-                      <SpotsLeft>
-                        {tab?.team?.username}
-                        <p style={{ color: "#1ca14d", fontSize: "12px" }}>
-                          IN WINNING ZONE
+                      <div>
+                        <p style={{ display: "flex", alignItems: "center" }}>
+                          <F>1st</F> {tab.contest.prizeDetails[0].prize}
                         </p>
-                      </SpotsLeft>
-                      <SpotsLeft>{tab?.team?.teamnumber}</SpotsLeft>
-                      <SpotsLeft>{tab?.team?.points}</SpotsLeft>
-                      <SpotsRight
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        #{tab?.team?.rank}
-                        <ArrowUpwardIcon
-                          style={{
-                            color: "#1ca14d",
-                            fontSize: "18px",
-                            marginLeft: "5px",
-                          }}
-                        />
-                      </SpotsRight>
-                    </StatusC>
+                      </div>
+                      <First>
+                        <EmojiEventsOutlinedIcon />{" "}
+                        {(5 / tab.contest.totalSpots) * 100}%
+                      </First>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <M>m</M>
+                        <C>c</C>
+                      </div>
+                    </LastJ>
+                    {tab.teams.map((t) => (
+                      <>
+                        <StatusC>
+                          <SpotsLeft>
+                            {t?.username}
+                            <p style={{ color: "#1ca14d", fontSize: "12px" }}>
+                              IN WINNING ZONE
+                            </p>
+                          </SpotsLeft>
+                          <SpotsLeft>{t?.teamnumber}</SpotsLeft>
+                          <SpotsLeft>{t?.points}</SpotsLeft>
+                          <SpotsRight
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            #{t?.rank}
+                            <ArrowUpwardIcon
+                              style={{
+                                color: "#1ca14d",
+                                fontSize: "18px",
+                                marginLeft: "5px",
+                              }}
+                            />
+                          </SpotsRight>
+                        </StatusC>
+                      </>
+                    ))}
                   </ContestContainerJ>
                 ))
               ) : (
@@ -474,7 +543,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                   id={id}
                 />
               ))}
-            <CreateTeam onClick={() => navigate(`/createnew/${id}`)}>
+            <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
               <AddCircleOutlineRoundedIcon />
               create team
             </CreateTeam>
@@ -503,6 +572,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 selectedTeam={selectedTeam}
                 setSelectedTeam={setSelectedTeam}
                 match={matchlive || match_details}
+                matchdetails={match_details}
               />
             ))}
             <JoinButtoncontainer>

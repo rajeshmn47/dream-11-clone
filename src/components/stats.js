@@ -28,7 +28,7 @@ import { getrowClass } from "../utils/getrowclass";
 import Bottomnav from "./bottomnavbar";
 import Next from "./captain";
 import BasicTabs from "./MatchTabs";
-import CategoryTabs from "./playerscategory";
+import CategoryTabs from "./createteam/playerscategory";
 import StatsName from "./statsname";
 import Steppr from "./stepper";
 
@@ -93,6 +93,9 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   [`& .${gridClasses.row}.prime`]: {
     backgroundColor: "#fef4de",
+    ".dreamicon": {
+      display: "block",
+    },
     "&:hover, &.Mui-hovered": {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
       "@media (hover: none)": {
@@ -178,7 +181,7 @@ export function Stats({ matchdata, team }) {
         setLoading(true);
         const data = await axios.get(`${URL}/getplayers/${id}`);
         setLoading(false);
-        const players = data.data.players.teamAwayPlayers
+        const playersdata = data.data.players.teamAwayPlayers
           .concat(data.data.players.teamHomePlayers)
           .map((obj) => ({
             ...obj,
@@ -187,9 +190,9 @@ export function Stats({ matchdata, team }) {
               color: "primary.main",
             },
           }));
-        setPlayers([...players]);
+        setPlayers([...playersdata]);
         setDreamTeam([
-          ...players.sort((a, b) => b.points - a.points).splice(0, 10),
+          ...playersdata.sort((a, b) => b.points - a.points).splice(0, 11),
         ]);
         setMatch(data.data.matchdetails);
       }

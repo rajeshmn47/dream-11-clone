@@ -20,14 +20,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { URL } from "../../constants/userConstants";
-import { playedlm } from "../../utils/createteams";
 import {
   checkar,
   checkwk,
   getImgurl,
   isUnAnnounced,
 } from "../../utils/img_url";
-import Announced from "../Announced";
+import Announced from "./Announced";
 import ConfirmModal from "../confirmcontest";
 import BaseTab from "../ContestTabs";
 import SavedTeam from "../savedteam";
@@ -130,7 +129,7 @@ const EachPlayer = styled.div`
   border-bottom: 1px solid #e7e7e7;
   border-left: none;
   border-right: none;
-  padding: 0px 0;
+  padding: 20px 0;
 `;
 
 const AddButton = styled.button`
@@ -161,42 +160,41 @@ const NoLineups = styled.h3`
 
 const Center = styled.div`
   display: flex;
-  flex-direction: column;
   p {
     margin-top: 5px;
     font-size: 10px;
     color: #060667;
   }
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   width: 150px;
   h1 {
+    text-align: left;
     font-size: 14px !important;
-    line-height: 1;
   }
 `;
 
 const BlueDot = styled.span`
-  background-color: #060667 !important;
-  width: 7px;
-  height: 7px;
+  background-color: #008a36 !important;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   margin-right: 5px;
   display: inline-block;
 `;
 
+const RedDot = styled.span`
+  background-color: red !important;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
+`;
 const Points = styled.h5`
   font-size: 14px;
   font-weight: 600;
 `;
-
-const ImgContainer = styled.div`
-  padding-top: 10px;
-  img {
-    display: block;
-  }
-`;
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -230,12 +228,12 @@ function a11yProps(index) {
   };
 }
 
-export default function CategoryTabs({
+export default function LiveCategoryTabs({
   id,
   players,
   match,
   setPlayers,
-  lmPlayers,
+  nonPlayers,
 }) {
   const [value, setValue] = React.useState(0);
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -244,6 +242,22 @@ export default function CategoryTabs({
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function getplayers() {
+      if (user?._id && match) {
+        const data = await axios.get(
+          `${URL}/getteam/${match?.teamHomeName}/${match?.teamAwayName}`
+        );
+        const contestdata = await axios.get(
+          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
+        );
+        setContest(contestdata.data.contests);
+      }
+    }
+    getplayers();
+  }, [user, match]);
+
   useEffect(() => {
     async function getplayers() {
       if (user?._id) {
@@ -263,10 +277,12 @@ export default function CategoryTabs({
     setValue(newValue);
   };
   const handleOpen = (i) => {
+    console.log("stillitis clicked");
     setModal(i);
     setOpen(true);
   };
   const handleClose = () => {
+    console.log("handleopenclose");
     setOpen(false);
   };
   const handleClick = (i) => {
@@ -333,6 +349,7 @@ export default function CategoryTabs({
         <TabPanel value={value} index={0}>
           <PlayersList>
             <>
+              <Announced title="Announced" />
               {players.length > 0 ? (
                 players
                   .filter((p, index) => checkwk(p.position))
@@ -340,18 +357,52 @@ export default function CategoryTabs({
                     <EachPlayer
                       className={p.isSelected ? "selected" : "notselected"}
                     >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
                       <Center>
-                        <h1>a{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last matche
-                          </p>
-                        ) : null}
+                        <BlueDot />
+                        <h1>{p.playerName}</h1>
+                      </Center>
+                      <Points>9.0</Points>
+                      {p.isSelected ? (
+                        <RemoveButton onClick={() => handleRemove(p._id)}>
+                          <RemoveCircleOutlineRoundedIcon />
+                        </RemoveButton>
+                      ) : (
+                        <AddButton
+                          onClick={() => handleClick(p._id)}
+                          disabled={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                          }
+                          className={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                              ? "disabled"
+                              : "notdisabled"
+                          }
+                        >
+                          <AddCircleOutlineRoundedIcon />
+                        </AddButton>
+                      )}
+                    </EachPlayer>
+                  ))
+              ) : (
+                <NoLineups>
+                  Lineups not out yet,check 30 minutes before the game
+                </NoLineups>
+              )}
+              <Announced title="Unannounced" />
+              {nonPlayers.length > 0 ? (
+                nonPlayers
+                  .filter((p, index) => checkwk(p.position))
+                  .map((p) => (
+                    <EachPlayer
+                      className={p.isSelected ? "selected" : "notselected"}
+                    >
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
+                      <Center>
+                        <RedDot />
+                        <h1>{p.playerName}</h1>
                       </Center>
                       <Points>9.0</Points>
                       {p.isSelected ? (
@@ -388,6 +439,7 @@ export default function CategoryTabs({
         <TabPanel value={value} index={1}>
           <PlayersList>
             <>
+              <Announced title="Announced" />
               {players.length > 0 ? (
                 players
                   .filter(
@@ -398,18 +450,57 @@ export default function CategoryTabs({
                     <EachPlayer
                       className={p.isSelected ? "selected" : "notselected"}
                     >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
                       <Center>
+                        <BlueDot />
                         <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
+                      </Center>
+                      <Points>9.0</Points>
+                      {p.isSelected ? (
+                        <RemoveButton onClick={() => handleRemove(p._id)}>
+                          <RemoveCircleOutlineRoundedIcon />
+                        </RemoveButton>
+                      ) : (
+                        <AddButton
+                          onClick={() => handleClick(p._id)}
+                          disabled={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                          }
+                          className={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                              ? "disabled"
+                              : "notdisabled"
+                          }
+                        >
+                          <AddCircleOutlineRoundedIcon />
+                        </AddButton>
+                      )}
+                    </EachPlayer>
+                  ))
+              ) : (
+                <NoLineups>
+                  Lineups not out yet,check 30 minutes before the game
+                </NoLineups>
+              )}
+            </>
+            <>
+              <Announced title="Unannounced" />
+              {nonPlayers.length > 0 ? (
+                nonPlayers
+                  .filter(
+                    (p, index) =>
+                      p.position === "batsman" || p.position == "batsmen"
+                  )
+                  .map((p) => (
+                    <EachPlayer
+                      className={p.isSelected ? "selected" : "notselected"}
+                    >
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
+                      <Center>
+                        <RedDot />
+                        <h1>{p.playerName}</h1>
                       </Center>
                       <Points>9.0</Points>
                       {p.isSelected ? (
@@ -446,6 +537,7 @@ export default function CategoryTabs({
         <TabPanel value={value} index={2}>
           <PlayersList>
             <>
+              <Announced title="Announced" />
               {players.length > 0 ? (
                 players
                   .filter((p) => checkar(p.position))
@@ -453,18 +545,52 @@ export default function CategoryTabs({
                     <EachPlayer
                       className={p.isSelected ? "selected" : "notselected"}
                     >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
                       <Center>
+                        <BlueDot />
                         <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
+                      </Center>
+                      <Points>9.0</Points>
+                      {p.isSelected ? (
+                        <RemoveButton onClick={() => handleRemove(p._id)}>
+                          <RemoveCircleOutlineRoundedIcon />
+                        </RemoveButton>
+                      ) : (
+                        <AddButton
+                          onClick={() => handleClick(p._id)}
+                          disabled={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                          }
+                          className={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                              ? "disabled"
+                              : "notdisabled"
+                          }
+                        >
+                          <AddCircleOutlineRoundedIcon />
+                        </AddButton>
+                      )}
+                    </EachPlayer>
+                  ))
+              ) : (
+                <NoLineups>
+                  Lineups not out yet,check 30 minutes before the game
+                </NoLineups>
+              )}
+              <Announced title="Unannounced" />
+              {nonPlayers.length > 0 ? (
+                nonPlayers
+                  .filter((p) => checkar(p.position))
+                  .map((p) => (
+                    <EachPlayer
+                      className={p.isSelected ? "selected" : "notselected"}
+                    >
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
+                      <Center>
+                        <RedDot />
+                        <h1>{p.playerName}</h1>
                       </Center>
                       <Points>9.0</Points>
                       {p.isSelected ? (
@@ -501,6 +627,7 @@ export default function CategoryTabs({
         <TabPanel value={value} index={3}>
           <PlayersList>
             <>
+              <Announced title="Announced" />
               {players.length > 0 ? (
                 players
                   .filter((p) => p.position === "bowler")
@@ -508,18 +635,52 @@ export default function CategoryTabs({
                     <EachPlayer
                       className={p.isSelected ? "selected" : "notselected"}
                     >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
                       <Center>
+                        <BlueDot />
                         <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
+                      </Center>
+                      <Points>9.0</Points>
+                      {p.isSelected ? (
+                        <RemoveButton onClick={() => handleRemove(p._id)}>
+                          <RemoveCircleOutlineRoundedIcon />
+                        </RemoveButton>
+                      ) : (
+                        <AddButton
+                          onClick={() => handleClick(p._id)}
+                          disabled={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                          }
+                          className={
+                            players.filter((k) => k.isSelected === true)
+                              .length >= 11
+                              ? "disabled"
+                              : "notdisabled"
+                          }
+                        >
+                          <AddCircleOutlineRoundedIcon />
+                        </AddButton>
+                      )}
+                    </EachPlayer>
+                  ))
+              ) : (
+                <NoLineups>
+                  Lineups not out yet,check 30 minutes before the game
+                </NoLineups>
+              )}
+              <Announced title="Unannounced" />
+              {nonPlayers.length > 0 ? (
+                nonPlayers
+                  .filter((p) => p.position === "bowler")
+                  .map((p) => (
+                    <EachPlayer
+                      className={p.isSelected ? "selected" : "notselected"}
+                    >
+                      <img src={getImgurl(p.image, p.playerName)} alt="" />
+                      <Center>
+                        <RedDot />
+                        <h1>{p.playerName}</h1>
                       </Center>
                       <Points>9.0</Points>
                       {p.isSelected ? (

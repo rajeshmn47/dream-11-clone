@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { loadUser } from "./actions/userAction";
-import AddCommentary from "./components/addcommentary";
 import Completed from "./components/completed";
 import ContestDetail from "./components/contestdetail";
 import Counter from "./components/counter";
-import CreateTeamNew from "./components/createnew";
+import CreateTeam from "./components/createteam/createteam";
 import { ForgotPassword } from "./components/forget-password";
 import Logingoogle from "./components/googlesignin";
-import Home from "./components/home";
+import Home from "./components/home/home";
 import JoinedContests from "./components/joinedcontests";
 import Login from "./components/login";
 import Contests from "./components/MatchDetails";
@@ -66,7 +65,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/completed/:id" element={<Completed />} />
           <Route path="/players" element={<Players />} />
-          <Route path="/createnew/:id" element={<CreateTeamNew />} />
+          <Route path="/createteam/:id" element={<CreateTeam />} />
           <Route path="/contests/:id" element={<Contests />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/savedteam/:id" element={<SavedTeam />} />
@@ -76,7 +75,6 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/googlelogin" element={<Logingoogle />} />
-          <Route path="/addcommentary" element={<AddCommentary />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

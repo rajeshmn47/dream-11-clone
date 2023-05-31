@@ -10,17 +10,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { URL } from "../constants/userConstants";
+import Match from "./match";
+import { URL } from "../../constants/userConstants";
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
-} from "../utils/dateformat";
-import Bottomnav from "./bottomnavbar";
-import Loader from "./loader";
-import Navbar from "./navbar";
+} from "../../utils/dateformat";
+import Bottomnav from "../bottomnavbar";
+import Loader from "../loader";
+import Navbar from "../navbar";
 
 const RightSide = styled.div`
   width: 90px;
@@ -125,14 +125,6 @@ export function Home() {
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    const i = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(i);
-    };
-  }, []);
   useEffect(() => {
     async function getupcoming() {
       if (user?._id) {
@@ -321,67 +313,7 @@ export function Home() {
               <>
                 <h3>Live Matches</h3>
                 {live.map((u) => (
-                  <div
-                    className="matchcontainer"
-                    onClick={() => navigate(`/contests/${u.id}`)}
-                  >
-                    <Top>
-                      <h5
-                        style={{
-                          color: "#595959",
-                          fontSize: "12px",
-                          fontWeight: "800",
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span style={{ marginRight: "5px" }}>
-                          {u.away.code}
-                        </span>{" "}
-                        vs
-                        <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
-                      </h5>
-                      <NotificationAddOutlinedIcon
-                        style={{ fontSize: "18px" }}
-                      />
-                    </Top>
-                    <div className="match">
-                      <div className="matchcenter">
-                        <div className="matchlefts">
-                          <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                          <h5>{u.away.code}</h5>
-                        </div>
-                        <div
-                          style={{
-                            width: "40px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <h5 style={{ color: "#1ca14d", marginBottom: "3px" }}>
-                            live
-                          </h5>
-                          <LinearProgress color="success" />
-                        </div>
-                        <div className="matchrights">
-                          <h5> {u.home.code}</h5>
-                          <img src={u.teamHomeFlagUrl} alt="" width="40" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bottom">
-                      <div className="meta">
-                        <div className="mega">Mega</div>
-                        <div className="meg">
-                          <h5 style={{ fontSize: "12px" }}>₹59 crores</h5>
-                        </div>
-                      </div>
-                      <div className="icon">
-                        <PersonOutlineOutlinedIcon
-                          style={{ color: "#595959", fontSize: "18px" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <Match u={u} live />
                 ))}
               </>
             ) : null}
@@ -391,98 +323,7 @@ export function Home() {
               <>
                 <h3>Upcoming Matches</h3>
                 {upcoming.map((u) => (
-                  <div
-                    className="matchcontainer"
-                    onClick={() => navigate(`/contests/${u.id}`)}
-                  >
-                    <Top>
-                      <h5
-                        style={{
-                          color: "#595959",
-                          fontSize: "12px",
-                          fontWeight: "800",
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span style={{ marginRight: "5px" }}>
-                          {u.away.code}
-                        </span>{" "}
-                        vs
-                        <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
-                      </h5>
-                      <h5
-                        style={{
-                          marginLeft: "90px",
-                          color: "rgb(31, 169, 81)",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        {u.lineups}
-                      </h5>
-                      <NotificationAddOutlinedIcon
-                        style={{ fontSize: "18px" }}
-                      />
-                    </Top>
-                    <div className="match">
-                      <div className="matchcenter">
-                        <div className="matchlefts">
-                          <img src={u.teamAwayFlagUrl} alt="" width="40" />
-                          <h5>{u.away.code}</h5>
-                        </div>
-                        <h5
-                          className={u.result == "Yes" ? "completed" : "time"}
-                        >
-                          {!(u.result == "Yes") ? (
-                            sameDayorNot(new Date(), new Date(u.date)) ||
-                            isTommorrow(new Date(), new Date(u.date)) ? (
-                              <div>
-                                <p>{hoursRemaining(u.date, "k", date)}</p>
-                                <p
-                                  style={{
-                                    color: "#5e5b5b",
-                                    textTransform: "auto",
-                                    fontSize: "10px",
-                                    marginTop: "2px",
-                                  }}
-                                >
-                                  {getDisplayDate(u.date, "i", date)}
-                                </p>
-                              </div>
-                            ) : (
-                              <p
-                                style={{
-                                  color: "#e10000",
-                                  textTransform: "auto",
-                                }}
-                              >
-                                {getDisplayDate(u.date, "i")}
-                              </p>
-                            )
-                          ) : (
-                            "Completed"
-                          )}
-                        </h5>
-                        <div className="matchrights">
-                          <h5> {u.home.code}</h5>
-                          <img src={u.teamHomeFlagUrl} alt="" width="40" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bottom">
-                      <div className="meta">
-                        <div className="mega">Mega</div>
-                        <div className="meg">
-                          <h5 style={{ fontSize: "12px" }}>₹59 crores</h5>
-                        </div>
-                      </div>
-                      <div className="icon">
-                        <PersonOutlineOutlinedIcon
-                          style={{ color: "#595959", fontSize: "18px" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <Match u={u} />
                 ))}
               </>
             ) : null}

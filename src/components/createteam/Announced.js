@@ -1,12 +1,5 @@
-import "../App.css";
-
+import "../../App.css";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import ReactCanvasConfetti from "react-confetti";
-import { useWindowSize } from "react-use";
-
-import DecorationSmall from "./assets/DiwaSmall.svg";
-import Cracker from "./Cracker";
 
 const Container = styled.div`
   display: flex;

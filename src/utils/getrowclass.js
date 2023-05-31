@@ -1,4 +1,5 @@
 export function getrowClass(allplayers, dreamteam, name) {
+  console.log(allplayers, dreamteam, "dreamteam");
   const q = both(allplayers, dreamteam, name)
     ? "prime"
     : allplayers.find((k) => k.playerName == name)

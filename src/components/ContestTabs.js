@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { FURL, URL } from "../constants/userConstants";
+import { leaderboardChanges } from "../utils/leaderboardchanges";
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
@@ -247,7 +248,8 @@ export default function ContestTabs({ contest, leaderboard }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  console.log(contest, leaderboard, "leaderboard");
+  leaderboardChanges(leaderboard);
   return (
     <Container style={{ width: "100%" }}>
       <Tabs
@@ -304,15 +306,55 @@ export default function ContestTabs({ contest, leaderboard }) {
                         <Name>
                           {f.user.username}
                           <Won>
-                            <EmojiEventsOutlinedIcon
-                              style={{
-                                color: "#1ca14d !important",
-                                fontSize: "16px",
-                                marginTop: "3px",
-                                marginRight: "5px",
-                              }}
-                            />
-                            <p>you won ₹500</p>
+                            <p
+                              style={{ display: "flex", alignItems: "center" }}
+                            >
+                              {f._doc.userId == user._id ? (
+                                <>
+                                  <span
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      marginRight: "6px",
+                                    }}
+                                  >
+                                    {index < contest?.prizeDetails.length && (
+                                      <>
+                                        <EmojiEventsOutlinedIcon
+                                          style={{
+                                            color: "#1ca14d !important",
+                                            fontSize: "16px",
+                                            marginTop: "3px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
+                                        you won
+                                      </>
+                                    )}
+                                  </span>{" "}
+                                  <span>
+                                    {index < contest?.prizeDetails.length &&
+                                      "₹" + contest?.prizeDetails[index].prize}
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <EmojiEventsOutlinedIcon
+                                    style={{
+                                      color: "#1ca14d !important",
+                                      fontSize: "16px",
+                                      marginTop: "3px",
+                                      marginRight: "5px",
+                                    }}
+                                  />
+                                  <span>won</span>
+                                  <span>
+                                    {index < contest?.prizeDetails.length &&
+                                      contest?.prizeDetails[index].prize}
+                                  </span>
+                                </>
+                              )}
+                            </p>
                           </Won>
                         </Name>
                       </Profile>

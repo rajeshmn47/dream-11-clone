@@ -20,6 +20,7 @@ import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
 import Steppr from "./stepper";
+import Team from "./Team";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -273,14 +274,9 @@ const VcaptainI = styled.div`
   background-color: #000000;
 `;
 export function TeamShort({ match, match_info, players, id, plo }) {
-  const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [live, setLive] = useState([]);
-  const [past, setPast] = useState([]);
-  const [save, setSave] = useState(false);
   const [captains, setCaptains] = useState([]);
   const [matchinfo, setMatchinfo] = useState([]);
-  const navigate = useNavigate();
   useEffect(() => {
     async function filterDifferent() {
       const h = match.teamHomePlayers.filter((f) =>
@@ -319,116 +315,15 @@ export function TeamShort({ match, match_info, players, id, plo }) {
     setSelectedPlayers([...pl]);
   }, [id]);
 
-  const handleCaptain = (i) => {
-    const op = players.map((p) => {
-      p.isCaptain = false;
-      return p;
-    });
-    const po = op.map((p) => {
-      if (p._id === i) {
-        p.isCaptain = true;
-      }
-      return p;
-    });
-    setSelectedPlayers([...po]);
-  };
-
-  const handleViceCaptain = (i) => {
-    const op = players.map((p) => {
-      p.isViceCaptain = false;
-      return p;
-    });
-    const po = op.map((p) => {
-      if (p._id === i) {
-        p.isViceCaptain = true;
-      }
-      return p;
-    });
-    setSelectedPlayers([...po]);
-  };
-  const handleSave = async () => {
-    setSave(true);
-  };
-
-  const isCandVcselected = () => {
-    const a = selectedPlayers.find((s) => s.isCaptain);
-    const b = selectedPlayers.find((s) => s.isViceCaptain);
-    return a && b;
-  };
   return (
     <div>
       {players ? (
-        <EachTeam onClick={() => navigate(`/savedteam/${plo._id}`)}>
-          {matchinfo.length > 0 && captains.length > 0 && (
-            <Top>
-              <div>
-                <h3>{matchinfo[0].awayCode}</h3>
-                <p>{matchinfo[0].number}</p>
-              </div>
-              <div>
-                <h3>{matchinfo[1].homeCode}</h3>
-                <p>{matchinfo[1].number}</p>
-              </div>
-              <CaptainsContainer>
-                <CaptainI>
-                  <span>c</span>
-                </CaptainI>
-                <img
-                  src={getImgurl(captains[0].playerId, captains[0].playerName)}
-                  alt=""
-                />
-
-                <Captain>
-                  <p>
-                    {`${captains[0].playerName.split(" ")[0].charAt(0)} ${
-                      captains[0].playerName.split(" ")[1]
-                    }`}
-                  </p>
-                </Captain>
-              </CaptainsContainer>
-              <CaptainsContainer>
-                <VcaptainI>vc</VcaptainI>
-                <img
-                  src={getImgurl(captains[1].playerId, captains[1].playerName)}
-                  alt=""
-                />
-                <VCaptain>
-                  <p>
-                    {`${captains[1].playerName.split(" ")[0].charAt(0)} ${
-                      captains[1].playerName.split(" ")[1]
-                    }`}
-                  </p>
-                </VCaptain>
-              </CaptainsContainer>
-            </Top>
-          )}
-          <Bottom container spacing={1}>
-            <Each item xs={3} sm={3}>
-              WK
-              <span>
-                {selectedPlayers.filter((f) => checkwk(f.position)).length}
-              </span>
-            </Each>
-            <Each item xs={3} sm={3}>
-              BAT{" "}
-              <span>
-                {selectedPlayers.filter((f) => f.position === "batsman").length}{" "}
-              </span>
-            </Each>
-            <Each item xs={3} sm={3}>
-              AR{" "}
-              <span>
-                {selectedPlayers.filter((f) => checkar(f.position)).length}{" "}
-              </span>
-            </Each>
-            <Each item xs={3} sm={3}>
-              BOWL{" "}
-              <span>
-                {selectedPlayers.filter((f) => f.position === "bowler").length}
-              </span>
-            </Each>
-          </Bottom>
-        </EachTeam>
+        <Team
+          matchinfo={matchinfo}
+          captains={captains}
+          selectedPlayers={selectedPlayers}
+          id={plo._id}
+        />
       ) : (
         <h1>select team</h1>
       )}
