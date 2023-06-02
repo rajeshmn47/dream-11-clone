@@ -306,7 +306,7 @@ export function Team({ matchinfo, captains, selectedPlayers, id }) {
           <CaptainsContainer>
             <VcaptainI>vc</VcaptainI>
             <img
-              src={getImgurl(captains[1].playerId, captains[1].playerName)}
+              src={getImgurl(captains[1]?.playerId, captains[1]?.playerName)}
               alt=""
             />
             <VCaptain>
