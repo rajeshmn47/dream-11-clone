@@ -459,12 +459,12 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         </div>
                         <div>
                           <p>spots</p>
-                          <p>{tab?.contest?.totalSpots}</p>
+                          <p>{Math.floor(tab?.contest?.totalSpots)}</p>
                         </div>
                         <div>
                           <p>Entry</p>
                           <p>
-                            ₹{tab?.contest?.price / tab?.contest?.totalSpots}
+                            ₹{Math.floor(tab?.contest?.price / tab?.contest?.totalSpots)}
                           </p>
                         </div>
                         {match_details?.result == "Yes" && (
