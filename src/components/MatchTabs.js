@@ -485,7 +485,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                       </div>
                       <First>
                         <EmojiEventsOutlinedIcon />{" "}
-                        {(5 / tab.contest.totalSpots) * 100}%
+                        {Math.floor((5 / tab.contest.totalSpots) * 100)}%
                       </First>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <M>m</M>
