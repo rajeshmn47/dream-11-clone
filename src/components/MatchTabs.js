@@ -459,12 +459,12 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         </div>
                         <div>
                           <p>spots</p>
-                          <p>{tab?.contest?.totalSpots}</p>
+                          <p>{Math.floor(tab?.contest?.totalSpots)}</p>
                         </div>
                         <div>
                           <p>Entry</p>
                           <p>
-                            ₹{tab?.contest?.price / tab?.contest?.totalSpots}
+                            ₹{Math.floor(tab?.contest?.price / tab?.contest?.totalSpots)}
                           </p>
                         </div>
                         {match_details?.result == "Yes" && (
@@ -485,7 +485,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                       </div>
                       <First>
                         <EmojiEventsOutlinedIcon />{" "}
-                        {(5 / tab.contest.totalSpots) * 100}%
+                        {Math.floor((5 / tab.contest.totalSpots) * 100)}%
                       </First>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <M>m</M>
