@@ -6,6 +6,7 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import SportsCricketOutlinedIcon from "@mui/icons-material/SportsCricketOutlined";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -234,7 +235,7 @@ export function Match({ u, live }) {
           </div>
         </div>
         <div className="icon">
-          <PersonOutlineOutlinedIcon
+          <SportsCricketOutlinedIcon
             style={{ color: "#595959", fontSize: "18px" }}
           />
         </div>

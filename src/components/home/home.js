@@ -21,6 +21,7 @@ import {
 import Bottomnav from "../bottomnavbar";
 import Loader from "../loader";
 import Navbar from "../navbar";
+import { SportsCricketOutlined } from "@mui/icons-material";
 
 const RightSide = styled.div`
   width: 90px;
@@ -297,7 +298,7 @@ export function Home() {
                           </div>
                         </div>
                         <div className="icon">
-                          <PersonOutlineOutlinedIcon
+                          <SportsCricketOutlined
                             style={{ color: "#595959", fontSize: "18px" }}
                           />
                         </div>

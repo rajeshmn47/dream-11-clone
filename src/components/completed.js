@@ -1,7 +1,10 @@
 import "./home.css";
 
 import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
+import {
+  SettingsApplicationsTwoTone,
+  SportsCricketOutlined,
+} from "@mui/icons-material";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
@@ -282,7 +285,7 @@ export function Completed() {
                           u won {u.won}
                           rs !
                         </h5>
-                        <PersonOutlineOutlinedIcon
+                        <SportsCricketOutlined
                           style={{ color: "#595959", fontSize: "18px" }}
                         />
                       </div>
