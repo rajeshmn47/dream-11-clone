@@ -507,13 +507,19 @@ export default function MatchTabs({ tabs, g, livescore }) {
                             style={{ display: "flex", alignItems: "center" }}
                           >
                             #{t?.rank}
-                            <ArrowUpwardIcon
+                            {t?.rank<tab?.contest?.prizeDetails?.length?<ArrowUpwardIcon
                               style={{
                                 color: "#1ca14d",
                                 fontSize: "18px",
                                 marginLeft: "5px",
                               }}
-                            />
+                            />:<ArrowUpwardIcon
+                            style={{
+                              color: "red",
+                              fontSize: "18px",
+                              marginLeft: "5px",
+                            }}
+                          />}
                           </SpotsRight>
                         </StatusC>
                       </>
