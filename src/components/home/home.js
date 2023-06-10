@@ -129,18 +129,23 @@ export function Home() {
   useEffect(() => {
     async function getupcoming() {
       if (user?._id) {
-        const data = await axios.get(`${URL}/home/${user._id}`);
         setLoading(true);
-        const urr = data.data.upcoming.results.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
-        );
-        const lrr = data.data.live.results.sort(
+        const upcoming = await axios.get(`${URL}/home`);
+        const urr = upcoming.data.upcoming.results.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setUpcoming([...urr]);
-        setLive([...lrr]);
-        setPast(data.data.past.results);
         setLoading(false);
+        const data = await axios.get(`${URL}/home/${user._id}`);
+        const ucm = data.data.upcoming.results.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setUpcoming([...ucm]);
+        const lrr = data.data.live.results.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setLive([...lrr]);
+        setPast(data.data.past.results)
       }
     }
     getupcoming();
