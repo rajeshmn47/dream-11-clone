@@ -94,7 +94,7 @@ const Bottom = styled.div`
   z-index: 10;
 `;
 const LeftSide = styled.div`
-  width: 150px;
+  width: 170px;
   display: flex;
   justify-content: space-between;
   align-items: center;

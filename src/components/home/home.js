@@ -145,7 +145,7 @@ export function Home() {
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setLive([...lrr]);
-        setPast(data.data.past.results)
+        setPast(data.data.past.results);
       }
     }
     getupcoming();

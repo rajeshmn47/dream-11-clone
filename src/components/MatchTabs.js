@@ -5,7 +5,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import SouthIcon from '@mui/icons-material/South';
+import SouthIcon from "@mui/icons-material/South";
 import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -465,7 +465,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         <div>
                           <p>Entry</p>
                           <p>
-                            ₹{Math.floor(tab?.contest?.price / tab?.contest?.totalSpots)}
+                            ₹
+                            {Math.floor(
+                              tab?.contest?.price / tab?.contest?.totalSpots
+                            )}
                           </p>
                         </div>
                         {match_details?.result == "Yes" && (
@@ -508,19 +511,23 @@ export default function MatchTabs({ tabs, g, livescore }) {
                             style={{ display: "flex", alignItems: "center" }}
                           >
                             #{t?.rank}
-                            {t?.rank<tab?.contest?.prizeDetails?.length?<ArrowUpwardIcon
-                              style={{
-                                color: "#1ca14d",
-                                fontSize: "18px",
-                                marginLeft: "5px",
-                              }}
-                            />:<SouthIcon
-                            style={{
-                              color: "red",
-                              fontSize: "18px",
-                              marginLeft: "5px",
-                            }}
-                          />}
+                            {t?.rank < tab?.contest?.prizeDetails?.length ? (
+                              <ArrowUpwardIcon
+                                style={{
+                                  color: "#1ca14d",
+                                  fontSize: "18px",
+                                  marginLeft: "5px",
+                                }}
+                              />
+                            ) : (
+                              <SouthIcon
+                                style={{
+                                  color: "red",
+                                  fontSize: "18px",
+                                  marginLeft: "5px",
+                                }}
+                              />
+                            )}
                           </SpotsRight>
                         </StatusC>
                       </>
