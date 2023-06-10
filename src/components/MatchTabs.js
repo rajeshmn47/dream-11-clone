@@ -5,6 +5,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
+import SouthIcon from '@mui/icons-material/South';
 import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -513,7 +514,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                                 fontSize: "18px",
                                 marginLeft: "5px",
                               }}
-                            />:<ArrowUpwardIcon
+                            />:<SouthIcon
                             style={{
                               color: "red",
                               fontSize: "18px",
