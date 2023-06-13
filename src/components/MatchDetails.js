@@ -199,6 +199,7 @@ export function MatchDetails({ players }) {
           doc(db, "cities", match_details?.matchId),
           (doc) => {
             if (doc.data()) {
+              console.log(doc.data(), "data");
               setCommentary([...doc.data().capital]);
               setLivescore({ ...doc.data().miniscore });
             }
@@ -224,10 +225,12 @@ export function MatchDetails({ players }) {
 
   const { id } = useParams();
   useEffect(() => {
-    dispatch(getmatch(id));
     async function getupcoming() {
-      const data = await axios.get(`${URL}/getcontests/${id}`);
-      setContests(data.data.contests);
+      if (id?.length > 3) {
+        dispatch(getmatch(id));
+        const data = await axios.get(`${URL}/getcontests/${id}`);
+        setContests(data.data.contests);
+      }
     }
     getupcoming();
   }, [id]);
