@@ -323,11 +323,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
   }, [user, id]);
   useEffect(() => {
     async function getteams() {
-      if(contest[0]?._id){
-      const teamdata = await axios.get(
-        `${URL}/getteamsofcontest/${contest[0]?._id}`
-      );
-      setLeaderboard(teamdata.data.teams);
+      if (contest[0]?._id) {
+        const teamdata = await axios.get(
+          `${URL}/getteamsofcontest/${contest[0]?._id}`
+        );
+        setLeaderboard(teamdata.data.teams);
       }
     }
     getteams();

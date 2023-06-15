@@ -21,6 +21,7 @@ import Payment from "./components/payment";
 import Players from "./components/players";
 import Register from "./components/register";
 import SavedTeam from "./components/savedteam";
+import NewUsers from "./components/newUsers";
 import Test from "./components/test";
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/googlelogin" element={<Logingoogle />} />
+          <Route path="/newusers" element={<NewUsers />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

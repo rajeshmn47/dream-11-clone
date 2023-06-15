@@ -99,13 +99,13 @@ export function ContestDetail() {
   const history = useNavigate();
   useEffect(() => {
     async function getteams() {
-      if(id.length>3){
-      const teamdata = await axios.get(`${URL}/getteamsofcontest/${id}`);
-      const contestdata = await axios.get(`${URL}/getcontest/${id}`);
-      setContest(contestdata.data.contest);
-      setMatch(teamdata.data.match);
-      const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
-      setLeaderboard([...t]);
+      if (id.length > 3) {
+        const teamdata = await axios.get(`${URL}/getteamsofcontest/${id}`);
+        const contestdata = await axios.get(`${URL}/getcontest/${id}`);
+        setContest(contestdata.data.contest);
+        setMatch(teamdata.data.match);
+        const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
+        setLeaderboard([...t]);
       }
     }
     getteams();
