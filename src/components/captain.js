@@ -224,7 +224,7 @@ export function Captain({ players }) {
             {selectedPlayers.map((p) => (
               <Player>
                 <Name>
-                  <img src={getImgurl(p.playerId, p.image)} alt="" />
+                  <img src={getImgurl(p.image, p.playerId)} alt="" />
                   <h1>{p.playerName}</h1>
                 </Name>
                 <CaptainC

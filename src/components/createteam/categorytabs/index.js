@@ -297,7 +297,7 @@ export default function CategoryTabs({
             <Tab
               label={`WK(${
                 players.filter(
-                  (p) => p.position === "wicketkeeper" && p.isSelected
+                  (p) => checkwk(p.position) && p.isSelected
                 ).length
               })`}
               {...a11yProps(0)}
@@ -312,7 +312,7 @@ export default function CategoryTabs({
             <Tab
               label={`AR(${
                 players.filter(
-                  (p) => p.position === "allrounder" && p.isSelected
+                  (p) => checkar(p.position) && p.isSelected
                 ).length
               })`}
               {...a11yProps(2)}

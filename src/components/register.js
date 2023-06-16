@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
 import Otp from "./otp";
+import { useAlert } from "react-alert";
 
 const Err = styled.p`
   color: red;
@@ -20,6 +21,7 @@ export function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
+  const alert=useAlert()
   const [password, setPassword] = useState("");
   const [err, setErr] = useState();
   const navigate = useNavigate();
@@ -39,8 +41,10 @@ export function Register() {
     console.log(data);
     if (data.data.success) {
       setErr(data.data.message);
+      alert.success(data.data.message);
       setOpen(true);
     } else {
+      alert.error(data.data.message);
       setErr(data.data.message);
     }
   };
@@ -106,7 +110,6 @@ export function Register() {
               Register
             </Button>
           </form>
-          {err && <Err>{err}</Err>}
           <Link to="/forgot-password">forgot password</Link>
         </Paper>
         <Link to="/login">Aleady a user?Log in</Link>

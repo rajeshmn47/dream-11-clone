@@ -290,8 +290,9 @@ export function Team({ matchinfo, captains, selectedPlayers, id }) {
             <CaptainI>
               <span>c</span>
             </CaptainI>
+          
             <img
-              src={getImgurl(captains[0].playerId, captains[0].playerName)}
+              src={getImgurl(captains[0].image, captains[0].playerName)}
               alt=""
             />
 
@@ -307,16 +308,16 @@ export function Team({ matchinfo, captains, selectedPlayers, id }) {
             <VcaptainI>vc</VcaptainI>
             <img
               src={
-                getImgurl(captains[1]?.playerId, captains[1]?.playerName)
-                  ? getImgurl(captains[1]?.playerId, captains[1]?.playerName)
+                getImgurl(captains[1]?.image, captains[1]?.playerName)
+                  ? getImgurl(captains[1]?.image, captains[1]?.playerName)
                   : null
               }
               alt=""
             />
             <VCaptain>
               <p>
-                {`${captains[1].playerName.split(" ")[0].charAt(0)} ${
-                  captains[1].playerName.split(" ")[1]
+                {`${captains[1]?.playerName.split(" ")[0].charAt(0)} ${
+                  captains[1]?.playerName.split(" ")[1]
                 }`}
               </p>
             </VCaptain>

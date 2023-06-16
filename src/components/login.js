@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { login } from "../actions/userAction";
 import { URL } from "../constants/userConstants";
+import { useAlert } from "react-alert";
 
 const Err = styled.p`
   color: red;
@@ -26,13 +27,17 @@ export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const alert = useAlert();
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [user, isAuthenticated]);
+    if(error){
+      alert.error(error)
+    }
+  }, [user, isAuthenticated,error]);
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -119,7 +124,6 @@ export function Login() {
             >
               Log in
             </Button>
-            {error && <Err>{error}</Err>}
           </form>
           <Link to="/forgot-password">forgot password</Link>
           <Link to="/register">Dont have a account?Sign up</Link>
