@@ -316,9 +316,8 @@ export default function LiveCategoryTabs({
           >
             <Tab
               label={`WK(${
-                players.filter(
-                  (p) => checkwk(p.position) && p.isSelected
-                ).length
+                players.filter((p) => checkwk(p.position) && p.isSelected)
+                  .length
               })`}
               {...a11yProps(0)}
             />
@@ -331,9 +330,8 @@ export default function LiveCategoryTabs({
             />
             <Tab
               label={`AR(${
-                players.filter(
-                  (p) =>checkar(p.position) && p.isSelected
-                ).length
+                players.filter((p) => checkar(p.position) && p.isSelected)
+                  .length
               })`}
               {...a11yProps(2)}
             />

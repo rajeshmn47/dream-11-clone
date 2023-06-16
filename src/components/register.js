@@ -21,7 +21,7 @@ export function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
-  const alert=useAlert()
+  const alert = useAlert();
   const [password, setPassword] = useState("");
   const [err, setErr] = useState();
   const navigate = useNavigate();

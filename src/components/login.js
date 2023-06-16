@@ -34,10 +34,10 @@ export function Login() {
     if (isAuthenticated) {
       navigate("/");
     }
-    if(error){
-      alert.error(error)
+    if (error) {
+      alert.error(error);
     }
-  }, [user, isAuthenticated,error]);
+  }, [user, isAuthenticated, error]);
 
   const handlesubmit = async (e) => {
     e.preventDefault();

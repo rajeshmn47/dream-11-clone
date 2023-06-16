@@ -33,7 +33,6 @@ import StatsName from "./statsname";
 import Steppr from "./stepper";
 
 const columns = [
-
   {
     field: "email",
     headerName: "EMAIL",

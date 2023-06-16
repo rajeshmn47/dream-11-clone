@@ -290,7 +290,7 @@ export function Team({ matchinfo, captains, selectedPlayers, id }) {
             <CaptainI>
               <span>c</span>
             </CaptainI>
-          
+
             <img
               src={getImgurl(captains[0].image, captains[0].playerName)}
               alt=""
