@@ -31,6 +31,8 @@ import BasicTabs from "./MatchTabs";
 import CategoryTabs from "./createteam/playerscategory";
 import StatsName from "./statsname";
 import Steppr from "./stepper";
+import MatchesJoined from "./matchesjoined";
+import CreatedAt from "./createdat";
 
 const columns = [
   {
@@ -43,7 +45,33 @@ const columns = [
   {
     field: "createdAt",
     headerName: "CREATED AT",
-    width: 280,
+    width: 180,
+    editable: true,
+    renderCell: CreatedAt,
+  },
+  {
+    field: "matchIds",
+    headerName: "MATCHES JOINED",
+    width: 90,
+    editable: true,
+    renderCell: MatchesJoined,
+  },
+  {
+    field: "wallet",
+    headerName: "BALANCE",
+    width: 100,
+    editable: true,
+  },
+  {
+    field: "numberOfContestJoined",
+    headerName: "CONTESTS JOINED",
+    width: 90,
+    editable: true,
+  },
+  {
+    field: "numberOfTeamsCreated",
+    headerName: "TEAMS CREATED",
+    width: 90,
     editable: true,
   },
 ];
