@@ -178,7 +178,7 @@ export function Commentary({ matchdata }) {
               <Break>
                 <h5>
                   End of over
-                  {p?.overSeparator.overNum}
+                {" "}{p?.overSeparator.overNum}
                 </h5>
                 <BreakBot>
                   <p>{p?.overSeparator.bowlNames[0]}</p>
