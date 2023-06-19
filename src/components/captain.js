@@ -86,7 +86,7 @@ const NextButtonContainer = styled.div`
   position: fixed;
   bottom: 8%;
   left: 0%;
-  z-index: 1000000000000000000000000;
+  z-index: 100000000000000000000000;
   display: flex;
   justify-content: space-evenly;
   width: 100%;
