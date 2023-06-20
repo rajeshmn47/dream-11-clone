@@ -63,24 +63,26 @@ export function Register() {
     <>
       <div className="registertopbar">
         <ArrowBackIcon
-          style={{ marginRight: "2vw" }}
+          style={{ marginRight: "20px" }}
           onClick={() => navigate(-1)}
         />
         register & play
       </div>
 
       <div className="register">
-        <Paper style={{ padding: "2vh 2vw" }}>
+        <Paper style={{ padding: "20px 20px" }}>
           <form onSubmit={handlesubmit} className="registerform">
             <TextField
               placeholder="Email"
               variant="standard"
+name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
             />
             <TextField
               placeholder="name"
+name="name"
               variant="standard"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -88,6 +90,7 @@ export function Register() {
             <TextField
               placeholder="Phonenumber"
               variant="standard"
+name="phonenumber"
               value={phonenumber}
               onChange={(e) => setPhonenumber(e.target.value)}
               type="phone"
@@ -96,6 +99,7 @@ export function Register() {
             <TextField
               placeholder="Password"
               variant="standard"
+name="password"
               id="fullWidth"
               type="password"
               value={password}
