@@ -207,7 +207,10 @@ export function NewUsers({ matchdata, team }) {
   }, [id]);
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box
+      sx={{ height: 400, width: "100%", color: "#FFFFFF !important" }}
+      className="container"
+    >
       <StripedDataGrid
         loading={loading}
         rows={users}

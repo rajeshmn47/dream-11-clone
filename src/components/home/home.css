@@ -180,3 +180,6 @@
   display: flex;
   align-items: center;
 }
+.reacticon path {
+  stroke: #595959;
+}
