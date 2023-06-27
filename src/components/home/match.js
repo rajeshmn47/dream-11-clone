@@ -1,5 +1,4 @@
 import "./home.css";
-
 import styled from "@emotion/styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
