@@ -1,5 +1,4 @@
 import "./home.css";
-
 import styled from "@emotion/styled";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
@@ -11,6 +10,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GrMultimedia } from "react-icons/gr";
 
 import { URL } from "../../constants/userConstants";
 import {
@@ -235,8 +235,9 @@ export function Match({ u, live }) {
           </div>
         </div>
         <div className="icon">
+          <GrMultimedia className="reacticon" />
           <SportsCricketOutlinedIcon
-            style={{ color: "#595959", fontSize: "18px" }}
+            style={{ color: "#595959", fontSize: "18px", marginLeft: "5px" }}
           />
         </div>
       </div>

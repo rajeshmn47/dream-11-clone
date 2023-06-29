@@ -57,7 +57,7 @@
   margin: 15px 0;
 }
 .matchcontainere {
-  box-shadow: 0 0 3px rgba(181, 176, 176, 0.15);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15) !important;
   border-radius: 5px;
   overflow: hidden;
   background-color: transparent !important;
@@ -179,4 +179,7 @@
 .meta {
   display: flex;
   align-items: center;
+}
+.reacticon path {
+  stroke: #595959;
 }

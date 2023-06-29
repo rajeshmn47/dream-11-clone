@@ -22,9 +22,13 @@ export function getDisplayDate(date, sc, d) {
     }
     return "Today";
   }
-  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2) {
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff > 0) {
     const a = moment(date).format("HH:mm a");
     return `Tommorrow, ${a}`;
+  }
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff < 0) {
+    const a = moment(date).format("HH:mm a");
+    return `Yesterday, ${a}`;
   }
   if (
     today.getDate() - current.getDate() < 7 &&
