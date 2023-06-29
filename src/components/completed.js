@@ -141,7 +141,10 @@ export function Completed() {
       if (user?._id) {
         setLoading(true);
         const data = await axios.get(`${URL}/completed/${user._id}`);
-        setPast(data.data.completed.results);
+        const cm = data.data.completed.results.sort(
+          (b, a) => new Date(a.date) - new Date(b.date)
+        );
+        setPast(cm);
         setLoading(false);
       }
     }
