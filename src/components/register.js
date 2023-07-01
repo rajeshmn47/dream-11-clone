@@ -75,14 +75,14 @@ export function Register() {
             <TextField
               placeholder="Email"
               variant="standard"
-name="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
             />
             <TextField
               placeholder="name"
-name="name"
+              name="name"
               variant="standard"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -90,7 +90,7 @@ name="name"
             <TextField
               placeholder="Phonenumber"
               variant="standard"
-name="phonenumber"
+              name="phonenumber"
               value={phonenumber}
               onChange={(e) => setPhonenumber(e.target.value)}
               type="phone"
@@ -99,7 +99,7 @@ name="phonenumber"
             <TextField
               placeholder="Password"
               variant="standard"
-name="password"
+              name="password"
               id="fullWidth"
               type="password"
               value={password}

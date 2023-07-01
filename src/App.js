@@ -23,8 +23,8 @@ import Register from "./components/register";
 import SavedTeam from "./components/savedteam";
 import NewUsers from "./components/newUsers";
 import Test from "./components/test";
-import { WhatsAppWidget } from 'react-whatsapp-widget';
-import 'react-whatsapp-widget/dist/index.css';
+import { WhatsAppWidget } from "react-whatsapp-widget";
+import "react-whatsapp-widget/dist/index.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -89,7 +89,7 @@ function App() {
         />
       )}
       <div className="whatsappwidget">
-      <WhatsAppWidget  phoneNumber="7259293140" />
+        <WhatsAppWidget phoneNumber="7259293140" />
       </div>
     </>
   );
