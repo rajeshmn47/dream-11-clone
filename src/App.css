@@ -66,3 +66,11 @@
   background-color: red;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
+.whatsappwidget{
+  position:fixed;
+  top:100px;
+}
+._2qp0Z{
+  bottom: 8px !important;
+  right: 15px !important;
+}

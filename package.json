@@ -48,6 +48,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-use": "^17.4.0",
+    "react-whatsapp-widget": "^2.2.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
