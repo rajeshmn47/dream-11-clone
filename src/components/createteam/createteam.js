@@ -189,6 +189,7 @@ export function CreateTeam() {
   const [match, setMatch] = useState(null);
   const { id } = useParams();
   const [players, setPlayers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(false);
   const [nonPlayers, setNonPlayers] = useState([]);
   const [lmPlayers, setLmplayers] = useState([]);
@@ -196,6 +197,7 @@ export function CreateTeam() {
   useEffect(() => {
     async function getupcoming() {
       if (id) {
+        setLoading(true);
         const data = await axios.get(`${URL}/getplayers/${id}`);
         setLive(data.data.live);
         if (!data.data.live) {
@@ -236,6 +238,7 @@ export function CreateTeam() {
           }));
         setLmplayers([...lm]);
       }
+      setLoading(false);
     }
     getupcoming();
   }, [id]);
@@ -331,6 +334,7 @@ export function CreateTeam() {
               setPlayers={setPlayers}
               match={match}
               nonPlayers={nonPlayers}
+              loading={loading}
             />
           ) : (
             <CategoryTabs
@@ -339,6 +343,7 @@ export function CreateTeam() {
               match={match}
               nonPlayers={nonPlayers}
               lmPlayers={lmPlayers}
+              loading={loading}
             />
           )}
           <NextButtonContainer>

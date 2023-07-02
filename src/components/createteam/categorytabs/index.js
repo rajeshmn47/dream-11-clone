@@ -27,6 +27,7 @@ import {
   getImgurl,
   isUnAnnounced,
 } from "../../../utils/img_url";
+import Loader from "../../loader";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -232,6 +233,7 @@ export default function CategoryTabs({
   match,
   setPlayers,
   lmPlayers,
+  loading,
 }) {
   const [value, setValue] = React.useState(0);
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -324,229 +326,247 @@ export default function CategoryTabs({
             />
           </Tabs>
         </Box>
-        <TabPanel value={value} index={0}>
-          <PlayersList>
-            <>
-              {players.length > 0 ? (
-                players
-                  .filter((p, index) => checkwk(p.position))
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
-                      <Center>
-                        <h1>a{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last matche
-                          </p>
-                        ) : null}
-                      </Center>
-                      <Points>9.0</Points>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
+        {!loading ? (
+          <>
+            <TabPanel value={value} index={0}>
+              <PlayersList>
+                <>
+                  {players.length > 0 ? (
+                    players
+                      .filter((p, index) => checkwk(p.position))
+                      .map((p) => (
+                        <EachPlayer
+                          className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              ) : (
-                <NoLineups>
-                  Lineups not out yet,check 30 minutes before the game
-                </NoLineups>
-              )}
-            </>
-          </PlayersList>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <PlayersList>
-            <>
-              {players.length > 0 ? (
-                players
-                  .filter(
-                    (p, index) =>
-                      p.position === "batsman" || p.position == "batsmen"
-                  )
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
-                      <Center>
-                        <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
-                      </Center>
-                      <Points>9.0</Points>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
+                          <ImgContainer>
+                            <img
+                              src={getImgurl(p.image, p.playerName)}
+                              alt=""
+                            />
+                          </ImgContainer>
+                          <Center>
+                            <h1>a{p.playerName}</h1>
+                            {playedlm(lmPlayers, p) ? (
+                              <p>
+                                {" "}
+                                <BlueDot />
+                                played last matche
+                              </p>
+                            ) : null}
+                          </Center>
+                          <Points>9.0</Points>
+                          {p.isSelected ? (
+                            <RemoveButton onClick={() => handleRemove(p._id)}>
+                              <RemoveCircleOutlineRoundedIcon />
+                            </RemoveButton>
+                          ) : (
+                            <AddButton
+                              onClick={() => handleClick(p._id)}
+                              disabled={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                              }
+                              className={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                                  ? "disabled"
+                                  : "notdisabled"
+                              }
+                            >
+                              <AddCircleOutlineRoundedIcon />
+                            </AddButton>
+                          )}
+                        </EachPlayer>
+                      ))
+                  ) : (
+                    <NoLineups>
+                      Lineups not out yet,check 30 minutes before the game
+                    </NoLineups>
+                  )}
+                </>
+              </PlayersList>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <PlayersList>
+                <>
+                  {players.length > 0 ? (
+                    players
+                      .filter(
+                        (p, index) =>
+                          p.position === "batsman" || p.position == "batsmen"
+                      )
+                      .map((p) => (
+                        <EachPlayer
+                          className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              ) : (
-                <NoLineups>
-                  Lineups not out yet,check 30 minutes before the game
-                </NoLineups>
-              )}
-            </>
-          </PlayersList>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <PlayersList>
-            <>
-              {players.length > 0 ? (
-                players
-                  .filter((p) => checkar(p.position))
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
-                      <Center>
-                        <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
-                      </Center>
-                      <Points>9.0</Points>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
+                          <ImgContainer>
+                            <img
+                              src={getImgurl(p.image, p.playerName)}
+                              alt=""
+                            />
+                          </ImgContainer>
+                          <Center>
+                            <h1>{p.playerName}</h1>
+                            {playedlm(lmPlayers, p) ? (
+                              <p>
+                                {" "}
+                                <BlueDot />
+                                played last match
+                              </p>
+                            ) : null}
+                          </Center>
+                          <Points>9.0</Points>
+                          {p.isSelected ? (
+                            <RemoveButton onClick={() => handleRemove(p._id)}>
+                              <RemoveCircleOutlineRoundedIcon />
+                            </RemoveButton>
+                          ) : (
+                            <AddButton
+                              onClick={() => handleClick(p._id)}
+                              disabled={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                              }
+                              className={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                                  ? "disabled"
+                                  : "notdisabled"
+                              }
+                            >
+                              <AddCircleOutlineRoundedIcon />
+                            </AddButton>
+                          )}
+                        </EachPlayer>
+                      ))
+                  ) : (
+                    <NoLineups>
+                      Lineups not out yet,check 30 minutes before the game
+                    </NoLineups>
+                  )}
+                </>
+              </PlayersList>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <PlayersList>
+                <>
+                  {players.length > 0 ? (
+                    players
+                      .filter((p) => checkar(p.position))
+                      .map((p) => (
+                        <EachPlayer
+                          className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              ) : (
-                <NoLineups>
-                  Lineups not out yet,check 30 minutes before the game
-                </NoLineups>
-              )}
-            </>
-          </PlayersList>
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <PlayersList>
-            <>
-              {players.length > 0 ? (
-                players
-                  .filter((p) => p.position === "bowler")
-                  .map((p) => (
-                    <EachPlayer
-                      className={p.isSelected ? "selected" : "notselected"}
-                    >
-                      <ImgContainer>
-                        <img src={getImgurl(p.image, p.playerName)} alt="" />
-                      </ImgContainer>
-                      <Center>
-                        <h1>{p.playerName}</h1>
-                        {playedlm(lmPlayers, p) ? (
-                          <p>
-                            {" "}
-                            <BlueDot />
-                            played last match
-                          </p>
-                        ) : null}
-                      </Center>
-                      <Points>9.0</Points>
-                      {p.isSelected ? (
-                        <RemoveButton onClick={() => handleRemove(p._id)}>
-                          <RemoveCircleOutlineRoundedIcon />
-                        </RemoveButton>
-                      ) : (
-                        <AddButton
-                          onClick={() => handleClick(p._id)}
-                          disabled={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                          }
-                          className={
-                            players.filter((k) => k.isSelected === true)
-                              .length >= 11
-                              ? "disabled"
-                              : "notdisabled"
-                          }
+                          <ImgContainer>
+                            <img
+                              src={getImgurl(p.image, p.playerName)}
+                              alt=""
+                            />
+                          </ImgContainer>
+                          <Center>
+                            <h1>{p.playerName}</h1>
+                            {playedlm(lmPlayers, p) ? (
+                              <p>
+                                {" "}
+                                <BlueDot />
+                                played last match
+                              </p>
+                            ) : null}
+                          </Center>
+                          <Points>9.0</Points>
+                          {p.isSelected ? (
+                            <RemoveButton onClick={() => handleRemove(p._id)}>
+                              <RemoveCircleOutlineRoundedIcon />
+                            </RemoveButton>
+                          ) : (
+                            <AddButton
+                              onClick={() => handleClick(p._id)}
+                              disabled={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                              }
+                              className={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                                  ? "disabled"
+                                  : "notdisabled"
+                              }
+                            >
+                              <AddCircleOutlineRoundedIcon />
+                            </AddButton>
+                          )}
+                        </EachPlayer>
+                      ))
+                  ) : (
+                    <NoLineups>
+                      Lineups not out yet,check 30 minutes before the game
+                    </NoLineups>
+                  )}
+                </>
+              </PlayersList>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <PlayersList>
+                <>
+                  {players.length > 0 ? (
+                    players
+                      .filter((p) => p.position === "bowler")
+                      .map((p) => (
+                        <EachPlayer
+                          className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <AddCircleOutlineRoundedIcon />
-                        </AddButton>
-                      )}
-                    </EachPlayer>
-                  ))
-              ) : (
-                <NoLineups>
-                  Lineups not out yet,check 30 minutes before the game
-                </NoLineups>
-              )}
-            </>
-          </PlayersList>
-        </TabPanel>
+                          <ImgContainer>
+                            <img
+                              src={getImgurl(p.image, p.playerName)}
+                              alt=""
+                            />
+                          </ImgContainer>
+                          <Center>
+                            <h1>{p.playerName}</h1>
+                            {playedlm(lmPlayers, p) ? (
+                              <p>
+                                {" "}
+                                <BlueDot />
+                                played last match
+                              </p>
+                            ) : null}
+                          </Center>
+                          <Points>9.0</Points>
+                          {p.isSelected ? (
+                            <RemoveButton onClick={() => handleRemove(p._id)}>
+                              <RemoveCircleOutlineRoundedIcon />
+                            </RemoveButton>
+                          ) : (
+                            <AddButton
+                              onClick={() => handleClick(p._id)}
+                              disabled={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                              }
+                              className={
+                                players.filter((k) => k.isSelected === true)
+                                  .length >= 11
+                                  ? "disabled"
+                                  : "notdisabled"
+                              }
+                            >
+                              <AddCircleOutlineRoundedIcon />
+                            </AddButton>
+                          )}
+                        </EachPlayer>
+                      ))
+                  ) : (
+                    <NoLineups>
+                      Lineups not out yet,check 30 minutes before the game
+                    </NoLineups>
+                  )}
+                </>
+              </PlayersList>
+            </TabPanel>
+          </>
+        ) : (
+          <Loader />
+        )}
       </Box>
     </Contest>
   );

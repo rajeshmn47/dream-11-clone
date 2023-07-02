@@ -246,10 +246,7 @@ export function MatchDetails({ players }) {
               />
               {match_details && (
                 <h1>
-                  {match_details.teamAwayCode} Vs
-                  <span style={{ marginLeft: "8px" }}>
-                    {match_details.teamHomeCode}
-                  </span>
+                  {match_details.teamAwayCode} Vs {match_details.teamHomeCode}
                 </h1>
               )}
             </LeftSide>
