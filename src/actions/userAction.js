@@ -25,7 +25,6 @@ export const register = (myform) => async (dispatch) => {
     const { data } = await axios.post(`${URL}/auth/register`, {
       myform,
     });
-    console.log(data);
     localStorage.setItem("server_token", data.server_token);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -44,7 +43,6 @@ export const login = (myform) => async (dispatch) => {
     const { data } = await axios.post(`${URL}/auth/login`, {
       myform,
     });
-    console.log(data, "hucchi");
     localStorage.setItem("token", data.token);
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
