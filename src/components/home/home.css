@@ -46,18 +46,18 @@
 
 .match {
   background-color: #ffffff;
-  padding: 20px 15px;
+  padding: 15px 15px;
   box-sizing: border-box;
   cursor: pointer;
 }
 .matchcontainer {
-  box-shadow: 0 0 3px rgba(83, 80, 80, 0.15);
+  box-shadow: 0 0 2.5px 2.5px rgba(83, 80, 80, 0.15);
   border-radius: 5px;
   overflow: hidden;
-  margin: 15px 0;
+  margin: 18px 0;
 }
 .matchcontainere {
-  box-shadow: 0 0 4px rgba(165, 162, 162, 0.15) !important;
+  box-shadow: 0 0 2.5px 2.5px rgba(83, 80, 80, 0.15) !important;
   border-radius: 5px;
   overflow: hidden;
   background-color: transparent !important;
@@ -112,7 +112,7 @@
   align-items: center;
 }
 .mega {
-  background-color: #c7e0d4;
+  background-color: #d4f1e3;
   color: #1ca14d;
   width: 12vw;
   box-sizing: border-box;
