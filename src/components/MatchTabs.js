@@ -365,6 +365,16 @@ export default function MatchTabs({ tabs, g, livescore }) {
     alert.success("contest joined successfully");
     setSelectTeams({ selected: false, team: t });
   };
+
+  const loadjoined = async (t) => {
+    console.log("join contest");
+    const joinedC = await axios.get(
+      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    );
+    setContest([...joinedC.data.contests]);
+    leaderboardChanges(joinedC.data.contests);
+    setSelectTeams({ selected: false, team: t });
+  };
   console.log(user, "user");
   return (
     <div style={{ zIndex: "1" }}>
@@ -442,6 +452,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 modal={modal}
                 teamid={selectedTeam?._id}
                 id={id}
+                loadjoined={loadjoined}
               />
             </ContestsContainer>
           </TabPanel>

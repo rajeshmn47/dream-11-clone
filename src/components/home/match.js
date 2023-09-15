@@ -168,7 +168,7 @@ export function Match({ u, live }) {
             fontFamily: "Montserrat",
           }}
         >
-          {u.lineups}
+          {live||u.lineups}
         </h5>
         <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
       </Top>
