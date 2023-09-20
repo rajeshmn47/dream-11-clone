@@ -111,17 +111,33 @@ export function Navbar() {
         </Account>
         <Center>
           <EmojiEventsOutlinedIcon
-            style={{ marginRight: "10px", fontSize: "20px",stroke: "white",strokeWidth: "1.5" }}
+            style={{
+              marginRight: "10px",
+              fontSize: "20px",
+              stroke: "white",
+              strokeWidth: "1.5",
+            }}
           />
           Dream11
         </Center>
         <RightSide>
           <NotificationAddOutlinedIcon
-            style={{ marginRight: "10px", cursor: "pointer", fontSize: "20px",stroke: "white",strokeWidth: "1.5" }}
+            style={{
+              marginRight: "10px",
+              cursor: "pointer",
+              fontSize: "20px",
+              stroke: "white",
+              strokeWidth: "1.5",
+            }}
           />
           <AccountBalanceWalletOutlinedIcon
             onClick={() => handleClick()}
-            style={{ cursor: "pointer", fontSize: "20px" ,stroke: "white",strokeWidth: "1.5"}}
+            style={{
+              cursor: "pointer",
+              fontSize: "20px",
+              stroke: "white",
+              strokeWidth: "1.5",
+            }}
           />
         </RightSide>
       </div>

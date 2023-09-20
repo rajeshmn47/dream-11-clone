@@ -134,7 +134,7 @@ const EachPlayer = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: green;
+  color: var(--green);
   background-color: #fff;
   border: none;
   outline: none;

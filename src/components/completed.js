@@ -105,7 +105,7 @@ const Top = styled.div`
 `;
 
 const Dot = styled.div`
-  background-color: #1ca14d !important;
+  background-color: var(--green) !important;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -284,7 +284,9 @@ export function Completed() {
                         </div>
                       </div>
                       <div className="icon">
-                        <h5 style={{ marginRight: "10px", color: "#1ca14d" }}>
+                        <h5
+                          style={{ marginRight: "10px", color: "var(--green)" }}
+                        >
                           u won {u.won}
                           rs !
                         </h5>

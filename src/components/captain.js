@@ -144,7 +144,7 @@ const Description = styled.div`
     margin-top: 17px;
   }
 `;
-export function Captain({ players }) {
+export function Captain({ players,editMode,teamId }) {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const alert = useAlert();
@@ -207,6 +207,20 @@ export function Captain({ players }) {
     navigate(`/contests/${id}`);
   };
 
+  const handleUpdate = async () => {
+    console.log("clicked next");
+    const data = await axios.put(`${URL}/updateTeam/${teamId}`, {
+      players: selectedPlayers,
+      matchId: id,
+      userid: user._id,
+      captainId,
+      vicecaptainId,
+    });
+    setSave(true);
+    alert.success(data.data.message);
+    navigate(`/contests/${id}`);
+  };
+
   function isCandVcselected(se) {
     const a = se.find((s) => s.isCaptain === true);
     const b = se.find((s) => s.isViceCaptain === true);
@@ -248,13 +262,19 @@ export function Captain({ players }) {
               Preview / Lineup
               <GroupsRoundedIcon />
             </PrevButton>
-            <NextButton
+            {editMode? <NextButton
+              disabled={!isCandVcselected(selectedPlayers)}
+              className={isCandVcselected ? "selectedc" : "not"}
+              onClick={() => handleUpdate()}
+            >
+              save
+            </NextButton>: <NextButton
               disabled={!isCandVcselected(selectedPlayers)}
               className={isCandVcselected ? "selectedc" : "not"}
               onClick={() => handleSave()}
             >
               save
-            </NextButton>
+            </NextButton>}
           </NextButtonContainer>
         </>
       ) : (

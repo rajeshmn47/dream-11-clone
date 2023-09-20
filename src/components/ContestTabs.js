@@ -202,7 +202,7 @@ const Right = styled.div``;
 const LastPanel = styled.div``;
 
 const Won = styled.div`
-  color: #1ca14d;
+  color: var(--green);
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -322,7 +322,7 @@ export default function ContestTabs({ contest, leaderboard }) {
                                       <>
                                         <EmojiEventsOutlinedIcon
                                           style={{
-                                            color: "#1ca14d !important",
+                                            color: "var(--green) !important",
                                             fontSize: "16px",
                                             marginTop: "3px",
                                             marginRight: "5px",
@@ -341,7 +341,7 @@ export default function ContestTabs({ contest, leaderboard }) {
                                 <>
                                   <EmojiEventsOutlinedIcon
                                     style={{
-                                      color: "#1ca14d !important",
+                                      color: "var(--green) !important",
                                       fontSize: "16px",
                                       marginTop: "3px",
                                       marginRight: "5px",

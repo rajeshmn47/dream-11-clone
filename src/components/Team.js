@@ -10,6 +10,7 @@ import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import EditIcon from "@mui/icons-material/Edit";
 import { Grid } from "@mui/material";
 import { style } from "@mui/system";
 import axios from "axios";
@@ -20,6 +21,7 @@ import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
 import Steppr from "./stepper";
+import { showName } from "../utils/name";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -211,6 +213,7 @@ const EachTeam = styled.div`
   border-radius: 5px;
   overflow: hidden;
   margin: 15px 0;
+  position: relative;
 `;
 const Captain = styled.div`
   font-size: 12px;
@@ -222,6 +225,13 @@ const Captain = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const EditIconContainer = styled(EditIcon)`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--white);
+  cursor: pointer;
 `;
 
 const VCaptain = styled.div`
@@ -272,57 +282,59 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: var(--black);
 `;
-export function Team({ matchinfo, captains, selectedPlayers, id }) {
+export function Team({ matchinfo, captains, selectedPlayers, teamId,matchId }) {
   const navigate = useNavigate();
+  console.log(matchinfo,'tinfo')
   return (
-    <EachTeam onClick={() => navigate(`/savedteam/${id}`)}>
+    <EachTeam>
       {matchinfo.length > 0 && captains.length > 0 && (
-        <Top>
-          <div>
-            <h3>{matchinfo[0].awayCode}</h3>
-            <p>{matchinfo[0].number}</p>
-          </div>
-          <div>
-            <h3>{matchinfo[1].homeCode}</h3>
-            <p>{matchinfo[1].number}</p>
-          </div>
-          <CaptainsContainer>
-            <CaptainI>
-              <span>c</span>
-            </CaptainI>
+        <>
+          <EditIconContainer
+            onClick={() =>
+              navigate(`/createTeam/${matchId}`, {
+                state: { selectedPlayers: selectedPlayers, editMode: true,teamId:teamId },
+              })
+            }
+          />
+          <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
+            <div>
+              <h3>{matchinfo[0].awayCode}</h3>
+              <p>{matchinfo[0].number}</p>
+            </div>
+            <div>
+              <h3>{matchinfo[1].homeCode}</h3>
+              <p>{matchinfo[1].number}</p>
+            </div>
+            <CaptainsContainer>
+              <CaptainI>
+                <span>c</span>
+              </CaptainI>
 
-            <img
-              src={getImgurl(captains[0].image, captains[0].playerName)}
-              alt=""
-            />
+              <img
+                src={getImgurl(captains[0].image, captains[0].playerName)}
+                alt=""
+              />
 
-            <Captain>
-              <p>
-                {`${captains[0].playerName.split(" ")[0].charAt(0)} ${
-                  captains[0].playerName.split(" ")[1]
-                }`}
-              </p>
-            </Captain>
-          </CaptainsContainer>
-          <CaptainsContainer>
-            <VcaptainI>vc</VcaptainI>
-            <img
-              src={
-                getImgurl(captains[1]?.image, captains[1]?.playerName)
-                  ? getImgurl(captains[1]?.image, captains[1]?.playerName)
-                  : null
-              }
-              alt=""
-            />
-            <VCaptain>
-              <p>
-                {`${captains[1]?.playerName.split(" ")[0].charAt(0)} ${
-                  captains[1]?.playerName.split(" ")[1]
-                }`}
-              </p>
-            </VCaptain>
-          </CaptainsContainer>
-        </Top>
+              <Captain>
+                <p>{showName(captains[0].playerName)}</p>
+              </Captain>
+            </CaptainsContainer>
+            <CaptainsContainer>
+              <VcaptainI>vc</VcaptainI>
+              <img
+                src={
+                  getImgurl(captains[1]?.image, captains[1]?.playerName)
+                    ? getImgurl(captains[1]?.image, captains[1]?.playerName)
+                    : null
+                }
+                alt=""
+              />
+              <VCaptain>
+                <p>{showName(captains[1].playerName)}</p>
+              </VCaptain>
+            </CaptainsContainer>
+          </Top>
+        </>
       )}
       <Bottom container spacing={1}>
         <Each item xs={3} sm={3}>

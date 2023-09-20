@@ -159,19 +159,19 @@ const Heading = styled.h3`
 `;
 
 const JoinBtn = styled(Button)`
-  background-color: green;
+  background-color: var(--green);
   color: #ffffff;
   width: 80px;
   margin-right: 50px;
 `;
 
 const JoincontestBtn = styled(Button)`
-  background-color: green;
+  background-color: var(--green);
   color: #ffffff;
   width: 180px;
   margin: 0 auto !important;
   &:hover {
-    background-color: green;
+    background-color: var(--green);
   }
 `;
 
@@ -514,7 +514,12 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         <StatusC>
                           <SpotsLeft>
                             {t?.username}
-                            <p style={{ color: "#1ca14d", fontSize: "12px" }}>
+                            <p
+                              style={{
+                                color: "var(--green)",
+                                fontSize: "12px",
+                              }}
+                            >
                               IN WINNING ZONE
                             </p>
                           </SpotsLeft>
@@ -527,7 +532,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                             {t?.rank < tab?.contest?.prizeDetails?.length ? (
                               <ArrowUpwardIcon
                                 style={{
-                                  color: "#1ca14d",
+                                  color: "var(--green)",
                                   fontSize: "18px",
                                   marginLeft: "5px",
                                 }}

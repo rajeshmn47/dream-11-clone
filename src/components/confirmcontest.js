@@ -68,7 +68,7 @@ export default function ConfirmModal({
   teamid,
   id,
   contestid,
-  loadjoined
+  loadjoined,
 }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ export default function ConfirmModal({
         `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
       );
       alert.success("joined contest successfully");
-      loadjoined()
+      loadjoined();
       setOpen(false);
     } catch (e) {
       alert.error(e.response.data.message);

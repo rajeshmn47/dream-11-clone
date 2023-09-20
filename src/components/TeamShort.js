@@ -307,7 +307,6 @@ export function TeamShort({ match, match_info, players, id, plo }) {
     }
     filterDifferent();
   }, [plo, match]);
-
   useEffect(() => {
     const pl = players.map((obj) => ({
       ...obj,
@@ -322,7 +321,8 @@ export function TeamShort({ match, match_info, players, id, plo }) {
           matchinfo={matchinfo}
           captains={captains}
           selectedPlayers={selectedPlayers}
-          id={plo._id}
+          matchId={id}
+          teamId={plo._id}
         />
       ) : (
         <h1>select team</h1>

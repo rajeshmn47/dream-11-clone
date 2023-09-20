@@ -69,6 +69,7 @@ function App() {
           <Route path="/completed/:id" element={<Completed />} />
           <Route path="/players" element={<Players />} />
           <Route path="/createteam/:id" element={<CreateTeam />} />
+          <Route path="/editTeam/:id" element={<CreateTeam />} />
           <Route path="/contests/:id" element={<Contests />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/savedteam/:id" element={<SavedTeam />} />
