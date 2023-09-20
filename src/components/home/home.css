@@ -10,9 +10,9 @@
   margin: 1vh;
 }
 .selectgame {
-  border-bottom: 3px solid #e10000;
+  border-bottom: 3px solid var(--red);
   text-align: center;
-  color: #e10000;
+  color: var(--red);
 }
 .hometopicon {
   text-align: center;
@@ -125,7 +125,7 @@
   text-transform: uppercase;
 }
 .time {
-  color: #e10000;
+  color: var(--red);
   font-size: 10px;
   text-align: center;
   justify-content: center;

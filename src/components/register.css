@@ -36,7 +36,7 @@
   justify-content: space-between;
 }
 .registertopbar {
-  background-color: #c41e22;
+  background-color: var(--red);
   color: #ffffff;
   height: 10vh;
   padding: 2vh 2vw;
@@ -47,7 +47,7 @@
   box-sizing: border-box;
 }
 .logintopbar {
-  background-color: #e10000;
+  background-color: var(--red);
   color: #ffffff;
   height: 10vh;
   padding: 2vh 3vw;

@@ -83,7 +83,7 @@ const Four = styled.p`
   line-height: 20px;
   font-size: 12px;
   border-radius: 50%;
-  background-color: #000000;
+  background-color: var(--black);
   display: flex;
   align-items: center;
   justify-content: center;

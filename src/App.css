@@ -42,14 +42,14 @@
   font-family: "Open Sans" !important;
 }
 .selectedrt {
-  color: #c41e22 !important;
+  color: var(--red);
   cursor: pointer;
 }
 .notselectedrt {
   cursor: pointer;
 }
 .paybtn {
-  background-color: #c41e22;
+  background-color:var(--red);
   color: #ffffff;
   border: none;
   outline: none;
@@ -63,7 +63,7 @@
   content: "";
   display: block;
   padding-top: 86.6%;
-  background-color: red;
+  background-color: var(--red);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 .whatsappwidget {
@@ -75,4 +75,9 @@
   right: 15px !important;
   width: 58px !important;
   height: 58px !important;
+}
+:root {
+  --red: #b50000;
+  --green: #109e38;
+  --black: #1a1a1a;
 }

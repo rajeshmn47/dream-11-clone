@@ -39,7 +39,7 @@ const NoPlayers = styled(Grid)`
   margin-left: 0;
   margin: 0px 0px;
   padding: 15px 0;
-  background-color: #000000;
+  background-color: var(--black);
   height: 150px;
   margin: 0 auto;
 `;

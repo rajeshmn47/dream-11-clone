@@ -145,7 +145,16 @@ export function Home() {
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setLive([...lrr]);
-        setPast(data.data.past.results);
+        if (data.data.past.results.length > 1) {
+          setPast([data.data.past.results.sort(
+            (b, a) => new Date(a.date) - new Date(b.date)
+          ).pop()]);
+        }
+        else {
+          setPast([data.data.past.results.sort(
+            (b, a) => new Date(a.date) - new Date(b.date)
+          ).pop()])
+        }
       }
     }
     getupcoming();

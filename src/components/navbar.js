@@ -1,5 +1,4 @@
 import "./home.css";
-
 import styled from "@emotion/styled";
 import { SettingsApplicationsTwoTone } from "@mui/icons-material";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
