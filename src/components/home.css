@@ -113,12 +113,12 @@
 }
 .mega {
   background-color: #c7e0d4;
-  color: #1ca14d;
+  color: var(--green);
   width: 12vw;
   box-sizing: border-box;
   border-radius: 4px;
   display: inline-block;
-  border: 1px solid #1ca14d;
+  border: 1px solid var(--green);
   text-align: center;
   font-weight: 700;
   font-size: 12px;
@@ -132,7 +132,7 @@
   width: 34vw;
 }
 .completed {
-  color: #1ca14d !important;
+  color: var(--green) !important;
   font-size: 10px;
   text-align: center;
   justify-content: center;

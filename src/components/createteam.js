@@ -44,7 +44,7 @@ const NoPlayers = styled(Grid)`
   margin: 0 auto;
 `;
 const NoPlayer = styled.div`
-  background-color: green;
+  background-color: var(--green);
   color: #ffffff;
   text-align: center;
   height: 10px;
@@ -83,7 +83,7 @@ const EachPlayer = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: green;
+  color: var(--green);
   background-color: #fff;
   border: none;
   outline: none;

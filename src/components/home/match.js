@@ -94,7 +94,7 @@ const Top = styled.div`
 `;
 
 const Dot = styled.div`
-  background-color: #1ca14d !important;
+  background-color: var(--green) !important;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -168,7 +168,7 @@ export function Match({ u, live }) {
             fontFamily: "Montserrat",
           }}
         >
-          {live||u.lineups}
+          {live || u.lineups}
         </h5>
         <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
       </Top>
@@ -185,7 +185,9 @@ export function Match({ u, live }) {
                 textAlign: "center",
               }}
             >
-              <h5 style={{ color: "#1ca14d", marginBottom: "3px" }}>live</h5>
+              <h5 style={{ color: "var(--green)", marginBottom: "3px" }}>
+                live
+              </h5>
               <LinearProgress color="success" />
             </div>
           ) : (

@@ -20,6 +20,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -72,7 +73,7 @@ const NoPlayers = styled(Grid)`
   color: #ffffff;
 `;
 const NoPlayer = styled.div`
-  background-color: green;
+  background-color: var(--green);
   color: #ffffff;
   text-align: center;
   height: 10px;
@@ -111,7 +112,7 @@ const EachPlayer = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: green;
+  color: var(--green);
   background-color: #fff;
   border: none;
   outline: none;
@@ -186,6 +187,7 @@ const Code = styled.p`
 `;
 export function CreateTeam() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { state } = useLocation()
   const [match, setMatch] = useState(null);
   const { id } = useParams();
   const [players, setPlayers] = useState([]);
@@ -201,22 +203,44 @@ export function CreateTeam() {
         const data = await axios.get(`${URL}/getplayers/${id}`);
         setLive(data.data.live);
         if (!data.data.live) {
-          const players = data.data.matchdetails.teamAwayPlayers
+          if(state?.editMode){
+            const p=data.data.matchdetails.teamAwayPlayers
             .concat(data.data.matchdetails.teamHomePlayers)
             .map((obj) => ({
               ...obj,
               isSelected: false,
             }));
-          setPlayers([...players]);
+            setPlayers([...p.map((r) => (state.selectedPlayers.find((f)=>f.playerId==r.playerId) ? {...r,isSelected:true} : r))]);
+          }
+          else{
+          const p = data.data.matchdetails.teamAwayPlayers
+            .concat(data.data.matchdetails.teamHomePlayers)
+            .map((obj) => ({
+              ...obj,
+              isSelected: false,
+            }));
+          setPlayers([...p]);
+          }
         } else {
-          const players = data.data.matchdetails.teamAwayPlayers
+          if(state?.editMode){
+            const p=data.data.matchdetails.teamAwayPlayers
+            .concat(data.data.matchdetails.teamHomePlayers)
+            .map((obj) => ({
+              ...obj,
+              isSelected: false,
+            }));
+            setPlayers([...p.map((r) => (state.selectedPlayers.find((f)=>f.playerId==r.playerId) ? {...r,isSelected:true} : r))]);
+          }
+          else{
+          const p = data.data.matchdetails.teamAwayPlayers
             .splice(0, 11)
             .concat(data.data.matchdetails.teamHomePlayers.splice(0, 11))
             .map((obj) => ({
               ...obj,
               isSelected: false,
             }));
-          setPlayers([...players]);
+          setPlayers([...p]);
+          }
         }
         setMatch(data.data.matchdetails);
         const k = data.data.matchdetails.teamHomePlayers;
@@ -241,7 +265,7 @@ export function CreateTeam() {
       setLoading(false);
     }
     getupcoming();
-  }, [id]);
+  }, [id,state]);
   useEffect(() => {
     async function getplayers() {
       if (user?._id && match) {
@@ -281,7 +305,7 @@ export function CreateTeam() {
   const handleNext = () => {
     setNext(true);
   };
-
+console.log(state?.selectedPlayers,state?.editMode,'state')
   return (
     <Container>
       {!next ? (
@@ -369,7 +393,7 @@ export function CreateTeam() {
           <Bottomnav />
         </>
       ) : (
-        <Next players={players.filter((k) => k.isSelected === true)} />
+        <Next players={players.filter((k) => k.isSelected === true)} editMode={state?.editMode} teamId={state?.teamId}/>
       )}
     </Container>
   );

@@ -223,7 +223,7 @@ const TeamContainer = styled(Grid)`
     width: 20px;
     height: 20px;
     border-radius: 11px;
-    border: 2px solid green;
+    border: 2px solid var(--green);
     background-color: transparent;
   }
 

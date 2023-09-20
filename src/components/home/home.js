@@ -94,7 +94,7 @@ const Top = styled.div`
 `;
 
 const Dot = styled.div`
-  background-color: #1ca14d !important;
+  background-color: var(--green) !important;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -146,14 +146,17 @@ export function Home() {
         );
         setLive([...lrr]);
         if (data.data.past.results.length > 1) {
-          setPast([data.data.past.results.sort(
-            (b, a) => new Date(a.date) - new Date(b.date)
-          ).pop()]);
-        }
-        else {
-          setPast([data.data.past.results.sort(
-            (b, a) => new Date(a.date) - new Date(b.date)
-          ).pop()])
+          setPast([
+            data.data.past.results
+              .sort((b, a) => new Date(a.date) - new Date(b.date))
+              .pop(),
+          ]);
+        } else {
+          setPast([
+            data.data.past.results
+              .sort((b, a) => new Date(a.date) - new Date(b.date))
+              .pop(),
+          ]);
         }
       }
     }

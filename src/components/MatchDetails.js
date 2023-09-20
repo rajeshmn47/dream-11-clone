@@ -73,7 +73,7 @@ const TopContainer = styled.div`
 `;
 
 const GreenMark = styled.span`
-  background-color: #1ca14d;
+  background-color: var(--green);
   height: 10px;
   width: 10px;
   border-radius: 50%;
