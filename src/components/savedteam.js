@@ -244,7 +244,7 @@ export function SavedTeam() {
             {players.slice(0, 2).map((p) => (
               <Grid item xs={6} sm={6}>
                 <PlayerP>
-                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
+                  <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -254,7 +254,7 @@ export function SavedTeam() {
             {players.slice(2, 6).map((p) => (
               <Grid item xs={3} sm={3}>
                 <PlayerP>
-                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
+                <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -264,7 +264,7 @@ export function SavedTeam() {
             {players.slice(6, 8).map((p) => (
               <Grid item xs={6} sm={6}>
                 <PlayerP>
-                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
+                <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -274,7 +274,7 @@ export function SavedTeam() {
             {players.slice(8, 11).map((p) => (
               <Grid item xs={4} sm={4}>
                 <PlayerP>
-                  <img src={getImgurl(p.playerId, p.playerName)} alt="" />
+                <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
