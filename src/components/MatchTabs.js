@@ -137,7 +137,7 @@ const CreateTeam = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   width: 200px;
   margin: 0 auto;

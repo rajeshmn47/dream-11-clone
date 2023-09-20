@@ -32,12 +32,12 @@ const Container = styled.div`
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
-    color: #000000;
+    color: var(--black);
   }
 `;
 
 export const MenuContainer = styled.div`
-  background: #000000;
+  background: var(--black);
   border-radius: 6.92308px;
   border-radius: 3.75px;
   display: flex;
@@ -112,7 +112,7 @@ const Category = styled.h3`
 
   /* identical to box height, or 83% */
 
-  color: #000000;
+  color: var(--black);
   padding-left: 20px;
 `;
 
@@ -124,7 +124,7 @@ const ListI = styled.div`
 
 const Account = styled.div`
   height: 60px;
-  background-color: #000000;
+  background-color: var(--black);
   display: flex;
   align-items: center;
   justify-content: center;

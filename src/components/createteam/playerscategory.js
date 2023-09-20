@@ -44,7 +44,7 @@ const Contest = styled.div`
     padding: 1px 0;
   }
   .Mui-selected {
-    color: #000000 !important;
+    color: var(--black) !important;
     text-transform: capitalize;
     font-weight: 600;
   }
@@ -97,7 +97,7 @@ const CreateTeam = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   width: 200px;
   margin: 0 auto;

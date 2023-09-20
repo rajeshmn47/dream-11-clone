@@ -108,7 +108,7 @@ const NextButton = styled.button`
 `;
 
 const PrevButton = styled.button`
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
@@ -178,7 +178,7 @@ const PlayerP = styled.div`
 const Title = styled.p`
   position: absolute;
   bottom: 0px;
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   padding: 2px 5px;
   border-radius: 2px;
@@ -202,7 +202,7 @@ const Each = styled(Grid)`
   span {
     font-size: 16px !important;
     font-weight: 600 !important;
-    color: #000000;
+    color: var(--black);
   }
 `;
 
@@ -216,7 +216,7 @@ const Captain = styled.div`
   font-size: 12px;
   text-transform: capitalize;
   background-color: #ffffff;
-  color: #000000;
+  color: var(--black);
   border-radius: 5px;
   padding: 0 4px;
   display: flex;
@@ -227,7 +227,7 @@ const Captain = styled.div`
 const VCaptain = styled.div`
   font-size: 12px;
   text-transform: capitalize;
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   border-radius: 5px;
   padding: 0 4px;
@@ -242,7 +242,7 @@ const CaptainsContainer = styled.div`
 
 const CaptainI = styled.div`
   position: absolute;
-  border: 3px solid #000000;
+  border: 3px solid var(--black);
   padding: 2px 2px;
   left: -20%;
   top: -20%;
@@ -254,7 +254,7 @@ const CaptainI = styled.div`
   height: 15px;
   width: 15px;
   background-color: #ffffff;
-  color: #000000;
+  color: var(--black);
 `;
 
 const VcaptainI = styled.div`
@@ -270,7 +270,7 @@ const VcaptainI = styled.div`
   justify-content: center;
   height: 15px;
   width: 15px;
-  background-color: #000000;
+  background-color: var(--black);
 `;
 export function Team({ matchinfo, captains, selectedPlayers, id }) {
   const navigate = useNavigate();

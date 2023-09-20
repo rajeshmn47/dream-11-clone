@@ -66,7 +66,7 @@ const NoPlayers = styled(Grid)`
   margin-left: 0;
   margin: 0px 0px;
   padding: 15px 0;
-  background-color: #000000;
+  background-color: var(--black);
   height: 150px;
   margin: 0 auto;
   color: #ffffff;
@@ -159,7 +159,7 @@ const NextButton = styled.button`
 `;
 
 const PrevButton = styled.button`
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
