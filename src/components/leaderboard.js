@@ -53,7 +53,7 @@ const Container = styled.div`
     padding: 1px 0;
   }
   .Mui-selected {
-    color: #000000 !important;
+    color: var(--black) !important;
     text-transform: capitalize;
     font-weight: 600;
   }

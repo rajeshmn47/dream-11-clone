@@ -110,7 +110,7 @@ const NextButton = styled.button`
 `;
 
 const PrevButton = styled.button`
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
@@ -160,7 +160,7 @@ const PlayerP = styled.div`
 const Title = styled.p`
   position: absolute;
   bottom: 0px;
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   padding: 2px 5px;
   border-radius: 2px;

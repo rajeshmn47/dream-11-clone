@@ -108,7 +108,7 @@ const NextButton = styled.button`
 `;
 
 const PrevButton = styled.button`
-  background-color: #000000;
+  background-color: var(--black);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
