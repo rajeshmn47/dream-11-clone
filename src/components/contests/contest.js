@@ -94,7 +94,7 @@ const First = styled.div`
 `;
 
 const FreeButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   text-transform: uppercase;
   color: #ffffff;
   padding: 10px 30px;

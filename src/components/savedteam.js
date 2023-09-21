@@ -93,7 +93,7 @@ const NextButtonContainer = styled.div`
 `;
 
 const NextButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
@@ -254,7 +254,7 @@ export function SavedTeam() {
             {players.slice(2, 6).map((p) => (
               <Grid item xs={3} sm={3}>
                 <PlayerP>
-                <img src={getImgurl(p.image, p.playerName)} alt="" />
+                  <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -264,7 +264,7 @@ export function SavedTeam() {
             {players.slice(6, 8).map((p) => (
               <Grid item xs={6} sm={6}>
                 <PlayerP>
-                <img src={getImgurl(p.image, p.playerName)} alt="" />
+                  <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>
@@ -274,7 +274,7 @@ export function SavedTeam() {
             {players.slice(8, 11).map((p) => (
               <Grid item xs={4} sm={4}>
                 <PlayerP>
-                <img src={getImgurl(p.image, p.playerName)} alt="" />
+                  <img src={getImgurl(p.image, p.playerName)} alt="" />
                   <Title>{p.playerName.split(" ")[1]}</Title>
                 </PlayerP>
               </Grid>

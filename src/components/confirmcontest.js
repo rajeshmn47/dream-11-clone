@@ -46,7 +46,7 @@ const JoinButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   border: none;
   padding: 8px 15px;

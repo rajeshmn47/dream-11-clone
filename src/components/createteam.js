@@ -108,7 +108,7 @@ const NextButtonContainer = styled.div`
 `;
 
 const NextButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;

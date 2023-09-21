@@ -42,7 +42,7 @@
   font-family: "Open Sans" !important;
 }
 .selectedrt {
-  color: var(--red);
+  color: var(--red) !important;
   cursor: pointer;
 }
 .notselectedrt {

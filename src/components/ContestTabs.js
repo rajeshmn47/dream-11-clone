@@ -170,7 +170,7 @@ const First = styled.div`
 `;
 
 const FreeButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   text-transform: uppercase;
   color: #ffffff;
   padding: 10px 30px;
@@ -240,7 +240,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ContestTabs({ contest, leaderboard }) {
+export default function ContestTabs({ contest, leaderboard, match_details }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
@@ -248,7 +248,7 @@ export default function ContestTabs({ contest, leaderboard }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(contest, leaderboard, "leaderboard");
+  console.log(match_details, "leaderboard");
   leaderboardChanges(leaderboard);
   return (
     <Container style={{ width: "100%" }}>
@@ -306,55 +306,63 @@ export default function ContestTabs({ contest, leaderboard }) {
                         <Name>
                           {f.user.username}
                           <Won>
-                            <p
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
-                              {f._doc.userId == user._id ? (
-                                <>
-                                  <span
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      marginRight: "6px",
-                                    }}
-                                  >
-                                    {index < contest?.prizeDetails.length && (
-                                      <>
-                                        <EmojiEventsOutlinedIcon
-                                          style={{
-                                            color: "var(--green) !important",
-                                            fontSize: "16px",
-                                            marginTop: "3px",
-                                            marginRight: "5px",
-                                          }}
-                                        />
-                                        you won
-                                      </>
-                                    )}
-                                  </span>{" "}
-                                  <span>
-                                    {index < contest?.prizeDetails.length &&
-                                      "₹" + contest?.prizeDetails[index].prize}
-                                  </span>
-                                </>
-                              ) : (
-                                <>
-                                  <EmojiEventsOutlinedIcon
-                                    style={{
-                                      color: "var(--green) !important",
-                                      fontSize: "16px",
-                                      marginTop: "3px",
-                                      marginRight: "5px",
-                                    }}
-                                  />
-                                  <span>won</span>
-                                  <span>
-                                    {index < contest?.prizeDetails.length &&
-                                      contest?.prizeDetails[index].prize}
-                                  </span>
-                                </>
-                              )}
-                            </p>
+                            {match_details?.result == "Complete" && (
+                              <p
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                {f._doc.userId == user._id ? (
+                                  <>
+                                    <span
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginRight: "6px",
+                                      }}
+                                    >
+                                      {index < contest?.prizeDetails.length &&
+                                        match_details?.result == "Complete" && (
+                                          <>
+                                            <EmojiEventsOutlinedIcon
+                                              style={{
+                                                color:
+                                                  "var(--green) !important",
+                                                fontSize: "16px",
+                                                marginTop: "3px",
+                                                marginRight: "5px",
+                                              }}
+                                            />
+                                            you won
+                                          </>
+                                        )}
+                                    </span>{" "}
+                                    <span>
+                                      {index < contest?.prizeDetails.length &&
+                                        "₹" +
+                                          contest?.prizeDetails[index].prize}
+                                    </span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <EmojiEventsOutlinedIcon
+                                      style={{
+                                        color: "var(--green) !important",
+                                        fontSize: "16px",
+                                        marginTop: "3px",
+                                        marginRight: "5px",
+                                      }}
+                                    />
+                                    <span>won</span>
+                                    <span>
+                                      {index < contest?.prizeDetails.length &&
+                                        contest?.prizeDetails[index].prize}
+                                    </span>
+                                  </>
+                                )}
+                              </p>
+                            )}
                           </Won>
                         </Name>
                       </Profile>

@@ -93,7 +93,7 @@ const NextButtonContainer = styled.div`
 `;
 
 const NextButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
@@ -144,7 +144,7 @@ const Description = styled.div`
     margin-top: 17px;
   }
 `;
-export function Captain({ players,editMode,teamId }) {
+export function Captain({ players, editMode, teamId }) {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const alert = useAlert();
@@ -262,19 +262,23 @@ export function Captain({ players,editMode,teamId }) {
               Preview / Lineup
               <GroupsRoundedIcon />
             </PrevButton>
-            {editMode? <NextButton
-              disabled={!isCandVcselected(selectedPlayers)}
-              className={isCandVcselected ? "selectedc" : "not"}
-              onClick={() => handleUpdate()}
-            >
-              save
-            </NextButton>: <NextButton
-              disabled={!isCandVcselected(selectedPlayers)}
-              className={isCandVcselected ? "selectedc" : "not"}
-              onClick={() => handleSave()}
-            >
-              save
-            </NextButton>}
+            {editMode ? (
+              <NextButton
+                disabled={!isCandVcselected(selectedPlayers)}
+                className={isCandVcselected ? "selectedc" : "not"}
+                onClick={() => handleUpdate()}
+              >
+                save
+              </NextButton>
+            ) : (
+              <NextButton
+                disabled={!isCandVcselected(selectedPlayers)}
+                className={isCandVcselected ? "selectedc" : "not"}
+                onClick={() => handleSave()}
+              >
+                save
+              </NextButton>
+            )}
           </NextButtonContainer>
         </>
       ) : (

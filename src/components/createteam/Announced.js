@@ -20,7 +20,7 @@ const ContainerU = styled.div`
 const TopLine = styled.div`
   height: 1px;
   width: 100%;
-  background-color: #008a36;
+  background-color: var(--green);
 `;
 
 const TopLineU = styled.div`
@@ -32,7 +32,7 @@ const TopLineU = styled.div`
 const Bottom = styled.div`
   width: 130px;
   height: 15px;
-  background-color: #008a36;
+  background-color: var(--green);
   display: flex;
   align-items: center;
   font-size: 10px;
