@@ -54,12 +54,12 @@ const Center = styled.div`
 `;
 
 const AddButton = styled(Button)`
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   width: 160px;
   margin: 0 auto;
   &:hover {
-    background-color: #008a36;
+    background-color: var(--green);
     color: #ffffff;
   }
 `;

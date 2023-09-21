@@ -68,7 +68,7 @@ const First = styled.div`
 `;
 
 const FreeButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   text-transform: uppercase;
   color: #ffffff;
   padding: 10px 30px;
@@ -113,7 +113,7 @@ const PlayersList = styled.div`
 
 const EachPlayer = styled.div`
   img {
-    width: 50px !important;
+    width: 60px !important;
   }
   display: flex;
   align-items: center;
@@ -192,6 +192,43 @@ const ImgContainer = styled.div`
   img {
     display: block;
   }
+`;
+
+const ImgCtr = styled.div`
+  position: relative;
+  text-transform: uppercase;
+  padding-top: 10px;
+  img {
+    display: block;
+  }
+`;
+const Home = styled.div`
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  background-color: #fafafa;
+  color: var(--black);
+  height: 10px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  border-radius: 3px;
+`;
+const Away = styled.div`
+  background-color: var(--black);
+  color: var(--white);
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  height: 10px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  border-radius: 3px;
 `;
 
 function TabPanel(props) {
@@ -338,14 +375,19 @@ export default function CategoryTabs({
                         <EachPlayer
                           className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <ImgContainer>
+                          <ImgCtr>
                             <img
                               src={getImgurl(p.image, p.playerName)}
                               alt=""
                             />
-                          </ImgContainer>
+                            {p.isHome ? (
+                              <Home>{p.code}</Home>
+                            ) : (
+                              <Away>{p.code}</Away>
+                            )}
+                          </ImgCtr>
                           <Center>
-                            <h1>a{p.playerName}</h1>
+                            <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {" "}
@@ -399,12 +441,17 @@ export default function CategoryTabs({
                         <EachPlayer
                           className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <ImgContainer>
+                          <ImgCtr>
                             <img
                               src={getImgurl(p.image, p.playerName)}
                               alt=""
                             />
-                          </ImgContainer>
+                            {p.isHome ? (
+                              <Home>{p.code}</Home>
+                            ) : (
+                              <Away>{p.code}</Away>
+                            )}
+                          </ImgCtr>
                           <Center>
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
@@ -457,12 +504,17 @@ export default function CategoryTabs({
                         <EachPlayer
                           className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <ImgContainer>
+                          <ImgCtr>
                             <img
                               src={getImgurl(p.image, p.playerName)}
                               alt=""
-                            />
-                          </ImgContainer>
+                            />{" "}
+                            {p.isHome ? (
+                              <Home>{p.code}</Home>
+                            ) : (
+                              <Away>{p.code}</Away>
+                            )}
+                          </ImgCtr>
                           <Center>
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
@@ -515,12 +567,17 @@ export default function CategoryTabs({
                         <EachPlayer
                           className={p.isSelected ? "selected" : "notselected"}
                         >
-                          <ImgContainer>
+                          <ImgCtr>
                             <img
                               src={getImgurl(p.image, p.playerName)}
                               alt=""
                             />
-                          </ImgContainer>
+                            {p.isHome ? (
+                              <Home>{p.code}</Home>
+                            ) : (
+                              <Away>{p.code}</Away>
+                            )}
+                          </ImgCtr>
                           <Center>
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (

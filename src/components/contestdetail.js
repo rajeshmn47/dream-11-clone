@@ -15,6 +15,7 @@ import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import WestIcon from "@mui/icons-material/West";
 import { Grid, Slider } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import Tab from "@mui/material/Tab";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -87,6 +88,7 @@ const ContestContainer = styled.div`
 const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
 
 export function ContestDetail() {
+  const { state } = useLocation();
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -110,6 +112,7 @@ export function ContestDetail() {
     }
     getteams();
   }, [id]);
+  console.log(state, "state");
   return (
     <>
       <ContestsContainer container>
@@ -135,7 +138,11 @@ export function ContestDetail() {
         </Top>
         {contest && <Contest contest={contest} />}
       </ContestsContainer>
-      <ContestTabs contest={contest} leaderboard={leaderboard} />
+      <ContestTabs
+        contest={contest}
+        leaderboard={leaderboard}
+        match_details={state?.match_details}
+      />
     </>
   );
 }

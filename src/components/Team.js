@@ -93,7 +93,7 @@ const NextButtonContainer = styled.div`
 `;
 
 const NextButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   color: #ffffff;
   border: none;
   border-top-left-radius: 20px;
@@ -140,7 +140,7 @@ const Top = styled.div`
   justify-content: space-evenly;
   align-items: center;
   background-repeat: repeat !important;
-  background-color: #008a36;
+  background-color: var(--green);
   background-size: 100% !important;
   color: #ffffff;
   text-transform: uppercase;
@@ -282,9 +282,15 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: var(--black);
 `;
-export function Team({ matchinfo, captains, selectedPlayers, teamId,matchId }) {
+export function Team({
+  matchinfo,
+  captains,
+  selectedPlayers,
+  teamId,
+  matchId,
+}) {
   const navigate = useNavigate();
-  console.log(matchinfo,'tinfo')
+  console.log(matchinfo,captains, "tinfo");
   return (
     <EachTeam>
       {matchinfo.length > 0 && captains.length > 0 && (
@@ -292,7 +298,11 @@ export function Team({ matchinfo, captains, selectedPlayers, teamId,matchId }) {
           <EditIconContainer
             onClick={() =>
               navigate(`/createTeam/${matchId}`, {
-                state: { selectedPlayers: selectedPlayers, editMode: true,teamId:teamId },
+                state: {
+                  selectedPlayers: selectedPlayers,
+                  editMode: true,
+                  teamId: teamId,
+                },
               })
             }
           />

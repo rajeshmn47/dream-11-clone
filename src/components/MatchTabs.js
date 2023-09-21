@@ -98,7 +98,7 @@ const First = styled.div`
 `;
 
 const FreeButton = styled.button`
-  background-color: #008a36;
+  background-color: var(--green);
   text-transform: uppercase;
   color: #ffffff;
   padding: 10px 30px;
@@ -375,7 +375,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(user, "user");
+  console.log(match_details,matchlive, "match_details");
   return (
     <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
@@ -463,7 +463,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 contest.map((tab) => (
                   <ContestContainerJ
                     onClick={() =>
-                      navigate(`/contestdetail/${tab.contest._id}`)
+                      navigate(`/contestdetail/${tab.contest._id}`, {
+                        state: {
+                          match_details: matchlive,
+                        },
+                      })
                     }
                   >
                     <ContestJ>
@@ -484,11 +488,14 @@ export default function MatchTabs({ tabs, g, livescore }) {
                             )}
                           </p>
                         </div>
-                        {match_details?.result == "Yes" && (
+                        {matchlive?.result == "Complet" && (
                           <h5
-                            style={{ color: "#008a36", fontFamily: "OpenSans" }}
+                            style={{
+                              color: "var(--green)",
+                              fontFamily: "OpenSans",
+                            }}
                           >
-                            u won {tab?.team.won}
+                            u won {tab?.team?.won}
                             rs!
                           </h5>
                         )}
@@ -514,6 +521,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         <StatusC>
                           <SpotsLeft>
                             {t?.username}
+                            {matchlive?.result == "Complete" ? <p style={{
+                                color: "var(--green)",
+                                fontSize: "12px",
+                              }} >you won</p>:
                             <p
                               style={{
                                 color: "var(--green)",
@@ -521,7 +532,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                               }}
                             >
                               IN WINNING ZONE
-                            </p>
+                            </p>}
                           </SpotsLeft>
                           <SpotsLeft>{t?.teamnumber}</SpotsLeft>
                           <SpotsLeft>{t?.points}</SpotsLeft>
