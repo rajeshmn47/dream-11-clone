@@ -40,7 +40,7 @@ const ContestContainer = styled.div`
 `;
 const Contest = styled.div`
   .MuiTabs-indicator {
-    background-color: #ec1801 !important;
+    background-color: var(--red) !important;
     padding: 1px 0;
   }
   .Mui-selected {
@@ -130,7 +130,7 @@ const EachPlayer = styled.div`
   border-bottom: 1px solid #e7e7e7;
   border-left: none;
   border-right: none;
-  padding: 20px 0;
+  padding: 0px 0;
 `;
 
 const AddButton = styled.button`
@@ -152,7 +152,7 @@ const RemoveButton = styled.button`
 `;
 
 const NoLineups = styled.h3`
-  color: #ec1801;
+  color: var(--red);
   padding: 0 10px;
   text-align: center;
   height: 100px;

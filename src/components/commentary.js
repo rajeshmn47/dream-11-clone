@@ -69,7 +69,7 @@ const Wicket = styled.p`
   height: 18px;
   line-height: 20px;
   border-radius: 50%;
-  background-color: #ec1801;
+  background-color: var(--red);
   display: flex;
   align-items: center;
   font-size: 12px;

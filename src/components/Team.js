@@ -16,7 +16,7 @@ import { style } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
 import Bottomnav from "./bottomnavbar";
@@ -291,10 +291,11 @@ export function Team({
 }) {
   const navigate = useNavigate();
   console.log(matchinfo,captains, "tinfo");
+  const { match_details, matchlive } = useSelector((state) => state.match);
   return (
     <EachTeam>
-      {matchinfo.length > 0 && captains.length > 0 && (
-        <>
+      {matchinfo.length > 0 && captains.length > 0 &&  (
+        <>{(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete"))&&
           <EditIconContainer
             onClick={() =>
               navigate(`/createTeam/${matchId}`, {
@@ -305,15 +306,15 @@ export function Team({
                 },
               })
             }
-          />
+          />}
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
             <div>
-              <h3>{matchinfo[0].awayCode}</h3>
-              <p>{matchinfo[0].number}</p>
+              <h3>{matchinfo[0]?.awayCode}</h3>
+              <p>{matchinfo[0]?.number}</p>
             </div>
             <div>
-              <h3>{matchinfo[1].homeCode}</h3>
-              <p>{matchinfo[1].number}</p>
+              <h3>{matchinfo[1]?.homeCode}</h3>
+              <p>{matchinfo[1]?.number}</p>
             </div>
             <CaptainsContainer>
               <CaptainI>
@@ -340,7 +341,7 @@ export function Team({
                 alt=""
               />
               <VCaptain>
-                <p>{showName(captains[1].playerName)}</p>
+                <p>{captains[1]?.playerName&&showName(captains[1]?.playerName)}</p>
               </VCaptain>
             </CaptainsContainer>
           </Top>

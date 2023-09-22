@@ -125,7 +125,7 @@ const NextButton = styled.button`
 `;
 
 const NoLineups = styled.h3`
-  color: #ec1801;
+  color: var(--red);
 `;
 export function CreateTeam() {
   const PlayersNumber = new Array(11).fill(null);
