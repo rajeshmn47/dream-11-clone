@@ -43,7 +43,7 @@ const RightSide = styled.div`
 
 const Container = styled.div`
   .MuiTabs-indicator {
-    background-color: #ec1801 !important;
+    background-color: var(--red) !important;
     padding: 1px 0;
   }
   .Mui-selected {
@@ -72,7 +72,7 @@ const Contest = styled.div`
   }
   .MuiSlider-track {
     border: none;
-    background-color: #ec1801;
+    background-color: var(--red);
     border-radius: inherit;
   }
   .MuiSlider-root {

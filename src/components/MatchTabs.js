@@ -54,7 +54,7 @@ const Contest = styled.div`
   }
   .MuiSlider-track {
     border: none;
-    background-color: #ec1801;
+    background-color: var(--red);
     border-radius: inherit;
   }
   .MuiSlider-root {
@@ -73,7 +73,7 @@ const ContestJ = styled.div`
   }
   .MuiSlider-track {
     border: none;
-    background-color: #ec1801;
+    background-color: var(--red);
     border-radius: inherit;
   }
   .MuiSlider-root {
@@ -348,8 +348,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
     setValue(newValue);
   };
   const handleOpen = (i) => {
+    if(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete")){
     setModal(i);
     setSelectTeams({ selected: true, team: null });
+    }
   };
   const handleClose = () => {
     setOpen(false);
@@ -375,7 +377,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(match_details,matchlive, "match_details");
+  console.log(contest,matchlive, "match_details");
   return (
     <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
@@ -524,7 +526,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                             {matchlive?.result == "Complete" ? <p style={{
                                 color: "var(--green)",
                                 fontSize: "12px",
-                              }} >you won</p>:
+                              }} >you won ₹{t.won}</p>:
                             <p
                               style={{
                                 color: "var(--green)",
@@ -586,10 +588,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
                   id={id}
                 />
               ))}
+              {(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete"))&&
             <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
               <AddCircleOutlineRoundedIcon />
               create team
-            </CreateTeam>
+            </CreateTeam>}
           </TabPanel>
           <TabP value={value} index={3}>
             <Commentary matchdata={match_details} />

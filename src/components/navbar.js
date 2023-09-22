@@ -13,7 +13,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { logout } from "../actions/userAction";
 import Bottomnav from "./bottomnavbar";
 import LeftDrawer from "./leftDrawer";
@@ -101,7 +100,7 @@ export function Navbar() {
   return (
     <>
       {" "}
-      <LeftDrawer state={leftOpen} setState={setLeftOpen} />
+      <LeftDrawer leftOpen={leftOpen} setLeftOpen={setLeftOpen} open={open} setOpen={setOpen}/>
       <div className="logintopbar">
         <Account
           onClick={() => handleLeftClick()}

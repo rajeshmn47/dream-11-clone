@@ -149,7 +149,7 @@ export function Home() {
           setPast([
             data.data.past.results
               .sort((b, a) => new Date(a.date) - new Date(b.date))
-              .pop(),
+              .reverse().pop(),
           ]);
         } else {
           //setPast([

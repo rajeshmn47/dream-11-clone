@@ -148,13 +148,13 @@ const Img = styled.img`
 const Name = styled.h6`
   color: #ffffff;
 `;
-export default function LeftDrawer({ state, setState }) {
+export default function LeftDrawer({ leftOpen, setLeftOpen,open,setOpen }) {
   const dispatch = useDispatch();
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
   const toggleDrawer = () => (event) => {
-    setState(!state);
+    setLeftOpen(!leftOpen);
   };
 
   const handleLogout = () => {
@@ -193,7 +193,7 @@ export default function LeftDrawer({ state, setState }) {
           </Grid>
         </Account>
         <Container>
-          <ListI>
+          <ListI onClick={() =>setOpen(true)}>
             <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
             Balance
           </ListI>
@@ -229,7 +229,7 @@ export default function LeftDrawer({ state, setState }) {
   return (
     <DrawerContainer>
       <Drawer
-        open={state}
+        open={leftOpen}
         onClose={toggleDrawer(false)}
         style={{ padding: "0 !important" }}
       >

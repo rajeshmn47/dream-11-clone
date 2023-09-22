@@ -205,7 +205,7 @@ export function Match({ u, live }) {
                         marginTop: "2px",
                       }}
                     >
-                      {getDisplayDate(u.date, "i", date)}
+                      {getDisplayDate(u.date, "i", date)&&getDisplayDate(u.date, "i", date)}
                     </p>
                   </div>
                 ) : (
@@ -215,7 +215,7 @@ export function Match({ u, live }) {
                       textTransform: "auto",
                     }}
                   >
-                    {getDisplayDate(u.date, "i")}
+                    {getDisplayDate(u.date, "i")&&getDisplayDate(u.date, "i")}
                   </p>
                 )
               ) : (
@@ -233,7 +233,7 @@ export function Match({ u, live }) {
         <div className="meta">
           <div className="mega">Mega</div>
           <div className="meg">
-            <h5 style={{ fontSize: "12px" }}>₹59 crores</h5>
+            <h5 style={{ fontSize: "10px" }}>₹59 crores</h5>
           </div>
         </div>
         <div className="icon">
