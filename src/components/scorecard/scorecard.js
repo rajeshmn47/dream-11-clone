@@ -101,15 +101,26 @@ const Scores = styled.div`
   align-items: center;
   font-size: 14px;
 `;
+
+const NotStarted = styled.h3`
+  color: var(--red);
+  padding: 0 10px;
+  text-align: center;
+  height: 100px;
+  margin-top: 15px;
+`;
+
 export function ScoreCard({ data, g, livescore }) {
   const [expanded, setExpanded] = React.useState("panel2");
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
-    const a = [...data?.fowFI?.split(",")];
-    const lmn = [...data?.fowSI?.split(",")];
-    setFow([...setshow(a)]);
-    setFowsSI([...setshow(lmn)]);
+    if (data) {
+      const a = [...data?.fowFI?.split(",")];
+      const lmn = [...data?.fowSI?.split(",")];
+      setFow([...setshow(a)]);
+      setFowsSI([...setshow(lmn)]);
+    }
   }, [data]);
   console.log(livescore, "livescore");
   const handleChange = (panel) => (event, isExpanded) => {
@@ -117,87 +128,111 @@ export function ScoreCard({ data, g, livescore }) {
   };
   return (
     <Container>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-        className={expanded == "panel1" ? "expanded" : "not"}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <MatchData>
-            <Code>{g?.teamHomeCode}</Code>
+      {data?.titleFI ? (
+        <>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+            className={expanded == "panel1" ? "expanded" : "not"}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <MatchData>
+                <Code>{data?.titleFI}</Code>
 
-            <Scores>
-              <Overs>{`(${data?.oversFI} overs)`}</Overs>{" "}
-              {`${data.runFI}/${data.wicketsFI}`}
-            </Scores>
-          </MatchData>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ScoreTable rows={data.teamAwayPlayers} batsmen />
-          <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
-          <Table>
-            <tr>
-              <Th>Fall Of Wickets</Th>
-              <th>Score</th>
-              <th>Over</th>
-            </tr>
-            {fow?.length > 0 &&
-              fow.map((t) => (
+                <Scores>
+                  <Overs>{`(${data?.oversFI} overs)`}</Overs>{" "}
+                  {`${data.runFI}/${data.wicketsFI}`}
+                </Scores>
+              </MatchData>
+            </AccordionSummary>
+            <AccordionDetails>
+              {data.isHomeFirst ? (
+                <>
+                  <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
+                  <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
+                </>
+              ) : (
+                <>
+                  <ScoreTable rows={data.teamAwayPlayers} batsmen={true} />
+                  <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
+                </>
+              )}
+              <Table>
                 <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.score}</Name>
-                  </Td>
-                  <td>{t.fall}</td>
-                  <td>{t.over}</td>
+                  <Th>Fall Of Wickets</Th>
+                  <th>Score</th>
+                  <th>Over</th>
                 </tr>
-              ))}
-          </Table>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-        className={expanded == "panel2" ? "expanded" : "not"}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <MatchData>
-            <Code>{g?.teamAwayCode}</Code>
-            <Scores>
-              <Overs>{`(${data?.oversSI} overs)`}</Overs>{" "}
-              {`${data.runSI}/${data.wicketsSI}`}{" "}
-            </Scores>{" "}
-          </MatchData>
-        </AccordionSummary>
-        <AccordionDetails>
-          <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
-          <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
-          <Table>
-            <tr>
-              <Th>Fall Of Wickets</Th>
-              <th>Score</th>
-              <th>Over</th>
-            </tr>
-            {fowsSi?.length > 0 &&
-              fowsSi.map((t) => (
+                {fow?.length > 0 &&
+                  fow.map((t) => (
+                    <tr>
+                      <Td style={{ textTransform: "capitalize" }}>
+                        <Name>{t.score}</Name>
+                      </Td>
+                      <td>{t.fall}</td>
+                      <td>{t.over}</td>
+                    </tr>
+                  ))}
+              </Table>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+            className={expanded == "panel2" ? "expanded" : "not"}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <MatchData>
+                <Code>{data?.titleSI}</Code>
+                <Scores>
+                  <Overs>{`(${data?.oversSI} overs)`}</Overs>{" "}
+                  {`${data.runSI}/${data.wicketsSI}`}{" "}
+                </Scores>{" "}
+              </MatchData>
+            </AccordionSummary>
+            <AccordionDetails>
+              {!data.isHomeFirst ? (
+                <>
+                  <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
+                  <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
+                </>
+              ) : (
+                <>
+                  <ScoreTable rows={data.teamAwayPlayers} batsmen={true} />
+                  <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
+                </>
+              )}
+              <Table>
                 <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
-                    <Name>{t.score}</Name>
-                  </Td>
-                  <td>{t.fall}</td>
-                  <td>{t.over}</td>
+                  <Th>Fall Of Wickets</Th>
+                  <th>Score</th>
+                  <th>Over</th>
                 </tr>
-              ))}
-          </Table>
-        </AccordionDetails>
-      </Accordion>
+                {fowsSi?.length > 0 &&
+                  fowsSi.map((t) => (
+                    <tr>
+                      <Td style={{ textTransform: "capitalize" }}>
+                        <Name>{t.score}</Name>
+                      </Td>
+                      <td>{t.fall}</td>
+                      <td>{t.over}</td>
+                    </tr>
+                  ))}
+              </Table>
+            </AccordionDetails>
+          </Accordion>
+        </>
+      ) : (
+        <NotStarted>Match not started yet</NotStarted>
+      )}
     </Container>
   );
 }

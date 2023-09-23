@@ -22,7 +22,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { logout } from "../actions/userAction";
 
 const Container = styled.div`
@@ -148,8 +148,9 @@ const Img = styled.img`
 const Name = styled.h6`
   color: #ffffff;
 `;
-export default function LeftDrawer({ leftOpen, setLeftOpen,open,setOpen }) {
+export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, isAuthenticated, loading, error } = useSelector(
     (state) => state.user
   );
@@ -193,14 +194,14 @@ export default function LeftDrawer({ leftOpen, setLeftOpen,open,setOpen }) {
           </Grid>
         </Account>
         <Container>
-          <ListI onClick={() =>setOpen(true)}>
+          <ListI onClick={() => setOpen(true)}>
             <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
             Balance
           </ListI>
           <ListI onClick={() => handleLogout()}>
             <LogoutIcon style={{ width: "60px" }} /> Logout
           </ListI>
-          <ListI>
+          <ListI onClick={() => navigate("/findpeople")}>
             <BoyOutlined style={{ width: "60px" }} /> Find People
           </ListI>
           <ListI>

@@ -15,6 +15,26 @@ import {
   URL,
 } from "../constants/userConstants";
 
+//import {API} from "../shared/api"
+
+export const API = axios.create({ baseURL: `${URL}` });
+const API_NEW = axios.create({ baseURL: `${URL}` });
+
+// for ec2 environment
+// const API = axios.create({ baseURL: 'http://54.84.192.90:8080/api' });
+// const API_NEW = axios.create({ baseURL: 'http://54.84.192.90:8081/api' });
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("user")) {
+    const servertoken =
+      localStorage.getItem("token") && localStorage.getItem("token");
+    req.headers.Authorization = `Bearer ${servertoken}`;
+    req.headers.servertoken = servertoken;
+    req.headers.ContentType = "application/json";
+  }
+  return req;
+});
+
 const headers = {
   Accept: "application/json",
 };
@@ -95,14 +115,7 @@ export const loadUser = () => async (dispatch) => {
     const servertoken =
       localStorage.getItem("token") && localStorage.getItem("token");
     dispatch({ type: LOAD_USER_REQUEST });
-    const { data } = await axios(`${URL}/auth/loaduser`, {
-      method: "get",
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-        servertoken,
-      },
-    });
+    const { data } = await API.get(`/auth/loaduser`);
     if (data.message) {
       dispatch({ type: LOAD_USER_SUCCESS, payload: data.message });
     }

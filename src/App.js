@@ -5,7 +5,6 @@ import ReactCanvasConfetti from "react-confetti";
 import ReactGA from "react-ga";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 import { loadUser } from "./actions/userAction";
 import Completed from "./components/completed";
 import ContestDetail from "./components/contestdetail";
@@ -22,6 +21,7 @@ import Players from "./components/players";
 import Register from "./components/register";
 import SavedTeam from "./components/savedteam";
 import NewUsers from "./components/newUsers";
+import FindPeople from "./components/findPeople/FindPeople";
 import Test from "./components/test";
 import { WhatsAppWidget } from "react-whatsapp-widget";
 import "react-whatsapp-widget/dist/index.css";
@@ -80,6 +80,7 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/googlelogin" element={<Logingoogle />} />
           <Route path="/newusers" element={<NewUsers />} />
+          <Route path="/findpeople" element={<FindPeople />} />
         </Routes>
       </BrowserRouter>
       {confetti && (
