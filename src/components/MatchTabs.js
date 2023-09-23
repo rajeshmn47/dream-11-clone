@@ -348,9 +348,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
     setValue(newValue);
   };
   const handleOpen = (i) => {
-    if(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete")){
-    setModal(i);
-    setSelectTeams({ selected: true, team: null });
+    if (
+      !(matchlive?.result == "In Progress" || matchlive?.result == "Complete")
+    ) {
+      setModal(i);
+      setSelectTeams({ selected: true, team: null });
     }
   };
   const handleClose = () => {
@@ -377,7 +379,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(contest,matchlive, "match_details");
+  console.log(contest, matchlive, "match_details");
   return (
     <div style={{ zIndex: "1" }}>
       {!selectTeams.selected ? (
@@ -523,18 +525,25 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         <StatusC>
                           <SpotsLeft>
                             {t?.username}
-                            {matchlive?.result == "Complete" ? <p style={{
-                                color: "var(--green)",
-                                fontSize: "12px",
-                              }} >you won ₹{t.won}</p>:
-                            <p
-                              style={{
-                                color: "var(--green)",
-                                fontSize: "12px",
-                              }}
-                            >
-                              IN WINNING ZONE
-                            </p>}
+                            {matchlive?.result == "Complete" ? (
+                              <p
+                                style={{
+                                  color: "var(--green)",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                you won ₹{t.won}
+                              </p>
+                            ) : (
+                              <p
+                                style={{
+                                  color: "var(--green)",
+                                  fontSize: "12px",
+                                }}
+                              >
+                                IN WINNING ZONE
+                              </p>
+                            )}
                           </SpotsLeft>
                           <SpotsLeft>{t?.teamnumber}</SpotsLeft>
                           <SpotsLeft>{t?.points}</SpotsLeft>
@@ -588,11 +597,15 @@ export default function MatchTabs({ tabs, g, livescore }) {
                   id={id}
                 />
               ))}
-              {(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete"))&&
-            <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
-              <AddCircleOutlineRoundedIcon />
-              create team
-            </CreateTeam>}
+            {!(
+              matchlive?.result == "In Progress" ||
+              matchlive?.result == "Complete"
+            ) && (
+              <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
+                <AddCircleOutlineRoundedIcon />
+                create team
+              </CreateTeam>
+            )}
           </TabPanel>
           <TabP value={value} index={3}>
             <Commentary matchdata={match_details} />

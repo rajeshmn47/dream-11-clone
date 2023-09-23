@@ -100,7 +100,12 @@ export function Navbar() {
   return (
     <>
       {" "}
-      <LeftDrawer leftOpen={leftOpen} setLeftOpen={setLeftOpen} open={open} setOpen={setOpen}/>
+      <LeftDrawer
+        leftOpen={leftOpen}
+        setLeftOpen={setLeftOpen}
+        open={open}
+        setOpen={setOpen}
+      />
       <div className="logintopbar">
         <Account
           onClick={() => handleLeftClick()}

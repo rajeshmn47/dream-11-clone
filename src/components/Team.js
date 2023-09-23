@@ -290,23 +290,28 @@ export function Team({
   matchId,
 }) {
   const navigate = useNavigate();
-  console.log(matchinfo,captains, "tinfo");
+  console.log(matchinfo, captains, "tinfo");
   const { match_details, matchlive } = useSelector((state) => state.match);
   return (
     <EachTeam>
-      {matchinfo.length > 0 && captains.length > 0 &&  (
-        <>{(!(matchlive?.result=="In Progress"||matchlive?.result=="Complete"))&&
-          <EditIconContainer
-            onClick={() =>
-              navigate(`/createTeam/${matchId}`, {
-                state: {
-                  selectedPlayers: selectedPlayers,
-                  editMode: true,
-                  teamId: teamId,
-                },
-              })
-            }
-          />}
+      {matchinfo.length > 0 && captains.length > 0 && (
+        <>
+          {!(
+            matchlive?.result == "In Progress" ||
+            matchlive?.result == "Complete"
+          ) && (
+            <EditIconContainer
+              onClick={() =>
+                navigate(`/createTeam/${matchId}`, {
+                  state: {
+                    selectedPlayers: selectedPlayers,
+                    editMode: true,
+                    teamId: teamId,
+                  },
+                })
+              }
+            />
+          )}
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
             <div>
               <h3>{matchinfo[0]?.awayCode}</h3>
@@ -341,7 +346,9 @@ export function Team({
                 alt=""
               />
               <VCaptain>
-                <p>{captains[1]?.playerName&&showName(captains[1]?.playerName)}</p>
+                <p>
+                  {captains[1]?.playerName && showName(captains[1]?.playerName)}
+                </p>
               </VCaptain>
             </CaptainsContainer>
           </Top>
