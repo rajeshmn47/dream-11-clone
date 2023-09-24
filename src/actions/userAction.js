@@ -25,9 +25,8 @@ const API_NEW = axios.create({ baseURL: `${URL}` });
 // const API_NEW = axios.create({ baseURL: 'http://54.84.192.90:8081/api' });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("user")) {
-    const servertoken =
-      localStorage.getItem("token") && localStorage.getItem("token");
+  if (localStorage.getItem("token")) {
+    const servertoken = localStorage.getItem("token") && localStorage.getItem("token");
     req.headers.Authorization = `Bearer ${servertoken}`;
     req.headers.servertoken = servertoken;
     req.headers.ContentType = "application/json";
