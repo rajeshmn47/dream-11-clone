@@ -8,25 +8,74 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { react, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { URL } from "../constants/userConstants";
 import Otp from "./otp";
 import { useAlert } from "react-alert";
+import { Typography } from "@mui/material";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
+const PHONE_REGEX = new RegExp(
+  /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim
+);
 
 const Err = styled.p`
   color: red;
 `;
 
 export function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
   const alert = useAlert();
-  const [password, setPassword] = useState("");
   const [err, setErr] = useState();
+  const [state, onChange] = useState("");
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required("Username is required")
+      .min(6, "Username must be at least 6 characters")
+      .max(20, "Username must not exceed 20 characters"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters")
+      .max(40, "Password must not exceed 40 characters"),
+    phoneInput: Yup.string(),
+    phoneNumber: Yup.string()
+      .required("Phone Number is required")
+      .matches(/^[0-9+-]+$/, "It must be in numbers")
+      .min(10, "Phone Number must be at least 10 characters")
+      .max(10, "Phone Number must not exceed 10 characters"),
+    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
+  });
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  console.log(errors, "errors");
+  const onSubmit = async (formData) => {
+    console.log(JSON.stringify(formData, null, 2));
+    //e.preventDefault();
+    const data = await axios.post(`${URL}/auth/register`, {
+      ...formData,
+    });
+    console.log(data);
+    if (data.data.success) {
+      setErr(data.data.message);
+      alert.success(data.data.message);
+      setOpen(true);
+    } else {
+      alert.error(data.data.message);
+      setErr(data.data.message);
+    }
+  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +108,15 @@ export function Register() {
     });
     setErr(data.data.message);
   };
+  const handleValidate = (phoneNumber) => {
+    if (PHONE_REGEX.test(phoneNumber)) {
+      errors["phoneInput"] = null;
+    } else {
+      errors["phoneInput"] = "Invalid phone number. Please try again.";
+    }
+    return PHONE_REGEX.test(phoneNumber);
+  };
+
   return (
     <>
       <div className="registertopbar">
@@ -70,41 +128,64 @@ export function Register() {
       </div>
 
       <div className="register">
-        <Paper style={{ padding: "20px 20px" }}>
-          <form onSubmit={handlesubmit} className="registerform">
+        <Paper style={{ padding: "5px 5px" }}>
+          <form onSubmit={handleSubmit(onSubmit)} className="registerform">
             <TextField
-              placeholder="Email"
-              variant="standard"
+              required
+              id="email"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-            />
-            <TextField
-              placeholder="name"
-              name="name"
+              label="Email"
               variant="standard"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              fullWidth
+              margin="dense"
+              {...register("email")}
+              error={errors.email ? true : false}
             />
+            <Typography variant="inherit" color="textSecondary">
+              {errors.email?.message}
+            </Typography>
             <TextField
-              placeholder="Phonenumber"
+              required
+              id="username"
+              name="username"
+              label="Name"
               variant="standard"
-              name="phonenumber"
-              value={phonenumber}
-              onChange={(e) => setPhonenumber(e.target.value)}
-              type="phone"
+              fullWidth
+              margin="dense"
+              {...register("username")}
+              error={errors.username ? true : false}
             />
-
+            <Typography variant="inherit" color="textSecondary">
+              {errors.username?.message}
+            </Typography>
             <TextField
-              placeholder="Password"
+              required
+              id="phoneNumber"
+              name="phoneNumber"
+              label="Phone Number"
               variant="standard"
+              fullWidth
+              margin="dense"
+              {...register("phoneNumber")}
+              error={errors.phoneNumber ? true : false}
+            />
+            <Typography variant="inherit" color="textSecondary">
+              {errors.phoneNumber?.message}
+            </Typography>
+            <TextField
+              required
+              id="password"
               name="password"
-              id="fullWidth"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+              variant="standard"
+              fullWidth
+              margin="dense"
+              {...register("password")}
+              error={errors.password ? true : false}
             />
+            <Typography variant="inherit" color="textSecondary">
+              {errors.password?.message}
+            </Typography>
             <Button
               variant="contained"
               type="submit"
