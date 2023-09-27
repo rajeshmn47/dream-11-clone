@@ -115,14 +115,14 @@ export function ScoreCard({ data, g, livescore }) {
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
-    if (data) {
+    if (data?.titleFI) {
       const a = [...data?.fowFI?.split(",")];
       const lmn = [...data?.fowSI?.split(",")];
       setFow([...setshow(a)]);
       setFowsSI([...setshow(lmn)]);
     }
   }, [data]);
-  console.log(livescore, "livescore");
+  console.log(data,livescore,"livescore");
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
