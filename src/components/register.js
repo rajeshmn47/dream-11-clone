@@ -29,7 +29,7 @@ const Err = styled.p`
 export function Register() {
   const alert = useAlert();
   const [err, setErr] = useState();
-  const [state, onChange] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
@@ -63,6 +63,7 @@ export function Register() {
   const onSubmit = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
     //e.preventDefault();
+    setEmail(formData.email)
     const data = await axios.post(`${URL}/auth/register`, {
       ...formData,
     });
@@ -77,44 +78,13 @@ export function Register() {
     }
   };
 
-  const handlesubmit = async (e) => {
-    e.preventDefault();
-
-    console.log(phonenumber, username, email, password);
-    const data = await axios.post(`${URL}/auth/register`, {
-      username,
-      email,
-      phonenumber,
-      password,
-    });
-    console.log(data);
-    if (data.data.success) {
-      setErr(data.data.message);
-      alert.success(data.data.message);
-      setOpen(true);
-    } else {
-      alert.error(data.data.message);
-      setErr(data.data.message);
-    }
-  };
-
   const handleotp = async () => {
     const data = await axios.post(`${URL}/auth/otp`, {
-      username,
       email,
-      phonenumber,
-      password,
       otp,
     });
     setErr(data.data.message);
-  };
-  const handleValidate = (phoneNumber) => {
-    if (PHONE_REGEX.test(phoneNumber)) {
-      errors["phoneInput"] = null;
-    } else {
-      errors["phoneInput"] = "Invalid phone number. Please try again.";
-    }
-    return PHONE_REGEX.test(phoneNumber);
+    alert.success(data.data.message)
   };
 
   return (
