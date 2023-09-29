@@ -122,7 +122,6 @@ export function ScoreCard({ data, g, livescore }) {
       setFowsSI([...setshow(lmn)]);
     }
   }, [data]);
-  console.log(data,livescore,"livescore");
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };

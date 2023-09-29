@@ -63,7 +63,7 @@ export function Register() {
   const onSubmit = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
     //e.preventDefault();
-    setEmail(formData.email)
+    setEmail(formData.email);
     const data = await axios.post(`${URL}/auth/register`, {
       ...formData,
     });
@@ -84,7 +84,7 @@ export function Register() {
       otp,
     });
     setErr(data.data.message);
-    alert.success(data.data.message)
+    alert.success(data.data.message);
   };
 
   return (

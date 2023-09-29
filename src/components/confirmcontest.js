@@ -69,6 +69,7 @@ export default function ConfirmModal({
   id,
   contestid,
   loadjoined,
+  setSelectedTeam,
 }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ export default function ConfirmModal({
       );
       alert.success("joined contest successfully");
       loadjoined();
+      setSelectedTeam(null);
       setOpen(false);
     } catch (e) {
       alert.error(e.response.data.message);

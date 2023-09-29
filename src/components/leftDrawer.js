@@ -210,7 +210,7 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
           <ListI>
             <GroupsOutlinedIcon style={{ width: "60px" }} /> Champions Club
           </ListI>
-          <ListI>
+          <ListI onClick={() => navigate("/my-info")}>
             <SettingsOutlinedIcon style={{ width: "60px" }} />
             My Info & Settings
           </ListI>
