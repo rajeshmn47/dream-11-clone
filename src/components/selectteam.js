@@ -405,6 +405,7 @@ export function SelectTeam({
   };
 
   const handleChange = (i) => {
+    console.log("onchange triggered", i);
     setSelectedTeam(i);
   };
 
@@ -431,8 +432,8 @@ export function SelectTeam({
                 type="radio"
                 name="site_name"
                 value={plo?._id}
-                checked={plo._id === team?._id}
-                onClick={() => handleChange(plo)}
+                checked={plo._id === selectedTeam?._id}
+                onChange={() => handleChange(plo)}
                 style={{ float: "right", marginRight: "10px" }}
               />
             </Grid>

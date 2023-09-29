@@ -153,11 +153,11 @@ export function Navbar() {
         <AddButton onClick={() => navigate("/payment")}>add cash</AddButton>
         <Deatil>
           <p>Amount added</p>
-          <h5>₹ 0</h5>
+          <h5>₹ {user?.totalAmountAdded}</h5>
         </Deatil>
         <Deatil>
           <p>winnings</p>
-          <h5>₹ 0</h5>
+          <h5>₹ {user?.totalAmountWon}</h5>
         </Deatil>
         <Deatil>
           <p>cash bonus</p>

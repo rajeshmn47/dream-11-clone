@@ -145,7 +145,7 @@ export function Home() {
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setLive([...lrr]);
-        if (data.data.past.results.length > 1) {
+        if (data.data.past.results.length > 0) {
           setPast([
             data.data.past.results
               .sort((b, a) => new Date(a.date) - new Date(b.date))

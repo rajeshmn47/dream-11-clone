@@ -25,10 +25,12 @@ import FindPeople from "./components/findPeople/FindPeople";
 import Test from "./components/test";
 import { WhatsAppWidget } from "react-whatsapp-widget";
 import "react-whatsapp-widget/dist/index.css";
+import MyInfo from "./components/myinfo/MyInfo";
 
 function App() {
   const dispatch = useDispatch();
   const { confetti } = useSelector((state) => state.user);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -41,6 +43,9 @@ function App() {
       height: window.innerHeight,
     });
   };
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     window.addEventListener("resize", showAnimation);
@@ -59,6 +64,13 @@ function App() {
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
+  const checkUserToken = () => {
+    const userToken = localStorage.getItem("user-token");
+    if (!userToken || userToken === "undefined") {
+      setIsLoggedIn(false);
+    }
+    setIsLoggedIn(true);
+  };
   return (
     <>
       <BrowserRouter>
@@ -81,6 +93,7 @@ function App() {
           <Route path="/googlelogin" element={<Logingoogle />} />
           <Route path="/newusers" element={<NewUsers />} />
           <Route path="/findpeople" element={<FindPeople />} />
+          <Route path="/my-info" element={<MyInfo />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

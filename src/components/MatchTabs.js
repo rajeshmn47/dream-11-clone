@@ -351,13 +351,12 @@ export default function MatchTabs({ tabs, g, livescore }) {
     if (
       !(matchlive?.result == "In Progress" || matchlive?.result == "Complete")
     ) {
-      if(!team?.length>0){
+      if (!team?.length > 0) {
         setValue(2);
-        alert.info("create a team before joining contest!")
-      }
-      else{
-      setModal(i);
-      setSelectTeams({ selected: true, team: null });
+        alert.info("create a team before joining contest!");
+      } else {
+        setModal(i);
+        setSelectTeams({ selected: true, team: null });
       }
     }
   };
@@ -463,6 +462,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 teamid={selectedTeam?._id}
                 id={id}
                 loadjoined={loadjoined}
+                setSelectedTeam={setSelectedTeam}
               />
             </ContestsContainer>
           </TabPanel>
