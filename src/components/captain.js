@@ -18,7 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
 import { getImgurl } from "../utils/img_url";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
 import { useAlert } from "react-alert";

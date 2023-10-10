@@ -14,8 +14,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../actions/userAction";
-import Bottomnav from "./bottomnavbar";
-import LeftDrawer from "./leftDrawer";
+import Bottomnav from "./navbar/bottomnavbar";
+import LeftDrawer from "./navbar/leftDrawer";
 import Steppr from "./stepper";
 
 const RightSide = styled.div`
@@ -80,7 +80,7 @@ const DeatilTop = styled.div`
   }
 `;
 
-export function Navbar() {
+export function Navbar({ home }) {
   const { user } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
@@ -164,35 +164,37 @@ export function Navbar() {
           <h5>₹ 0</h5>
         </Deatil>
       </Drawer>
-      <div className="hometop">
-        <div className="hometopicon selectgame">
-          <SportsCricketIcon
-            style={{ color: "#C41E22", fontSize: "16px", fontWeight: "400" }}
-          />
-          <h5>Cricket</h5>
+      {home && (
+        <div className="hometop">
+          <div className="hometopicon selectgame">
+            <SportsCricketIcon
+              style={{ color: "#C41E22", fontSize: "16px", fontWeight: "400" }}
+            />
+            <h5>Cricket</h5>
+          </div>
+          <div
+            className="hometopicon"
+            style={{ fontSize: "12px", fontWeight: "400" }}
+          >
+            <SportsSoccerIcon />
+            <h5>Football</h5>
+          </div>
+          <div
+            className="hometopicon"
+            style={{ fontSize: "12px", fontWeight: "400" }}
+          >
+            <SportsBasketballIcon />
+            <h5>Basketball</h5>
+          </div>
+          <div
+            className="hometopicon"
+            style={{ fontSize: "12px", fontWeight: "400" }}
+          >
+            <SportsHockeyIcon />
+            <h5>Hockey</h5>
+          </div>
         </div>
-        <div
-          className="hometopicon"
-          style={{ fontSize: "12px", fontWeight: "400" }}
-        >
-          <SportsSoccerIcon />
-          <h5>Football</h5>
-        </div>
-        <div
-          className="hometopicon"
-          style={{ fontSize: "12px", fontWeight: "400" }}
-        >
-          <SportsBasketballIcon />
-          <h5>Basketball</h5>
-        </div>
-        <div
-          className="hometopicon"
-          style={{ fontSize: "12px", fontWeight: "400" }}
-        >
-          <SportsHockeyIcon />
-          <h5>Hockey</h5>
-        </div>
-      </div>
+      )}
     </>
   );
 }

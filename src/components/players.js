@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { URL } from "../constants/userConstants";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Steppr from "./stepper";
 
 const PlayersContainer = styled.div``;

@@ -25,7 +25,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { URL } from "../../constants/userConstants";
-import Bottomnav from "../bottomnavbar";
+import Bottomnav from "../navbar/bottomnavbar";
 import Next from "../captain";
 import CategoryTabs from "./categorytabs";
 import BasicTabs from "../MatchTabs";

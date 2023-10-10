@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Loader from "./loader";
 import Navbar from "./navbar";
 import Steppr from "./stepper";

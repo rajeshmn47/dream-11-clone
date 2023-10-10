@@ -26,6 +26,7 @@ import Test from "./components/test";
 import { WhatsAppWidget } from "react-whatsapp-widget";
 import "react-whatsapp-widget/dist/index.css";
 import MyInfo from "./components/myinfo/MyInfo";
+import TransactionTabs from "./components/transaction";
 
 function App() {
   const dispatch = useDispatch();
@@ -94,6 +95,7 @@ function App() {
           <Route path="/newusers" element={<NewUsers />} />
           <Route path="/findpeople" element={<FindPeople />} />
           <Route path="/my-info" element={<MyInfo />} />
+          <Route path="/transaction" element={<TransactionTabs />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

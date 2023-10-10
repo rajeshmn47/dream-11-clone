@@ -19,7 +19,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Steppr from "./stepper";
 import { showName } from "../utils/name";
 

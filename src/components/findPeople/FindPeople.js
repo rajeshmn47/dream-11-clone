@@ -1,6 +1,6 @@
 import "../home.css";
 import "../create.css";
-import Bottomnav from "../bottomnavbar";
+import Bottomnav from "../navbar/bottomnavbar";
 import { useState } from "react";
 import Loader from "../loader";
 import Navbar from "../navbar";

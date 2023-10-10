@@ -30,7 +30,7 @@ import {
   isTommorrow,
   sameDayorNot,
 } from "../utils/dateformat";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Loader from "./loader";
 import Navbar from "./navbar";
 import Steppr from "./stepper";

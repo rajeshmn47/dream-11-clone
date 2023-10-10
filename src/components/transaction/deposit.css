@@ -1,0 +1,19 @@
+.depositForm {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.withdrawForm {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
