@@ -410,8 +410,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
               <Tab label="Commentary" {...a11yProps(3)} />
               <Tab label="Scorecard" {...a11yProps(4)} />
               <Tab label="Stats" {...a11yProps(5)} />
+              <Tab label="Live" {...a11yProps(6)} />
             </Tabs>
           </Box>
+
           <TabPanel value={value} index={0}>
             <ContestsContainer container item sm={12} xs={12}>
               {tabs &&
@@ -621,6 +623,17 @@ export default function MatchTabs({ tabs, g, livescore }) {
           </TabP>
           <TabP value={value} index={5}>
             <Stats matchdata={matchlive || match_details} team={team} />
+          </TabP>
+          <TabP value={value} index={6}>
+            <video
+              id="videoPlayer"
+              width="100%"
+              controls
+              autoPlay
+              muted={false}
+            >
+              <source src={`${URL}/video`} type="video/mp4" />
+            </video>
           </TabP>
         </Box>
       ) : (

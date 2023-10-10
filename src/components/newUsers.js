@@ -25,7 +25,7 @@ import { useParams } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
 import { getrowClass } from "../utils/getrowclass";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Next from "./captain";
 import BasicTabs from "./MatchTabs";
 import CategoryTabs from "./createteam/playerscategory";

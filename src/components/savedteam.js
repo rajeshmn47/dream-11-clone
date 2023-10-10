@@ -19,7 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
 import { getImgurl } from "../utils/img_url";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Loader from "./loader";
 import Steppr from "./stepper";
 

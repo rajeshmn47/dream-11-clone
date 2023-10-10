@@ -46,7 +46,7 @@ import { URL } from "../constants/userConstants";
 import db from "../firebase";
 import { showBalls } from "../utils/lastballs";
 import { showName } from "../utils/name";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import MatchTabs from "./MatchTabs";
 import SavedTeam from "./savedteam";
 import ShowOver from "./showover";

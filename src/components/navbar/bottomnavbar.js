@@ -16,7 +16,7 @@ export function Bottomnav() {
         onClick={() => navigate("/")}
         className={location.pathname == "/" ? "selectedrt" : "notselectedrt"}
       >
-        <HomeOutlinedIcon style={{ fontSize: "22px" }} />
+        <HomeOutlinedIcon style={{ fontSize: "28px" }} />
         Home
       </div>
       <div
@@ -27,19 +27,19 @@ export function Bottomnav() {
             : "notselectedrt"
         }
       >
-        <EmojiEventsOutlinedIcon style={{ fontSize: "22px" }} />
+        <EmojiEventsOutlinedIcon style={{ fontSize: "28px" }} />
         My Matches
       </div>
       <div>
-        <FeedOutlinedIcon style={{ fontSize: "22px" }} />
+        <FeedOutlinedIcon style={{ fontSize: "28px" }} />
         Feed
       </div>
       <div>
-        <GroupsOutlinedIcon style={{ fontSize: "22px" }} />
+        <GroupsOutlinedIcon style={{ fontSize: "28x" }} />
         Groups
       </div>
       <div>
-        <MoreHorizOutlinedIcon style={{ fontSize: "22px" }} />
+        <MoreHorizOutlinedIcon style={{ fontSize: "28px" }} />
         More
       </div>
     </div>

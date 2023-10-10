@@ -23,7 +23,7 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../actions/userAction";
+import { logout } from "../../actions/userAction";
 
 const Container = styled.div`
   .MuiTypography-body1 {

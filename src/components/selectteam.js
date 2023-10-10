@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 import { URL } from "../constants/userConstants";
 import { checkar, checkwk, getImgurl } from "../utils/img_url";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import Steppr from "./stepper";
 import Team from "./Team";
 

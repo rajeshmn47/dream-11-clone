@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Contest from "./contests/contest";
 import { URL } from "../constants/userConstants";
-import Bottomnav from "./bottomnavbar";
+import Bottomnav from "./navbar/bottomnavbar";
 import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
 import ContestTabs from "./ContestTabs";
