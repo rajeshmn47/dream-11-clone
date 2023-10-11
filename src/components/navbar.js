@@ -8,7 +8,7 @@ import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Button, Drawer } from "@mui/material";
+import { Button, Drawer, Grid } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +47,9 @@ const Center = styled.div`
   font-size: 21px;
   font-weight: 700;
 `;
+
+const WithdrawContainer = styled(Grid)`
+`
 
 const AddButton = styled(Button)`
   background-color: var(--green);
@@ -150,14 +153,29 @@ export function Navbar({ home }) {
           <p>total balance</p>
           <h5>₹{user && user.wallet}</h5>
         </DeatilTop>
-        <AddButton onClick={() => navigate("/payment")}>add cash</AddButton>
+        <AddButton onClick={() =>navigate("/transaction", {
+                        state: {
+                          tab: 'deposit',
+                        },
+                      })}>add cash</AddButton>
         <Deatil>
           <p>Amount added</p>
           <h5>₹ {user?.totalAmountAdded}</h5>
         </Deatil>
         <Deatil>
-          <p>winnings</p>
-          <h5>₹ {user?.totalAmountWon}</h5>
+          <WithdrawContainer container>
+            <Grid item sm={7} xs={7}>
+              <p>winnings</p>
+              <h5>₹ {user?.totalAmountWon}</h5>
+            </Grid>
+            <Grid item sm={5} xx={5}>
+              <Button  onClick={() => navigate("/transaction", {
+                        state: {
+                          tab: 'withdrawal',
+                        },
+                      })}>Withdraw</Button>
+            </Grid>
+          </WithdrawContainer>
         </Deatil>
         <Deatil>
           <p>cash bonus</p>

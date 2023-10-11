@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import SouthIcon from "@mui/icons-material/South";
-import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
@@ -20,9 +15,8 @@ import { useAlert } from "react-alert";
 import { URL } from "../../constants/userConstants";
 import Navbar from "../navbar";
 import Bottomnav from "../navbar/bottomnavbar";
-import Deposit from "./deposit";
-import Withdraw from "./withdraw";
-import "./deposit.css";
+import AWithdrawal from "./Awithdrawal";
+import ADeposit from "./ADeposit";
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -251,7 +245,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TransactionTabs({ tabs, g, livescore }) {
+export default function Admin({ tabs, g, livescore }) {
   const { state } = useLocation();
   const [value, setValue] = React.useState(0);
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -334,24 +328,23 @@ export default function TransactionTabs({ tabs, g, livescore }) {
             >
               <Tab
                 icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
-                label="Deposit"
+                label="Deposit Approve"
                 {...a11yProps(0)}
               />
 
               <Tab
                 icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
-                label={`Withdrawal`}
+                label="Withdrawal Approve"
                 {...a11yProps(1)}
               />
             </Tabs>
           </Box>
 
           <TabPanel value={value} index={0}>
-            <Deposit />
+            <ADeposit />
           </TabPanel>
-
           <TabPanel value={value} index={1}>
-            <Withdraw />
+            <AWithdrawal />
           </TabPanel>
         </Box>
       </Container>
