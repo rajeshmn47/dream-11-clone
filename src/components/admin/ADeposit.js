@@ -20,9 +20,6 @@ import { useAlert } from "react-alert";
 import { URL } from "../../constants/userConstants";
 import Navbar from "../navbar";
 import Bottomnav from "../navbar/bottomnavbar";
-import Deposit from "./deposit";
-import Withdraw from "./withdraw";
-import "./deposit.css";
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -251,7 +248,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TransactionTabs({ tabs, g, livescore }) {
+export default function ADeposit({ tabs, g, livescore }) {
   const { state } = useLocation();
   const [value, setValue] = React.useState(0);
   const { user, isAuthenticated, loading, error } = useSelector(
@@ -319,43 +316,9 @@ export default function TransactionTabs({ tabs, g, livescore }) {
   console.log(contest, matchlive, "match_details");
   return (
     <>
-      <Navbar />
       <Container style={{ zIndex: "1" }}>
-        <Title>transfer online</Title>
-        <Box sx={{ width: "100%" }}>
-          <Box>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              variant="scrollable"
-              scrollButtons
-              allowScrollButtonsMobile
-              aria-label="scrollable force tabs example"
-            >
-              <Tab
-                icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
-                label="Deposit"
-                {...a11yProps(0)}
-              />
-
-              <Tab
-                icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
-                label={`Withdrawal`}
-                {...a11yProps(1)}
-              />
-            </Tabs>
-          </Box>
-
-          <TabPanel value={value} index={0}>
-            <Deposit />
-          </TabPanel>
-
-          <TabPanel value={value} index={1}>
-            <Withdraw />
-          </TabPanel>
-        </Box>
+        
       </Container>
-      <Bottomnav />
     </>
   );
 }
