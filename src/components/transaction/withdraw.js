@@ -128,7 +128,7 @@ export default function Withdraw({ tabs, g, livescore }) {
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     amount: Yup.string().required("amount is required"),
-    utr: Yup.string()
+    upiId: Yup.string()
       .required("Utr is required")
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
@@ -202,10 +202,8 @@ export default function Withdraw({ tabs, g, livescore }) {
     console.log(JSON.stringify(formData, null, 2));
     /** @type {any}*/
     
-          axios
-            .post(`${URL}/payment/deposit`, {
-              ...data,
-            })
+          axios.post(`${URL}/payment/withdraw`, 
+              {...formData,userId:user._id})
             .then((l) => {
               console.log("added to database", l);
               //alert.success("deposit data added successfully");
@@ -235,17 +233,17 @@ export default function Withdraw({ tabs, g, livescore }) {
           </Typography>
           <TextField
             required
-            id="utr"
-            name="utr"
+            id="upiId"
+            name="upiId"
             label="UPI ID"
             variant="standard"
             fullWidth
             margin="dense"
-            {...register("utr")}
+            {...register("upiId")}
             error={errors.utr ? true : false}
           />
           <Typography variant="inherit" color="textSecondary">
-            {errors.utr?.message}
+            {errors.upiId?.message}
           </Typography>
           <Button
             variant="contained"

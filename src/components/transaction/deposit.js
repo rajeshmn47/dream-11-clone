@@ -228,6 +228,7 @@ export default function Deposit({ tabs, g, livescore }) {
           console.log("File available at", downloadURL);
           let data = {
             ...formData,
+            userId:user._id,
             recieptUrl: downloadURL,
           };
           axios
