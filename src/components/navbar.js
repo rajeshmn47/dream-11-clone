@@ -12,7 +12,7 @@ import { Button, Drawer, Grid } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { logout } from "../actions/userAction";
 import Bottomnav from "./navbar/bottomnavbar";
 import LeftDrawer from "./navbar/leftDrawer";
@@ -85,6 +85,7 @@ const DeatilTop = styled.div`
 
 export function Navbar({ home }) {
   const { user } = useSelector((state) => state.user);
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
   const dispatch = useDispatch;
@@ -153,7 +154,7 @@ export function Navbar({ home }) {
           <p>total balance</p>
           <h5>₹{user && user.wallet}</h5>
         </DeatilTop>
-        <AddButton onClick={() =>navigate("/transaction", {
+        <AddButton onClick={() =>navigate("/payment", {
                         state: {
                           tab: 'deposit',
                         },
@@ -184,14 +185,16 @@ export function Navbar({ home }) {
       </Drawer>
       {home && (
         <div className="hometop">
-          <div className="hometopicon selectgame">
+          <div onClick={() => navigate("/")}
+        className={location.pathname == "/" ? "hometopicon selectgame" : "hometopicon"}>
             <SportsCricketIcon
               style={{ color: "#C41E22", fontSize: "16px", fontWeight: "400" }}
             />
             <h5>Cricket</h5>
           </div>
           <div
-            className="hometopicon"
+            onClick={() => navigate("/football")}
+            className={location.pathname == "/football" ? "hometopicon selectgame" : "hometopicon"}
             style={{ fontSize: "12px", fontWeight: "400" }}
           >
             <SportsSoccerIcon />
