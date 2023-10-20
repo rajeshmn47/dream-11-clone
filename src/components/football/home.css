@@ -46,18 +46,18 @@
 
 .match {
   background-color: #ffffff;
-  padding: 20px 15px;
+  padding: 15px 15px;
   box-sizing: border-box;
   cursor: pointer;
 }
 .matchcontainer {
-  box-shadow: 0 0 3px rgba(83, 80, 80, 0.15);
+  box-shadow: 0 0 1.5px 1.5px rgba(83, 80, 80, 0.15);
   border-radius: 5px;
   overflow: hidden;
-  margin: 15px 0;
+  margin: 18px 0;
 }
 .matchcontainere {
-  box-shadow: 0 0 3px rgba(181, 176, 176, 0.15);
+  box-shadow: 0 0 2.5px 2.5px rgba(83, 80, 80, 0.15) !important;
   border-radius: 5px;
   overflow: hidden;
   background-color: transparent !important;
@@ -75,6 +75,28 @@
   height: 100%;
 }
 
+.teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teamRight {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-direction: column;
+}
+.teamLeft {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .matchcenter {
   display: flex;
   justify-content: space-between;
@@ -83,13 +105,13 @@
 .matchright {
   display: flex;
   align-items: center;
-  width: 26%;
-  justify-content: space-between;
+  width: 30%;
+  justify-content: space-evenly;
   flex-direction: column;
   align-items: flex-end;
   flex-direction: column;
 }
-.matchlefts {
+.matchflefts {
   display: flex;
   align-items: center;
   width: 26%;
@@ -104,15 +126,15 @@
 .homecontainer {
   margin-bottom: 40px;
 }
-.matchrights {
+.matchfrights {
   display: flex;
   align-items: center;
   width: 26%;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 .mega {
-  background-color: #c7e0d4;
+  background-color: #d4f1e3;
   color: var(--green);
   width: 12vw;
   box-sizing: border-box;
@@ -179,4 +201,7 @@
 .meta {
   display: flex;
   align-items: center;
+}
+.reacticon path {
+  stroke: #595959;
 }

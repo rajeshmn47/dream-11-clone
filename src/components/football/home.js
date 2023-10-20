@@ -116,7 +116,7 @@ const Spanner = styled.div`
   width: 20px;
   height: 5px;
 `;
-export function Home() {
+export function Football() {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -130,35 +130,34 @@ export function Home() {
     async function getupcoming() {
       if (user?._id) {
         setLoading(true);
-        const upcoming = await axios.get(`${URL}/home`);
+        const upcoming = await axios.get(`${URL}/football`);
         const urr = upcoming.data.upcoming.results.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setUpcoming([...urr]);
         setLoading(false);
-        const data = await axios.get(`${URL}/home/${user._id}`);
-        const ucm = data.data.upcoming.results.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
-        );
-        setUpcoming([...ucm]);
-        const lrr = data.data.live.results.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
-        );
-        setLive([...lrr]);
-        if (data.data.past.results.length > 0) {
-          setPast([
-            data.data.past.results
-              .sort((b, a) => new Date(a.date) - new Date(b.date))
-              .reverse()
-              .pop(),
-          ]);
-        } else {
-          //setPast([
-          // data.data.past.results
-          //    .sort((b, a) => new Date(a.date) - new Date(b.date))
-          //   .pop(),
-          //]);
-        }
+        const data = await axios.get(`${URL}/football/${user._id}`);
+        //const ucm = data.data.upcoming.results.sort(
+        //  (a// );
+        // setUpcoming([...ucm]);
+        // const lrr = data.data.live.results.sort(
+        //   (a, b) => new Date(a.date) - new Date(b.date)
+        //);
+        // setLive([...lrr]);
+        // if (data.data.past.results.length > 0) {
+        //    setPast([
+        //      data.data.past.results
+        //      .sort((b, a) => new Date(a.date) - new Date(b.date))
+        //    .reverse()
+        //    .pop(),
+        // ]);
+        //   } else {
+        //setPast([
+        // data.data.past.results
+        //    .sort((b, a) => new Date(a.date) - new Date(b.date))
+        //   .pop(),
+        //]);
+        //}
       }
     }
     getupcoming();
@@ -371,4 +370,4 @@ export function Home() {
   );
 }
 
-export default Home;
+export default Football;

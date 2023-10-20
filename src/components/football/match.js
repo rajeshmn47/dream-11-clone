@@ -156,19 +156,21 @@ export function Match({ u, live }) {
             fontWeight: "800",
             display: "flex",
             alignItems: "center",
+            whiteSpace: "nowrap",
+            width: "60%",
+            textOverflow: "ellipsis"
           }}
         >
           <span style={{
-            marginRight: "5px", textOverflow: "ellipsis", whiteSpace: "nowrap",
-            width: "180px", overflow: "hidden"
+            marginRight: "5px", whiteSpace: "nowrap", width: "60%",
+            textOverflow: "ellipsis"
           }}>{u.match_title}</span>
         </h5>
         <h5
           style={{
+            marginLeft: "90px",
             color: "rgb(31, 169, 81)",
             fontFamily: "Montserrat",
-            textOverflow: "ellipsis", whiteSpace: "nowrap",
-            width: "100px"
           }}
         >
           {live || u.lineups}
@@ -177,9 +179,8 @@ export function Match({ u, live }) {
       </Top>
       <div className="match">
         <div className="matchcenter">
-          <div className="matchlefts">
+          <div className="matchflefts">
             <img src={u.teamAwayFlagUrl} alt="" width="40" />
-            <h5>{u.away.code}</h5>
           </div>
           {live ? (
             <div
@@ -227,9 +228,24 @@ export function Match({ u, live }) {
               )}
             </h5>
           )}
-          <div className="matchrights">
-            <h5> {u.home.code}</h5>
+          <div className="matchfrights">
             <img src={u.teamHomeFlagUrl} alt="" width="40" />
+          </div>
+        </div>
+        <div className="teams">
+          <div className="teamLeft">
+            <h5 style={{
+              color: "#595959",
+              fontSize: "12px",
+              whiteSpace:"nowrap"
+            }}>{u.away.code}</h5>
+          </div>
+          <div className="teamRight">
+            <h5 style={{
+              color: "#595959",
+              fontSize: "12px",
+              whiteSpace:"nowrap"
+            }}> {u.home.code}</h5>
           </div>
         </div>
       </div>
