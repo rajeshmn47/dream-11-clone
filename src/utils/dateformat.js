@@ -82,7 +82,10 @@ export function hoursRemaining(date, i, d) {
   diff %= 1000 * 60;
   const sec = 60 - new Date(d).getSeconds(Math.floor(diff / 1000));
   diff %= 1000;
-  if (mi && sec) {
+  if (((parseInt(mi))<0)) {
+    return "delayed";
+  }
+  else if (mi && sec) {
     return `${mi}m ${sec}s`;
   }
 }

@@ -13,6 +13,7 @@ import CreateTeam from "./components/createteam/createteam";
 import { ForgotPassword } from "./components/forget-password";
 import Logingoogle from "./components/googlesignin";
 import Home from "./components/home/home";
+import Football from "./components/football/home";
 import JoinedContests from "./components/joinedcontests";
 import Login from "./components/login";
 import Contests from "./components/MatchDetails";
@@ -78,6 +79,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/football" element={<Football />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/completed/:id" element={<Completed />} />
