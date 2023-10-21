@@ -120,7 +120,7 @@ export function Commentary({ matchdata }) {
   useEffect(() => {
     async function getdata(m) {
       if (matchdata.matchId) {
-        const docRef = doc(db, "cities", matchdata.matchId);
+        const docRef = doc(db, "commentary", matchdata.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           console.log("Document data:");
@@ -129,7 +129,7 @@ export function Commentary({ matchdata }) {
           console.log("No such document!");
         }
         const unsub = onSnapshot(
-          doc(db, "cities", matchdata?.matchId),
+          doc(db, "commentary", matchdata?.matchId),
           (doc) => {
             console.log("Current data: ");
             if (doc.data()) {

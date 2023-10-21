@@ -189,14 +189,14 @@ export function MatchDetails({ players }) {
   useEffect(() => {
     async function getdata(m) {
       if (match_details?.matchId) {
-        const docRef = doc(db, "cities", match_details.matchId);
+        const docRef = doc(db, "commentary", match_details.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
         } else {
           // docSnap.data() will be undefined in this case
         }
         const unsub = onSnapshot(
-          doc(db, "cities", match_details?.matchId),
+          doc(db, "commentary", match_details?.matchId),
           (doc) => {
             if (doc.data()) {
               console.log(doc.data(), "data");
