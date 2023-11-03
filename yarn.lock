@@ -5659,15 +5659,15 @@
   "resolved" "https://registry.npmjs.org/icss-utils/-/icss-utils-5.1.0.tgz"
   "version" "5.1.0"
 
+"idb@^7.1.1", "idb@7.1.1":
+  "integrity" "sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ=="
+  "resolved" "https://registry.npmjs.org/idb/-/idb-7.1.1.tgz"
+  "version" "7.1.1"
+
 "idb@7.0.1":
   "integrity" "sha512-UUxlE7vGWK5RfB/fDwEGgRf84DY/ieqNha6msMV99UsEMQhJ1RwbCd8AYBj3QMgnE3VZnfQvm4oKVCJTYlqIgg=="
   "resolved" "https://registry.npmjs.org/idb/-/idb-7.0.1.tgz"
   "version" "7.0.1"
-
-"idb@7.1.1":
-  "integrity" "sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ=="
-  "resolved" "https://registry.npmjs.org/idb/-/idb-7.1.1.tgz"
-  "version" "7.1.1"
 
 "ieee754@^1.1.13":
   "integrity" "sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA=="

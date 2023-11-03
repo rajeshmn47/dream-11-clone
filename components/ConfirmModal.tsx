@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet } from 'react-native';
+import { Button, Modal, ScrollView, StyleSheet } from 'react-native';
 import { Text, FlatList, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
@@ -10,7 +10,8 @@ import axios from "axios";
 import { getDisplayDate } from '../utils/dateFormat';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { loadToken, logout } from '../actions/userAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { URL } from '../constants/userConstants';
 
 
 export type RootStackParamList = {
@@ -18,9 +19,9 @@ export type RootStackParamList = {
     Detail: { matchId: string };
     Login: undefined,
     Register: undefined,
-    Create:{matchId:string,editMode:Boolean},
+    Create: { matchId: string, editMode: Boolean },
     Routes: undefined,
-    Captain:{players:any[],matchId:string}
+    Captain: { players: any[], matchId: string }
 };
 
 export type Props = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -36,47 +37,27 @@ export interface Match {
     date: any;
 }
 
-const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: any }) => {
-    const openPopup = () => {
-        navigation.navigate('Detail', {
-            matchId: data.id
-        });
-    }
-    return (
-        <TouchableOpacity onPress={() => openPopup()}>
-            <View style={styles.match}>
-                <View>
-                    <Text style={styles.title}>{data.match_title}</Text>
-                </View>
-                <View style={styles.teamContainer}>
-                    <View style={styles.team}>
-                        <Image source={{ uri: data.teamHomeFlagUrl }} style={{ width: 15, height: 15 }} />
-                        <Text>{data.home.code}</Text>
-                    </View>
-                    <View style={styles.matchDate}>
-                        <Text style={styles.dateText}>{getDisplayDate(data.date, 'i', date)}</Text>
-                    </View>
-                    <View style={styles.team}>
-                        <Text>{data.away.code}</Text>
-                        <Image source={{ uri: data.teamAwayFlagUrl }} style={{ width: 15, height: 15 }} />
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.title}>{data.match_title}</Text>
-                </View>
-            </View>
-        </TouchableOpacity>
 
-    );
-}
-
-export default function HomeScreen({ navigation }: Props) {
+export default function ConfirmModal({ open, setOpen, handleclose,
+    modal,
+    teamid,
+    id,
+    loadjoined,
+    setSelectedTeam }: {
+        open: boolean, setOpen: any
+        handleclose: any,
+        modal: any,
+        teamid: string,
+        id: string
+        loadjoined: any,
+        setSelectedTeam: any
+    }) {
+    const { userToken, user } = useSelector((state: any) => state.user);
     const dispatch: any = useDispatch();
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [date, setDate] = useState<Date>(new Date());;
-    const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} navigation={navigation} />;
+    const [date, setDate] = useState<Date>(new Date());
     useEffect(() => {
         async function getupcoming() {
             setLoading(true);
@@ -101,25 +82,35 @@ export default function HomeScreen({ navigation }: Props) {
             clearInterval(i);
         };
     }, []);
-    const onPress = () => {
-        dispatch(logout())
-        dispatch(loadToken())
+    const onPress = async () => {
+        try {
+            const data = await axios.get(
+                `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
+            );
+            loadjoined();
+            setSelectedTeam(null);
+            setOpen(false);
+        } catch (e) {
+            setOpen(false);
+        }
     }
     return (
         <View style={styles.container}>
-            <Button
-                onPress={onPress}
-                title="Log Out"
-                color="#589251"
-                accessibilityLabel="Learn more about this purple button"
-            />
-            <View>
-                <FlatList
-                    data={upcoming}
-                    renderItem={renderItem}
-                    keyExtractor={(item: any) => item.id}
-                />
-            </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={open}
+
+            >
+                <View style={styles.modal}>
+                    <Button
+                        onPress={onPress}
+                        title="Join Contest"
+                        color="#4c9452"
+                        accessibilityLabel="Learn more about this purple button"
+                    />
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -205,5 +196,22 @@ const styles = StyleSheet.create({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
+    },
+    modal: {
+        width: 320,
+        marginTop: 50,
+        height: 200,
+        marginLeft: 20,
+        backgroundColor: "#FFFFF",
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 14,
+        zIndex: 1000,
+        padding: 5
     }
 });

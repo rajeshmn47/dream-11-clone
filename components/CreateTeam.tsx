@@ -41,7 +41,8 @@ export interface Contest {
   _id: string;
   playerName: string;
   image: string;
-  isSelected: Boolean
+  isSelected: boolean;
+  playerId:string;
 }
 
 
@@ -269,11 +270,15 @@ export default function CreateTeam({ navigation, route }: Props) {
   };
 
   const handleNext = () => {
+    if(players.filter((k) => k.isSelected === true).length == 11){
     navigation.navigate('Captain', { players: players.filter((p) => p.isSelected == true), matchId: route.params.matchId })
+    }
   };
 
   const Item = ({ data, date }: { data: Contest, date: any }) => (
-    <TouchableHighlight onPress={!data.isSelected ? () => handleClick(data._id) : () => handleRemove(data._id)}>
+    <TouchableHighlight  disabled={players.filter((p:any)=>p.isSelected==true).length>=11
+    &&(!(players.find((p:any)=>(p.playerId==data.playerId&&p.isSelected==true))))}
+     onPress={!data.isSelected ? () => handleClick(data._id) : () => handleRemove(data._id)}>
       <View style={data.isSelected ? styles.contest : styles.notSelected}>
         <View style={!data.isSelected ? styles.teamContainer : styles.selected}>
           <View>

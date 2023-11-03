@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet } from 'react-native';
+import { Button, ScrollView, StyleSheet, TouchableHighlight } from 'react-native';
 import { Text, FlatList, TextInput, View, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
@@ -33,6 +33,9 @@ import Overview from './topbar/Overview';
 import { URL } from '../constants/userConstants';
 import { checkar, checkwk } from '../utils/playersFilter';
 import { getImgurl } from '../utils/images';
+import { HandlerCallbacks } from 'react-native-gesture-handler/lib/typescript/handlers/gestures/gesture';
+import SelectTeams from './SelectTeams';
+import ConfirmModal from './ConfirmModal';
 
 
 export interface Contest {
@@ -56,37 +59,45 @@ export interface Team {
     viceCaptainId: string;
 }
 
+export interface MyContest {
+    _id: string;
+    contest: any;
+    teams: any;
+}
 
-const Item = ({ data, date }: { data: Contest, date: any }) => (
-    <View style={styles.contest}>
-        <View>
-            <Text>{data.price}</Text>
-        </View>
-        <View style={styles.teamContainer}>
-            <View style={styles.team}>
-                <Text>{data.totalSpots}</Text>
+
+const Item = ({ data, date, selectedTeam, selectTeams, handleClick }: { data: Contest, date: any, selectedTeam: any, selectTeams: any, handleClick: any }) => (
+    <TouchableHighlight onPress={()=>handleClick(data)}>
+        <View style={styles.contest}>
+            <View>
+                <Text>{data.price}</Text>
             </View>
-            <View style={styles.team}>
-                <Text>{data.userIds.length}</Text>
+            <View style={styles.teamContainer}>
+                <View style={styles.team}>
+                    <Text>{data?.totalSpots}</Text>
+                </View>
+                <View style={styles.team}>
+                    <Text>{data?.userIds?.length}</Text>
+                </View>
+                <View style={styles.team}>
+                    <Text>{data?.teamsId?.length}</Text>
+                </View>
             </View>
-            <View style={styles.team}>
-                <Text>{data.teamsId.length}</Text>
+            <View>
+                <Slider
+                    value={data?.teamsId?.length / data?.totalSpots}
+                    maximumTrackTintColor={'rgb(254, 244, 222)'}
+                    minimumTrackTintColor={'#b50000'}
+                    thumbTouchSize={{ width: 0, height: 0 }}
+                    thumbTintColor={'transparent'}
+                    thumbStyle={{ width: 0 }}
+                />
             </View>
         </View>
-        <View>
-            <Slider
-                value={data.teamsId.length / data.totalSpots}
-                maximumTrackTintColor={'rgb(254, 244, 222)'}
-                minimumTrackTintColor={'#b50000'}
-                thumbTouchSize={{ width: 0, height: 0 }}
-                thumbTintColor={'transparent'}
-                thumbStyle={{ width: 0 }}
-            />
-        </View>
-    </View>
+    </TouchableHighlight>
 );
 
-function getImageName(id: string, match: any) {
+export function getImageName(id: string, match: any) {
     let players: any[] = [...match.teamAwayPlayers, ...match.teamHomePlayers]
     let player: any = {};
     player = players.find((p: any) => p.playerId == id)
@@ -98,13 +109,12 @@ const TeamItem = ({ data, date, match }: { data: Team, date: any, match: any }) 
 
 (
     <View style={styles.wholeTeamContainer}>
-
         <View style={styles.teamTop}>
             <View style={styles.teamInfo}>
-                <Text>
+                <Text style={styles.bright}>
                     {match.teamHomeCode}
                 </Text>
-                <Text>
+                <Text style={styles.bright} >
                     {
                         match.teamHomePlayers.filter((f: any) =>
                             data.players.some((s: any) => f.playerId == s.playerId)
@@ -113,10 +123,10 @@ const TeamItem = ({ data, date, match }: { data: Team, date: any, match: any }) 
                 </Text>
             </View>
             <View style={styles.teamInfo}>
-                <Text>
+                <Text style={styles.bright}>
                     {match.teamAwayCode}
                 </Text>
-                <Text>
+                <Text style={styles.bright}>
                     {
                         match.teamAwayPlayers.filter((f: any) =>
                             data.players.some((s: any) => f.playerId == s.playerId)
@@ -125,14 +135,13 @@ const TeamItem = ({ data, date, match }: { data: Team, date: any, match: any }) 
                 </Text>
             </View>
             <View style={styles.teamInfo}>
-                <Text>
-                    <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 15, height: 15 }} />
+                <Text style={styles.bright} >
+                    <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 55, height: 55 }} />
                 </Text>
             </View>
             <View style={styles.teamInfo}>
-                <Image source={{ uri: getImageName(data.viceCaptainId, match) }} style={{ width: 15, height: 15 }} />
+                <Image source={{ uri: getImageName(data.viceCaptainId, match) }} style={{ width: 55, height: 55 }} />
             </View>
-
         </View>
         <View style={styles.info}>
             <View style={styles.singleInfo}>
@@ -155,6 +164,39 @@ const TeamItem = ({ data, date, match }: { data: Team, date: any, match: any }) 
     </View>
 );
 
+const MyCoItem = ({ data, date, match }: { data: MyContest, date: any, match: any }) =>
+(
+    <TouchableHighlight>
+        <View style={styles.contest}>
+            <View>
+                <Text>{data.contest.price}</Text>
+            </View>
+            <View style={styles.teamContainer}>
+                <View style={styles.team}>
+                    <Text>{data?.contest.totalSpots}</Text>
+                </View>
+                <View style={styles.team}>
+                    <Text>{data?.contest.userIds?.length}</Text>
+                </View>
+                <View style={styles.team}>
+                    <Text>{data?.contest.teamsId?.length}</Text>
+                </View>
+            </View>
+            <View>
+                <Slider
+                    value={data?.contest.teamsId?.length / data?.contest.totalSpots}
+                    maximumTrackTintColor={'rgb(254, 244, 222)'}
+                    minimumTrackTintColor={'#b50000'}
+                    thumbTouchSize={{ width: 0, height: 0 }}
+                    thumbTintColor={'transparent'}
+                    thumbStyle={{ width: 0 }}
+                />
+            </View>
+        </View>
+    </TouchableHighlight>
+);
+
+
 export type Props = NativeStackScreenProps<RootStackParamList, "Detail">;
 export default function DetailsScreen({ navigation, route }: Props) {
     const dispatch = useDispatch();
@@ -167,9 +209,29 @@ export default function DetailsScreen({ navigation, route }: Props) {
     const [date, setDate] = useState<Date>(new Date());
     const [commentary, setCommentary] = useState<any>();
     const [livescore, setLivescore] = useState<any>();
-    const [contests, setContests] = useState<[]>([]);
+    const [contests, setContests] = useState<any[]>([]);
+    const [myContests,setMyContests]=useState<any[]>([])
     const layout = useWindowDimensions();
     const [teams, setTeams] = useState<any[]>([]);
+    const [selectedTeam, setSelectedTeam] = useState<any>(null);
+    const [selectTeams, setSelectTeams] = useState<any>({
+        selected: false,
+        team: null,
+    });
+    const [open, setOpen] = useState<boolean>(false);
+    const [modal, setModal] = React.useState(null);
+
+    useEffect(() => {
+        if (selectTeams.team) {
+            setOpen(true);
+        }
+    }, [selectTeams]);
+    useEffect(() => {
+        setSelectTeams({
+            open: false,
+            team: selectedTeam,
+        });
+    }, [selectedTeam]);
 
     const handlePress = () => {
         navigation.navigate("Create", {
@@ -178,84 +240,32 @@ export default function DetailsScreen({ navigation, route }: Props) {
         })
     }
 
-    const FirstRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
-            <View>
-                <View>
-                    <FlatList
-                        data={contests}
-                        renderItem={renderItem}
-                        keyExtractor={(item: any) => item._id}
-                    />
-                </View>
-            </View>
-        </View>
-    );
-
-    const SecondRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-            <View>
-                <View>
-                    <Button
-                        onPress={handlePress}
-                        title="Create Team"
-                        color="#841584"
-                        accessibilityLabel="Learn more about this purple button"
-                    />
-                </View>
-            </View>
-        </View>
-    );
-
-    const ThirdRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-            <View>
-                <View>
-                    <FlatList
-                        data={contests}
-                        renderItem={renderItem}
-                        keyExtractor={(item: any) => item._id}
-                    />
-                </View>
-            </View>
-        </View>
-    );
-
-    const FourthRoute = () => (
-        <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-            <View>
-                <View>
-                    <FlatList
-                        data={teams}
-                        renderItem={renderTeamItem}
-                        keyExtractor={(item: any) => item._id}
-                    />
-                </View>
-            </View>
-        </View>
-    );
-
-    const renderScene = SceneMap({
-        contests: FirstRoute,
-        createTeam: SecondRoute,
-        myContests: ThirdRoute,
-        myTeams: FourthRoute
-    });
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'contests', title: 'Contests' },
         { key: 'createTeam', title: 'Create Team' },
-        { key: 'myContests', title: 'My Contests' },
-        { key: 'myTeams', title: 'My Teams' }
+        { key: 'myContests', title: `My Contests(${myContests?.length>-1&&myContests?.length})` },
+        { key: 'myTeams', title: `My Teams(${teams?.length>-1&&teams?.length})` }
     ]);
-    const renderItem: ListRenderItem<Contest> = ({ item }) => <Item data={item} date={date} />;
+    const handleClick = (contest: any) => {
+        setSelectTeams({ selected: true, team: null })
+        setModal(contest)
+    }
+    console.log(myContests,myContests?.length,'mycontests')
+    const renderItem: ListRenderItem<Contest> = ({ item }) => <Item data={item} date={date}
+        selectedTeam={selectedTeam} selectTeams={selectTeams} handleClick={handleClick} />;
     const renderTeamItem: ListRenderItem<Team> = ({ item }) => <TeamItem data={item} date={date} match={match_details} />;
+    const renderMyCoItem: ListRenderItem<MyContest> = ({ item }) => <MyCoItem data={item} date={date} match={match_details} />;
     useEffect(() => {
         async function getMatch() {
             dispatch<any>(getmatch(route.params.matchId));
-            const data = await axios.get(`https://backendforpuand-dream11.onrender.com/getcontests/80941`);
+            const data = await axios.get(`https://backendforpuand-dream11.onrender.com/getcontests/${route.params.matchId}`);
             setContests(data.data.contests);
+              const joinedC = await axios.get(
+                `${URL}/getjoinedcontest/${route.params.matchId}?userid=${user._id}`
+              );
+              setMyContests([...joinedC.data.contests]);
         }
         getMatch();
     }, []);
@@ -296,15 +306,104 @@ export default function DetailsScreen({ navigation, route }: Props) {
         // console.log(snapshot, "snaps");
         // });
     }, [route.params.matchId]);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const FirstRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
+            <View>
+                <View>
+                    <FlatList
+                        data={contests}
+                        renderItem={renderItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+    const SecondRoute = () => (
+        <TouchableHighlight onPress={handlePress}>
+            <View style={styles.preview}>
+                <Text style={styles.bright}>
+                    Create Team
+                </Text>
+            </View>
+        </TouchableHighlight>
+    );
+
+    const ThirdRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
+            <View>
+                <View>
+                    <FlatList
+                        data={myContests}
+                        renderItem={renderMyCoItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+    const FourthRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
+            <View>
+                <View>
+                    <FlatList
+                        data={teams}
+                        renderItem={renderTeamItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+    const renderScene = SceneMap({
+        contests: FirstRoute,
+        createTeam: SecondRoute,
+        myContests: ThirdRoute,
+        myTeams: FourthRoute
+    });
+
+    const loadjoined = async (t: any) => {
+        console.log("join contest");
+        const joinedC: any = await axios.get(
+            `${URL}/getjoinedcontest/${route.params.matchId}?userid=${user._id}`
+        );
+        setContests([...joinedC.data.contests]);
+        setSelectTeams({ selected: false, team: t });
+    };
+
     return (
         <View style={styles.container}>
-            <Overview livescore={livescore} matchId={route.params.matchId} match_details={match_details} matchlive={matchlive} />
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
-            />
+            {!selectTeams.selected ?
+                <>
+                    <Overview livescore={livescore} matchId={route.params.matchId} match_details={match_details} matchlive={matchlive} />
+                    <TabView
+                        navigationState={{ index, routes }}
+                        renderScene={renderScene}
+                        onIndexChange={setIndex}
+                        initialLayout={{ width: layout.width }}
+                    />
+                    <ConfirmModal
+                        open={open}
+                        setOpen={setOpen}
+                        handleclose={handleClose}
+                        modal={modal}
+                        teamid={selectedTeam?._id}
+                        id={route.params.matchId}
+                        loadjoined={loadjoined}
+                        setSelectedTeam={setSelectedTeam}
+                    />
+                </> :
+                <SelectTeams teams={teams} setSelectTeams={setSelectTeams} date={date} match_details={match_details} selectedTeam={selectedTeam}
+                    setSelectedTeam={setSelectedTeam} />
+            }
         </View>
     );
 }
@@ -313,6 +412,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         color: 'white',
+        zIndex:0
     },
     contest: {
         shadowColor: 'black',
@@ -398,7 +498,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: '100%',
-        height: 40,
+        height: '20%',
         padding: 2
     },
     singleInfo: {
@@ -412,7 +512,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         flexDirection: 'row',
-        height: 110,
+        height: '80%',
         width: '100%'
     },
     teamInfo: {
@@ -424,5 +524,23 @@ const styles = StyleSheet.create({
     },
     light: {
         color: 'rgb(119, 119, 119)'
+    },
+    bright: {
+        color: '#FFFFFF',
+        textTransform: 'uppercase'
+    },
+    preview: {
+        flex: 1,
+        backgroundColor: '#000000',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        color: 'white',
+        flexDirection: 'row',
+        height: 60,
+        padding: 2,
+        borderRadius: 15,
+        width: '50%',
+        marginHorizontal: 'auto',
+        marginVertical: 5
     }
 });
