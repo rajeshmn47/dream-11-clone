@@ -26,8 +26,7 @@ import { loadToken, loadUser } from '../../actions/userAction';
 import CreateTeam from '../CreateTeam';
 import SelectCaptain from '../Captain';
 import ContestDetail from '../ContestDetail';
-import BottomTabNavigator from '../navigation/TabNavigator';
-import DrawerNavigator from '../navigation/DrawerNavigator';
+import MyMatches from '../MyMatches';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -68,7 +67,8 @@ const Item = ({ data, date }: { data: Match, date: any }) => (
     </View>
 );
 
-export default function Routes() {
+
+export default function MyStackNavigator() {
     const dispatch = useDispatch();
     const { userToken, user } = useSelector((state: any) => state.user);
     const [text, setText] = useState('');
@@ -104,12 +104,32 @@ export default function Routes() {
     }, []);
     return (
         <>
-            <NavigationContainer independent={true}>
-                <DrawerNavigator />
-            </NavigationContainer>
+            {userToken == null ? (
+                // No token found, user isn't signed in
+                <NavigationContainer independent={true}>
+                    <Stack.Navigator>
+                        <Stack.Screen name="Login" component={LoginScreen} />
+                        <Stack.Screen name="Register" component={RegisterScreen} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            ) : (
+                // User is signed in
+                <NavigationContainer independent={true}>
+                    <Stack.Navigator>
+                        <Stack.Screen name="MyMatches" component={MyMatches} options={{ headerShown: false }} />
+                        <Stack.Screen name="Detail" component={DetailsScreen} options={{ headerShown: false }}/>
+                        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Create" component={CreateTeam} />
+                        <Stack.Screen name="Captain" component={SelectCaptain} />
+                        <Stack.Screen name="ConDetail" component={ContestDetail} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            )}
         </>
     );
 }
+
+
 
 const styles = StyleSheet.create({
     container: {

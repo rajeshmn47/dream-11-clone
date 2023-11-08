@@ -10,23 +10,9 @@ import axios from "axios";
 import { getDisplayDate } from '../utils/dateFormat';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { loadToken, logout } from '../actions/userAction';
-import { useDispatch } from 'react-redux';
-import NavbarContainer from './navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStackParamList } from './HomeScreen';
 
-
-export type RootStackParamList = {
-    Home: undefined;
-    Detail: { matchId: string };
-    Login: undefined,
-    Register: undefined,
-    Create: { matchId: string, editMode: Boolean },
-    Routes: undefined,
-    Captain: { players: any[], matchId: string },
-    ConDetail: { contestId: string, contest: any, matchId: string },
-    MyMatches: { userId: string }
-};
-
-export type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 
 export interface Match {
@@ -72,13 +58,15 @@ const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: 
 
     );
 }
-
-export default function HomeScreen({ navigation }: Props) {
+export type Props = NativeStackScreenProps<RootStackParamList, "MyMatches">;
+export default function MyMatches({ navigation }: Props) {
+    const { userToken, user } = useSelector((state: any) => state.user);
     const dispatch: any = useDispatch();
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [date, setDate] = useState<Date>(new Date());;
+    const [date, setDate] = useState<Date>(new Date());
+    const [completed,setCompleted]=useState<any[]>([])
     const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} navigation={navigation} />;
     useEffect(() => {
         async function getupcoming() {
@@ -87,10 +75,26 @@ export default function HomeScreen({ navigation }: Props) {
                 const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
                 const json: any = await response.json();
                 console.log(json.upcoming, 'json')
-                const a: [] = json.upcoming.results.sort(
-                    (c: any, d: any) => new Date(c.date).valueOf() - new Date(d.date).valueOf()
-                );
-                setUpcoming([...a]);
+                const a: [] = json.upcoming.results;
+                setUpcoming([...a])
+            } catch (error) {
+                console.error(error);
+            }
+            setLoading(false);
+        }
+        getupcoming();
+    }, []);
+    useEffect(() => {
+        async function getupcoming() {
+            setLoading(true);
+            try {
+                const response = await fetch(`https://backendforpuand-dream11.onrender.com/myMatches/${user._id}`);
+                const json: any = await response.json();
+                console.log(json.upcoming, 'json')
+                const a: [] = json.completed.results.sort(
+                    (c:any, b:any) => new Date(b.date).valueOf() - new Date(c.date).valueOf()
+                  );;
+                setCompleted([...a])
             } catch (error) {
                 console.error(error);
             }
@@ -110,17 +114,18 @@ export default function HomeScreen({ navigation }: Props) {
         dispatch(logout())
         dispatch(loadToken())
     }
+    console.log(completed,'completed')
     return (
         <View style={styles.container}>
             <Button
                 onPress={onPress}
                 title="Log Out"
-                color="#40b46e"
+                color="#589251"
                 accessibilityLabel="Learn more about this purple button"
             />
             <View>
                 <FlatList
-                    data={upcoming}
+                    data={completed}
                     renderItem={renderItem}
                     keyExtractor={(item: any) => item.id}
                 />
@@ -132,7 +137,8 @@ export default function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        color: 'white'
+        color: 'white',
+        padding: 10
     },
     match: {
         shadowColor: 'black',
