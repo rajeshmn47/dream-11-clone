@@ -57,7 +57,8 @@ function geturl() {
   if (current == "local") {
     return "http://localhost:8000";
   }
-  return "https://backendforpuand-dream11.onrender.com";
+  //return "https://backendforpuand-dream11.onrender.com";
+  return "http://35.78.102.183";
 }
 
 function getfrontendurl() {
