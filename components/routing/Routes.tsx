@@ -28,6 +28,7 @@ import SelectCaptain from '../Captain';
 import ContestDetail from '../ContestDetail';
 import BottomTabNavigator from '../navigation/TabNavigator';
 import DrawerNavigator from '../navigation/DrawerNavigator';
+import MyStackNavigator from '../navigation/MyStackNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
@@ -105,7 +106,7 @@ export default function Routes() {
     return (
         <>
             <NavigationContainer independent={true}>
-                <DrawerNavigator />
+                <MyStackNavigator/>
             </NavigationContainer>
         </>
     );

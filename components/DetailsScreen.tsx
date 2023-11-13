@@ -439,7 +439,7 @@ export default function DetailsScreen({ navigation, route }: Props) {
                 );
             }
         }
-        getdata();
+        // getdata();
         // onSnapshot((docRef, "cities"), (snapshot) => {
         // let array = []; // Get users all recent talks and render that in leftColumn content
         // console.log(snapshot, "snaps");
@@ -597,7 +597,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         color: 'white',
-        zIndex: 0
+        zIndex: 0,
+        height: 500,
+        width: "100%"
     },
     contest: {
         shadowColor: 'black',

@@ -90,7 +90,7 @@ export default class SideMenu extends React.Component {
                         <Text>More</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="help" style={styles.icon} size={16} />
+                      
                         <Text>Help & Support</Text>
                     </View>
                     <View style={styles.oneBlock}>

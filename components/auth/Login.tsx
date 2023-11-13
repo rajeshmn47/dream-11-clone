@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Loader from '../loader/Loader';
 import { RootStackParamList } from '../HomeScreen';
+import { URL } from '../../constants/userConstants';
 
 export type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -42,7 +43,7 @@ const LoginScreen = ({ navigation }: Props) => {
         let dataToSend: any = { myform:{email: userEmail, password: userPassword }};
         let formBody: any = [];
         console.log(dataToSend, 'formbody')
-        fetch('http://localhost:8000/auth/login', {
+        fetch(`${URL}/auth/login`, {
             method: 'POST',
             body: JSON.stringify(dataToSend),
             headers: {

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet } from 'react-native';
+import { LogBox, ScrollView, StyleSheet } from 'react-native';
 import { Text, FlatList, TextInput, View, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
@@ -23,7 +23,7 @@ import LoginScreen from './components/auth/Login';
 import RegisterScreen from './components/auth/Register';
 import Routes from './components/routing/Routes';
 import { loadToken } from './actions/userAction';
-
+LogBox.ignoreLogs(['Invalid prop textStyle of type array supplied to Cell']);
 const Stack = createStackNavigator<RootStackParamList>();
 
 
