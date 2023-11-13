@@ -55,10 +55,14 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 function geturl() {
   const current = process.env.REACT_APP_API;
   if (current == "local") {
-    return "http://localhost:8000";
+    //return "http://35.78.205.163";
+    //return "https://backendforpuand-dream11.onrender.com";
+    return 'http://localhost:4000';
   }
-  //return "https://backendforpuand-dream11.onrender.com";
-  return "http://35.78.102.183";
+  else{
+  return "https://backendforpuand-dream11.onrender.com";
+  //return "http://35.78.205.163";
+  }
 }
 
 function getfrontendurl() {
