@@ -8,3 +8,4 @@ declare module 'react-native-side-menu-updated';
 declare module 'react-native-drawer-layout';
 declare module 'react-native-vector-icons/SimpleLineIcons';
 declare module 'react-native-vector-icons/Ionicons';
+declare module 'react-native-vector-icons/AntDesign';
