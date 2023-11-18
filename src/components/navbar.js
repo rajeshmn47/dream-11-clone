@@ -12,7 +12,7 @@ import { Button, Drawer, Grid } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { logout } from "../actions/userAction";
 import Bottomnav from "./navbar/bottomnavbar";
 import LeftDrawer from "./navbar/leftDrawer";
@@ -154,11 +154,11 @@ export function Navbar({ home }) {
           <p>total balance</p>
           <h5>₹{user && user.wallet}</h5>
         </DeatilTop>
-        <AddButton onClick={() =>navigate("/payment", {
-                        state: {
-                          tab: 'deposit',
-                        },
-                      })}>add cash</AddButton>
+        <AddButton onClick={() => navigate("/payment", {
+          state: {
+            tab: 'deposit',
+          },
+        })}>add cash</AddButton>
         <Deatil>
           <p>Amount added</p>
           <h5>₹ {user?.totalAmountAdded}</h5>
@@ -170,11 +170,11 @@ export function Navbar({ home }) {
               <h5>₹ {user?.totalAmountWon}</h5>
             </Grid>
             <Grid item sm={5} xx={5}>
-              <Button  onClick={() => navigate("/transaction", {
-                        state: {
-                          tab: 'withdrawal',
-                        },
-                      })}>Withdraw</Button>
+              <Button onClick={() => navigate("/transaction", {
+                state: {
+                  tab: 'withdrawal',
+                },
+              })}>Withdraw</Button>
             </Grid>
           </WithdrawContainer>
         </Deatil>
@@ -186,9 +186,9 @@ export function Navbar({ home }) {
       {home && (
         <div className="hometop">
           <div onClick={() => navigate("/")}
-        className={location.pathname == "/" ? "hometopicon selectgame" : "hometopicon"}>
+            className={location.pathname == "/" ? "hometopicon selectgame" : "hometopicon"}>
             <SportsCricketIcon
-              style={{ color: "#C41E22", fontSize: "16px", fontWeight: "400" }}
+              style={{ color: "#C41E22", fontSize: "20px", fontWeight: "400" }}
             />
             <h5>Cricket</h5>
           </div>
@@ -197,21 +197,21 @@ export function Navbar({ home }) {
             className={location.pathname == "/football" ? "hometopicon selectgame" : "hometopicon"}
             style={{ fontSize: "12px", fontWeight: "400" }}
           >
-            <SportsSoccerIcon />
+            <SportsSoccerIcon style={{ fontSize: "20px", fontWeight: "400" }} />
             <h5>Football</h5>
           </div>
           <div
             className="hometopicon"
             style={{ fontSize: "12px", fontWeight: "400" }}
           >
-            <SportsBasketballIcon />
+            <SportsBasketballIcon style={{ fontSize: "20px", fontWeight: "400" }} />
             <h5>Basketball</h5>
           </div>
           <div
             className="hometopicon"
             style={{ fontSize: "12px", fontWeight: "400" }}
           >
-            <SportsHockeyIcon />
+            <SportsHockeyIcon style={{ fontSize: "20px", fontWeight: "400" }} />
             <h5>Hockey</h5>
           </div>
         </div>
