@@ -173,7 +173,7 @@ export function Match({ u, live }) {
         >
           {live || u.lineups}
         </h5>
-        <NotificationAddOutlinedIcon style={{ fontSize: "18px" }} />
+        <NotificationAddOutlinedIcon style={{ fontSize: "20px" }} />
       </Top>
       <div className="match">
         <div className="matchcenter">
@@ -243,9 +243,9 @@ export function Match({ u, live }) {
           </div>
         </div>
         <div className="icon">
-          <GrMultimedia className="reacticon" />
+          <GrMultimedia className="reacticon" style={{ fontSize: "16px" }} />
           <SportsCricketOutlinedIcon
-            style={{ color: "#595959", fontSize: "18px", marginLeft: "5px" }}
+            style={{ color: "#595959", fontSize: "20px", marginLeft: "5px" }}
           />
         </div>
       </div>

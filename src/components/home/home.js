@@ -21,6 +21,7 @@ import Bottomnav from "../navbar/bottomnavbar";
 import Loader from "../loader";
 import Navbar from "../navbar";
 import { SportsCricketOutlined } from "@mui/icons-material";
+import { GrMultimedia } from "react-icons/gr";
 
 const RightSide = styled.div`
   width: 90px;
@@ -330,8 +331,9 @@ export function Home() {
                               </div>
                             </div>
                             <div className="icon">
+                            <GrMultimedia className="reacticon" />
                               <SportsCricketOutlined
-                                style={{ color: "#595959", fontSize: "18px" }}
+                                style={{ color: "#595959", fontSize: "20px", marginLeft: "5px" }}
                               />
                             </div>
                           </div>
