@@ -333,7 +333,7 @@ export function Home() {
                             <div className="icon">
                               <GrMultimedia className="reacticon" style={{ fontSize: "16px" }} />
                               <SportsCricketOutlined
-                                style={{ color: "#595959", fontSize: "20px", marginLeft: "5px" }}
+                                style={{ color: "#595959", fontSize: "20px", marginLeft: "5.1px" }}
                               />
                             </div>
                           </div>
