@@ -165,12 +165,12 @@ export default function CreateTeam({ navigation, route }: Props) {
         let awayPlayers: [] = data.data.matchdetails.teamAwayPlayers.map((obj: any) => ({
           ...obj,
           isHome: false,
-          code: data.data.matchdetails.teamAwayCode,
+          code: data.data.matchdetails?.teamAwayCode,
         }));
         let homePlayers: [] = data.data.matchdetails.teamHomePlayers.map((obj: any) => ({
           ...obj,
           isHome: true,
-          code: data.data.matchdetails.teamHomeCode,
+          code: data.data.matchdetails?.teamHomeCode,
         }));
         if (!data.data.live) {
           if (route.params?.editMode) {
