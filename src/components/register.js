@@ -6,17 +6,18 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { react, useState } from "react";
+import { react, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { URL } from "../constants/userConstants";
+import { LOGIN_SUCCESS, URL } from "../constants/userConstants";
 import Otp from "./otp";
 import { useAlert } from "react-alert";
 import { Typography } from "@mui/material";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const PHONE_REGEX = new RegExp(
   /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim
@@ -27,6 +28,10 @@ const Err = styled.p`
 `;
 
 export function Register() {
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
   const alert = useAlert();
   const [err, setErr] = useState();
   const [email, setEmail] = useState("");
@@ -59,6 +64,16 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+    if (error) {
+      alert.error(error);
+    }
+  }, [user, isAuthenticated, error]);
+
   console.log(errors, "errors");
   const onSubmit = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
@@ -69,6 +84,8 @@ export function Register() {
     });
     console.log(data);
     if (data.data.success) {
+      localStorage.setItem("token", data.data.token);
+      dispatch({ type: LOGIN_SUCCESS, payload: data.data.user });
       setErr(data.data.message);
       alert.success(data.data.message);
       setOpen(true);
