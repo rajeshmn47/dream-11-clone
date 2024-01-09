@@ -17,7 +17,6 @@ export default function Logingoogle() {
     const { data } = await axios.post(`${URL}/auth/googlelogin`, {
       tokenId: access_token,
     });
-    console.log(data);
     localStorage.setItem("token", data.server_token);
     dispatch(loadUser());
     history("/");
