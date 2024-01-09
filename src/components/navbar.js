@@ -33,7 +33,7 @@ const Account = styled.h3`
   font-size: 12px;
   border-radius: 50%;
   background-color: #ffffff;
-  color: red;
+  color: var(--red);
   width: 20px;
   height: 20px;
   display: flex;
@@ -114,6 +114,7 @@ export function Navbar({ home }) {
         <Account
           onClick={() => handleLeftClick()}
           style={{ cursor: "pointer" }}
+          className="name"
         >
           {user?.username && user?.username.charAt(0)}
         </Account>
@@ -188,7 +189,8 @@ export function Navbar({ home }) {
           <div onClick={() => navigate("/")}
             className={location.pathname == "/" ? "hometopicon selectgame" : "hometopicon"}>
             <SportsCricketIcon
-              style={{ color: "#C41E22", fontSize: "20px", fontWeight: "400" }}
+              style={{ fontSize: "20px", fontWeight: "400" }}
+              className={location.pathname == "/" ? "selectedIcon" : ""}
             />
             <h5>Cricket</h5>
           </div>

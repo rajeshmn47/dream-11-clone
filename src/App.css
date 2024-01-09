@@ -32,22 +32,27 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 * {
   margin: 0;
   padding: 0;
   font-family: "Open Sans" !important;
 }
+
 .selectedrt {
   color: var(--red) !important;
   cursor: pointer;
 }
+
 .notselectedrt {
   cursor: pointer;
 }
+
 .paybtn {
   background-color: var(--red);
   color: #ffffff;
@@ -66,17 +71,28 @@
   background-color: var(--red);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
+
 .whatsappwidget {
   position: fixed;
 }
+
 ._2qp0Z {
   bottom: 2px !important;
   right: 15px !important;
   width: 58px !important;
   height: 58px !important;
 }
+
+.name {
+  color: var(--red);
+}
+
+.selectedIcon {
+  color: var(--red);
+}
+
 :root {
-  --red: #b50000;
+  --red: #00308F;
   --green: #109e38;
   --black: #1a1a1a;
   --white: #ffffff;

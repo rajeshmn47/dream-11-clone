@@ -84,8 +84,6 @@ export function Register() {
     });
     console.log(data);
     if (data.data.success) {
-      localStorage.setItem("token", data.data.token);
-      dispatch({ type: LOGIN_SUCCESS, payload: data.data.user });
       setErr(data.data.message);
       alert.success(data.data.message);
       setOpen(true);
@@ -96,12 +94,19 @@ export function Register() {
   };
 
   const handleotp = async () => {
+    try{
     const data = await axios.post(`${URL}/auth/otp`, {
       email,
       otp,
     });
     setErr(data.data.message);
+    localStorage.setItem("token", data.data.token);
+    dispatch({ type: LOGIN_SUCCESS, payload: data.data.user });
     alert.success(data.data.message);
+  }
+  catch(e){
+    alert.error(e)
+  }
   };
 
   return (

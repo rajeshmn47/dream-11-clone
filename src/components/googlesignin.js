@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { GoogleLogin } from "react-google-login";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,8 @@ export default function Logingoogle() {
   const dispatch = useDispatch();
 
   const onGoogleSuccess = async (response) => {
-    const access_token = response.tokenId;
+    console.log(response, 'response')
+    const access_token = response.credential;
     const { data } = await axios.post(`${URL}/auth/googlelogin`, {
       tokenId: access_token,
     });
@@ -40,14 +41,18 @@ export default function Logingoogle() {
       }}
     >
       <p style={{ textAlign: "center" }}>Google Oauth Sign In</p>
-      <GoogleLogin
-        clientId="711974125982-gaeieriu9q60ctbps2qpbjitv0374d7l.apps.googleusercontent.com"
-        buttonText="Sign in with Google"
-        onSuccess={onGoogleSuccess}
-        onFailure={onGoogleFailure}
-        className="google-login-button"
-        cookiePolicy="single_host_origin"
-      />
+      <GoogleOAuthProvider clientId="438326678548-td4f7iss3q98btacu17h57mpi8tpn7cq.apps.googleusercontent.com">
+        <GoogleLogin
+          onSuccess={credentialResponse => {
+            console.log(credentialResponse)
+            onGoogleSuccess(credentialResponse)
+          }}
+          onError={() => {
+            console.log('Login Failed')
+            onGoogleFailure('err')
+          }}
+        />
+      </GoogleOAuthProvider>
     </div>
-  );
+  )
 }
