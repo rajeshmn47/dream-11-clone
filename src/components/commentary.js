@@ -133,7 +133,8 @@ export function Commentary({ matchdata }) {
           (doc) => {
             console.log("Current data: ");
             if (doc.data()) {
-              setCommentary([...doc.data().capital.reverse()]);
+              console.log(doc.data(),'data')
+              setCommentary([...doc.data().commentary.reverse()]);
               console.log("0");
             }
           }
