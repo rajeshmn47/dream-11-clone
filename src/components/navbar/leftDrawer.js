@@ -163,6 +163,8 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
     window.location.reload();
   };
 
+  console.log(user, 'user')
+
   function ListA(anchor) {
     return (
       <Box
