@@ -220,3 +220,11 @@
 .reacticon path {
   stroke: #595959;
 }
+
+.notfound{
+  color:rgb(236, 30, 30);
+  text-align:center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 24px;
+}
