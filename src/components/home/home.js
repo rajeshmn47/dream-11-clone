@@ -338,7 +338,7 @@ export function Home() {
                     </div>
                   </div>
                 )
-            ) : 'no matches'}
+            ) : <div className="notfound">no matches found</div>}
         </CricketBg>
         {live?.length > 0 && <div className="matches">
           <>
