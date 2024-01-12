@@ -10,6 +10,8 @@ const Container = styled.div`
   justify-content: center;
   .MuiCircularProgress-root {
     color: #4b4b4b;
+    width:25px !important;
+    height:25px !important;
   }
 `;
 
