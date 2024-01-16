@@ -6,35 +6,35 @@
     margin-left: 15px;
 }
 
-h1 {
+.refund-policy h3 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
 }
 
-p {
+.refund-policy  p {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-strong {
+.refund-policy strong {
     font-weight: bold;
 }
 
-ol {
+.refund-policy ol {
     padding-left: 20px;
 }
 
 @media only screen and (max-width: 600px) {
-    h1 {
+    .refund-policy   h1 {
         font-size: 24px;
     }
 
-    p {
+    .refund-policy p {
         font-size: 14px;
     }
 
-    ol {
+    .refund-policy ol {
         padding-left: 10px;
     }
 }

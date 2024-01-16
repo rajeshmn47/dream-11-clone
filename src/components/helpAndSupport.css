@@ -1,4 +1,4 @@
-help-and-support {
+.help-and-support {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 10px;
@@ -6,29 +6,29 @@ help-and-support {
     margin-left: 15px;
 }
 
-h1 {
+.help-and-support  h1 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
     
 }
 
-p {
+.help-and-support  p {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-strong {
+.help-and-support  strong {
     font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {
-    h1 {
+    .help-and-support    h1 {
         font-size: 24px;
     
     }
 
-    p {
+    .help-and-support   p {
         font-size: 14px;
         margin-left : 9px;
     }
