@@ -226,7 +226,7 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
             Privacy Policy
           </ListI>
           <ListI onClick={() => navigate("/refund")}>
-            <PrivacyTipOutlinedIcon style={{ width: "60px" }} />
+          <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} />
             Refund Policy
           </ListI>
           {/* <ListI>
