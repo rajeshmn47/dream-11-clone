@@ -29,6 +29,12 @@ import "react-whatsapp-widget/dist/index.css";
 import MyInfo from "./components/myinfo/MyInfo";
 import TransactionTabs from "./components/transaction";
 import Admin from "./components/admin/Admin";
+import PrivacyPolicy from "./components/privacyPolicy";
+import Donate from "./components/Donate"
+import More from "./components/more";
+import TermsAndConditions from "./components/termsAndConditions";
+import Refund from "./components/refund";
+import HelpAndSupport from "./components/helpAndSupport"
 
 function App() {
   const dispatch = useDispatch();
@@ -100,6 +106,12 @@ function App() {
           <Route path="/my-info" element={<MyInfo />} />
           <Route path="/transaction" element={<TransactionTabs />} />
           <Route path="/admin" element={<Admin/>} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
+          <Route path="/termsAndConditions" element={<TermsAndConditions/>} />
+          <Route path="/refund" element={<Refund/>} />
+          <Route path="/helpAndSupport" element={<HelpAndSupport/>} />
+          <Route path="/more" element={<More/>} />
+          <Route path="/donate" element={<Donate/>} />
         </Routes>
       </BrowserRouter>
       {confetti && (

@@ -61,7 +61,7 @@ const Contest = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-    background-color: red !important;
+    background-color: #2bfd00 !important;
   }
 `;
 
@@ -80,7 +80,7 @@ const ContestJ = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-    background-color: red !important;
+    background-color: #2bfd00 !important;
   }
 `;
 

@@ -20,6 +20,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -206,21 +209,31 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
           <ListI onClick={() => navigate("/findpeople")}>
             <BoyOutlined style={{ width: "60px" }} /> Find People
           </ListI>
-          <ListI>
-            <SportsEsportsOutlinedIcon style={{ width: "60px" }} /> How to Play
-          </ListI>
-          <ListI>
-            <GroupsOutlinedIcon style={{ width: "60px" }} /> Champions Club
-          </ListI>
           <ListI onClick={() => navigate("/my-info")}>
             <SettingsOutlinedIcon style={{ width: "60px" }} />
             My Info & Settings
           </ListI>
-          <ListI>
-            <MoreHorizOutlinedIcon style={{ width: "60px" }} />
-            more
+          <ListI onClick={() => navigate("/donate")}>
+            <PaidOutlinedIcon style={{ width: "60px" }} />
+            Donate
           </ListI>
-          <ListI>
+          <ListI onClick={() => navigate("/termsAndConditions")}>
+            <TopicOutlinedIcon style={{ width: "60px" }} />
+            Terms & Conditions
+          </ListI>
+          <ListI onClick={() => navigate("/privacyPolicy")}>
+            <PrivacyTipOutlinedIcon style={{ width: "60px" }} />
+            Privacy Policy
+          </ListI>
+          <ListI onClick={() => navigate("/refund")}>
+            <PrivacyTipOutlinedIcon style={{ width: "60px" }} />
+            Refund Policy
+          </ListI>
+          {/* <ListI>
+            <MoreHorizOutlinedIcon style={{ width: "60px" }} />
+            More
+          </ListI> */}
+          <ListI onClick={() => navigate("/helpAndSupport")}>
             <HelpOutlineOutlinedIcon style={{ width: "60px" }} />
             Help & Support
           </ListI>
