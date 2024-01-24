@@ -22,6 +22,7 @@ import Bottomnav from "./navbar/bottomnavbar";
 import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
 import { useAlert } from "react-alert";
+import Loader from "./loader";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -148,6 +149,7 @@ export function Captain({ players, editMode, teamId }) {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const alert = useAlert();
+  const [loading, setLoading] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [vicecaptainId, setVicecaptainId] = useState(null);
   const [captainId, setCaptainId] = useState(null);
@@ -194,6 +196,7 @@ export function Captain({ players, editMode, teamId }) {
     setSelectedPlayers([...po]);
   };
   const handleSave = async () => {
+    setLoading(true);
     console.log("clicked next");
     const data = await axios.post(`${URL}/saveteam/${id}`, {
       players: selectedPlayers,
@@ -202,12 +205,14 @@ export function Captain({ players, editMode, teamId }) {
       captainId,
       vicecaptainId,
     });
+    setLoading(false);
     setSave(true);
     alert.success(data.data.message);
     navigate(`/contests/${id}`);
   };
 
   const handleUpdate = async () => {
+    setLoading(true);
     console.log("clicked next");
     const data = await axios.put(`${URL}/updateTeam/${teamId}`, {
       players: selectedPlayers,
@@ -217,6 +222,7 @@ export function Captain({ players, editMode, teamId }) {
       vicecaptainId,
     });
     setSave(true);
+    setLoading(false);
     alert.success(data.data.message);
     navigate(`/contests/${id}`);
   };
@@ -230,7 +236,7 @@ export function Captain({ players, editMode, teamId }) {
     <>
       {!save ? (
         <>
-          <Description>
+          {loading && <Loader />}<Description>
             <h3>Choose your captain and vicecaptain</h3>
             <p>C gets 2x points, VC gets 1.5x points</p>
           </Description>
@@ -264,16 +270,16 @@ export function Captain({ players, editMode, teamId }) {
             </PrevButton>
             {editMode ? (
               <NextButton
-                disabled={!isCandVcselected(selectedPlayers)}
-                className={isCandVcselected ? "selectedc" : "not"}
+                disabled={(!isCandVcselected(selectedPlayers)) || loading}
+                className={(isCandVcselected || (!loading)) ? "selectedc" : "not"}
                 onClick={() => handleUpdate()}
               >
                 save
               </NextButton>
             ) : (
               <NextButton
-                disabled={!isCandVcselected(selectedPlayers)}
-                className={isCandVcselected ? "selectedc" : "not"}
+                disabled={(!isCandVcselected(selectedPlayers)) || loading}
+                className={(isCandVcselected || (!loading)) ? "selectedc" : "not"}
                 onClick={() => handleSave()}
               >
                 save
