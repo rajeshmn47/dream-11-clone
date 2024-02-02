@@ -43,7 +43,6 @@ const Wallet = styled.img`
   height: 50px;
   width: 50px;
   vertical-align: inherit;
-  margin-radius: 0px;
   box-shadow: 0 3px 5px 0 rgba(40, 44, 63, 0.4);
 `;
 
