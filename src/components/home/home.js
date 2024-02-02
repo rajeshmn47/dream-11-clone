@@ -349,10 +349,10 @@ export function Home() {
             )}
           </>
         </div>}
-        <div className="matches">
+        <div className="upcomingmatches">
+        <h3>Upcoming Matches</h3>
           {!loading ? (upcoming?.length > 0 ? (
             <>
-              <h3>Upcoming Matches</h3>
               {upcoming.map((u) => (
                 <Match u={u} />
               ))}

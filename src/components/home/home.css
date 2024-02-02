@@ -51,6 +51,16 @@
   overflow-x: scroll;
 }
 
+.upcomingmatches{
+  background-color: #ffffff;
+  padding: 2vh 3vw;
+  box-sizing: border-box;
+  height: auto;
+  overflow-x: scroll;
+  position: relative;
+  min-height: 160px;
+}
+
 .live {
   position: relative;
 }
