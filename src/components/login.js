@@ -120,7 +120,7 @@ export function Login() {
               className="itseveryday"
               variant="contained"
               disableElevation
-              style={{ backgroundColor: "#24B937" }}
+              style={{ backgroundColor: "#03d47c" }}
             >
               Log in
             </Button>

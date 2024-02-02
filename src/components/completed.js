@@ -39,6 +39,7 @@ import Bottomnav from "./navbar/bottomnavbar";
 import Loader from "./loader";
 import Navbar from "./navbar";
 import Steppr from "./stepper";
+import Match from "./home/match";
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -168,7 +169,7 @@ export function Completed() {
         const um = data.data.upcoming?.results.sort(
           (b, a) => new Date(a.date) - new Date(b.date)
         );
-        const lm = data.data.upcoming?.results.sort(
+        const lm = data.data.live?.results.sort(
           (b, a) => new Date(a.date) - new Date(b.date)
         );
         setPast(cm);
@@ -365,6 +366,14 @@ export function Completed() {
                 </div>
               </TabPanel>
               <TabPanel value={value} index={1}>
+                {live?.length > 0 && <div className="matches">
+                  <>
+                    {(live.map((u) => (
+                      <Match u={u} live />
+                    ))
+                    )}
+                  </>
+                </div>}
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <div className="matches">
