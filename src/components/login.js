@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../actions/userAction";
 import { URL } from "../constants/userConstants";
 import { useAlert } from "react-alert";
+import { Box, Typography } from "@mui/material";
 
 const Err = styled.p`
   color: red;
@@ -46,19 +47,30 @@ export function Login() {
     dispatch(login(formdata));
   };
   return (
-    <>
+    <Box sx={{ backgroundColor: "#03D47C", minHeight: "100vh" }}>
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
         Dream 11
       </div>
 
-      <div className="register">
-        <Paper style={{ padding: "2vh 2vw" }}>
-          <h5 style={{ marginBottom: "10px" }}>LOG IN & PLAY</h5>
-          <div
-            style={{
+      <Box
+        sx={{
+          marginTop: 15,
+          marginLeft: { xs: "none", sm: "none", md: "33%" },
+          marginRight: { xs: "none", sm: "none", md: "33%" },
+        }}
+      >
+        <Paper
+          style={{
+            padding: 25,
+            minHeight: "60vh",
+            border: "solid 1px black",
+          }}
+        >
+          <Typography variant="h3">LOG IN & PLAY</Typography>
+          <Box
+            sx={{
               display: "flex",
-              width: "100%",
               justifyContent: "space-evenly",
             }}
           >
@@ -67,9 +79,10 @@ export function Login() {
               style={{
                 backgroundColor: "#FFFFFF",
                 color: "black",
-                width: "50%",
+                width: "30%",
                 marginRight: "1vw",
                 height: "30px",
+                border: "solid 1px black",
               }}
               onClick={() =>
                 alert("not working yet,only google login is working")
@@ -84,17 +97,18 @@ export function Login() {
               style={{
                 backgroundColor: "#FFFFFF",
                 color: "black",
-                width: "50%",
+                width: "30%",
                 height: "30px",
                 display: "flex",
                 alignItems: "center",
+                border: "solid 1px black",
               }}
               onClick={() => navigate("/googlelogin")}
             >
               <img src="./google.svg" alt="" style={{ marginRight: "5px" }} />
               Google
             </Button>
-          </div>
+          </Box>
           <form onSubmit={handlesubmit} className="loginform">
             <TextField
               id="fullWidth"
@@ -104,6 +118,12 @@ export function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              sx={{
+                borderRadius: "5px",
+                padding: 1,
+                mb: 1,
+                border: "solid 1px black",
+              }}
             />
 
             <TextField
@@ -114,22 +134,34 @@ export function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              sx={{
+                border: "solid 1px black",
+                borderRadius: "5px",
+                padding: 1,
+                mb: 2,
+              }}
             />
             <Button
               type="submit"
               className="itseveryday"
               variant="contained"
               disableElevation
-              style={{ backgroundColor: "#03d47c" }}
+              sx={{ backgroundColor: "#03d47c", marginTop: 2 }}
             >
               Log in
             </Button>
           </form>
-          <Link to="/forgot-password">forgot password</Link>
-          <Link to="/register">Dont have a account?Sign up</Link>
+          <Box sx={{ mt: 2, mb: 2 }}>
+            <Box sx={{ mb: 2 }}>
+              <Link to="/forgot-password">Forgot Password</Link>
+            </Box>
+            <Box>
+              <Link to="/register">Don't have an account? Sign up</Link>
+            </Box>
+          </Box>
         </Paper>
-      </div>
-    </>
+      </Box>
+    </Box>
   );
 }
 
