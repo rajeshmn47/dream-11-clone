@@ -41,7 +41,6 @@ export function Login() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
     const formdata = { email, password };
     dispatch(login(formdata));
   };
