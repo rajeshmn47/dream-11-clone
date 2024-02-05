@@ -204,7 +204,7 @@ const StatusC = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  background-color: #fef4de;
+  background-color: #2bfd00;
   border-bottom: 1px solid;
   border-bottom-color: currentcolor;
   border-color: rgba(106, 106, 106, 0.12);
