@@ -1,0 +1,99 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans" !important;
+}
+
+.selectedrt {
+  color: var(--red) !important;
+  cursor: pointer;
+}
+
+.notselectedrt {
+  cursor: pointer;
+}
+
+.paybtn {
+  background-color: var(--red);
+  color: #ffffff;
+  border: none;
+  outline: none;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.triangle::before {
+  content: "";
+  display: block;
+  padding-top: 86.6%;
+  background-color: var(--red);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.whatsappwidget {
+  position: fixed;
+}
+
+._2qp0Z {
+  bottom: 2px !important;
+  right: 15px !important;
+  width: 58px !important;
+  height: 58px !important;
+}
+
+.name {
+  color: var(--red);
+}
+
+.selectedIcon {
+  color: var(--red);
+}
+
+:root {
+  --red: #03d47c;
+  --green: #1a3d32;
+  --black: #1a1a1a;
+  --white: #ffffff;
+}

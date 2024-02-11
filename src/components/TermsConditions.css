@@ -1,0 +1,39 @@
+.term-and-condition {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.term-and-condition h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.term-and-condition p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.term-and-condition strong {
+    font-weight: bold;
+}
+
+.term-and-condition ol {
+    padding-left: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .term-and-condition h1 {
+        font-size: 24px;
+    }
+
+    .term-and-condition p {
+        font-size: 14px;
+    }
+
+    .term-and-condition  ol {
+        padding-left: 10px;
+    }
+}

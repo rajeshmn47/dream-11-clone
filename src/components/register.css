@@ -1,0 +1,69 @@
+.register {
+  background-color: #fafafa;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.registerform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.loginform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.forgotform {
+  padding: 2vh 2vw;
+  box-sizing: border-box;
+  text-align: center;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.registertopbar {
+  background-color: var(--red);
+  color: #ffffff;
+  height: 10vh;
+  padding: 2vh 2vw;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.logintopbar {
+  background-color: var(--red);
+  color: #ffffff;
+  height: 10vh;
+  padding: 2vh 3vw;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+.MuiPaper-root {
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+  justify-content: space-between;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 15px;
+}
