@@ -6,7 +6,6 @@ import { ListRenderItem } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 import SvgUri from 'react-native-svg-uri';
-import axios from "axios";
 import { getDisplayDate } from './utils/dateFormat';
 import HomeScreen from './components/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -67,32 +66,7 @@ export default function App() {
   const [text, setText] = useState('');
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState<Date>(new Date());;
-  const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} />;
-  useEffect(() => {
-    async function getupcoming() {
-      setLoading(true);
-      try {
-        const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
-        const json: any = await response.json();
-        console.log(json.upcoming, 'json')
-        const a: [] = json.upcoming.results;
-        setUpcoming([...a])
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
-    }
-    getupcoming();
-  }, []);
-  useEffect(() => {
-    const i = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(i);
-    };
-  }, []);
+  const [date, setDate] = useState<Date>(new Date());
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

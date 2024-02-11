@@ -42,7 +42,6 @@ const headers = {
 };
 export const register = (myform:any) => async (dispatch:any) => {
   try {
-    console.log(myform);
     dispatch({ type: REGISTER_USER_REQUEST });
     const { data } = await axios.post(`${URL}/auth/register`, {
       myform,
@@ -60,7 +59,6 @@ export const register = (myform:any) => async (dispatch:any) => {
 
 export const login = (myform:any) => async (dispatch:any) => {
   try {
-    console.log(myform, "huccha");
     dispatch({ type: LOGIN_REQUEST });
     const { data } = await axios.post(`${URL}/auth/login`, {
       myform,
@@ -130,7 +128,9 @@ export const loadUser = () => async (dispatch:any) => {
     const servertoken = await AsyncStorage.getItem("server_token");
     dispatch({ type: LOAD_USER_REQUEST });
     const { data } = await API.get(`/auth/loaduser`);
-    if (data.message) {
+    console.log(data?.message,'message')
+    if (data?.message) {
+      console.log(data.message,'message')
       dispatch({ type: LOAD_USER_SUCCESS, payload: data.message });
     }
   } catch (error) {

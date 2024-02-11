@@ -47,7 +47,6 @@ export default function Scorecard({ data, livescore, g }: { data: any, g: any, l
         setHomePlayers([...all])
         setAwayPlayers([...allAway]);
     }, [data]);
-    console.log(data, livescore, g, 'livescore')
     return (
         <View style={styles.container}>
             <Collapse style={styles.collapse}>

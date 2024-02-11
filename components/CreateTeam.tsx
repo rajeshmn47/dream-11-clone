@@ -14,7 +14,7 @@ import { RootStackParamList } from './HomeScreen';
 import { getmatch } from "../actions/matchAction";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar, TabBarItem } from 'react-native-tab-view';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IonicIcon from 'react-native-vector-icons/Ionicons';
 import { useWindowDimensions } from 'react-native';
@@ -42,7 +42,7 @@ export interface Contest {
   playerName: string;
   image: string;
   isSelected: boolean;
-  playerId:string;
+  playerId: string;
 }
 
 
@@ -50,7 +50,6 @@ export type Props = NativeStackScreenProps<RootStackParamList, "Create">;
 export default function CreateTeam({ navigation, route }: Props) {
   const dispatch = useDispatch();
   const { match_details, matchlive } = useSelector((state: any) => state.match);
-  console.log(match_details, 'matchDetails')
   const [text, setText] = useState('');
   const [upcoming, setUpcoming] = useState([]);
   const [date, setDate] = useState<Date>(new Date());
@@ -70,8 +69,6 @@ export default function CreateTeam({ navigation, route }: Props) {
   const handlePress = () => {
 
   }
-
-
 
   const FirstRoute = () => (
     <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
@@ -145,22 +142,12 @@ export default function CreateTeam({ navigation, route }: Props) {
     { key: 'bowl', title: 'Bowl' }
   ]);
   const renderItem: ListRenderItem<Contest> = ({ item }) => <Item data={item} date={date} />;
-  useEffect(() => {
-    async function getMatch() {
-      dispatch<any>(getmatch(route.params.matchId));
-      const data = await axios.get(`https://backendforpuand-dream11.onrender.com/getcontests/80941`);
-      setContests(data.data.contests);
-    }
-    getMatch();
-  }, []);
 
   useEffect(() => {
     async function getupcoming() {
-      console.log(route.params.matchId, 'matchid create')
       if (route.params.matchId) {
         setLoading(true);
         const data = await axios.get(`${URL}/getplayers/${route.params.matchId}`);
-        console.log(data, "testdata");
         setLive(data.data.live);
         let awayPlayers: [] = data.data.matchdetails.teamAwayPlayers.map((obj: any) => ({
           ...obj,
@@ -241,15 +228,12 @@ export default function CreateTeam({ navigation, route }: Props) {
         const moredata = await axios.get(
           `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`
         );
-        console.log(data.data.lmplayers, moredata.data.lmplayers, "lmplayers");
         setLmplayers([...data.data.lmplayers]);
       }
     }
     getplayers();
   }, [match, user]);
-  console.log(players, 'selected')
   const handleClick = (i: string) => {
-    console.log(i, 'i')
     const po = players.map((p) => {
       if (p._id === i) {
         p.isSelected = true;
@@ -270,16 +254,16 @@ export default function CreateTeam({ navigation, route }: Props) {
   };
 
   const handleNext = () => {
-    if(players.filter((k) => k.isSelected === true).length == 11){
-    navigation.navigate('Captain', { players: players.filter((p) => p.isSelected == true), matchId: route.params.matchId })
+    if (players.filter((k) => k.isSelected === true).length == 11) {
+      navigation.navigate('Captain', { players: players.filter((p) => p.isSelected == true), matchId: route.params.matchId })
     }
   };
 
   const Item = ({ data, date }: { data: Contest, date: any }) => (
-    <TouchableHighlight  disabled={players.filter((p:any)=>p.isSelected==true).length>=11
-    &&(!(players.find((p:any)=>(p.playerId==data.playerId&&p.isSelected==true))))}
-     onPress={!data.isSelected ? () => handleClick(data._id) : () => handleRemove(data._id)}>
-      <View style={data.isSelected ? styles.contest : styles.notSelected}>
+    <TouchableHighlight disabled={players.filter((p: any) => p.isSelected == true).length >= 11
+      && (!(players.find((p: any) => (p.playerId == data.playerId && p.isSelected == true))))}
+      onPress={!data.isSelected ? () => handleClick(data._id) : () => handleRemove(data._id)}>
+      <View style={data.isSelected ? styles.pSelected : styles.notSelected}>
         <View style={!data.isSelected ? styles.teamContainer : styles.selected}>
           <View>
             <Image source={{ uri: getImgurl(data.image, data.playerName) }} style={{ width: 35, height: 35 }} />
@@ -307,13 +291,28 @@ export default function CreateTeam({ navigation, route }: Props) {
 
   return (
     <View style={styles.container}>
-      <Overview livescore={livescore} matchId={route.params.matchId} match_details={match_details} matchlive={matchlive} />
       <View style={styles.players}>
         <TabView
           navigationState={{ index, routes }}
           renderScene={renderScene}
           onIndexChange={setIndex}
           initialLayout={{ width: layout.width }}
+          renderTabBar={props => (
+            <TabBar
+              {...props}
+              indicatorStyle={{ backgroundColor: 'black' }}
+              scrollEnabled={true}
+              renderTabBarItem={(props) => (
+                <View style={props.key == (!(index == 0) ? 'upcoming' : 'featured') ? styles.firstTab : styles.firstTab}>
+                  <TabBarItem
+                    {...props}
+                    activeColor='white'
+                    inactiveColor='black'
+                  />
+                </View>
+              )}
+            />
+          )}
         />
       </View>
       <View style={styles.nextContainer}>
@@ -367,6 +366,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 5
   },
+  pSelected: {
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 14,
+    margin: 15,
+    borderRadius: 10,
+    height: 100,
+    backgroundColor: 'white',
+    padding: 5
+  },
   team: {
     flex: 1,
     backgroundColor: 'white',
@@ -394,7 +408,7 @@ const styles = StyleSheet.create({
   },
   teamContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'space-between',
     color: 'white',
@@ -402,6 +416,19 @@ const styles = StyleSheet.create({
     height: 70,
     padding: 2,
     borderRadius: 2,
+    width:'100%'
+  },
+  selected: {
+    flex: 1,
+    backgroundColor:'#FFF',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    color: 'white',
+    flexDirection: 'row',
+    height: 70,
+    padding: 2,
+    borderRadius: 2,
+    width:'100%'
   },
   preview: {
     flex: 1,
@@ -461,17 +488,6 @@ const styles = StyleSheet.create({
     padding: 2,
     borderRadius: 2,
   },
-  selected: {
-    backgroundColor: '#ecac6f',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    color: 'white',
-    flexDirection: 'row',
-    height: 70,
-    padding: 2,
-    borderRadius: 2,
-  },
   disabled: {
     backgroundColor: 'grey',
     alignItems: 'center',
@@ -494,10 +510,20 @@ const styles = StyleSheet.create({
     width: '50%'
   },
   players: {
-    zIndex: 10
+    backgroundColor: 'white',
+    color: 'white',
+    zIndex: 0,
+    height: 600,
+    width: "100%"
   },
   bright: {
     color: '#FFFFFF',
     textTransform: 'uppercase'
-  }
+  },
+  firstTab: {
+    backgroundColor: '#47814c'
+  },
+  secondTab: {
+    backgroundColor: '#2d2d2d'
+  },
 });

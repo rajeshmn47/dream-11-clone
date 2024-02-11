@@ -70,7 +70,6 @@ export default function Stats({ matchdata, team, route }: { matchdata: any, team
         getupcoming();
     }, [route.params.matchId]);
 
-    console.log(players, allPlayers, dreamTeam, 'dreamteam')
     return (
         <View style={styles.container}>
             <Table borderStyle={{ borderWidth: 1 }}>

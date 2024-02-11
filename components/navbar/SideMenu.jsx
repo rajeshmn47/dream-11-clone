@@ -1,8 +1,12 @@
 import React from "react";
-import { SafeAreaView, Text, View, Switch } from "react-native";
+import { SafeAreaView, Text, View, Switch, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import MaterialIcon from "react-native-vector-icons/Feather";
 import IonicIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { loadToken, logout } from "../../actions/userAction";
+import { connect } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
     safeAreaView: {
@@ -10,14 +14,33 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff"
     },
     container: {
-        margin: 12,
-        flex: 1
+        margin: 0,
+        flex: 1,
+        fontStyle: 'italic',
+        fontSize: 18
+    },
+    titleContainer: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: "#000000",
+        padding: 2,
+        paddingLeft: 20,
+        paddingBottom: 10
     },
     title: {
         marginTop: 15,
         marginBottom: 10,
         color: "#444",
-        fontSize: 14
+        fontSize: 18
+    },
+    textColor: {
+        color: "#FFFFFF",
+        fontSize: 18
+    },
+    text: {
+        fontSize: 16,
+        fontStyle: 'normal'
     },
     swithBlock: {
         flexDirection: "row",
@@ -42,70 +65,82 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'row',
-        marginTop: 10
+        marginTop: 20,
+        marginLeft: 15,
+        padding: 4,
+        fontSize: 16
     },
     icon: {
-        marginRight: 10
+        marginRight: 15
+    },
+    arrowicon:{
+        marginLeft:100
     }
 });
 
-export default class SideMenu extends React.Component {
+class SideMenu extends React.Component {
     state = {
         toggle_option_one: false
     };
 
     callParentScreenFunction = () => this.props.callParentScreenFunction();
 
+    onPress = () => {
+        const { dispatch } = this.props;
+        dispatch(logout())
+        dispatch(loadToken())
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeAreaView}>
                 <View style={styles.container}>
-                    <Title title="Timeline" />
-                    <View style={styles.sidebarItem}>
-                        <Icon name="wallet" style={styles.icon} size={16} />
-                        <Text>My Balance</Text>
+                    <View style={styles.titleContainer}>
+                        <IonicIcon name="account-circle" style={styles.icon} size={25} color='#FFFFFF' />
+                        <Text style={styles.textColor}>Rajesh</Text>
+                        <Icon name="arrow-right" style={styles.arrowicon} size={20} color='#FFF' />
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="logout" style={styles.icon} size={16} />
-                        <Text>Logout</Text>
+                        <Icon name="wallet" style={styles.icon} size={20} />
+                        <Text style={styles.text}>Wallet Balance</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="people" style={styles.icon} size={16} />
-                        <Text>People</Text>
+                        <Icon name="people" style={styles.icon} size={20} />
+                        <Text style={styles.text}>Community</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="game-controller" style={styles.icon} size={16} />
-                        <Text>How to play</Text>
+                        <Icon name="settings" style={styles.icon} size={20} />
+                        <Text style={styles.text}>settings</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <IonicIcon name="account-group-outline" style={styles.icon} size={16} />
-                        <Text>Champions Club</Text>
+                        <Icon name="game-controller" style={styles.icon} size={20} />
+                        <Text style={styles.text}>How to play</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="settings" style={styles.icon} size={16} />
-                        <Text>My Info And Settings</Text>
+                        <IonicIcon name="account-group-outline" style={styles.icon} size={20} />
+                        <Text style={styles.text}>terms & conditions</Text>
                     </View>
                     <View style={styles.sidebarItem}>
-                        <Icon name="more" style={styles.icon} size={16} />
-                        <Text>More</Text>
+                        <IonicIcon name="help" style={styles.icon} size={20} />
+                        <Text style={styles.text}>Help & Support</Text>
                     </View>
-                    <View style={styles.sidebarItem}>
-                      
-                        <Text>Help & Support</Text>
-                    </View>
-                    <View style={styles.oneBlock}>
-                        <Description text="When enabled, on your timeline we will only show ratings with reviews." />
-                    </View>
+                    <TouchableOpacity onPress={() => this.onPress()}>
+                        <View style={styles.sidebarItem}>
+                            <IonicIcon name="logout" style={styles.icon} size={20} />
+                            <Text style={styles.text}>Logout</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.footer}>
                     <Text onPress={this.callParentScreenFunction} style={styles.link}>
-                        Press to call parent function
                     </Text>
                 </View>
             </SafeAreaView>
         );
     }
 }
+
+export default connect()(SideMenu);
 
 const Title = ({ title }) => {
     return <Text style={styles.title}>{title}</Text>;

@@ -1,75 +1,33 @@
-import React, { Component, useRef, useState } from 'react';
-import { Button, DrawerLayoutAndroid, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Button, Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Modal from "react-native-modal"
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import IonicIcon from 'react-native-vector-icons/Ionicons';
-import SideMenu from './SideMenu';
-import Sidebar from 'react-native-sidebar';
-import Drawer from 'react-native-drawer';
-import Modal from "react-native-modal";
-import {
-    createDrawerNavigator,
-    DrawerContentScrollView,
-    DrawerItemList,
-    DrawerItem,
-} from '@react-navigation/drawer';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import LeftBar from './LeftBar';
-import Loader from '../loader/Loader';
-import Test from '../Test';
-import { ScrollView, Dimensions, Platform} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import SideMenu from "./SideMenu";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const { width } = Dimensions.get("window");
-export default function NavbarContainer({ navigation }: { navigation: any }) {
-    const { userToken, user } = useSelector((state: any) => state.user);
-    const menu = <Test navigator={navigator} />;
-    const [open, setOpen] = useState<boolean>(false)
-    const drawer = useRef<DrawerLayoutAndroid>(null);
-    const [drawerPosition, setDrawerPosition] = useState<'left' | 'right'>(
-        'left',
-    );
-    const changeDrawerPosition = () => {
-        if (drawerPosition === 'left') {
-            setDrawerPosition('right');
-        } else {
-            setDrawerPosition('left');
-        }
-    };
 
-    const navigationView = () => (
-        <View style={[styles.container, styles.navigationContainer]}>
-            <Text style={styles.paragraph}>I'm in the Drawer!</Text>
-            <Button
-                title="Close drawer"
-                onPress={() => drawer.current?.closeDrawer()}
-            />
-        </View>
-    );
-    const handlePress = () => {
-        setOpen(true)
-    }
-    const callParentScreenFunction = () => {
-        // If needed, can be  called
-        // when pressed in the SideMenu
-      };
+export default function Navbar() {
+    const { isAuthenticated, user } = useSelector((state: any) => state.user);
+    const [open, setOpen] = useState<boolean>(false);
+    const width = Dimensions.get('window').width;
     return (
-        <>
-            <View style={styles.navbarContainer}>
-                <TouchableHighlight onPress={() => handlePress()}>
-                    <View style={styles.user} >
-                        <Text style={styles.red}>
-                            {user?.username && user?.username.charAt(0).toUpperCase()}
-                        </Text>
+        <View style={styles.container}>
+            <View style={styles.leftContainer}>
+                <TouchableOpacity onPress={() => setOpen(true)}>
+                    <View style={{ marginRight: 10 }}>
+                        <Icon name="menu" color="#fff" size={20} />
                     </View>
-                </TouchableHighlight>
-                <View style={styles.center}>
-                    <Icon name="trophy" color='#FFFFFF' size={16} style={styles.icon} />
-                    <Text style={styles.bright}>DREAM 11</Text>
+                </TouchableOpacity>
+                <Text style={styles.textColor}>Powerplay{user?.username}</Text>
+            </View>
+            <View style={styles.rightContainer}>
+                <View style={{ marginRight: 10 }}>
+                    <Ionicons name="notifications" color="#fff" size={20} />
                 </View>
-                <View style={styles.last}>
-                    <IonicIcon name="notifications-outline" color='#FFFFFF' size={16} style={styles.icon} />
-                    <Icon name="wallet" color='#FFFFFF' size={16} />
+                <View style={{ marginRight: 10 }}>
+                    <Ionicons name="wallet" color="#fff" size={20} />
                 </View>
             </View>
             <Modal
@@ -84,105 +42,124 @@ export default function NavbarContainer({ navigation }: { navigation: any }) {
                 style={styles.sideMenuStyle}
             >
                 <Text>rajesh</Text>
-                <SideMenu/>
+                <SideMenu />
                 <Button title="close" onPress={() => setOpen(false)} />
             </Modal>
-        </>
-    );
-}
+        </View>
 
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         color: 'white',
-    },
-    navbarContainer: {
-        backgroundColor: '#9133f0',
-        height: 40,
-        padding: 4,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    user: {
-        borderRadius: 10,
-        backgroundColor: '#ffffff',
-        color: '#9133f0',
-        borderColor: '#CCCCCC',
-        height: 20,
-        width: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
-    },
-    center: {
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    last: {
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    bright: {
-        color: '#FFFFFF'
-    },
-    red: {
-        color: '#9133f0',
-        textAlign: 'center',
-        fontSize: 12,
-        textAlignVertical: "center",
-        alignSelf: 'center'
-    },
-    icon: {
-        marginRight: 5
-    },
-    modalBackground: {
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        backgroundColor: '#00000040',
-    },
-    activityIndicatorWrapper: {
-        backgroundColor: '#FFFFFF',
         height: 100,
-        width: 100,
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    leftContainer: {
+        backgroundColor: 'black',
+        color: 'white',
+        height: 100,
+        padding: 0,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        width: (width-20) / 2
+    },
+    rightContainer: {
+        backgroundColor: 'black',
+        color: 'white',
+        height: 100,
+        padding: 0,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        width: (width-30) / 2
+    },
+    match: {
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 14,
+        margin: 15,
         borderRadius: 10,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-around',
+        height: 150,
+        backgroundColor: 'white',
+        padding: 10,
+        paddingHorizontal: 5
     },
-    activityIndicator: {
-        alignItems: 'center',
-        height: 80,
-    },
-    leftBar: {
-        position: 'absolute',
-        left: 0,
-        right: 0
-    },
-    dContainer: {
+    team: {
         flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        color: 'white',
+        flexDirection: 'row',
+        height: 60,
+        padding: 10,
+        width: 40
+    },
+    subContainer: {
+        flex: 1,
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 16,
+        color: 'black',
+        height: 50,
+        padding: 10
     },
-    navigationContainer: {
-        backgroundColor: '#ecf0f1',
+    stretch: {
+        width: 50,
+        height: 50,
+        resizeMode: 'stretch',
     },
-    paragraph: {
-        padding: 16,
-        fontSize: 15,
-        textAlign: 'center',
+    teamContainer: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        color: 'white',
+        flexDirection: 'row',
+        height: 70,
+        padding: 5,
+        borderRadius: 2,
+    },
+    matchTop: {
+        borderBottomColor: '#DDDDDD',
+        borderBottomWidth: 1,
+        borderRadius: 2,
+    },
+    matchBottom: {
+        backgroundColor: '#fafafa',
+        height: 40
+    },
+    matchDate: {
+        width: 100,
+        fontSize: 10,
+        flex: 2,
+        alignItems: 'center'
+    },
+    dateText: {
+        fontSize: 12,
+        color: 'rgb(94, 91, 91)'
+    },
+    title: {
+        overflow: 'hidden',
+    },
+    textColor: {
+        color: 'white'
     },
     sideMenuStyle: {
         margin: 0,
         width: width * 0.75 // SideMenu width
     }
 });
-
-const drawerStyles = {
-    drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-    main: { paddingLeft: 3 },
-}

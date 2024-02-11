@@ -82,15 +82,6 @@ export default function Routes() {
             setLoading(true);
             dispatch<any>(loadToken())
             dispatch<any>(loadUser())
-            try {
-                const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
-                const json: any = await response.json();
-                console.log(json.upcoming, 'json')
-                const a: [] = json.upcoming.results;
-                setUpcoming([...a])
-            } catch (error) {
-                console.error(error);
-            }
             setLoading(false);
         }
         getupcoming();

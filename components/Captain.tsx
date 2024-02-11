@@ -52,7 +52,6 @@ export type Props = NativeStackScreenProps<RootStackParamList, "Captain">;
 export default function SelectCaptain({ navigation, route }: Props) {
     const dispatch = useDispatch();
     const { match_details, matchlive } = useSelector((state: any) => state.match);
-    console.log(match_details, 'matchDetails')
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [date, setDate] = useState<Date>(new Date());
@@ -91,9 +90,7 @@ export default function SelectCaptain({ navigation, route }: Props) {
         }
         getPlayers();
     }, [route.params.matchId]);
-    console.log(players, 'selected')
     const handleCaptain = (i: string) => {
-        console.log(i, 'i')
         const po = players.map((p) => {
             if (p._id === i) {
                 p.isCaptain = true;
@@ -104,7 +101,6 @@ export default function SelectCaptain({ navigation, route }: Props) {
     };
 
     const nHandleCaptain = (i: string) => {
-        console.log(i, 'i')
         const po = players.map((p) => {
             if (p._id === i) {
                 p.isCaptain = false;
@@ -140,19 +136,35 @@ export default function SelectCaptain({ navigation, route }: Props) {
         return a && b;
     }
 
-    const handleSave = async () => {
-        const data = await axios.post(`${URL}/saveteam/${route.params.matchId}`,
-            {
-                players: players,
-                matchId: route.params.matchId,
-                userid: user._id,
-                captainId: players.find((p) => p.isCaptain == true).playerId,
-                vicecaptainId: players.find((p) => p.isViceCaptain == true).playerId,
-            })
+    const handleSave = () => {
+        console.log('saving')
+        const dataToSend: any = {
+            players: players,
+            matchId: route.params.matchId,
+            userid: user._id,
+            captainId: players.find((p) => p.isCaptain == true).playerId,
+            vicecaptainId: players.find((p) => p.isViceCaptain == true).playerId,
+        }
+        fetch(`${URL}/saveteam/${route.params.matchId}`, {
+            method: 'POST',
+            body: JSON.stringify(dataToSend),
+            headers: {
+                //Header Defination
+                'Content-Type': "application/json",
+            },
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                //Hide Loader
+                setLoading(false);
+                // If server response message same as Data Matched
+            }).catch((error: any) => {
+                console.error(error)
+                // Error; SMS not sent
+                // ...
+            });
 
         navigation.navigate('Detail', { matchId: route.params.matchId });
     };
-
     const Item = ({ data, date }: { data: Contest, date: any }) => (
 
         <View>

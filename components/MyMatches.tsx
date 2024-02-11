@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet } from 'react-native';
+import { Button, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import { Text, FlatList, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
@@ -12,6 +12,11 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { loadToken, logout } from '../actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStackParamList } from './HomeScreen';
+import { URL } from '../constants/userConstants';
+import BottomBar from './BottomBar';
+import Navbar from './navbar/Navbar';
+import { Link } from '@react-navigation/native';
+import { SceneMap, TabBar, TabBarItem, TabView } from 'react-native-tab-view';
 
 
 
@@ -58,23 +63,27 @@ const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: 
 
     );
 }
+const w: any = Dimensions.get('window').width
 export type Props = NativeStackScreenProps<RootStackParamList, "MyMatches">;
-export default function MyMatches({ navigation }: Props) {
+export default function MyMatches({ navigation, route }: Props) {
     const { userToken, user } = useSelector((state: any) => state.user);
     const dispatch: any = useDispatch();
     const [text, setText] = useState('');
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        { key: 'upcoming', title: 'Upcoming' },
+        { key: 'completed', title: 'Completed' }]);
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
     const [date, setDate] = useState<Date>(new Date());
-    const [completed,setCompleted]=useState<any[]>([])
+    const [completed, setCompleted] = useState<any[]>([])
     const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} navigation={navigation} />;
     useEffect(() => {
         async function getupcoming() {
             setLoading(true);
             try {
-                const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
+                const response = await fetch(`${URL}/completed/${user._id}`);
                 const json: any = await response.json();
-                console.log(json.upcoming, 'json')
                 const a: [] = json.upcoming.results;
                 setUpcoming([...a])
             } catch (error) {
@@ -88,13 +97,16 @@ export default function MyMatches({ navigation }: Props) {
         async function getupcoming() {
             setLoading(true);
             try {
-                const response = await fetch(`https://backendforpuand-dream11.onrender.com/myMatches/${user._id}`);
+                const response = await fetch(`${URL}/myMatches/${user._id}`);
                 const json: any = await response.json();
-                console.log(json.upcoming, 'json')
                 const a: [] = json.completed.results.sort(
-                    (c:any, b:any) => new Date(b.date).valueOf() - new Date(c.date).valueOf()
-                  );;
-                setCompleted([...a])
+                    (c: any, b: any) => new Date(b.date).valueOf() - new Date(c.date).valueOf()
+                );
+                const b: [] = json.upcoming.results.sort(
+                    (c: any, b: any) => new Date(b.date).valueOf() - new Date(c.date).valueOf()
+                );
+                setCompleted([...a]);
+                setUpcoming([...b])
             } catch (error) {
                 console.error(error);
             }
@@ -114,22 +126,72 @@ export default function MyMatches({ navigation }: Props) {
         dispatch(logout())
         dispatch(loadToken())
     }
-    console.log(completed,'completed')
+
+    const FirstRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
+            <View>
+                <View>
+                    <FlatList
+                        data={upcoming}
+                        renderItem={renderItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+    const SecondRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
+            <View>
+                <View>
+                    <FlatList
+                        data={completed}
+                        renderItem={renderItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+
+    const renderScene = SceneMap({
+        upcoming: FirstRoute,
+        completed: SecondRoute
+    });
+
     return (
         <View style={styles.container}>
-            <Button
-                onPress={onPress}
-                title="Log Out"
-                color="#589251"
-                accessibilityLabel="Learn more about this purple button"
-            />
-            <View>
-                <FlatList
-                    data={completed}
-                    renderItem={renderItem}
-                    keyExtractor={(item: any) => item.id}
+            <Navbar />
+            <View style={styles.tabsContainer}>
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={(a) => setIndex(a)
+                    }
+                    initialLayout={{ width: w }}
+                    overScrollMode={'auto'}
+                    renderTabBar={props => (
+                        <TabBar
+                            {...props}
+                            tabStyle={{ width: w / 2, backgroundColor: '#5c5a5a' }}
+                            scrollEnabled={true}
+                            renderTabBarItem={(props) => (
+                                <View>
+                                    <TabBarItem
+
+                                        {...props}
+                                        activeColor='white'
+                                        inactiveColor='white'
+                                    />
+                                </View>
+                            )}
+                        />
+                    )}
                 />
             </View>
+            <BottomBar route={route} navigation={navigation} />
         </View>
     );
 }
@@ -138,7 +200,19 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
         color: 'white',
-        padding: 10
+    },
+    matchesContainer: {
+        backgroundColor: 'white',
+        color: 'white',
+        padding: 10,
+        height: 600
+    },
+    tabsContainer: {
+        backgroundColor: 'white',
+        color: 'white',
+        zIndex: 0,
+        height: 600,
+        width: "100%"
     },
     match: {
         shadowColor: 'black',
@@ -154,7 +228,7 @@ const styles = StyleSheet.create({
         height: 150,
         backgroundColor: 'white',
         padding: 10,
-        paddingHorizontal: 5
+        paddingHorizontal: 10
     },
     team: {
         flex: 1,
@@ -212,8 +286,6 @@ const styles = StyleSheet.create({
         color: 'rgb(94, 91, 91)'
     },
     title: {
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
     }
 });

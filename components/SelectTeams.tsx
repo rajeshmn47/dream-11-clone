@@ -3,16 +3,13 @@ import { Button, ScrollView, StyleSheet } from 'react-native';
 import { Text, FlatList, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import FastImage from 'react-native-fast-image';
-import SvgUri from 'react-native-svg-uri';
-import axios from "axios";
+import { RadioButton } from 'react-native-paper';
 import { getDisplayDate } from '../utils/dateFormat';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { loadToken, logout } from '../actions/userAction';
 import { useDispatch } from 'react-redux';
 import { checkar, checkwk } from '../utils/playersFilter';
-import { getImageName } from './DetailsScreen';
+import { getImageName } from '../utils/images';
 
 
 export type RootStackParamList = {
@@ -82,9 +79,7 @@ const TeamItem = ({ data, date, match, selectedTeam, setSelectedTeam }: {
                     </Text>
                 </View>
                 <View style={styles.teamInfo}>
-                    <Text style={styles.bright} >
-                        <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 55, height: 55 }} />
-                    </Text>
+                    <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 55, height: 55 }} />
                 </View>
                 <View style={styles.teamInfo}>
                     <Image source={{ uri: getImageName(data.viceCaptainId, match) }} style={{ width: 55, height: 55 }} />
@@ -111,13 +106,12 @@ const TeamItem = ({ data, date, match, selectedTeam, setSelectedTeam }: {
 
         </View>
         <View style={styles.input}>
-            <input
-                type="radio"
-                name="site_name"
+            <RadioButton.Android
                 value={data?._id}
-                checked={data._id === selectedTeam?._id}
-                onChange={() => setSelectedTeam(data)}
-                style={{ float: "right", marginRight: "10px" }}
+                status={data._id === selectedTeam?._id ?
+                    'checked' : 'unchecked'}
+                onPress={() => setSelectedTeam(data)}
+                color="#3d7248"
             />
         </View>
     </View>
@@ -141,7 +135,6 @@ export default function SelectTeams({ teams, setSelectTeams, selectedTeam, date,
             try {
                 const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
                 const json: any = await response.json();
-                console.log(json.upcoming, 'json')
                 const a: [] = json.upcoming.results;
                 setUpcoming([...a])
             } catch (error) {
@@ -156,13 +149,13 @@ export default function SelectTeams({ teams, setSelectTeams, selectedTeam, date,
         dispatch(loadToken())
     }
     return (
-            <View>
-                <FlatList
-                    data={teams}
-                    renderItem={renderTeamItem}
-                    keyExtractor={(item: any) => item._id}
-                />
-            </View>
+        <View>
+            <FlatList
+                data={teams}
+                renderItem={renderTeamItem}
+                keyExtractor={(item: any) => item._id}
+            />
+        </View>
     );
 }
 
@@ -247,12 +240,10 @@ const styles = StyleSheet.create({
         color: 'rgb(94, 91, 91)'
     },
     title: {
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
     },
     wholeTeamContainer: {
-        flex:9,
+        flex: 9,
         shadowColor: 'black',
         shadowOffset: {
             width: 0,
@@ -277,7 +268,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         height: '20%',
-        padding: 2
+        padding: 2,
+        backgroundColor: '#FFF'
     },
     singleInfo: {
         alignItems: 'center',
@@ -321,7 +313,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 'auto',
         marginVertical: 5
     },
-    input:{
-        flex:1
+    input: {
+        flex: 1
     }
 });

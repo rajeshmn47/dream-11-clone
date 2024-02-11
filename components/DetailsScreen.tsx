@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet, TouchableHighlight, TurboModuleRegistry } from 'react-native';
+import { Button, ScrollView, StyleSheet, TouchableHighlight, TouchableOpacity, TurboModuleRegistry } from 'react-native';
 import { Text, FlatList, TextInput, View, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useWindowDimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 import IonicIcon from 'react-native-vector-icons/Ionicons';
 import {
     collection,
@@ -169,9 +170,7 @@ const TeamItem = ({ data, date, match }: { data: Team, date: any, match: any }) 
                 </Text>
             </View>
             <View style={styles.teamInfo}>
-                <Text style={styles.bright} >
-                    <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 55, height: 55 }} />
-                </Text>
+                <Image source={{ uri: getImageName(data.captainId, match) }} style={{ width: 55, height: 55 }} />
             </View>
             <View style={styles.teamInfo}>
                 <Image source={{ uri: getImageName(data.viceCaptainId, match) }} style={{ width: 55, height: 55 }} />
@@ -338,7 +337,6 @@ export default function DetailsScreen({ navigation, route }: Props) {
     const dispatch = useDispatch();
     const { userToken, user } = useSelector((state: any) => state.user);
     const { match_details, matchlive } = useSelector((state: any) => state.match);
-    console.log(matchlive, 'matchDetails');
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -379,13 +377,10 @@ export default function DetailsScreen({ navigation, route }: Props) {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'contests', title: 'Contests' },
-        { key: 'createTeam', title: 'Create Team' },
+        { key: 'contests', title: 'All Contests' },
         { key: 'myContests', title: `My Contests(${myContests?.length > -1 && myContests?.length})` },
-        { key: 'myTeams', title: `My Teams(${teams?.length > -1 && teams?.length})` },
-        { key: 'commentary', title: 'Commentary' },
-        { key: 'scorecard', title: `Scorecard` },
-        { key: 'stats', title: `Stats` }
+        { key: 'myTeams', title: `My Teams(${teams?.length})` },
+        { key: 'commentary', title: 'Commentary' }
     ]);
     const handleClick = (contest: any) => {
         setSelectTeams({ selected: true, team: null })
@@ -399,7 +394,7 @@ export default function DetailsScreen({ navigation, route }: Props) {
     useEffect(() => {
         async function getMatch() {
             dispatch<any>(getmatch(route.params.matchId));
-            const data = await axios.get(`https://backendforpuand-dream11.onrender.com/getcontests/${route.params.matchId}`);
+            const data = await axios.get(`${URL}/getcontests/${route.params.matchId}`);
             setContests(data.data.contests);
             const joinedC = await axios.get(
                 `${URL}/getjoinedcontest/${route.params.matchId}?userid=${user._id}`
@@ -431,24 +426,26 @@ export default function DetailsScreen({ navigation, route }: Props) {
                     doc(db, "commentary", route.params.matchId),
                     (doc: any) => {
                         if (doc.data()) {
-                            console.log(doc.data(), "data");
-                            setCommentary([...doc.data().capital]);
+                            setCommentary([...doc.data().commentary.reverse()]);
                             setLivescore({ ...doc.data().miniscore });
                         }
                     }
                 );
             }
         }
-        // getdata();
+        getdata();
         // onSnapshot((docRef, "cities"), (snapshot) => {
         // let array = []; // Get users all recent talks and render that in leftColumn content
         // console.log(snapshot, "snaps");
         // });
     }, [route.params.matchId]);
 
+    console.log(myContests, 'mycontests')
+
     const handleClose = () => {
         setOpen(false);
     };
+
 
     const FirstRoute = () => (
         <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
@@ -463,7 +460,6 @@ export default function DetailsScreen({ navigation, route }: Props) {
             </View>
         </View>
     );
-
     const SecondRoute = () => (
         <TouchableHighlight onPress={handlePress}>
             <View style={styles.create}>
@@ -498,6 +494,16 @@ export default function DetailsScreen({ navigation, route }: Props) {
                         keyExtractor={(item: any) => item._id}
                     />
                 </View>
+            </View>
+            <View style={styles.createTeam}>
+                <TouchableHighlight onPress={handlePress}>
+                    <View style={styles.create}>
+                        <AntIcon name="pluscircleo" size={20} color="#ffffff" style={styles.icon} />
+                        <Text style={styles.bright}>
+                            Create Team
+                        </Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         </View>
     );
@@ -538,7 +544,6 @@ export default function DetailsScreen({ navigation, route }: Props) {
 
     const renderScene = SceneMap({
         contests: FirstRoute,
-        createTeam: SecondRoute,
         myContests: ThirdRoute,
         myTeams: FourthRoute,
         commentary: FifthRoute,
@@ -550,7 +555,7 @@ export default function DetailsScreen({ navigation, route }: Props) {
         const joinedC: any = await axios.get(
             `${URL}/getjoinedcontest/${route.params.matchId}?userid=${user._id}`
         );
-        setContests([...joinedC.data.contests]);
+        setMyContests([...joinedC.data.contests]);
         setSelectTeams({ selected: false, team: t });
     };
 
@@ -558,7 +563,7 @@ export default function DetailsScreen({ navigation, route }: Props) {
         <View style={styles.container}>
             {!selectTeams.selected ?
                 <>
-                    <Overview livescore={livescore} matchId={route.params.matchId} match_details={match_details} matchlive={matchlive} />
+                    <Overview navigation={navigation} livescore={livescore} matchId={route.params.matchId} match_details={match_details} matchlive={matchlive} />
                     <TabView
                         navigationState={{ index, routes }}
                         renderScene={renderScene}
@@ -571,7 +576,7 @@ export default function DetailsScreen({ navigation, route }: Props) {
                                 indicatorStyle={{ backgroundColor: 'white' }}
                                 tabStyle={{ width: 145 }}
                                 scrollEnabled={true}
-                                style={{ backgroundColor: '#9133f0' }}
+                                style={{ backgroundColor: '#3d7940' }}
                             />
                         )}
                     />
@@ -598,7 +603,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'white',
         zIndex: 0,
-        height: 500,
+        height: 700,
         width: "100%"
     },
     contest: {
@@ -628,7 +633,7 @@ const styles = StyleSheet.create({
         elevation: 14,
         margin: 15,
         borderRadius: 10,
-        height: 150,
+        height: 'auto',
         backgroundColor: 'white',
         justifyContent: 'space-evenly',
         flexDirection: 'column'
@@ -711,7 +716,7 @@ const styles = StyleSheet.create({
         elevation: 14,
         margin: 15,
         borderRadius: 10,
-        height: 150,
+        height: 300,
         justifyContent: 'space-between',
         flexDirection: 'column',
         alignItems: 'center'
@@ -730,11 +735,11 @@ const styles = StyleSheet.create({
     },
     info: {
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         flexDirection: 'row',
         width: '100%',
-        height: '20%',
-        padding: 2
+        height: 75,
+        backgroundColor: '#FFFFFF'
     },
     singleInfo: {
         alignItems: 'center',
@@ -747,7 +752,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         flexDirection: 'row',
-        height: '80%',
+        height: 225,
         width: '100%'
     },
     teamInfo: {
@@ -761,9 +766,28 @@ const styles = StyleSheet.create({
         color: 'rgb(119, 119, 119)'
     },
     bright: {
-        color: '#FFFFFF',
+        color: '#FFF',
         textTransform: 'uppercase',
         fontSize: 12
+    },
+    createButton: {
+        color: '#FFF',
+
+    },
+    buttonStyle: {
+        backgroundColor: '#3d7940',
+        borderWidth: 0,
+        color: '#FFFFFF',
+        borderColor: '#3d7940',
+        height: 40,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderRadius: 30,
+        marginLeft: 35,
+        marginRight: 35,
+        marginTop: 20,
+        marginBottom: 25,
     },
     preview: {
         flex: 1,
@@ -780,19 +804,31 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     create: {
-        flex: 1,
-        backgroundColor: '#000000',
+        backgroundColor: '#030303',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         color: 'white',
         flexDirection: 'row',
-        height: 120,
+        height: 50,
         padding: 2,
         borderRadius: 15,
-        width: '50%',
-        marginHorizontal: 'auto',
+        width: '100%',
         marginVertical: 5,
         paddingVertical: 10
+    },
+    createTeam: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        flexDirection: 'row',
+        height: 50,
+        padding: 2,
+        borderRadius: 15,
+        marginVertical: 5,
+        paddingVertical: 10
+    },
+    icon: {
+        marginRight: 10
     },
     myConBottom: {
         justifyContent: 'space-between',

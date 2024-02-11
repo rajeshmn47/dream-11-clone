@@ -1,20 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import { Text, FlatList, TextInput, View, Image, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ListRenderItem } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
-import SvgUri from 'react-native-svg-uri';
 import axios from "axios";
 import { getDisplayDate } from '../utils/dateFormat';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { loadToken, logout } from '../actions/userAction';
-import { useDispatch } from 'react-redux';
-import NavbarContainer from './navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import Navbar from './navbar/Navbar';
+import BottomBar from './BottomBar';
+import { SceneMap, TabBar, TabBarItem, TabView } from 'react-native-tab-view';
+import { SvgUri } from 'react-native-svg';
+import {
+    Title,
+    Paragraph,
+    Button,
+} from 'react-native-paper';
+import {
+    Tabs,
+    TabScreen,
+    TabsProvider,
+    useTabIndex,
+    useTabNavigation,
+} from 'react-native-paper-tabs';
+import { TabItemProps } from '@rneui/themed';
+import { URL } from '../constants/userConstants';
+import Loader from './loader/Loader';
 
 
 export type RootStackParamList = {
+    Entry: undefined;
     Home: undefined;
     Detail: { matchId: string };
     Login: undefined,
@@ -40,10 +58,13 @@ export interface Match {
 }
 
 const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: any }) => {
+    const { userToken, user } = useSelector((state: any) => state.user);
+    const [uri, setUri] = React.useState(
+        'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/not_existing.svg'
+    );
     const openPopup = () => {
-        navigation.navigate('Detail', {
-            matchId: data.id
-        });
+        console.log(data.id, 'id')
+        navigation.navigate('Detail', { matchId: data.id })
     }
     return (
         <TouchableOpacity onPress={() => openPopup()}>
@@ -53,7 +74,14 @@ const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: 
                 </View>
                 <View style={styles.teamContainer}>
                     <View style={styles.team}>
-                        <Image source={{ uri: data.teamHomeFlagUrl }} style={{ width: 15, height: 15 }} />
+                        <SvgUri
+                            onError={() =>
+                                console.log('error')
+                            }
+                            width="40"
+                            height="40"
+                            uri={data.teamHomeFlagUrl.replace("https://c8.alamy.com/comp/WKN91Y/illustration-of-a-cricket-sports-player-batsman-batting-front-view-set-inside-shield-WKN91Y.jpg", "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_(Pantone).svg")}
+                        />
                         <Text>{data.home.code}</Text>
                     </View>
                     <View style={styles.matchDate}>
@@ -61,7 +89,14 @@ const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: 
                     </View>
                     <View style={styles.team}>
                         <Text>{data.away.code}</Text>
-                        <Image source={{ uri: data.teamAwayFlagUrl }} style={{ width: 15, height: 15 }} />
+                        <SvgUri
+                            onError={() =>
+                                console.log('error')
+                            }
+                            width="40"
+                            height="40"
+                            uri={data.teamAwayFlagUrl.replace("https://c8.alamy.com/comp/WKN91Y/illustration-of-a-cricket-sports-player-batsman-batting-front-view-set-inside-shield-WKN91Y.jpg", "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_(Pantone).svg")}
+                        />
                     </View>
                 </View>
                 <View>
@@ -69,16 +104,21 @@ const Item = ({ data, date, navigation }: { data: Match, date: any, navigation: 
                 </View>
             </View>
         </TouchableOpacity>
-
     );
 }
 
-export default function HomeScreen({ navigation }: Props) {
+export default function HomeScreen({ navigation, route }: Props) {
+    const { height, width } = useWindowDimensions();
     const dispatch: any = useDispatch();
     const [text, setText] = useState('');
-    const [upcoming, setUpcoming] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [date, setDate] = useState<Date>(new Date());;
+    const [upcoming, setUpcoming] = useState<any[]>();
+    const [loading, setLoading] = useState<Boolean>(false);
+    const [date, setDate] = useState<Date>(new Date());
+    const layout = useWindowDimensions();
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        { key: 'upcoming', title: 'Upcoming' },
+        { key: 'featured', title: 'Featured' }]);
     const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} navigation={navigation} />;
     useEffect(() => {
         async function getupcoming() {
@@ -86,53 +126,109 @@ export default function HomeScreen({ navigation }: Props) {
             try {
                 const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
                 const json: any = await response.json();
-                console.log(json.upcoming, 'json')
                 const a: [] = json.upcoming.results.sort(
                     (c: any, d: any) => new Date(c.date).valueOf() - new Date(d.date).valueOf()
                 );
                 setUpcoming([...a]);
             } catch (error) {
-                console.error(error);
             }
             setLoading(false);
         }
         getupcoming();
     }, []);
-    useEffect(() => {
-        const i = setInterval(() => {
-            setDate(new Date());
-        }, 1000);
-        return () => {
-            clearInterval(i);
-        };
-    }, []);
-    const onPress = () => {
-        dispatch(logout())
-        dispatch(loadToken())
-    }
-    return (
-        <View style={styles.container}>
-            <Button
-                onPress={onPress}
-                title="Log Out"
-                color="#40b46e"
-                accessibilityLabel="Learn more about this purple button"
-            />
+
+    const FirstRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
             <View>
-                <FlatList
-                    data={upcoming}
-                    renderItem={renderItem}
-                    keyExtractor={(item: any) => item.id}
-                />
+                <View>
+                    <FlatList
+                        data={upcoming}
+                        renderItem={renderItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
             </View>
         </View>
+    );
+
+    const SecondRoute = () => (
+        <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
+            <View>
+                <View>
+                    <FlatList
+                        data={upcoming}
+                        renderItem={renderItem}
+                        keyExtractor={(item: any) => item._id}
+                    />
+                </View>
+            </View>
+        </View>
+    );
+
+    const renderScene = SceneMap({
+        upcoming: FirstRoute,
+        featured: SecondRoute
+    });
+    console.log(upcoming?.length, 'upcoming')
+    return (
+        <View style={styles.container}>
+            <Navbar />
+            <View style={styles.tabsContainer}>
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={(a) => setIndex(a)
+                    }
+                    initialLayout={{ width: layout.width }}
+                    overScrollMode={'auto'}
+                    renderTabBar={props => (
+                        <TabBar
+                            {...props}
+                            indicatorStyle={{ backgroundColor: 'black' }}
+                            tabStyle={{ width: width / 2 }}
+                            scrollEnabled={true}
+                            renderTabBarItem={(props) => (
+                                <View style={props.key == (index == 0 ? 'upcoming' : 'featured') ? styles.firstTab : styles.secondTab}>
+                                    <TabBarItem
+                                        {...props}
+                                        activeColor='white'
+                                        inactiveColor='black'
+                                    />
+                                </View>
+                            )}
+                        />
+                    )}
+                />
+            </View>
+            <BottomBar route={route} navigation={navigation} />
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        color: 'white'
+        color: 'white',
+        fontStyle: 'italic'
+    },
+    tabsContainer: {
+        backgroundColor: 'white',
+        color: 'white',
+        zIndex: 0,
+        height: 600,
+        width: "100%"
+    },
+    selectedTabTextStyle: {
+        color: 'green'
+    },
+    label: {
+        color: 'red'
+    },
+    firstTab: {
+        backgroundColor: '#333333'
+    },
+    secondTab: {
+        backgroundColor: '#FFFFFF'
     },
     match: {
         shadowColor: 'black',
@@ -206,8 +302,6 @@ const styles = StyleSheet.create({
         color: 'rgb(94, 91, 91)'
     },
     title: {
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
     }
 });

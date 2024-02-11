@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Text, FlatList, TextInput, View, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { ListRenderItem } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Slider } from '@miblanchard/react-native-slider';
@@ -11,6 +10,9 @@ import SvgUri from 'react-native-svg-uri';
 import axios from "axios";
 import { getDisplayDate } from '../../utils/dateFormat';
 import { RootStackParamList } from '../HomeScreen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import IonicIcon from 'react-native-vector-icons/Ionicons';
+import { useSelector } from 'react-redux';
 
 
 export interface Contest {
@@ -51,7 +53,8 @@ const Item = ({ data, date }: { data: Contest, date: any }) => (
     </View>
 );
 export type Props = NativeStackScreenProps<RootStackParamList, "Detail">;
-export default function Overview({ livescore, matchId, match_details, matchlive }: { livescore: any, matchId: string, match_details: any, matchlive: any }) {
+export default function Overview({ navigation, livescore, matchId, match_details, matchlive }: { navigation: any, livescore: any, matchId: string, match_details: any, matchlive: any }) {
+    const { userToken, user } = useSelector((state: any) => state.user);
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -66,8 +69,29 @@ export default function Overview({ livescore, matchId, match_details, matchlive 
         }
         getMatch();
     }, []);
+    useEffect(() => {
+        const i = setInterval(() => {
+            setDate(new Date());
+        }, 1000);
+        return () => {
+            clearInterval(i);
+        };
+    }, []);
     return (
         <View style={styles.container}>
+            <View style={styles.top}>
+                <TouchableOpacity onPressIn={() => navigation.navigate('Home')}>
+                    <IonicIcon name='arrow-back' color='#FFF' size={25} />
+                </TouchableOpacity>
+                <View style={styles.matchTitle}>
+                    <Text style={styles.brightText}>{match_details?.teamHomeName}
+                        {'  '}v/s{'  '} {match_details?.teamAwayName}</Text>
+                    <Text style={styles.brightText}>
+                       {getDisplayDate(match_details.date, 'i', date)}
+                    </Text>
+                </View>
+                <Text style={styles.brightText}>Rs.{user?.wallet}</Text>
+            </View>
             {livescore?.batsmanNonStriker?.batRuns &&
                 <View>
                     <View>
@@ -131,9 +155,21 @@ export default function Overview({ livescore, matchId, match_details, matchlive 
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#1a1a1a',
+        backgroundColor: '#000000',
         color: '#ffffff',
         padding: 10
+    },
+    top: {
+        backgroundColor: '#000',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        height: 50
+    },
+    matchTitle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
     },
     contest: {
         shadowColor: 'black',

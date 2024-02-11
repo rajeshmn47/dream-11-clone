@@ -61,15 +61,6 @@ export default function ConfirmModal({ open, setOpen, handleclose,
     useEffect(() => {
         async function getupcoming() {
             setLoading(true);
-            try {
-                const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
-                const json: any = await response.json();
-                console.log(json.upcoming, 'json')
-                const a: [] = json.upcoming.results;
-                setUpcoming([...a])
-            } catch (error) {
-                console.error(error);
-            }
             setLoading(false);
         }
         getupcoming();
@@ -193,9 +184,7 @@ const styles = StyleSheet.create({
         color: 'rgb(94, 91, 91)'
     },
     title: {
-        whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis'
     },
     modal: {
         width: 320,

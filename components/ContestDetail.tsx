@@ -152,14 +152,12 @@ export default function ContestDetail({ navigation, route }: Props) {
 
     useEffect(() => {
         async function getteams() {
-            console.log(route.params, 'params')
             if (route.params.contestId.length > 3) {
                 const teamdata = await axios.get(`${URL}/getteamsofcontest/${route.params.contestId}`);
                 const contestdata = await axios.get(`${URL}/getcontest/${route.params.contestId}`);
                 setMyContest(contestdata.data.contest);
                 setMatch(teamdata.data.match);
                 const t = teamdata.data.teams.sort((a: any, b: any) => a._doc.points - b._doc.points);
-                console.log(t, 't')
                 setLeaderboard([...t.map((l: any, index: number) => [l.user.username, l._doc.points, index + 1])]);
             }
         }
@@ -173,14 +171,10 @@ export default function ContestDetail({ navigation, route }: Props) {
                 all.push(t.prize);
             });
         }
-        console.log(all, 'all')
         setPrizes([...all.map((index: number, a: any) => [index + 1, a])]);
     }, [myContest]);
 
 
-
-
-    console.log(prizes, leaderboard, 'mycontest')
     const FirstRoute = () => (
         <View style={{ flex: 1, backgroundColor: '#ffffff' }} >
             <Table borderStyle={{ borderWidth: 1 }}>

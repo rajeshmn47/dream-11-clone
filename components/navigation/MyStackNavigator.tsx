@@ -18,7 +18,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from '../HomeScreen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { store, persistor } from '../../store';
 import LoginScreen from '../auth/Login';
 import RegisterScreen from '../auth/Register';
@@ -27,9 +26,9 @@ import CreateTeam from '../CreateTeam';
 import SelectCaptain from '../Captain';
 import ContestDetail from '../ContestDetail';
 import MyMatches from '../MyMatches';
+import EntryScreen from '../entry/Entry';
 
 const Stack = createStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator();
 
 
 export interface Match {
@@ -74,51 +73,25 @@ export default function MyStackNavigator() {
     const [text, setText] = useState('');
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [date, setDate] = useState<Date>(new Date());;
-    const renderItem: ListRenderItem<Match> = ({ item }) => <Item data={item} date={date} />;
-    useEffect(() => {
-        async function getupcoming() {
-            setLoading(true);
-            dispatch<any>(loadToken())
-            dispatch<any>(loadUser())
-            try {
-                const response = await fetch('https://backendforpuand-dream11.onrender.com/home');
-                const json: any = await response.json();
-                console.log(json.upcoming, 'json')
-                const a: [] = json.upcoming.results;
-                setUpcoming([...a])
-            } catch (error) {
-                console.error(error);
-            }
-            setLoading(false);
-        }
-        getupcoming();
-    }, []);
-    useEffect(() => {
-        const i = setInterval(() => {
-            setDate(new Date());
-        }, 1000);
-        return () => {
-            clearInterval(i);
-        };
-    }, []);
     return (
         <>
             {userToken == null ? (
                 // No token found, user isn't signed in
                 <NavigationContainer independent={true}>
                     <Stack.Navigator>
+                        <Stack.Screen name="Entry" component={EntryScreen} options={{ headerShown: false }}/>
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen name="Register" component={RegisterScreen} />
+                        <Stack.Screen name="Home" component={HomeScreen} />
                     </Stack.Navigator>
                 </NavigationContainer>
             ) : (
                 // User is signed in
                 <NavigationContainer independent={true}>
                     <Stack.Navigator>
+                        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="MyMatches" component={MyMatches} options={{ headerShown: false }} />
                         <Stack.Screen name="Detail" component={DetailsScreen} options={{ headerShown: false }}/>
-                        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="Create" component={CreateTeam} />
                         <Stack.Screen name="Captain" component={SelectCaptain} />
                         <Stack.Screen name="ConDetail" component={ContestDetail} />

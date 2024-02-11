@@ -13,6 +13,9 @@ import {
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Button,
+    useWindowDimensions,
+    Dimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -23,9 +26,9 @@ import Loader from '../loader/Loader';
 import { RootStackParamList } from '../HomeScreen';
 import { URL } from '../../constants/userConstants';
 
-export type Props = NativeStackScreenProps<RootStackParamList, "Login">;
-
-const LoginScreen = ({ navigation }: Props) => {
+export type Props = NativeStackScreenProps<RootStackParamList, "Entry">;
+const w = Dimensions.get('window').width;
+const EntryScreen = ({ navigation }: Props) => {
     const recaptchaVerifier: any = React.useRef(null);
     const appVerifier = recaptchaVerifier.current;
     const auth = getAuth();
@@ -54,7 +57,8 @@ const LoginScreen = ({ navigation }: Props) => {
         setLoading(true);
         let dataToSend: any = { phoneNumber: phoneNumber };
         let formBody: any = [];
-        fetch(`${URL}/auth/phoneLogin`, {
+        console.log(dataToSend, 'formbody')
+        fetch(`http://192.168.202.175:9000/auth/phoneLogin`, {
             method: 'POST',
             body: JSON.stringify(dataToSend),
             headers: {
@@ -66,6 +70,7 @@ const LoginScreen = ({ navigation }: Props) => {
             .then((responseJson) => {
                 //Hide Loader
                 setLoading(false);
+                console.log(responseJson);
                 // If server response message same as Data Matched
                 if (responseJson.success === 'ok') {
                     setOtpScreen(true)
@@ -92,7 +97,7 @@ const LoginScreen = ({ navigation }: Props) => {
         else {
             setLoading(true);
             let dataToSend: any = { otp: otp, phoneNumber: phoneNumber };
-            fetch(`${URL}/auth/verifyPhoneOtp`, {
+            fetch(`http://192.168.202.175:9000/auth/verifyPhoneOtp`, {
                 method: 'POST',
                 body: JSON.stringify(dataToSend),
                 headers: {
@@ -103,6 +108,7 @@ const LoginScreen = ({ navigation }: Props) => {
                 .then((responseJson) => {
                     //Hide Loader
                     setLoading(false);
+                    console.log(responseJson);
                     // If server response message same as Data Matched
                     if (responseJson.success === 'ok') {
                         AsyncStorage.setItem('server_token', responseJson.token);
@@ -120,88 +126,61 @@ const LoginScreen = ({ navigation }: Props) => {
     }
 
     return (
-        <View style={styles.mainBody}>
-            <Loader loading={loading} />
-            <ScrollView
-                keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}>
-                <View>
-                    {otpScreen ? <KeyboardAvoidingView enabled>
-                        <View style={styles.SectionStyle}>
-                            <OtpInput numberOfDigits={6} onTextChange={(text) => setOtp(text)}
-                                theme={{
-                                    containerStyle: styles.otpContainer,
-                                    inputsContainerStyle: styles.otpInputsContainer,
-                                    pinCodeContainerStyle: styles.otpPinCodeContainer,
-                                    pinCodeTextStyle: styles.otpPinCodeText,
-                                    focusStickStyle: styles.focusStick,
-                                    focusedPinCodeContainerStyle: styles.activePinCodeContainer
-                                }} />
-                        </View>
-                        {errortext != '' ? (
-                            <Text style={styles.errorTextStyle}>
-                                {errortext}
-                            </Text>
-                        ) : null}
-                        <Text
-                            style={styles.registerTextStyle}
-                            onPress={() => navigation.navigate('Register')}>
-                            New Here ? Register
-                        </Text>
-                    </KeyboardAvoidingView> :
-                        <KeyboardAvoidingView enabled>
-                            <View style={styles.SectionStyle}>
-                                <TextInput
-                                    style={styles.inputStyle}
-                                    onChangeText={(phone) =>
-                                        setPhoneNumber(phone)
-                                    }
-                                    placeholder="Enter Phone Number" //12345
-                                    placeholderTextColor="#8b9cb5"
-                                    keyboardType="default"
-                                    ref={passwordInputRef}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    blurOnSubmit={false}
-                                    secureTextEntry={false}
-                                    underlineColorAndroid="#f000"
-                                    returnKeyType="next"
-                                />
-                            </View>
-                            {errortext != '' ? (
-                                <Text style={styles.errorTextStyle}>
-                                    {errortext}
-                                </Text>
-                            ) : null}
-                            <TouchableOpacity
-                                style={styles.buttonStyle}
-                                activeOpacity={0.5}
-                                onPress={handleSubmitPress}>
-                                <Text style={styles.buttonTextStyle}>Next</Text>
-                            </TouchableOpacity>
-                            <Text
-                                style={styles.registerTextStyle}
-                                onPress={() => navigation.navigate('Register')}>
-                                New Here ? Register
-                            </Text>
-                        </KeyboardAvoidingView>
-                    }
+        <View style={styles.container}>
+            <View style={styles.mainBody}>
+                <View style={{ alignItems: 'center' }}>
+                    <Image
+                        source={require('../../assets/background.jpg')}
+                        style={{
+                            width: '100%',
+                            height: 900,
+                            resizeMode: 'contain',
+                            margin: 30,
+                        }}
+                    />
                 </View>
-            </ScrollView>
+            </View>
+            <View style={styles.bottom}>
+                <Button
+                    onPress={() => navigation.navigate('Register')}
+                    title="Register"
+                    color="#3f7a57"
+                    accessibilityLabel="Learn more about this purple button"
+                />
+                <View style={styles.authContainer}>
+                    <TouchableOpacity>
+                        <Text
+                            style={styles.loginTextStyle}
+                            onPress={() => navigation.navigate('Login')}>
+                            Already have Account ? Login
+                        </Text>
+                    </TouchableOpacity>
+                    <Text
+                        style={styles.registerTextStyle}
+                        onPress={() => navigation.navigate('Register')}>
+                        New Here ? Register
+                    </Text>
+                </View>
+            </View>
         </View>
     );
 };
-export default LoginScreen;
+export default EntryScreen;
 
 const styles = StyleSheet.create({
-    mainBody: {
+    container: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#ffffff',
-        alignContent: 'center',
+        height: 1000
+    },
+    mainBody: {
+        height: 60
+    },
+    bottom: {
+        marginTop: 0,
+        position: 'absolute',
+        bottom: 0,
+        paddingHorizontal: 5,
+        width:w
     },
     SectionStyle: {
         flexDirection: 'row',
@@ -239,21 +218,33 @@ const styles = StyleSheet.create({
     },
     registerTextStyle: {
         color: '#000000',
-        textAlign: 'center',
+        textAlign: 'right',
         fontWeight: 'bold',
         fontSize: 14,
-        alignSelf: 'center',
         padding: 10,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        width: w / 2
+    },
+    loginTextStyle: {
+        color: '#000000',
+        textAlign: 'left',
+        fontWeight: 'bold',
+        fontSize: 14,
+        padding: 10,
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        width: w / 2
     },
     errorTextStyle: {
         color: 'red',
         textAlign: 'center',
         fontSize: 14,
     },
-    otpContainer: {
+    authContainer: {
         marginHorizontal: 'auto',
-        flex: 1,
-        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         flexDirection: 'row'
     },
     otpInputsContainer: {

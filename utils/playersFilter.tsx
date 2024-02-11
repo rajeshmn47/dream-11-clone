@@ -20,3 +20,5 @@ export function checkwk(p:string) {
   export function isUnAnnounced(id:string, players:[]) {
     return true;
   }
+
+  
