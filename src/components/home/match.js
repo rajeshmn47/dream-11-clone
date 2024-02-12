@@ -179,7 +179,7 @@ export function Match({ u, live }) {
         <div className="matchcenter">
           <div className="matchlefts">
             <img src={u.teamAwayFlagUrl} alt="" width="40" />
-            <h5  style={{color:"#212121"}}>{u.away.code}</h5>
+            <h5 style={{ color: "#212121" }}>{u.away.code}</h5>
           </div>
           {live ? (
             <div

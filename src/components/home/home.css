@@ -152,12 +152,12 @@
 
 .mega {
   background-color: #d4f1e3;
-  color: var(--green);
+  color: var(--red);
   width: 12vw;
   box-sizing: border-box;
   border-radius: 4px;
   display: inline-block;
-  border: 1px solid var(--green);
+  border: 1px solid var(--red);
   text-align: center;
   font-weight: 700;
   font-size: 12px;

@@ -240,7 +240,7 @@ export function Completed() {
                                 color: "#595959",
                                 height: "3vh",
                                 fontSize: "12px",
-                                fontWeight: "800",
+                                fontWeight: "200",
                                 display: "flex",
                                 alignItems: "center",
                               }}
@@ -275,6 +275,7 @@ export function Completed() {
                                         textTransform: "auto",
                                         fontSize: "10px",
                                         marginTop: "2px",
+                                        fontWeight: "200"
                                       }}
                                     >
                                       {!(u.result == "Yes") ? (
@@ -394,7 +395,7 @@ export function Completed() {
                                 color: "#595959",
                                 height: "3vh",
                                 fontSize: "12px",
-                                fontWeight: "800",
+                                fontWeight: "200",
                                 display: "flex",
                                 alignItems: "center",
                               }}
@@ -435,7 +436,7 @@ export function Completed() {
                                       }}
                                     >
                                       <Dot />
-                                      <h5 style={{ fontWeight: "600 !important" }}>
+                                      <h5 style={{ fontWeight: "200" }}>
                                         Completed
                                       </h5>
                                     </div>
@@ -445,6 +446,7 @@ export function Completed() {
                                         textTransform: "auto",
                                         fontSize: "10px",
                                         marginTop: "2px",
+                                        fontWeight: '200'
                                       }}
                                     >
                                       {getDisplayDate(u.date, "i", date)}
@@ -476,6 +478,7 @@ export function Completed() {
                                   style={{
                                     textTransform: "capitalize",
                                     fontSize: "12px",
+                                    fontWeight: "200"
                                   }}
                                 >
                                   {u.teams.length} teams
@@ -487,6 +490,7 @@ export function Completed() {
                                     style={{
                                       textTransform: "capitalize",
                                       fontSize: "12px",
+                                      fontWeight: "200"
                                     }}
                                   >
                                     {u.contests.length} contests
@@ -496,10 +500,9 @@ export function Completed() {
                             </div>
                             <div className="icon">
                               <h5
-                                style={{ marginRight: "10px", color: "var(--green)" }}
+                                style={{ marginRight: "10px", color: "var(--red)", fontWeight: "200", textTransform: 'uppercase' }}
                               >
-                                u won {u.won}
-                                rs !
+                                YOU Won ₹{u.won}
                               </h5>
                               <SportsCricketOutlined
                                 style={{ color: "#595959", fontSize: "18px" }}
