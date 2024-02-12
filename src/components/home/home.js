@@ -261,7 +261,7 @@ export function Home() {
                               >
                                 <Dot />
                                 <h5
-                                  style={{ fontWeight: "200 !important" }}
+                                  style={{ fontWeight: "200" }}
                                 >
                                   Completed
                                 </h5>

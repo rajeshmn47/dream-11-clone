@@ -259,9 +259,7 @@ export function Football() {
                                       }}
                                     >
                                       <Dot />
-                                      <h5
-                                        style={{ fontWeight: "600 !important" }}
-                                      >
+                                      <h5 style={{ fontWeight: "200" }}>
                                         Completed
                                       </h5>
                                     </div>
@@ -271,6 +269,7 @@ export function Football() {
                                         textTransform: "auto",
                                         fontSize: "10px",
                                         marginTop: "2px",
+                                        fontWeight: "200"
                                       }}
                                     >
                                       {getDisplayDate(u.date, "i")}
