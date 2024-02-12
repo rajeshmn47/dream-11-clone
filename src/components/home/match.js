@@ -160,7 +160,7 @@ export function Match({ u, live }) {
         >
           <span style={{
             marginRight: "5px", textOverflow: "ellipsis", whiteSpace: "nowrap",
-            width: "180px", overflow: "hidden"
+            width: "180px", overflow: "hidden", fontWeight: "200"
           }}>{u.match_title}</span>
         </h5>
         <h5
@@ -179,16 +179,17 @@ export function Match({ u, live }) {
         <div className="matchcenter">
           <div className="matchlefts">
             <img src={u.teamAwayFlagUrl} alt="" width="40" />
-            <h5>{u.away.code}</h5>
+            <h5  style={{color:"#212121"}}>{u.away.code}</h5>
           </div>
           {live ? (
             <div
               style={{
                 width: "40px",
                 textAlign: "center",
+
               }}
             >
-              <h5 style={{ color: "var(--green)", marginBottom: "3px" }}>
+              <h5 style={{ color: "var(--green)", marginBottom: "3px", fontWeight: "200" }}>
                 live
               </h5>
               <LinearProgress color="success" />
@@ -206,6 +207,7 @@ export function Match({ u, live }) {
                         textTransform: "auto",
                         fontSize: "10px",
                         marginTop: "2px",
+                        fontWeight: "200"
                       }}
                     >
                       {getDisplayDate(u.date, "i", date) &&
@@ -217,6 +219,7 @@ export function Match({ u, live }) {
                     style={{
                       color: "#e10000",
                       textTransform: "auto",
+                      fontWeight: "200"
                     }}
                   >
                     {getDisplayDate(u.date, "i") && getDisplayDate(u.date, "i")}
@@ -228,7 +231,7 @@ export function Match({ u, live }) {
             </h5>
           )}
           <div className="matchrights">
-            <h5> {u.home.code}</h5>
+            <h5 style={{ color: "#212121" }}> {u.home.code}</h5>
             <img src={u.teamHomeFlagUrl} alt="" width="40" />
           </div>
         </div>
@@ -237,15 +240,15 @@ export function Match({ u, live }) {
         <div className="meta">
           <div className="mega">Mega</div>
           <div className="meg">
-            <h5 style={{ fontSize: "10px", textTransform: "uppercase" }}>
+            <h5 style={{ fontSize: "10px", textTransform: "capitalize", fontWeight: "200" }}>
               ₹59 crores
             </h5>
           </div>
         </div>
         <div className="icon">
-          <GrMultimedia className="reacticon" style={{ fontSize: "16px" }} />
+          <GrMultimedia className="reacticon" style={{ fontSize: "16px", fontWeight: "200" }} />
           <SportsCricketOutlinedIcon
-            style={{ color: "#595959", fontSize: "20px", marginLeft: "5px" }}
+            style={{ color: "#595959", fontSize: "20px", marginLeft: "5px", fontWeight: "200" }}
           />
         </div>
       </div>

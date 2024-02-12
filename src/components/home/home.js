@@ -211,7 +211,7 @@ export function Home() {
                         style={{
                           color: "#595959",
                           fontSize: "12px",
-                          fontWeight: "800",
+                          fontWeight: "200",
                           display: "flex",
                           alignItems: "center",
                         }}
@@ -261,7 +261,7 @@ export function Home() {
                               >
                                 <Dot />
                                 <h5
-                                  style={{ fontWeight: "600 !important" }}
+                                  style={{ fontWeight: "200 !important" }}
                                 >
                                   Completed
                                 </h5>
@@ -272,6 +272,7 @@ export function Home() {
                                   textTransform: "auto",
                                   fontSize: "10px",
                                   marginTop: "2px",
+                                  fontWeight: "200"
                                 }}
                               >
                                 {getDisplayDate(u.date, "i")}
@@ -309,8 +310,9 @@ export function Home() {
                           <h5
                             className=""
                             style={{
-                              textTransform: "lowercase",
+                              textTransform: "capitalize",
                               fontSize: "12px",
+                              fontWeight: "200"
                             }}
                           >
                             {u.teams.length} teams
@@ -320,8 +322,9 @@ export function Home() {
                           {u.contests.length > 0 && (
                             <h5
                               style={{
-                                textTransform: "lowercase",
+                                textTransform: "capitalize",
                                 fontSize: "12px",
+                                fontWeight: "200"
                               }}
                             >
                               {u.contests.length} contests
@@ -330,9 +333,9 @@ export function Home() {
                         </div>
                       </div>
                       <div className="icon">
-                        <GrMultimedia className="reacticon" style={{ fontSize: "16px" }} />
+                        <GrMultimedia className="reacticon" style={{ fontSize: "16px", fontWeight: "200" }} />
                         <SportsCricketOutlined
-                          style={{ color: "#595959", fontSize: "20px", marginLeft: "5.1px" }}
+                          style={{ fontSize: "20px", marginLeft: "5.1px", fontWeight: "200" }}
                         />
                       </div>
                     </div>
@@ -350,7 +353,7 @@ export function Home() {
           </>
         </div>}
         <div className="upcomingmatches">
-        <h3>Upcoming Matches</h3>
+          <h3>Upcoming Matches</h3>
           {!loading ? (upcoming?.length > 0 ? (
             <>
               {upcoming.map((u) => (

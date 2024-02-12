@@ -127,7 +127,7 @@
 .matchlefts {
   display: flex;
   align-items: center;
-  width: 26%;
+  width: 28%;
   justify-content: space-between;
   align-items: center;
 }
@@ -145,7 +145,7 @@
 .matchrights {
   display: flex;
   align-items: center;
-  width: 26%;
+  width: 28%;
   justify-content: space-between;
   align-items: center;
 }
@@ -228,7 +228,7 @@
 }
 
 .reacticon path {
-  stroke: #595959;
+  font-weight: 200
 }
 
 .notfound{
