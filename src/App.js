@@ -1,5 +1,4 @@
 import "./App.css";
-
 import { useEffect, useState } from "react";
 import ReactCanvasConfetti from "react-confetti";
 import ReactGA from "react-ga";
