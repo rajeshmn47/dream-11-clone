@@ -51,7 +51,7 @@
   overflow-x: scroll;
 }
 
-.upcomingmatches{
+.upcomingmatches {
   background-color: #ffffff;
   padding: 2vh 3vw;
   box-sizing: border-box;
@@ -231,10 +231,17 @@
   font-weight: 200
 }
 
-.notfound{
-  color:rgb(236, 30, 30);
-  text-align:center;
-  text-transform: uppercase;
+.notfound {
+  color: rgb(236, 30, 30);
+  text-align: center;
+  text-transform: capitalize;
   font-weight: 800;
-  font-size: 24px;
+  font-size: 14px;
+  margin-top: 55px;
+  height: 20px;
+  opacity: 0.99;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
