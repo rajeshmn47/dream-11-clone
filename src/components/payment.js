@@ -83,7 +83,7 @@ function Payment() {
     console.log("rajesh");
     console.log(response);
     const options = {
-      key: "rzp_live_kGI6IELE9BgRsa",
+      key: "rzp_test_3FLuLisPuowtZP",
       name: "RazorPay",
       description: "Integration of Razorpay",
       order_id: data.id,
