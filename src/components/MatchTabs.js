@@ -204,7 +204,7 @@ const StatusC = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  background-color: #fef4de;
+  background-color: #ceffce;
   border-bottom: 1px solid;
   border-bottom-color: currentcolor;
   border-color: rgba(106, 106, 106, 0.12);
@@ -609,11 +609,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
               matchlive?.result == "In Progress" ||
               matchlive?.result == "Complete"
             ) && (
-              <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
-                <AddCircleOutlineRoundedIcon />
-                create team
-              </CreateTeam>
-            )}
+                <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
+                  <AddCircleOutlineRoundedIcon />
+                  create team
+                </CreateTeam>
+              )}
           </TabPanel>
           <TabP value={value} index={3}>
             <Commentary matchdata={match_details} />

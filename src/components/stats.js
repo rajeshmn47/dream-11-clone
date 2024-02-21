@@ -58,7 +58,7 @@ const columns = [
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
-    backgroundColor: "#fef4de",
+    backgroundColor: "#ceffce",
     ".dreamicon": {
       display: "block",
     },
@@ -91,7 +91,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     },
   },
   [`& .${gridClasses.row}.prime`]: {
-    backgroundColor: "#fef4de",
+    backgroundColor: "#ceffce",
     ".dreamicon": {
       display: "block",
     },

@@ -76,7 +76,7 @@ const Contest = styled.div`
     border-radius: inherit;
   }
   .MuiSlider-root {
-    color: #f25640;
+    color: var(--lightgreen);
   }
 `;
 

@@ -22,7 +22,7 @@ const Container = styled.div`
     background-color: #ffffff;
   }
   .not {
-    background-color: #fef4de !important;
+    background-color: #ceffce !important;
   }
   .MuiAccordion-root {
     margin: 0 0 !important;

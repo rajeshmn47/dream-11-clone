@@ -115,34 +115,38 @@ export function ContestDetail() {
   console.log(state, "state");
   return (
     <>
-      <ContestsContainer container>
-        <Top>
-          <LeftSide>
-            <WestIcon
-              onClick={() => history(-1)}
-              style={{ cursor: "pointer" }}
-            />
-            {match && (
-              <h1>
-                <span style={{ marginRight: "5px" }}>{match.teamAwayCode}</span>
-                vs
-                <span style={{ marginLeft: "5px" }}>{match.teamHomeCode}</span>
-              </h1>
-            )}
-          </LeftSide>
-          <RightSide>
-            <Brightness1Icon />
-            <AccountBalanceWalletOutlinedIcon />
-            <NotificationAddOutlinedIcon />
-          </RightSide>
-        </Top>
-        {contest && <Contest contest={contest} />}
-      </ContestsContainer>
-      <ContestTabs
-        contest={contest}
-        leaderboard={leaderboard}
-        match_details={state?.match_details}
-      />
+      {contest &&
+        <>
+          <ContestsContainer container>
+            <Top>
+              <LeftSide>
+                <WestIcon
+                  onClick={() => history(-1)}
+                  style={{ cursor: "pointer" }}
+                />
+                {match && (
+                  <h1>
+                    <span style={{ marginRight: "5px" }}>{match.teamAwayCode}</span>
+                    vs
+                    <span style={{ marginLeft: "5px" }}>{match.teamHomeCode}</span>
+                  </h1>
+                )}
+              </LeftSide>
+              <RightSide>
+                <Brightness1Icon />
+                <AccountBalanceWalletOutlinedIcon />
+                <NotificationAddOutlinedIcon />
+              </RightSide>
+            </Top>
+            <Contest contest={contest} />
+          </ContestsContainer>
+          <ContestTabs
+            contest={contest}
+            leaderboard={leaderboard}
+            match_details={state?.match_details}
+          />
+        </>
+      }
     </>
   );
 }
