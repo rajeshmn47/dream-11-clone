@@ -62,10 +62,11 @@ function geturl() {
   }
   else {
     //return "https://backendforpuand-dream11.onrender.com";
-    return "https://thepowerplay11-env.eba-ev2x8aa4.ap-south-1.elasticbeanstalk.com";
+    //return "https://thepowerplay11-env.eba-ev2x8aa4.ap-south-1.elasticbeanstalk.com";
     //return "http://35.78.205.163";
     //return "http://dream-env.eba-6d6ds7up.us-east-1.elasticbeanstalk.com";
     //return "http://54.172.255.164";
+    return "https://apk.thepowerplay.co";
   }
 }
 
