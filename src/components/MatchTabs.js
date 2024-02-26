@@ -611,7 +611,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
             ) && (
                 <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
                   <AddCircleOutlineRoundedIcon />
-                  create team
+                  <p style={{ textTransform: "uppercase" }}>create team</p>
                 </CreateTeam>
               )}
           </TabPanel>
