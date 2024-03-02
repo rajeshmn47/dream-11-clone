@@ -200,7 +200,7 @@ export function MatchDetails({ players }) {
           (doc) => {
             if (doc.data()) {
               console.log(doc.data(), "data");
-              setCommentary([...doc.data().capital]);
+              setCommentary([...doc.data().commentary]);
               setLivescore({ ...doc.data().miniscore });
             }
           }
