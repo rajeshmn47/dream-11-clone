@@ -49,18 +49,21 @@ const Table = styled.table`
   }
   td {
     padding: 5px 0;
+    width: 25px;
+    overflow:hidden;
   }
   width: 100%;
 `;
 
 const Th = styled.th`
   text-align: left !important;
-  width: 100px;
   text-overflow: ellipsis;
+  width:120px;
 `;
 
 const Td = styled.td`
   text-align: left !important;
+  width: 120px;
 `;
 const Name = styled.h6`
   text-align: left !important;
@@ -100,19 +103,26 @@ const Scores = styled.div`
   align-items: center;
   font-size: 14px;
 `;
+const S = styled.div`
+width: 35px;
+text-overflow:ellipsis;
+`;
+
 export function ScoreTable({ rows, batsmen, bowlers }) {
   return (
     <>
       {bowlers ? (
         <Table>
-          <tr>
-            <Th>Bowler</Th>
-            <th>O</th>
-            <th>M</th>
-            <th>R</th>
-            <th>W</th>
-            <th>Eco</th>
-          </tr>
+          <thead>
+            <tr>
+              <Th>Bowler</Th>
+              <th>O</th>
+              <th>M</th>
+              <th>R</th>
+              <th>W</th>
+              <th>Eco</th>
+            </tr>
+          </thead>
           {rows?.length > 0 &&
             rows
               .filter((k) => k.overs > 0)
@@ -125,7 +135,7 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
                   <td>{t.maidens}</td>
                   <td>{t.runsConceded}</td>
                   <td>{t.wickets}</td>
-                  <td>{Math.floor(t.economy * 10) / 10}</td>
+                  <td><S>{Math.floor(t.economy * 10) / 10}</S></td>
                 </tr>
               ))}
         </Table>
@@ -133,14 +143,16 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
       {batsmen ? (
         <>
           <Table>
-            <tr>
-              <Th>Batter</Th>
-              <th>R</th>
-              <th>B</th>
-              <th>4s</th>
-              <th>6s</th>
-              <th>S/R</th>
-            </tr>
+            <thead>
+              <tr>
+                <Th>Batter</Th>
+                <th>R</th>
+                <th>B</th>
+                <th>4s</th>
+                <th>6s</th>
+                <th>S/R</th>
+              </tr>
+            </thead>
             {rows?.length > 0 &&
               rows
                 .filter((k) => k.balls > 0)
@@ -153,7 +165,7 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
                     <td>{t.balls}</td>
                     <td>{t.fours}</td>
                     <td>{t.sixes}</td>
-                    <td>{t.strikeRate}</td>
+                    <td><S>{t.strikeRate}</S></td>
                   </tr>
                 ))}
           </Table>

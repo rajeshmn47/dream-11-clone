@@ -166,7 +166,7 @@ export function ScoreCard({ data, g, livescore }) {
                   <th>Score</th>
                   <th>Over</th>
                 </tr>
-                {fow?.length > 0 &&
+                {/*fow?.length > 0 &&
                   fow.map((t) => (
                     <tr>
                       <Td style={{ textTransform: "capitalize" }}>
@@ -175,7 +175,7 @@ export function ScoreCard({ data, g, livescore }) {
                       <td>{t.fall}</td>
                       <td>{t.over}</td>
                     </tr>
-                  ))}
+                  ))*/}
               </Table>
             </AccordionDetails>
           </Accordion>
@@ -215,7 +215,7 @@ export function ScoreCard({ data, g, livescore }) {
                   <th>Score</th>
                   <th>Over</th>
                 </tr>
-                {fowsSi?.length > 0 &&
+                {/*fowsSi?.length > 0 &&
                   fowsSi.map((t) => (
                     <tr>
                       <Td style={{ textTransform: "capitalize" }}>
@@ -224,7 +224,7 @@ export function ScoreCard({ data, g, livescore }) {
                       <td>{t.fall}</td>
                       <td>{t.over}</td>
                     </tr>
-                  ))}
+                  ))*/}
               </Table>
             </AccordionDetails>
           </Accordion>
