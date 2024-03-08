@@ -639,7 +639,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
       ) : (
         team?.length > 0 && (
           <>
-            <Heading>You can Enter 1 team in this contest</Heading>
+            <Heading>Please select team by clicking button in the side</Heading>
             {team.map((t) => (
               <SelectTeam
                 players={t.players}
@@ -653,10 +653,6 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 matchdetails={match_details}
               />
             ))}
-            <JoinButtoncontainer>
-              <p>join with</p>
-              <JoinBtn onClick={handlejoin}>Join</JoinBtn>
-            </JoinButtoncontainer>
           </>
         )
       )}
