@@ -134,14 +134,9 @@ export function Home() {
       if (user?._id) {
         setLoading(true);
         setPastLoading(true);
-        const upcoming = await API.get(`${URL}/home`);
-        const urr = upcoming.data.upcoming.results.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
-        );
-        setUpcoming([...urr]);
-        setLoading(false);
         const data = await API.get(`${URL}/homeMatches`);
-        const ucm = data.data.upcoming.results.sort(
+        setLoading(false);
+        const ucm = data.data.upcoming.results.filter((k) => new Date(k.date) > new Date()).sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setUpcoming([...ucm]);
