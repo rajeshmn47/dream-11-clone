@@ -11,7 +11,6 @@ import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { style } from "@mui/system";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,6 +22,7 @@ import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
 import { useAlert } from "react-alert";
 import Loader from "./loader";
+import { API } from "../actions/userAction";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -198,7 +198,7 @@ export function Captain({ players, editMode, teamId }) {
   const handleSave = async () => {
     setLoading(true);
     console.log("clicked next");
-    const data = await axios.post(`${URL}/saveteam/${id}`, {
+    const data = await API.post(`${URL}/saveteam/${id}`, {
       players: selectedPlayers,
       matchId: id,
       userid: user._id,
@@ -214,7 +214,7 @@ export function Captain({ players, editMode, teamId }) {
   const handleUpdate = async () => {
     setLoading(true);
     console.log("clicked next");
-    const data = await axios.put(`${URL}/updateTeam/${teamId}`, {
+    const data = await API.put(`${URL}/updateTeam/${teamId}`, {
       players: selectedPlayers,
       matchId: id,
       userid: user._id,

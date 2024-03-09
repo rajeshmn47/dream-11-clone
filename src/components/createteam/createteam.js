@@ -31,6 +31,7 @@ import CategoryTabs from "./categorytabs";
 import BasicTabs from "../MatchTabs";
 import LiveCategoryTabs from "./playerscategory";
 import Steppr from "../stepper";
+import { API } from "../../actions/userAction";
 
 const Container = styled.div`
   position: relative;
@@ -200,7 +201,7 @@ export function CreateTeam() {
     async function getupcoming() {
       if (id) {
         setLoading(true);
-        const data = await axios.get(`${URL}/getplayers/${id}`);
+        const data = await API.get(`${URL}/getplayers/${id}`);
         console.log(data, "testdata");
         setLive(data.data.live);
         let awayPlayers = data.data.matchdetails.teamAwayPlayers.map((obj) => ({
@@ -284,10 +285,10 @@ export function CreateTeam() {
   useEffect(() => {
     async function getplayers() {
       if (user?._id && match) {
-        const data = await axios.get(
+        const data = await API.get(
           `${URL}/getteam/${match?.titleFI}/${match.titleSI}`
         );
-        const moredata = await axios.get(
+        const moredata = await API.get(
           `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`
         );
         console.log(data.data.lmplayers, moredata.data.lmplayers, "lmplayers");

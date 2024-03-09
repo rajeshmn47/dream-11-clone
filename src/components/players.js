@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { URL } from "../constants/userConstants";
 import Bottomnav from "./navbar/bottomnavbar";
 import Steppr from "./stepper";
+import { API } from "../actions/userAction";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -38,8 +39,8 @@ export function Players() {
   const [players, setPlayers] = useState([]);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`${URL}/home/${user?._id}`);
-      const datas = await axios.get(`${URL}/getplayers`);
+      const data = await API.get(`${URL}/homeMatches`);
+      const datas = await API.get(`${URL}/getplayers`);
       console.log(datas);
       setUpcoming(data.data.upcoming.results);
       setLive(data.data.live.results);

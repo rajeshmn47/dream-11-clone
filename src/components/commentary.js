@@ -133,7 +133,6 @@ export function Commentary({ matchdata }) {
           (doc) => {
             console.log("Current data: ");
             if (doc.data()) {
-              console.log(doc.data(),'data')
               setCommentary([...doc.data().commentary.reverse()]);
               console.log("0");
             }
@@ -147,7 +146,6 @@ export function Commentary({ matchdata }) {
     // console.log(snapshot, "snaps");
     // });
   }, [matchdata]);
-  console.log(commentary, "com");
   useEffect(() => {
     if (commentary[0]?.event == "SIX") {
       dispatch(addconfetti());

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
+import { API } from "../actions/userAction";
 
 const Wrapper = styled.div`
   font-family: system-ui !important;
@@ -78,7 +79,7 @@ function Payment() {
     e.preventDefault();
     const API_URL = `${URL}/payment/createpayment/${amount}`;
     const orderUrl = `${API_URL}order/${Total}`;
-    const response = await Axios.get(API_URL);
+    const response = await API.get(API_URL);
     const { data } = response;
     console.log("rajesh");
     console.log(response);
@@ -91,7 +92,7 @@ function Payment() {
         try {
           const paymentId = response.razorpay_payment_id;
           const url = `${URL}/payment/capture/${paymentId}/${amount}`;
-          const captureResponse = await Axios.post(url, {});
+          const captureResponse = await API.post(url, {});
           const successObj = JSON.parse(captureResponse.data);
           const { captured } = successObj;
           if (captured) {
@@ -125,7 +126,7 @@ function Payment() {
       data: JSON.stringify(data),
     };
 
-    axios(config)
+    API(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
       })

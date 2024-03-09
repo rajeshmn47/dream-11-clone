@@ -28,6 +28,7 @@ import {
   isUnAnnounced,
 } from "../../../utils/img_url";
 import Loader from "../../loader";
+import { API } from "../../../actions/userAction";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -141,7 +142,7 @@ const AddButton = styled.button`
 
 const RemoveButton = styled.button`
   color: #df5f1f;
-  background-color: #fef4de;
+  background-color: var(--lightgreen);
   border: none;
   outline: none;
   margin-right: 15px;
@@ -282,12 +283,12 @@ export default function CategoryTabs({
   useEffect(() => {
     async function getplayers() {
       if (user?._id) {
-        const data = await axios.get(
-          `${URL}/getteam/?matchId=${id}&userid=${user._id}`
+        const data = await API.get(
+          `${URL}/getteam/?matchId=${id}`
         );
         setTeam(data.data.team);
-        const contestdata = await axios.get(
-          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
+        const contestdata = await API.get(
+          `${URL}/getcontestsofuser/${id}`
         );
         setContest(contestdata.data.contests);
       }
@@ -334,31 +335,27 @@ export default function CategoryTabs({
             aria-label="basic tabs example"
           >
             <Tab
-              label={`WK(${
-                players.filter((p) => checkwk(p.position) && p.isSelected)
+              label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(0)}
             />
             <Tab
-              label={`BAT(${
-                players.filter((p) => p.position === "batsman" && p.isSelected)
+              label={`BAT(${players.filter((p) => p.position === "batsman" && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(1)}
             />
             <Tab
-              label={`AR(${
-                players.filter((p) => checkar(p.position) && p.isSelected)
+              label={`AR(${players.filter((p) => checkar(p.position) && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(2)}
             />
             <Tab
-              label={`BOW(${
-                players.filter((p) => p.position === "bowler" && p.isSelected)
+              label={`BOW(${players.filter((p) => p.position === "bowler" && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(3)}
             />
           </Tabs>

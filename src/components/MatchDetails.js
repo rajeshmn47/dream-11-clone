@@ -41,7 +41,7 @@ import {
 } from "react-router-dom";
 
 import { getmatch } from "../actions/matchAction";
-import { addconfetti, removeconfetti } from "../actions/userAction";
+import { API, addconfetti, removeconfetti } from "../actions/userAction";
 import { URL } from "../constants/userConstants";
 import db from "../firebase";
 import { showBalls } from "../utils/lastballs";
@@ -199,7 +199,6 @@ export function MatchDetails({ players }) {
           doc(db, "commentary", match_details?.matchId),
           (doc) => {
             if (doc.data()) {
-              console.log(doc.data(), "data");
               setCommentary([...doc.data().commentary]);
               setLivescore({ ...doc.data().miniscore });
             }
@@ -228,7 +227,7 @@ export function MatchDetails({ players }) {
     async function getupcoming() {
       if (id?.length > 3) {
         dispatch(getmatch(id));
-        const data = await axios.get(`${URL}/getcontests/${id}`);
+        const data = await API.get(`${URL}/getcontests/${id}`);
         setContests(data.data.contests);
       }
     }

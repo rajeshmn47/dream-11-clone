@@ -18,7 +18,6 @@ import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Button, Drawer, Typography } from "@mui/material";
-import axios from "axios";
 import extractColors from "extract-colors";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -40,6 +39,7 @@ import Loader from "./loader";
 import Navbar from "./navbar";
 import Steppr from "./stepper";
 import Match from "./home/match";
+import { API } from "../actions/userAction";
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -162,7 +162,7 @@ export function Completed() {
     async function getupcoming() {
       if (user?._id) {
         setLoading(true);
-        const data = await axios.get(`${URL}/myMatches/${user._id}`);
+        const data = await API.get(`${URL}/myMatches`);
         const cm = data.data.completed.results.sort(
           (b, a) => new Date(a.date) - new Date(b.date)
         );

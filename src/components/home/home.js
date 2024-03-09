@@ -22,6 +22,7 @@ import Loader from "../loader";
 import Navbar from "../navbar";
 import { SportsCricketOutlined } from "@mui/icons-material";
 import { GrMultimedia } from "react-icons/gr";
+import { API } from "../../actions/userAction";
 
 const RightSide = styled.div`
   width: 90px;
@@ -133,13 +134,13 @@ export function Home() {
       if (user?._id) {
         setLoading(true);
         setPastLoading(true);
-        const upcoming = await axios.get(`${URL}/home`);
+        const upcoming = await API.get(`${URL}/home`);
         const urr = upcoming.data.upcoming.results.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setUpcoming([...urr]);
         setLoading(false);
-        const data = await axios.get(`${URL}/home/${user._id}`);
+        const data = await API.get(`${URL}/homeMatches`);
         const ucm = data.data.upcoming.results.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );

@@ -30,6 +30,7 @@ import BasicTabs from "./MatchTabs";
 import CategoryTabs from "./createteam/playerscategory";
 import StatsName from "./statsname";
 import Steppr from "./stepper";
+import { API } from "../actions/userAction";
 
 const columns = [
   {
@@ -178,7 +179,7 @@ export function Stats({ matchdata, team }) {
     async function getupcoming() {
       if (id) {
         setLoading(true);
-        const data = await axios.get(`${URL}/getplayers/${id}`);
+        const data = await API.get(`${URL}/getplayers/${id}`);
         setLoading(false);
         const playersdata = data.data.players.teamAwayPlayers
           .concat(data.data.players.teamHomePlayers)

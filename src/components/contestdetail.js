@@ -17,7 +17,6 @@ import WestIcon from "@mui/icons-material/West";
 import { Grid, Slider } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Tab from "@mui/material/Tab";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Contest from "./contests/contest";
@@ -27,6 +26,7 @@ import SavedTeam from "./savedteam";
 import Steppr from "./stepper";
 import ContestTabs from "./ContestTabs";
 import MatchTabs from "./MatchTabs";
+import { API } from "../actions/userAction";
 
 const Top = styled.div`
   background-color: var(--black);
@@ -102,8 +102,8 @@ export function ContestDetail() {
   useEffect(() => {
     async function getteams() {
       if (id.length > 3) {
-        const teamdata = await axios.get(`${URL}/getteamsofcontest/${id}`);
-        const contestdata = await axios.get(`${URL}/getcontest/${id}`);
+        const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
+        const contestdata = await API.get(`${URL}/getcontest/${id}`);
         setContest(contestdata.data.contest);
         setMatch(teamdata.data.match);
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);

@@ -9,7 +9,6 @@ import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Button, Drawer, Grid } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -127,7 +126,7 @@ export function Navbar({ home }) {
               strokeWidth: "1.5",
             }}
           />
-          Dream11
+          Power11
         </Center>
         <RightSide>
           <NotificationAddOutlinedIcon

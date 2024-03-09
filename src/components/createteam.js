@@ -14,7 +14,6 @@ import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { Grid } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -22,6 +21,7 @@ import { URL } from "../constants/userConstants";
 import Bottomnav from "./navbar/bottomnavbar";
 import Next from "./captain";
 import Steppr from "./stepper";
+import { API } from "../actions/userAction";
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -93,7 +93,7 @@ const AddButton = styled.button`
 
 const RemoveButton = styled.button`
   color: #df5f1f;
-  background-color: #fef4de;
+  background-color: var(--lightreen);
   border: none;
   outline: none;
   margin-right: 15px;
@@ -138,7 +138,7 @@ export function CreateTeam() {
   const [next, setNext] = useState(false);
   useEffect(() => {
     async function getupcoming() {
-      const data = await axios.get(`${URL}/getplayers/${id}`);
+      const data = await API.get(`${URL}/getplayers/${id}`);
       console.log(data);
 
       const players = data.data.players.teamAwayPlayers

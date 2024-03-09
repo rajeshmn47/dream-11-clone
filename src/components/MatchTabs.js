@@ -10,7 +10,6 @@ import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { useEffect } from "react";
@@ -30,6 +29,7 @@ import Stats from "./stats";
 import { TeamShort } from "./TeamShort";
 import { leaderboardChanges } from "../utils/leaderboardchanges";
 import EmojiEventsOutlined from "@mui/icons-material/EmojiEventsOutlined";
+import { API } from "../actions/userAction";
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
@@ -308,11 +308,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
   useEffect(() => {
     async function getplayers() {
       if (user?._id && id) {
-        const data = await axios.get(
-          `${URL}/getteam/?matchId=${id}&userid=${user._id}`
+        const data = await API.get(
+          `${URL}/getteam/?matchId=${id}`
         );
-        const joinedC = await axios.get(
-          `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+        const joinedC = await API.get(
+          `${URL}/getjoinedcontest/${id}`
         );
         leaderboardChanges(joinedC.data.contests);
         setContest([...joinedC.data.contests]);
@@ -324,7 +324,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
   useEffect(() => {
     async function getteams() {
       if (contest[0]?._id) {
-        const teamdata = await axios.get(
+        const teamdata = await API.get(
           `${URL}/getteamsofcontest/${contest[0]?._id}`
         );
         setLeaderboard(teamdata.data.teams);
@@ -366,8 +366,8 @@ export default function MatchTabs({ tabs, g, livescore }) {
 
   const handlejoin = async (t) => {
     console.log("join contest");
-    const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    const joinedC = await API.get(
+      `${URL}/getjoinedcontest/${id}`
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
@@ -377,8 +377,8 @@ export default function MatchTabs({ tabs, g, livescore }) {
 
   const loadjoined = async (t) => {
     console.log("join contest");
-    const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    const joinedC = await API.get(
+      `${URL}/getjoinedcontest/${id}`
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);

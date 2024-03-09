@@ -5,13 +5,13 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import * as React from "react";
 import { useAlert } from "react-alert";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { URL } from "../constants/userConstants";
+import { API } from "../actions/userAction";
 
 const style = {
   position: "absolute",
@@ -80,8 +80,8 @@ export default function ConfirmModal({
   };
   const join = async () => {
     try {
-      const data = await axios.get(
-        `${URL}/joincontest/${modal._id}?userid=${user._id}&teamid=${teamid}`
+      const data = await API.get(
+        `${URL}/joincontest/${modal._id}?teamid=${teamid}`
       );
       alert.success("joined contest successfully");
       loadjoined();

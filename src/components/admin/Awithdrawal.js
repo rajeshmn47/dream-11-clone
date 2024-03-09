@@ -20,6 +20,7 @@ import { useAlert } from "react-alert";
 import { URL } from "../../constants/userConstants";
 import Navbar from "../navbar";
 import Bottomnav from "../navbar/bottomnavbar";
+import { API } from "../../actions/userAction";
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -144,8 +145,8 @@ export default function AWithdrawal({ tabs, g, livescore }) {
 
   const handlejoin = async (t) => {
     console.log("join contest");
-    const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    const joinedC = await API.get(
+      `${URL}/getjoinedcontest/${id}`
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
@@ -155,8 +156,8 @@ export default function AWithdrawal({ tabs, g, livescore }) {
 
   const loadjoined = async (t) => {
     console.log("join contest");
-    const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+    const joinedC = await API.get(
+      `${URL}/getjoinedcontest/${id}`
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);

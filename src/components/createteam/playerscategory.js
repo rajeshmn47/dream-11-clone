@@ -31,6 +31,7 @@ import ConfirmModal from "../confirmcontest";
 import BaseTab from "../ContestTabs";
 import SavedTeam from "../savedteam";
 import Loader from "../loader";
+import { API } from "../../actions/userAction";
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -144,7 +145,7 @@ const AddButton = styled.button`
 
 const RemoveButton = styled.button`
   color: #df5f1f;
-  background-color: #fef4de;
+  background-color:  var(--lightgreen);
   border: none;
   outline: none;
   margin-right: 15px;
@@ -287,11 +288,11 @@ export default function LiveCategoryTabs({
   useEffect(() => {
     async function getplayers() {
       if (user?._id && match) {
-        const data = await axios.get(
+        const data = await API.get(
           `${URL}/getteam/${match?.teamHomeName}/${match?.teamAwayName}`
         );
-        const contestdata = await axios.get(
-          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
+        const contestdata = await API.get(
+          `${URL}/getcontestsofuser/${id}`
         );
         setContest(contestdata.data.contests);
       }
@@ -302,12 +303,12 @@ export default function LiveCategoryTabs({
   useEffect(() => {
     async function getplayers() {
       if (user?._id) {
-        const data = await axios.get(
-          `${URL}/getteam/?matchId=${id}&userid=${user._id}`
+        const data = await API.get(
+          `${URL}/getteam/?matchId=${id}`
         );
         setTeam(data.data.team);
-        const contestdata = await axios.get(
-          `${URL}/getcontestsofuser/${id}?userid=${user._id}`
+        const contestdata = await API.get(
+          `${URL}/getcontestsofuser/${id}`
         );
         setContest(contestdata.data.contests);
       }

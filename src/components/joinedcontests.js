@@ -10,7 +10,6 @@ import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutl
 import WestIcon from "@mui/icons-material/West";
 import { Grid, Slider } from "@mui/material";
 import Tab from "@mui/material/Tab";
-import axios from "axios";
 import { useState } from "react";
 
 import BasicTabs from "./ContestTabs";

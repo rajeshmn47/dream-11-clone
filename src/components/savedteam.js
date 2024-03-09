@@ -22,6 +22,7 @@ import { getImgurl } from "../utils/img_url";
 import Bottomnav from "./navbar/bottomnavbar";
 import Loader from "./loader";
 import Steppr from "./stepper";
+import { API } from "../actions/userAction";
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -184,7 +185,7 @@ export function SavedTeam() {
   const [players, setPlayers] = useState(null);
   useEffect(() => {
     async function getteam() {
-      const data = await axios.get(`${URL}/getteam/${id}`);
+      const data = await API.get(`${URL}/getteam/${id}`);
       setPlayers(data.data.team.players);
     }
     getteam();
