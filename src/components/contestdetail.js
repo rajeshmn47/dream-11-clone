@@ -36,6 +36,7 @@ const Top = styled.div`
   width: 100%;
   padding: 15px 0;
   position: fixed;
+  z-index: 1;
   height: 50px;
   top: 0;
   left: 0;
