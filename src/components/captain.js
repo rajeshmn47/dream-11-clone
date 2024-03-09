@@ -196,35 +196,46 @@ export function Captain({ players, editMode, teamId }) {
     setSelectedPlayers([...po]);
   };
   const handleSave = async () => {
-    setLoading(true);
-    console.log("clicked next");
-    const data = await API.post(`${URL}/saveteam/${id}`, {
-      players: selectedPlayers,
-      matchId: id,
-      userid: user._id,
-      captainId,
-      vicecaptainId,
-    });
-    setLoading(false);
-    setSave(true);
-    alert.success(data.data.message);
-    navigate(`/contests/${id}`);
+    try {
+      setLoading(true);
+      console.log("clicked next");
+      const data = await API.post(`${URL}/saveteam/${id}`, {
+        players: selectedPlayers,
+        matchId: id,
+        userid: user._id,
+        captainId,
+        vicecaptainId,
+      });
+      setLoading(false);
+      setSave(true);
+      alert.success(data.data.message);
+      navigate(`/contests/${id}`);
+    } catch (error) {
+      alert.error(error.response.data.message)
+      navigate(`/contests/${id}`);
+    }
   };
 
   const handleUpdate = async () => {
-    setLoading(true);
-    console.log("clicked next");
-    const data = await API.put(`${URL}/updateTeam/${teamId}`, {
-      players: selectedPlayers,
-      matchId: id,
-      userid: user._id,
-      captainId,
-      vicecaptainId,
-    });
-    setSave(true);
-    setLoading(false);
-    alert.success(data.data.message);
-    navigate(`/contests/${id}`);
+    try {
+      setLoading(true);
+      console.log("clicked next");
+      const data = await API.put(`${URL}/updateTeam/${teamId}`, {
+        players: selectedPlayers,
+        matchId: id,
+        userid: user._id,
+        captainId,
+        vicecaptainId,
+      });
+      setSave(true);
+      setLoading(false);
+      alert.success(data.data.message);
+      navigate(`/contests/${id}`);
+    }
+    catch (error) {
+      alert.error(error.response.data.message)
+      navigate(`/contests/${id}`);
+    }
   };
 
   function isCandVcselected(se) {
