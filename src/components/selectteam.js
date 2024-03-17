@@ -320,6 +320,7 @@ export function SelectTeam({
   selectedTeam,
   match,
   matchdetails,
+  teamIds
 }) {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -405,10 +406,8 @@ export function SelectTeam({
   };
 
   const handleChange = (i) => {
-    console.log("onchange triggered", i);
     setSelectedTeam(i);
   };
-
   return (
     <Container>
       <Teams>
@@ -418,6 +417,7 @@ export function SelectTeam({
             alignItems="center"
             justifyContent="space-between"
             spacing={1}
+            className={teamIds?.length>0&&teamIds.find((t) => t == plo._id.toString()) ? "disabledTeam" : ""}
           >
             <Grid item sm={10} xs={10}>
               <Team
@@ -430,9 +430,9 @@ export function SelectTeam({
             <Grid item sm={2} xs={2}>
               <input
                 type="radio"
-                name="site_name"
+                name={plo?._id}
                 value={plo?._id}
-                checked={plo._id === selectedTeam?._id}
+                checked={!!(teamIds.find((t) => t.toString() == plo._id.toString())) || plo._id === selectedTeam?._id}
                 onChange={() => handleChange(plo)}
                 style={{ float: "right", marginRight: "10px" }}
               />

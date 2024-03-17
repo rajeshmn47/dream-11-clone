@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import PropTypes from "prop-types";
 import * as React from "react";
 import { useSelector } from "react-redux";
@@ -14,6 +15,9 @@ import { useNavigate } from "react-router-dom";
 
 import { FURL, URL } from "../constants/userConstants";
 import { leaderboardChanges } from "../utils/leaderboardchanges";
+import SelectTeam from "./selectteam";
+import { useAlert } from "react-alert";
+import { API } from "../actions/userAction";
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
@@ -240,16 +244,20 @@ function a11yProps(index) {
   };
 }
 
-export default function ContestTabs({ contest, leaderboard, match_details }) {
+export default function ContestTabs({ contest, leaderboard, handleSwap }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { match_details, matchlive } = useSelector((state) => state.match);
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(match_details, "leaderboard");
   leaderboardChanges(leaderboard);
+  const handleClick = (e, id) => {
+    navigate(`/savedteam/${id}`)
+  }
+
   return (
     <Container style={{ width: "100%" }}>
       <Tabs
@@ -283,7 +291,7 @@ export default function ContestTabs({ contest, leaderboard, match_details }) {
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel />
-        <Tabel>
+        {< Tabel >
           <table>
             <tr>
               <th id="morewidth">All Teams ({leaderboard.length})</th>
@@ -296,15 +304,15 @@ export default function ContestTabs({ contest, leaderboard, match_details }) {
                 .sort((a, b) => b._doc.points - a._doc.points)
                 .map((f, index) => (
                   <tr
-                    className={f._doc.userId === user._id ? "selected" : ""}
-                    onClick={() => navigate(`/savedteam/${f._doc._id}`)}
+                    className={f._doc.userId === user?._id ? "selected" : ""}
+                    onClick={(e) => handleClick(e, f._doc._id)}
                     style={{ cursor: "pointer" }}
                   >
                     <td style={{ width: "200px !important" }} id="morewidth">
                       <Profile>
                         <img src={`${FURL}/profilepic.png`} alt="" />
                         <Name>
-                          {f.user.username}
+                          {f.user.username}{" "}(T{f._doc.teamId})
                           <Won>
                             {match_details?.result == "Complete" && (
                               <p
@@ -341,7 +349,7 @@ export default function ContestTabs({ contest, leaderboard, match_details }) {
                                     <span>
                                       {index < contest?.prizeDetails.length &&
                                         "₹" +
-                                          contest?.prizeDetails[index].prize}
+                                        contest?.prizeDetails[index].prize}
                                     </span>
                                   </>
                                 ) : (
@@ -368,12 +376,13 @@ export default function ContestTabs({ contest, leaderboard, match_details }) {
                       </Profile>
                     </td>
                     <td>{f._doc.points}</td>
+                    <td style={{ zIndex: 10 }}>{f._doc.userId === user?._id && <SwapHorizIcon onClick={(e) => handleSwap(e, f?._doc)} />}</td>
                     <td>#{index + 1}</td>
                   </tr>
                 ))}
           </table>
-        </Tabel>
+        </Tabel>}
       </TabPanel>
-    </Container>
+    </Container >
   );
 }

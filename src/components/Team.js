@@ -290,7 +290,6 @@ export function Team({
   matchId,
 }) {
   const navigate = useNavigate();
-  console.log(matchinfo, captains, "tinfo");
   const { match_details, matchlive } = useSelector((state) => state.match);
   return (
     <EachTeam>

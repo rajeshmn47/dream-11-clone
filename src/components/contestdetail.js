@@ -14,7 +14,7 @@ import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import WestIcon from "@mui/icons-material/West";
-import { Grid, Slider } from "@mui/material";
+import { Button, Grid, Slider } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Tab from "@mui/material/Tab";
 import { useEffect, useState } from "react";
@@ -27,6 +27,9 @@ import Steppr from "./stepper";
 import ContestTabs from "./ContestTabs";
 import MatchTabs from "./MatchTabs";
 import { API } from "../actions/userAction";
+import SelectTeam from "./selectteam";
+import { useSelector } from "react-redux";
+import { useAlert } from "react-alert";
 
 const Top = styled.div`
   background-color: var(--black);
@@ -89,13 +92,23 @@ const ContestContainer = styled.div`
 const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
 
 export function ContestDetail() {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { match_details, matchlive } = useSelector((state) => state.match);
   const { state } = useLocation();
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
   const [past, setPast] = useState([]);
   const [save, setSave] = useState(false);
+  const [teams, setTeams] = useState();
   const [leaderboard, setLeaderboard] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [switchTeam, setSwitchTeam] = useState(null);
+  const alert = useAlert();
+  const [selectTeams, setSelectTeams] = useState({
+    selected: false,
+    team: null,
+  });
   const [match, setMatch] = useState(null);
   const [contest, setContest] = useState(null);
   const { id } = useParams();
@@ -113,10 +126,74 @@ export function ContestDetail() {
     }
     getteams();
   }, [id]);
-  console.log(state, "state");
+  useEffect(() => {
+    async function getplayers() {
+      if (user?._id && match_details?.matchId) {
+        const data = await API.get(
+          `${URL}/getteam/?matchId=${match_details?.matchId}`
+        );
+        setTeams([...data.data.team]);
+      }
+    }
+    getplayers();
+  }, [user, match_details]);
+  useEffect(() => {
+    if (!!selectedTeam) {
+      setSelectTeams({
+        selected: true,
+        team: selectedTeam,
+      });
+    }
+    else {
+      setSelectTeams({
+        selected: false,
+        team: null,
+      });
+    }
+  }, [selectedTeam]);
+  useEffect(() => {
+    if (!!switchTeam) {
+      setSelectTeams({
+        selected: true,
+        team: null,
+      });
+    }
+    else {
+      setSelectTeams({
+        selected: false,
+        team: null,
+      });
+    }
+  }, [switchTeam]);
+
+  const handleSwap = (e, team) => {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+    setSwitchTeam(team)
+  }
+  const handleJoin = async (e) => {
+    try {
+      if (switchTeam?._id && selectedTeam?._id) {
+        const { data } = await API.get(`${URL}/reJoinCn/${contest?._id}?oldTeamId=${switchTeam?._id}&newTeamId=${selectedTeam?._id}`)
+        setSelectedTeam(null);
+        setSwitchTeam(null);
+        const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
+        const contestdata = await API.get(`${URL}/getcontest/${id}`);
+        setContest(contestdata.data.contest);
+        setMatch(teamdata.data.match);
+        const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
+        setLeaderboard([...t]);
+      }
+    }
+    catch (error) {
+      console.log(error.response)
+    }
+  }
+  console.log(!!selectTeams?.team, selectTeams?.team, switchTeam, 'match_details');
   return (
     <>
-      {contest &&
+      {contest && !selectTeams?.selected ?
         <>
           <ContestsContainer container>
             <Top>
@@ -144,8 +221,26 @@ export function ContestDetail() {
           <ContestTabs
             contest={contest}
             leaderboard={leaderboard}
-            match_details={state?.match_details}
+            handleSwap={handleSwap}
           />
+        </> :
+        <>
+          {teams?.map((t) => (
+            <SelectTeam
+              players={t.players}
+              plo={t}
+              id={match_details?.matchId}
+              teamIds={contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']}
+              selectTeams={selectTeams}
+              setSelectTeams={setSelectTeams}
+              selectedTeam={selectedTeam}
+              setSelectedTeam={setSelectedTeam}
+              match={matchlive || match_details}
+              matchdetails={match_details}
+            />
+          ))}
+          <Button>create team</Button>
+          <Button disabled={!selectTeams?.team} onClick={() => handleJoin()}>Join Team</Button>
         </>
       }
     </>

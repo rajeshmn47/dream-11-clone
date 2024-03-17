@@ -553,7 +553,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                               </p>
                             )}
                           </SpotsLeft>
-                          <SpotsLeft>{t?.teamnumber}</SpotsLeft>
+                          <SpotsLeft>T{t?.teamId}</SpotsLeft>
                           <SpotsLeft>{t?.points}</SpotsLeft>
                           <SpotsRight
                             style={{ display: "flex", alignItems: "center" }}
@@ -645,6 +645,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 players={t.players}
                 plo={t}
                 id={id}
+                teamIds={contest.find((c) => c?.contest?._id == modal?._id)?.teams?.map((t) => t?._id).length > 0 && contest?.length > 0 ? [...contest.find((c) => c?.contest?._id == modal?._id)?.teams?.map((t) => t?._id)] : ['id']}
                 selectTeams={selectTeams}
                 setSelectTeams={setSelectTeams}
                 selectedTeam={selectedTeam}
