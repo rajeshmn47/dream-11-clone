@@ -2,15 +2,8 @@ import './home.css';
 import './create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import { style } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';
@@ -20,9 +13,7 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
-import Bottomnav from './navbar/bottomnavbar';
 import SavedTeam from './savedteam';
-import Steppr from './stepper';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`

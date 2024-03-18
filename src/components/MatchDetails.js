@@ -2,55 +2,31 @@ import './home.css';
 import './create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import WestIcon from '@mui/icons-material/West';
 import { Grid } from '@mui/material';
-import Tab from '@mui/material/Tab';
-import axios from 'axios';
-import { getDatabase, onValue, ref } from 'firebase/database';
 import {
-  collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
-  orderBy,
-  query,
-  setDoc,
-  updateDoc,
-  where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import ReactCanvasConfetti from 'react-confetti';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  unstable_HistoryRouter,
   useLocation,
   useNavigate,
   useParams,
 } from 'react-router-dom';
 
 import { getmatch } from '../actions/matchAction';
-import { addconfetti, API, removeconfetti } from '../actions/userAction';
+import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import db from '../firebase';
-import { showBalls } from '../utils/lastballs';
 import { showName } from '../utils/name';
 import MatchTabs from './MatchTabs';
-import Bottomnav from './navbar/bottomnavbar';
-import SavedTeam from './savedteam';
 import ShowOver from './showover';
-import Steppr from './stepper';
 
 const TopContainer = styled.div`
   background-color: var(--black);

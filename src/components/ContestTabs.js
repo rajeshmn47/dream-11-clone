@@ -1,23 +1,18 @@
 import styled from '@emotion/styled';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { API } from '../actions/userAction';
-import { FURL, URL } from '../constants/userConstants';
+import { FURL } from '../constants/userConstants';
 import { leaderboardChanges } from '../utils/leaderboardchanges';
-import SelectTeam from './selectteam';
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`

@@ -2,27 +2,13 @@ import './home.css';
 import './create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Grid } from '@mui/material';
-import { style } from '@mui/system';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { URL } from '../constants/userConstants';
 import { checkar, checkwk, getImgurl } from '../utils/img_url';
 import { showName } from '../utils/name';
-import Bottomnav from './navbar/bottomnavbar';
-import Steppr from './stepper';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`

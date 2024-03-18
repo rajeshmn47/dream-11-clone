@@ -1,12 +1,9 @@
 import styled from '@emotion/styled';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
-
-import { URL } from '../constants/userConstants';
 
 const Err = styled.p`
   color: red;

@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import {
   ADD_CONFETTI,
-  LOAD_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOGIN_FAIL,

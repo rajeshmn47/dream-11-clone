@@ -1,7 +1,6 @@
 import './home.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
@@ -10,14 +9,12 @@ import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Button, Drawer, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { logout } from '../actions/userAction';
-import Bottomnav from './navbar/bottomnavbar';
 import LeftDrawer from './navbar/leftDrawer';
-import Steppr from './stepper';
 
 const RightSide = styled.div`
   width: 90px;

@@ -4,9 +4,7 @@ import styled from '@emotion/styled';
 import { SportsCricketOutlined } from '@mui/icons-material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { Button } from '@mui/material';
-import LinearProgress from '@mui/material/LinearProgress';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -15,9 +13,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { URL } from '../../constants/userConstants';
 import {
   getDisplayDate,
-  hoursRemaining,
-  isTommorrow,
-  sameDayorNot,
 } from '../../utils/dateformat';
 import Loader from '../loader';
 import Navbar from '../navbar';

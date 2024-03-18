@@ -1,16 +1,6 @@
 import styled from '@emotion/styled';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import SouthIcon from '@mui/icons-material/South';
-import { Button, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -20,8 +10,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { API } from '../../actions/userAction';
 import { URL } from '../../constants/userConstants';
-import Navbar from '../navbar';
-import Bottomnav from '../navbar/bottomnavbar';
 
 const Container = styled.div`
   .MuiTabs-indicator {

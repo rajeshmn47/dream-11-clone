@@ -33,6 +33,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.1.0",
     "extract-colors": "^2.0.4",
     "firebase": "^9.21.0",
     "google-login": "^2.1.7",

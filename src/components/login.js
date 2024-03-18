@@ -1,20 +1,16 @@
 import './register.css';
 
 import styled from '@emotion/styled';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
-import { react, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../actions/userAction';
-import { URL } from '../constants/userConstants';
 
 const Err = styled.p`
   color: red;

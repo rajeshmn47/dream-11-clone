@@ -1,28 +1,21 @@
 import './home.css';
 
 import styled from '@emotion/styled';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SportsCricketOutlinedIcon from '@mui/icons-material/SportsCricketOutlined';
 import { Button } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GrMultimedia } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { URL } from '../../constants/userConstants';
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
 } from '../../utils/dateformat';
-import Loader from '../loader';
-import Navbar from '../navbar';
-import Bottomnav from '../navbar/bottomnavbar';
 
 const RightSide = styled.div`
   width: 90px;

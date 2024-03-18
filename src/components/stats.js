@@ -1,37 +1,15 @@
 import './create.css';
 
-import {
-  PlaylistAddCheckCircleSharp,
-  SendTimeExtension,
-  SettingsApplicationsTwoTone,
-} from '@mui/icons-material';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import { getrowClass } from '../utils/getrowclass';
-import Next from './captain';
-import CategoryTabs from './createteam/playerscategory';
-import BasicTabs from './MatchTabs';
-import Bottomnav from './navbar/bottomnavbar';
 import StatsName from './statsname';
-import Steppr from './stepper';
 
 const columns = [
   {

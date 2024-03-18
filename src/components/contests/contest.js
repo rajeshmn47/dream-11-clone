@@ -2,9 +2,6 @@ import '../home.css';
 import '../create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import Brightness1Icon from '@mui/icons-material/Brightness1';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import { Grid, Slider } from '@mui/material';
 

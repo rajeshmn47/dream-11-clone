@@ -2,24 +2,12 @@ import './home.css';
 
 import styled from '@emotion/styled';
 import {
-  SettingsApplicationsTwoTone,
   SportsCricketOutlined,
 } from '@mui/icons-material';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
-import PeopleIcon from '@mui/icons-material/People';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import {
-  Box, Button, Drawer, Tab, Tabs, Typography,
+  Box, Button, Tab, Tabs, Typography,
 } from '@mui/material';
-import extractColors from 'extract-colors';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -37,7 +25,6 @@ import Match from './home/match';
 import Loader from './loader';
 import Navbar from './navbar';
 import Bottomnav from './navbar/bottomnavbar';
-import Steppr from './stepper';
 
 const Container = styled.div`
   .MuiTabs-indicator {

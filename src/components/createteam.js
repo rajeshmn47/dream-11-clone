@@ -1,18 +1,8 @@
 import './create.css';
 
 import styled from '@emotion/styled';
-import {
-  PlaylistAddCheckCircleSharp,
-  SendTimeExtension,
-  SettingsApplicationsTwoTone,
-} from '@mui/icons-material';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -21,7 +11,6 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import Next from './captain';
 import Bottomnav from './navbar/bottomnavbar';
-import Steppr from './stepper';
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`

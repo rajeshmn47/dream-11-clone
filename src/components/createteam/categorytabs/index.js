@@ -1,18 +1,11 @@
 import styled from '@emotion/styled';
-import {
-  CheckBoxOutlineBlankTwoTone,
-  SettingsSystemDaydream,
-} from '@mui/icons-material';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 import { Grid } from '@mui/material';
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -26,7 +19,6 @@ import {
   checkar,
   checkwk,
   getImgurl,
-  isUnAnnounced,
 } from '../../../utils/img_url';
 import Loader from '../../loader';
 

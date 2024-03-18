@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { positions, Provider as AlertProvider, transitions } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { positions, transitions } from 'react-alert';
+import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 import { matchReducer } from './reducers/matchReducer';

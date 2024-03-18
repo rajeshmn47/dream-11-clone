@@ -2,20 +2,11 @@ import './home.css';
 import './create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import WestIcon from '@mui/icons-material/West';
-import { Button, Grid, Slider } from '@mui/material';
-import Tab from '@mui/material/Tab';
+import { Button, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';
@@ -25,11 +16,7 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import Contest from './contests/contest';
 import ContestTabs from './ContestTabs';
-import MatchTabs from './MatchTabs';
-import Bottomnav from './navbar/bottomnavbar';
-import SavedTeam from './savedteam';
 import SelectTeam from './selectteam';
-import Steppr from './stepper';
 
 const Top = styled.div`
   background-color: var(--black);

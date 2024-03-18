@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import ReactCanvasConfetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 
-import DecorationSmall from './assets/DiwaSmall.svg';
-import Cracker from './Cracker';
-
 function Animate({ confetti, setConfetti }) {
   const { width, height } = useWindowSize();
   const isAnimated = (value) => {

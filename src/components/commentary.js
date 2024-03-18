@@ -1,31 +1,15 @@
 import styled from '@emotion/styled';
-import { RemoveRedEyeSharp } from '@mui/icons-material';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
-import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import { getDatabase, onValue, ref } from 'firebase/database';
 import {
-  collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
-  orderBy,
-  query,
-  setDoc,
-  updateDoc,
-  where,
 } from 'firebase/firestore';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import io from 'socket.io-client';
+import { useDispatch } from 'react-redux';
 
 import { addconfetti, removeconfetti } from '../actions/userAction';
 import db from '../firebase';
 import Animate from './animate';
-import Cracker from './Cracker';
 
 const CommentaryContainer = styled.div`
   padding: 15px 0;

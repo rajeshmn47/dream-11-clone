@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Dialog } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';

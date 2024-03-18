@@ -2,24 +2,9 @@ import './home.css';
 import './create.css';
 
 import styled from '@emotion/styled';
-import { SettingsApplicationsTwoTone } from '@mui/icons-material';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
-import SportsCricketIcon from '@mui/icons-material/SportsCricket';
-import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Grid } from '@mui/material';
-import { style } from '@mui/system';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
 
-import { URL } from '../constants/userConstants';
-import { checkar, checkwk, getImgurl } from '../utils/img_url';
-import Bottomnav from './navbar/bottomnavbar';
-import Steppr from './stepper';
 import Team from './Team';
 
 const CaptainSelector = styled.div``;

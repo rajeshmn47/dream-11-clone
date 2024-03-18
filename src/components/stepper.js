@@ -4,8 +4,6 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import * as React from 'react';
 
-import { URL } from '../constants/userConstants';
-
 const steps = ['Select Match', 'Create Team', 'Join Contest'];
 
 export default function Steppr() {

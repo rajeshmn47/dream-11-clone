@@ -1,7 +1,5 @@
 import {
-  MATCH_FAIL,
   MATCH_LIVE_SUCCESS,
-  MATCH_REQUEST,
   MATCH_SUCCESS,
 } from '../constants/matchConstants';
 import { URL } from '../constants/userConstants';

@@ -5,11 +5,9 @@ import styled from '@emotion/styled';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
 import WestIcon from '@mui/icons-material/West';
 import { Grid, Slider } from '@mui/material';
-import Tab from '@mui/material/Tab';
 import { useState } from 'react';
 
 import BasicTabs from './ContestTabs';

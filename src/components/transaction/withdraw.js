@@ -1,27 +1,20 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAlert } from 'react-alert';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { URL } from '../../constants/userConstants';
-import { storage } from '../../firebase';
 
 const Container = styled.div`
   padding: 15px 15px;
