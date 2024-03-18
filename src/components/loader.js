@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import CircularProgress from "@mui/material/CircularProgress";
+import styled from '@emotion/styled';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Container = styled.div`
   position: absolute;
@@ -10,8 +10,8 @@ const Container = styled.div`
   justify-content: center;
   .MuiCircularProgress-root {
     color: #4b4b4b;
-    width:25px !important;
-    height:25px !important;
+    width: 25px !important;
+    height: 25px !important;
   }
 `;
 

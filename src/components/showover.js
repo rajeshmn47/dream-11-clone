@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import CircularProgress from "@mui/material/CircularProgress";
+import styled from '@emotion/styled';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import { showBalls } from "../utils/lastballs";
+import { showBalls } from '../utils/lastballs';
 
 const Container = styled.div`
   display: flex;
@@ -51,23 +51,21 @@ const Normal = styled.div`
   justify-content: center;
 `;
 function check(a) {
-  if (a == "6" || a == "4" || a == "W") {
+  if (a == '6' || a == '4' || a == 'W') {
     return true;
   }
 }
 export default function ShowOver(arr) {
   return (
     <Container>
-      {arr.arr &&
-        showBalls(arr).map((a) =>
-          check(a) ? (
-            <Special>{a}</Special>
-          ) : a == "E" ? (
-            <Empty />
-          ) : (
-            <Normal>{a}</Normal>
-          )
-        )}
+      {arr.arr
+        && showBalls(arr).map((a) => (check(a) ? (
+          <Special>{a}</Special>
+        ) : a == 'E' ? (
+          <Empty />
+        ) : (
+          <Normal>{a}</Normal>
+        )))}
     </Container>
   );
 }

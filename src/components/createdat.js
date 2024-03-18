@@ -1,8 +1,8 @@
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import styled from '@emotion/styled';
+import { Box } from '@mui/material';
 
-import { FURL } from "../constants/userConstants";
-import { getDisplayDate } from "../utils/dateformat";
+import { FURL } from '../constants/userConstants';
+import { getDisplayDate } from '../utils/dateformat';
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ export function CreatedAt(props) {
 
   return (
     <Container className="dream">
-      <p>{getDisplayDate(value, "sc", new Date())}</p>
+      <p>{getDisplayDate(value, 'sc', new Date())}</p>
       <img className="dreamicon" src={`${FURL}/dreamteam.jpeg`} />
     </Container>
   );

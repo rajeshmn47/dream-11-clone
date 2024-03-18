@@ -1,28 +1,30 @@
-import "./home.css";
-import styled from "@emotion/styled";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import { Button } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import Match from "./match";
-import { URL } from "../../constants/userConstants";
+import './home.css';
+
+import styled from '@emotion/styled';
+import { SportsCricketOutlined } from '@mui/icons-material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import { Button } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { GrMultimedia } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { API } from '../../actions/userAction';
+import { URL } from '../../constants/userConstants';
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
-} from "../../utils/dateformat";
-import Bottomnav from "../navbar/bottomnavbar";
-import Loader from "../loader";
-import Navbar from "../navbar";
-import { SportsCricketOutlined } from "@mui/icons-material";
-import { GrMultimedia } from "react-icons/gr";
-import { API } from "../../actions/userAction";
+} from '../../utils/dateformat';
+import Loader from '../loader';
+import Navbar from '../navbar';
+import Bottomnav from '../navbar/bottomnavbar';
+import Match from './match';
 
 const RightSide = styled.div`
   width: 90px;
@@ -136,12 +138,12 @@ export function Home() {
         setPastLoading(true);
         const data = await API.get(`${URL}/homeMatches`);
         setLoading(false);
-        const ucm = data.data.upcoming.results.filter((k) => new Date(k.date) > new Date()).sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
-        );
+        const ucm = data.data.upcoming.results
+          .filter((k) => new Date(k.date) > new Date())
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
         setUpcoming([...ucm]);
         const lrr = data.data.live.results.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
+          (a, b) => new Date(a.date) - new Date(b.date),
         );
         setLive([...lrr]);
         setPastLoading(false);
@@ -153,21 +155,20 @@ export function Home() {
               .pop(),
           ]);
         } else {
-          //setPast([
+          // setPast([
           // data.data.past.results
           //    .sort((b, a) => new Date(a.date) - new Date(b.date))
           //   .pop(),
-          //]);
+          // ]);
         }
       }
     }
     getupcoming();
   }, [user]);
   useEffect(() => {
-    const servertoken =
-      localStorage.getItem("token") && localStorage.getItem("token");
+    const servertoken = localStorage.getItem('token') && localStorage.getItem('token');
     if (!servertoken) {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
   const handleClick = () => {
@@ -179,184 +180,196 @@ export function Home() {
       <div className="homecontainer">
         <CricketBg id="section1">
           <TopDiv>
-            <h3 style={{ color: "#FFFFFF", position: "relative" }}>
+            <h3 style={{ color: '#FFFFFF', position: 'relative' }}>
               My Matches
             </h3>
             <ViewAll
-              style={{ display: "flex", alignItems: "center" }}
+              style={{ display: 'flex', alignItems: 'center' }}
               onClick={() => navigate(`/completed/${user?._id}`)}
             >
               View All
-              <ArrowForwardIosIcon style={{ fontSize: "12px" }} />
+              <ArrowForwardIosIcon style={{ fontSize: '12px' }} />
             </ViewAll>
           </TopDiv>
-          {pastLoading ? <div className="loadContainer"> <Loader /> </div> :
-            past?.length > 0 ? past.map(
-              (u) =>
-                u && (
-                  <div
-                    className="matchcontainere"
-                    onClick={() => navigate(`/contests/${u.id}`)}
+          {pastLoading ? (
+            <div className="loadContainer">
+              {' '}
+              <Loader />
+              {' '}
+            </div>
+          ) : past?.length > 0 ? (
+            past.map(
+              (u) => u && (
+              <div
+                className="matchcontainere"
+                onClick={() => navigate(`/contests/${u.id}`)}
+                style={{
+                  postion: 'absolute !important',
+                  backgroundColor: '#000',
+                }}
+              >
+                <Top>
+                  <h5
                     style={{
-                      postion: "absolute !important",
-                      backgroundColor: "#000",
+                      color: '#595959',
+                      fontSize: '12px',
+                      fontWeight: '200',
+                      display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
-                    <Top>
-                      <h5
-                        style={{
-                          color: "#595959",
-                          fontSize: "12px",
-                          fontWeight: "200",
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        <span style={{ marginRight: "5px" }}>
-                          {u?.away.code}
-                        </span>{" "}
-                        vs
-                        <span style={{ marginLeft: "5px" }}>
-                          {u?.home.code}
-                        </span>
-                      </h5>
-                      <NotificationAddOutlinedIcon
-                        style={{ fontSize: "18px" }}
-                      />
-                    </Top>
-                    <div className="match">
-                      <div className="matchcenter">
-                        <div className="matchlefts">
-                          <img
-                            src={u?.teamAwayFlagUrl}
-                            alt=""
-                            width="40"
-                          />
-                          <h5>{u?.away?.code}</h5>
-                        </div>
-                        <div
-                          className={
-                            u?.result == "Yes" ? "completed" : "time"
-                          }
-                        >
-                          {u?.result === "Yes" && (
-                            <div
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  textTransform: "uppercase",
-                                }}
-                              >
-                                <Dot />
-                                <h5
-                                  style={{ fontWeight: "200" }}
-                                >
-                                  Completed
-                                </h5>
-                              </div>
-                              <p
-                                style={{
-                                  color: "#5e5b5b",
-                                  textTransform: "auto",
-                                  fontSize: "10px",
-                                  marginTop: "2px",
-                                  fontWeight: "200"
-                                }}
-                              >
-                                {getDisplayDate(u.date, "i")}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                        <div className="matchrights">
-                          <h5> {u.home.code}</h5>
-                          <img
-                            src={u.teamHomeFlagUrl}
-                            alt=""
-                            width="40"
-                          />
-                        </div>
-                      </div>
+                    <span style={{ marginRight: '5px' }}>
+                      {u?.away.code}
+                    </span>
+                    {' '}
+                    vs
+                    <span style={{ marginLeft: '5px' }}>
+                      {u?.home.code}
+                    </span>
+                  </h5>
+                  <NotificationAddOutlinedIcon
+                    style={{ fontSize: '18px' }}
+                  />
+                </Top>
+                <div className="match">
+                  <div className="matchcenter">
+                    <div className="matchlefts">
+                      <img src={u?.teamAwayFlagUrl} alt="" width="40" />
+                      <h5>{u?.away?.code}</h5>
                     </div>
                     <div
-                      className="bottom"
-                      style={{
-                        position: "relative",
-                        padding: "6px 15px",
-                        fontSize: "12px",
-                      }}
+                      className={u?.result == 'Yes' ? 'completed' : 'time'}
                     >
+                      {u?.result === 'Yes' && (
                       <div
                         style={{
-                          display: "flex",
-                          width: "150px",
-                          justifyContent: "space-between",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexDirection: 'column',
                         }}
                       >
-                        {u.teams.length > 0 && (
-                          <h5
-                            className=""
-                            style={{
-                              textTransform: "capitalize",
-                              fontSize: "12px",
-                              fontWeight: "200"
-                            }}
-                          >
-                            {u.teams.length} teams
-                          </h5>
-                        )}
-                        <div className="meg">
-                          {u.contests.length > 0 && (
-                            <h5
-                              style={{
-                                textTransform: "capitalize",
-                                fontSize: "12px",
-                                fontWeight: "200"
-                              }}
-                            >
-                              {u.contests.length} contests
-                            </h5>
-                          )}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          <Dot />
+                          <h5 style={{ fontWeight: '200' }}>Completed</h5>
                         </div>
+                        <p
+                          style={{
+                            color: '#5e5b5b',
+                            textTransform: 'auto',
+                            fontSize: '10px',
+                            marginTop: '2px',
+                            fontWeight: '200',
+                          }}
+                        >
+                          {getDisplayDate(u.date, 'i')}
+                        </p>
                       </div>
-                      <div className="icon">
-                        <GrMultimedia className="reacticon" style={{ fontSize: "16px", fontWeight: "200" }} />
-                        <SportsCricketOutlined
-                          style={{ fontSize: "20px", marginLeft: "5.1px", fontWeight: "200" }}
-                        />
-                      </div>
+                      )}
+                    </div>
+                    <div className="matchrights">
+                      <h5>
+                        {' '}
+                        {u.home.code}
+                      </h5>
+                      <img src={u.teamHomeFlagUrl} alt="" width="40" />
                     </div>
                   </div>
-                )
-            ) : <div className="notfound">No results found :(</div>}
+                </div>
+                <div
+                  className="bottom"
+                  style={{
+                    position: 'relative',
+                    padding: '6px 15px',
+                    fontSize: '12px',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      width: '150px',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {u.teams.length > 0 && (
+                    <h5
+                      className=""
+                      style={{
+                        textTransform: 'capitalize',
+                        fontSize: '12px',
+                        fontWeight: '200',
+                      }}
+                    >
+                      {u.teams.length}
+                      {' '}
+                      teams
+                    </h5>
+                    )}
+                    <div className="meg">
+                      {u.contests.length > 0 && (
+                      <h5
+                        style={{
+                          textTransform: 'capitalize',
+                          fontSize: '12px',
+                          fontWeight: '200',
+                        }}
+                      >
+                        {u.contests.length}
+                        {' '}
+                        contests
+                      </h5>
+                      )}
+                    </div>
+                  </div>
+                  <div className="icon">
+                    <GrMultimedia
+                      className="reacticon"
+                      style={{ fontSize: '16px', fontWeight: '200' }}
+                    />
+                    <SportsCricketOutlined
+                      style={{
+                        fontSize: '20px',
+                        marginLeft: '5.1px',
+                        fontWeight: '200',
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              ),
+            )
+          ) : (
+            <div className="notfound">No results found :(</div>
+          )}
         </CricketBg>
-        {live?.length > 0 && <div className="matches">
-          <>
+        {live?.length > 0 && (
+          <div className="matches">
             <h3>Live Matches</h3>
-            {(live.map((u) => (
-              <Match u={u} live />
-            ))
-            )}
-          </>
-        </div>}
+              {live.map((u) => (
+                <Match u={u} live />
+              ))}
+          </div>
+        )}
         <div className="upcomingmatches">
           <h3>Upcoming Matches</h3>
-          {!loading ? (upcoming?.length > 0 ? (
-            <>
-              {upcoming.map((u) => (
-                <Match u={u} />
-              ))}
-            </>
-          ) : null) : <Loader />}
+          {!loading ? (
+            upcoming?.length > 0 ? (
+              <>
+                {upcoming.map((u) => (
+                  <Match u={u} />
+                ))}
+              </>
+            ) : null
+          ) : (
+            <Loader />
+          )}
         </div>
       </div>
       <Bottomnav />

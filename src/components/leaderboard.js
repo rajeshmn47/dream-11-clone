@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Grid } from "@mui/material";
+import styled from '@emotion/styled';
+import { Grid } from '@mui/material';
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
@@ -198,21 +198,25 @@ export function LeaderBoard({ leaderboard, contest }) {
     <Tabel>
       <table>
         <tr>
-          <th id="morewidth">All Teams ({leaderboard.length})</th>
+          <th id="morewidth">
+            All Teams (
+            {leaderboard.length}
+            )
+          </th>
           <th>Points</th>
           <th>Rank</th>
         </tr>
 
-        {leaderboard.length > 0 &&
-          leaderboard
+        {leaderboard.length > 0
+          && leaderboard
             .sort((a, b) => b._doc.points - a._doc.points)
             .map((f, index) => (
               <tr
-                className={f._doc.userId === user._id ? "selected" : ""}
+                className={f._doc.userId === user._id ? 'selected' : ''}
                 onClick={() => navigate(`/savedteam/${f._doc._id}`)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
-                <td style={{ width: "200px !important" }} id="morewidth">
+                <td style={{ width: '200px !important' }} id="morewidth">
                   <Profile>
                     <img src={`${FURL}/profilepic.png`} alt="" />
                     <Name>
@@ -220,10 +224,10 @@ export function LeaderBoard({ leaderboard, contest }) {
                       <Won>
                         <EmojiEventsOutlinedIcon
                           style={{
-                            color: "var(--green) !important",
-                            fontSize: "16px",
-                            marginTop: "3px",
-                            marginRight: "5px",
+                            color: 'var(--green) !important',
+                            fontSize: '16px',
+                            marginTop: '3px',
+                            marginRight: '5px',
                           }}
                         />
                         <p>you won ₹500</p>
@@ -232,7 +236,10 @@ export function LeaderBoard({ leaderboard, contest }) {
                   </Profile>
                 </td>
                 <td>{f._doc.points}</td>
-                <td>#{index + 1}</td>
+                <td>
+                  #
+                  {index + 1}
+                </td>
               </tr>
             ))}
       </table>

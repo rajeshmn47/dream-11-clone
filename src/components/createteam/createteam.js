@@ -1,37 +1,19 @@
-import "./create.css";
+import './create.css';
 
-import styled from "@emotion/styled";
-import {
-  PlaylistAddCheckCircleSharp,
-  SendTimeExtension,
-  SettingsApplicationsTwoTone,
-} from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Grid } from "@mui/material";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import styled from '@emotion/styled';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import { Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
 
-import { URL } from "../../constants/userConstants";
-import Bottomnav from "../navbar/bottomnavbar";
-import Next from "../captain";
-import CategoryTabs from "./categorytabs";
-import BasicTabs from "../MatchTabs";
-import LiveCategoryTabs from "./playerscategory";
-import Steppr from "../stepper";
-import { API } from "../../actions/userAction";
+import { API } from '../../actions/userAction';
+import { URL } from '../../constants/userConstants';
+import Next from '../captain';
+import Bottomnav from '../navbar/bottomnavbar';
+import CategoryTabs from './categorytabs';
+import LiveCategoryTabs from './playerscategory';
 
 const Container = styled.div`
   position: relative;
@@ -202,14 +184,14 @@ export function CreateTeam() {
       if (id) {
         setLoading(true);
         const data = await API.get(`${URL}/getplayers/${id}`);
-        console.log(data, "testdata");
+        console.log(data, 'testdata');
         setLive(data.data.live);
-        let awayPlayers = data.data.matchdetails.teamAwayPlayers.map((obj) => ({
+        const awayPlayers = data.data.matchdetails.teamAwayPlayers.map((obj) => ({
           ...obj,
           isHome: false,
           code: data.data.matchdetails.teamAwayCode,
         }));
-        let homePlayers = data.data.matchdetails.teamHomePlayers.map((obj) => ({
+        const homePlayers = data.data.matchdetails.teamHomePlayers.map((obj) => ({
           ...obj,
           isHome: true,
           code: data.data.matchdetails.teamHomeCode,
@@ -221,11 +203,9 @@ export function CreateTeam() {
               isSelected: false,
             }));
             setPlayers([
-              ...p.map((r) =>
-                state.selectedPlayers.find((f) => f.playerId == r.playerId)
-                  ? { ...r, isSelected: true }
-                  : r
-              ),
+              ...p.map((r) => (state.selectedPlayers.find((f) => f.playerId == r.playerId)
+                ? { ...r, isSelected: true }
+                : r)),
             ]);
           } else {
             const p = awayPlayers.concat(homePlayers).map((obj) => ({
@@ -234,29 +214,25 @@ export function CreateTeam() {
             }));
             setPlayers([...p]);
           }
+        } else if (state?.editMode) {
+          const p = awayPlayers.concat(homePlayers).map((obj) => ({
+            ...obj,
+            isSelected: false,
+          }));
+          setPlayers([
+            ...p.map((r) => (state.selectedPlayers.find((f) => f.playerId == r.playerId)
+              ? { ...r, isSelected: true }
+              : r)),
+          ]);
         } else {
-          if (state?.editMode) {
-            const p = awayPlayers.concat(homePlayers).map((obj) => ({
+          const p = awayPlayers
+            .splice(0, 11)
+            .concat(homePlayers.splice(0, 11))
+            .map((obj) => ({
               ...obj,
               isSelected: false,
             }));
-            setPlayers([
-              ...p.map((r) =>
-                state.selectedPlayers.find((f) => f.playerId == r.playerId)
-                  ? { ...r, isSelected: true }
-                  : r
-              ),
-            ]);
-          } else {
-            const p = awayPlayers
-              .splice(0, 11)
-              .concat(homePlayers.splice(0, 11))
-              .map((obj) => ({
-                ...obj,
-                isSelected: false,
-              }));
-            setPlayers([...p]);
-          }
+          setPlayers([...p]);
         }
         setMatch(data.data.matchdetails);
         const k = homePlayers;
@@ -286,18 +262,18 @@ export function CreateTeam() {
     async function getplayers() {
       if (user?._id && match) {
         const data = await API.get(
-          `${URL}/getteam/${match?.titleFI}/${match.titleSI}`
+          `${URL}/getteam/${match?.titleFI}/${match.titleSI}`,
         );
         const moredata = await API.get(
-          `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`
+          `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`,
         );
-        console.log(data.data.lmplayers, moredata.data.lmplayers, "lmplayers");
+        console.log(data.data.lmplayers, moredata.data.lmplayers, 'lmplayers');
         setLmplayers([...data.data.lmplayers]);
       }
     }
     getplayers();
   }, [match, user]);
-  console.log(match, "matchdata");
+  console.log(match, 'matchdata');
   const handleClick = (i) => {
     const po = players.map((p) => {
       if (p._id === i) {
@@ -321,7 +297,7 @@ export function CreateTeam() {
   const handleNext = () => {
     setNext(true);
   };
-  console.log(state?.selectedPlayers, state?.editMode, "state");
+  console.log(state?.selectedPlayers, state?.editMode, 'state');
   return (
     <Container>
       {!next ? (
@@ -348,19 +324,19 @@ export function CreateTeam() {
                 <p>83.5</p>
               </Grid>
             </PlayersIndicator>
-            {players.filter((k) => k.isSelected === true).length <= 11 &&
-              players
+            {players.filter((k) => k.isSelected === true).length <= 11
+              && players
                 .filter((k) => k.isSelected === true)
                 .map((p, index) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
                     <NoPlayer />
                   </Grid>
                 ))}
-            {players.filter((k) => k.isSelected === true).length <= 11 &&
-              players
+            {players.filter((k) => k.isSelected === true).length <= 11
+              && players
                 .slice(
                   0,
-                  11 - players.filter((k) => k.isSelected === true).length
+                  11 - players.filter((k) => k.isSelected === true).length,
                 )
                 .map((g) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
@@ -398,8 +374,8 @@ export function CreateTeam() {
               }
               className={
                 players.filter((k) => k.isSelected === true).length >= 11
-                  ? "notdisabled"
-                  : "disablednext"
+                  ? 'notdisabled'
+                  : 'disablednext'
               }
               onClick={() => handleNext()}
             >

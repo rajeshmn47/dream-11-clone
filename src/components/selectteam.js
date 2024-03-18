@@ -1,25 +1,25 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Button, Grid } from "@mui/material";
-import { style } from "@mui/system";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Button, Grid } from '@mui/material';
+import { style } from '@mui/system';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-import { URL } from "../constants/userConstants";
-import { checkar, checkwk, getImgurl } from "../utils/img_url";
-import Bottomnav from "./navbar/bottomnavbar";
-import Steppr from "./stepper";
-import Team from "./Team";
+import { URL } from '../constants/userConstants';
+import { checkar, checkwk, getImgurl } from '../utils/img_url';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
+import Team from './Team';
 
 const Container = styled.div`
   margin: 20px 0;
@@ -320,7 +320,7 @@ export function SelectTeam({
   selectedTeam,
   match,
   matchdetails,
-  teamIds
+  teamIds,
 }) {
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -332,12 +332,8 @@ export function SelectTeam({
   const [matchinfo, setMatchinfo] = useState([]);
   useEffect(() => {
     async function filterDifferent() {
-      const h = match.teamHomePlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
-      ).length;
-      const o = match.teamAwayPlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId === s.playerId)
-      ).length;
+      const h = match.teamHomePlayers.filter((f) => selectedPlayers.some((s) => f.playerId === s.playerId)).length;
+      const o = match.teamAwayPlayers.filter((f) => selectedPlayers.some((s) => f.playerId === s.playerId)).length;
       const a = [
         { awayCode: matchdetails.teamAwayCode, number: o },
         { homeCode: matchdetails.teamHomeCode, number: h },
@@ -417,7 +413,12 @@ export function SelectTeam({
             alignItems="center"
             justifyContent="space-between"
             spacing={1}
-            className={teamIds?.length>0&&teamIds.find((t) => t == plo._id.toString()) ? "disabledTeam" : ""}
+            className={
+              teamIds?.length > 0
+              && teamIds.find((t) => t == plo._id.toString())
+                ? 'disabledTeam'
+                : ''
+            }
           >
             <Grid item sm={10} xs={10}>
               <Team
@@ -432,9 +433,12 @@ export function SelectTeam({
                 type="radio"
                 name={plo?._id}
                 value={plo?._id}
-                checked={!!(teamIds.find((t) => t.toString() == plo._id.toString())) || plo._id === selectedTeam?._id}
+                checked={
+                  !!teamIds.find((t) => t.toString() == plo._id.toString())
+                  || plo._id === selectedTeam?._id
+                }
                 onChange={() => handleChange(plo)}
-                style={{ float: "right", marginRight: "10px" }}
+                style={{ float: 'right', marginRight: '10px' }}
               />
             </Grid>
           </TeamContainer>

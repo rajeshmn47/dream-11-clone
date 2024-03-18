@@ -1,39 +1,41 @@
-import "./App.css";
-import { useEffect, useState } from "react";
-import ReactCanvasConfetti from "react-confetti";
-import ReactGA from "react-ga";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { loadUser } from "./actions/userAction";
-import Completed from "./components/completed";
-import ContestDetail from "./components/contestdetail";
-import Counter from "./components/counter";
-import CreateTeam from "./components/createteam/createteam";
-import { ForgotPassword } from "./components/forget-password";
-import Logingoogle from "./components/googlesignin";
-import Home from "./components/home/home";
-import Football from "./components/football/home";
-import JoinedContests from "./components/joinedcontests";
-import Login from "./components/login";
-import Contests from "./components/MatchDetails";
-import Payment from "./components/payment";
-import Players from "./components/players";
-import Register from "./components/register";
-import SavedTeam from "./components/savedteam";
-import NewUsers from "./components/newUsers";
-import FindPeople from "./components/findPeople/FindPeople";
-import Test from "./components/test";
-import { WhatsAppWidget } from "react-whatsapp-widget";
-import "react-whatsapp-widget/dist/index.css";
-import MyInfo from "./components/myinfo/MyInfo";
-import TransactionTabs from "./components/transaction";
-import Admin from "./components/admin/Admin";
-import PrivacyPolicy from "./components/privacyPolicy";
-import Donate from "./components/Donate"
-import More from "./components/more";
-import TermsAndConditions from "./components/termsAndConditions";
-import Refund from "./components/refund";
-import HelpAndSupport from "./components/helpAndSupport"
+import './App.css';
+import 'react-whatsapp-widget/dist/index.css';
+
+import { useEffect, useState } from 'react';
+import ReactCanvasConfetti from 'react-confetti';
+import ReactGA from 'react-ga';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { WhatsAppWidget } from 'react-whatsapp-widget';
+
+import { loadUser } from './actions/userAction';
+import Admin from './components/admin/Admin';
+import Completed from './components/completed';
+import ContestDetail from './components/contestdetail';
+import Counter from './components/counter';
+import CreateTeam from './components/createteam/createteam';
+import Donate from './components/Donate';
+import FindPeople from './components/findPeople/FindPeople';
+import Football from './components/football/home';
+import { ForgotPassword } from './components/forget-password';
+import Logingoogle from './components/googlesignin';
+import HelpAndSupport from './components/helpAndSupport';
+import Home from './components/home/home';
+import JoinedContests from './components/joinedcontests';
+import Login from './components/login';
+import Contests from './components/MatchDetails';
+import More from './components/more';
+import MyInfo from './components/myinfo/MyInfo';
+import NewUsers from './components/newUsers';
+import Payment from './components/payment';
+import Players from './components/players';
+import PrivacyPolicy from './components/privacyPolicy';
+import Refund from './components/refund';
+import Register from './components/register';
+import SavedTeam from './components/savedteam';
+import TermsAndConditions from './components/termsAndConditions';
+import Test from './components/test';
+import TransactionTabs from './components/transaction';
 
 function App() {
   const dispatch = useDispatch();
@@ -56,15 +58,17 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    window.addEventListener("resize", showAnimation);
+    window.addEventListener('resize', showAnimation);
     return () => {
-      window.removeEventListener("resize", showAnimation);
+      window.removeEventListener('resize', showAnimation);
     };
   }, [dimensions]);
-  const TRACKING_ID = "G-YWB7BCRZML";
+  const TRACKING_ID = 'G-YWB7BCRZML';
   ReactGA.initialize(TRACKING_ID);
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   useEffect(() => {
     dispatch(loadUser());
@@ -73,8 +77,8 @@ function App() {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
   const checkUserToken = () => {
-    const userToken = localStorage.getItem("user-token");
-    if (!userToken || userToken === "undefined") {
+    const userToken = localStorage.getItem('user-token');
+    if (!userToken || userToken === 'undefined') {
       setIsLoggedIn(false);
     }
     setIsLoggedIn(true);
@@ -104,13 +108,13 @@ function App() {
           <Route path="/findpeople" element={<FindPeople />} />
           <Route path="/my-info" element={<MyInfo />} />
           <Route path="/transaction" element={<TransactionTabs />} />
-          <Route path="/admin" element={<Admin/>} />
-          <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
-          <Route path="/termsAndConditions" element={<TermsAndConditions/>} />
-          <Route path="/refund" element={<Refund/>} />
-          <Route path="/helpAndSupport" element={<HelpAndSupport/>} />
-          <Route path="/more" element={<More/>} />
-          <Route path="/donate" element={<Donate/>} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/refund" element={<Refund />} />
+          <Route path="/helpAndSupport" element={<HelpAndSupport />} />
+          <Route path="/more" element={<More />} />
+          <Route path="/donate" element={<Donate />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

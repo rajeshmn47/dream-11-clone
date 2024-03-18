@@ -1,38 +1,40 @@
-import "./register.css";
+import './register.css';
 
-import styled from "@emotion/styled";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import axios from "axios";
-import { react, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import { react, useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { login } from "../actions/userAction";
-import { URL } from "../constants/userConstants";
-import { useAlert } from "react-alert";
+import { login } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
 
 const Err = styled.p`
   color: red;
 `;
 
 export function Login() {
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const alert = useAlert();
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate('/');
     }
     if (error) {
       alert.error(error);
@@ -47,32 +49,30 @@ export function Login() {
   return (
     <>
       <div className="logintopbar">
-        <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+        <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
         Dream 11
       </div>
 
       <div className="register">
-        <Paper style={{ padding: "2vh 2vw" }}>
-          <h5 style={{ marginBottom: "10px" }}>LOG IN & PLAY</h5>
+        <Paper style={{ padding: '2vh 2vw' }}>
+          <h5 style={{ marginBottom: '10px' }}>LOG IN & PLAY</h5>
           <div
             style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "space-evenly",
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-evenly',
             }}
           >
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#FFFFFF",
-                color: "black",
-                width: "50%",
-                marginRight: "1vw",
-                height: "30px",
+                backgroundColor: '#FFFFFF',
+                color: 'black',
+                width: '50%',
+                marginRight: '1vw',
+                height: '30px',
               }}
-              onClick={() =>
-                alert("not working yet,only google login is working")
-              }
+              onClick={() => alert('not working yet,only google login is working')}
             >
               <img src="./github.svg" alt="" />
               Github
@@ -81,16 +81,16 @@ export function Login() {
               variant="contained"
               elevation="2"
               style={{
-                backgroundColor: "#FFFFFF",
-                color: "black",
-                width: "50%",
-                height: "30px",
-                display: "flex",
-                alignItems: "center",
+                backgroundColor: '#FFFFFF',
+                color: 'black',
+                width: '50%',
+                height: '30px',
+                display: 'flex',
+                alignItems: 'center',
               }}
-              onClick={() => navigate("/googlelogin")}
+              onClick={() => navigate('/googlelogin')}
             >
-              <img src="./google.svg" alt="" style={{ marginRight: "5px" }} />
+              <img src="./google.svg" alt="" style={{ marginRight: '5px' }} />
               Google
             </Button>
           </div>
@@ -119,7 +119,7 @@ export function Login() {
               className="itseveryday"
               variant="contained"
               disableElevation
-              style={{ backgroundColor: "#03d47c" }}
+              style={{ backgroundColor: '#03d47c' }}
             >
               Log in
             </Button>

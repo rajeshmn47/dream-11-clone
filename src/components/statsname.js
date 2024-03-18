@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
+import styled from '@emotion/styled';
+import { Box } from '@mui/material';
 
-import { FURL } from "../constants/userConstants";
+import { FURL } from '../constants/userConstants';
 
 const Container = styled.div`
   display: flex;

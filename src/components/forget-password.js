@@ -1,34 +1,36 @@
-import "./register.css";
+import './register.css';
 
-import styled from "@emotion/styled";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import axios from "axios";
-import { react, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import { react, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { login } from "../actions/userAction";
-import { URL } from "../constants/userConstants";
-import NewPassword from "./newpassword";
-import Otp from "./otp";
+import { login } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import NewPassword from './newpassword';
+import Otp from './otp';
 
 const Err = styled.p`
   color: red;
 `;
 
 export function ForgotPassword() {
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState();
   const [showInput, SetShowInput] = useState(false);
   const [err, setErr] = useState();
@@ -38,7 +40,7 @@ export function ForgotPassword() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate('/');
     }
   }, [user, isAuthenticated]);
 
@@ -46,7 +48,7 @@ export function ForgotPassword() {
     e.preventDefault();
     console.log(email, password);
     const { data } = await axios.get(`${URL}/auth/forgot-password/${email}`);
-    console.log(data, "data");
+    console.log(data, 'data');
     if (data.success) {
       setOpen(true);
     }
@@ -73,27 +75,27 @@ export function ForgotPassword() {
   return (
     <>
       <div className="logintopbar">
-        <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+        <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
         Dream 11
       </div>
       {!open ? (
         <div className="register">
-          <Paper style={{ padding: "2vh 2vw" }}>
-            <h5 style={{ marginBottom: "10px" }}>LOG IN & PLAY</h5>
+          <Paper style={{ padding: '2vh 2vw' }}>
+            <h5 style={{ marginBottom: '10px' }}>LOG IN & PLAY</h5>
             <div
               style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-evenly",
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-evenly',
               }}
             >
               <Button
                 variant="contained"
                 style={{
-                  backgroundColor: "#FFFFFF",
-                  color: "black",
-                  width: "50%",
-                  marginRight: "1vw",
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  width: '50%',
+                  marginRight: '1vw',
                 }}
               >
                 Facebook
@@ -102,9 +104,9 @@ export function ForgotPassword() {
                 variant="contained"
                 elevation="2"
                 style={{
-                  backgroundColor: "#FFFFFF",
-                  color: "black",
-                  width: "50%",
+                  backgroundColor: '#FFFFFF',
+                  color: 'black',
+                  width: '50%',
                 }}
               >
                 Google
@@ -125,7 +127,7 @@ export function ForgotPassword() {
                 className="itseveryday"
                 variant="contained"
                 disableElevation
-                style={{ backgroundColor: "#24B937" }}
+                style={{ backgroundColor: '#24B937' }}
               >
                 send otp
               </Button>

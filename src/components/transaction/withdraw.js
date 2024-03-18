@@ -1,27 +1,27 @@
-import styled from "@emotion/styled";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { Button, Grid } from "@mui/material";
-import axios from "axios";
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { URL } from "../../constants/userConstants";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import TextField from "@mui/material/TextField";
-import { useEffect, useState } from "react";
-
-import { storage } from "../../firebase";
+import styled from '@emotion/styled';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
 import {
-  ref,
-  uploadBytesResumable,
   getDownloadURL,
   getStorage,
-} from "firebase/storage";
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { URL } from '../../constants/userConstants';
+import { storage } from '../../firebase';
 
 const Container = styled.div`
   padding: 15px 15px;
@@ -75,7 +75,9 @@ const TabP = styled(TabPanel)`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -103,14 +105,16 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function Withdraw({ tabs, g, livescore }) {
   const [value, setValue] = React.useState(0);
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const { id } = useParams();
   const { match_details, matchlive } = useSelector((state) => state.match);
@@ -127,12 +131,12 @@ export default function Withdraw({ tabs, g, livescore }) {
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
-    amount: Yup.string().required("amount is required"),
+    amount: Yup.string().required('amount is required'),
     upiId: Yup.string()
-      .required("Utr is required")
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
-    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
+      .required('Utr is required')
+      .min(6, 'Password must be at least 6 characters')
+      .max(40, 'Password must not exceed 40 characters'),
+    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required'),
   });
   const {
     register,
@@ -147,10 +151,10 @@ export default function Withdraw({ tabs, g, livescore }) {
     async function getplayers() {
       if (user?._id && id) {
         const data = await axios.get(
-          `${URL}/getteam/?matchId=${id}&userid=${user._id}`
+          `${URL}/getteam/?matchId=${id}&userid=${user._id}`,
         );
         const joinedC = await axios.get(
-          `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+          `${URL}/getjoinedcontest/${id}?userid=${user._id}`,
         );
         leaderboardChanges(joinedC.data.contests);
         setContest([...joinedC.data.contests]);
@@ -163,7 +167,7 @@ export default function Withdraw({ tabs, g, livescore }) {
     async function getteams() {
       if (contest[0]?._id) {
         const teamdata = await axios.get(
-          `${URL}/getteamsofcontest/${contest[0]?._id}`
+          `${URL}/getteamsofcontest/${contest[0]?._id}`,
         );
         setLeaderboard(teamdata.data.teams);
       }
@@ -187,11 +191,11 @@ export default function Withdraw({ tabs, g, livescore }) {
   };
   const handleOpen = (i) => {
     if (
-      !(matchlive?.result == "In Progress" || matchlive?.result == "Complete")
+      !(matchlive?.result == 'In Progress' || matchlive?.result == 'Complete')
     ) {
       if (!team?.length > 0) {
         setValue(2);
-        alert.info("create a team before joining contest!");
+        alert.info('create a team before joining contest!');
       } else {
         setModal(i);
         setSelectTeams({ selected: true, team: null });
@@ -200,61 +204,59 @@ export default function Withdraw({ tabs, g, livescore }) {
   };
   const onSubmit = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
-    /** @type {any}*/
-    
-          axios.post(`${URL}/payment/withdraw`, 
-              {...formData,userId:user._id})
-            .then((l) => {
-              console.log("added to database", l);
-              //alert.success("deposit data added successfully");
-            });
-    //e.preventDefault();
+    /** @type {any} */
+
+    axios
+      .post(`${URL}/payment/withdraw`, { ...formData, userId: user._id })
+      .then((l) => {
+        console.log('added to database', l);
+        // alert.success("deposit data added successfully");
+      });
+    // e.preventDefault();
   };
 
-  console.log(contest, matchlive, "match_details");
+  console.log(contest, matchlive, 'match_details');
   return (
-    <>
-      <Container>
-        <Heading> Withdraw</Heading>
-        <form onSubmit={handleSubmit(onSubmit)} className="withdrawForm">
-          <TextField
-            required
-            id="amount"
-            name="amount"
-            label="Amount"
-            variant="standard"
-            fullWidth
-            margin="dense"
-            {...register("amount")}
-            error={errors.amount ? true : false}
-          />
-          <Typography variant="inherit" color="textSecondary">
-            {errors.amount?.message}
-          </Typography>
-          <TextField
-            required
-            id="upiId"
-            name="upiId"
-            label="UPI ID"
-            variant="standard"
-            fullWidth
-            margin="dense"
-            {...register("upiId")}
-            error={errors.utr ? true : false}
-          />
-          <Typography variant="inherit" color="textSecondary">
-            {errors.upiId?.message}
-          </Typography>
-          <Button
-            variant="contained"
-            type="submit"
-            disableElevation
-            style={{ backgroundColor: "#24B937" }}
-          >
-            Withdraw
-          </Button>
-        </form>
-      </Container>
-    </>
+    <Container>
+      <Heading> Withdraw</Heading>
+      <form onSubmit={handleSubmit(onSubmit)} className="withdrawForm">
+        <TextField
+          required
+          id="amount"
+          name="amount"
+          label="Amount"
+          variant="standard"
+          fullWidth
+          margin="dense"
+          {...register('amount')}
+          error={!!errors.amount}
+        />
+        <Typography variant="inherit" color="textSecondary">
+          {errors.amount?.message}
+        </Typography>
+        <TextField
+          required
+          id="upiId"
+          name="upiId"
+          label="UPI ID"
+          variant="standard"
+          fullWidth
+          margin="dense"
+          {...register('upiId')}
+          error={!!errors.utr}
+        />
+        <Typography variant="inherit" color="textSecondary">
+          {errors.upiId?.message}
+        </Typography>
+        <Button
+          variant="contained"
+          type="submit"
+          disableElevation
+          style={{ backgroundColor: '#24B937' }}
+        >
+          Withdraw
+        </Button>
+      </form>
+    </Container>
   );
 }

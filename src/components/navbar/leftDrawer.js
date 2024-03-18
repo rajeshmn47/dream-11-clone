@@ -1,32 +1,33 @@
-import styled from "@emotion/styled";
-import { BoyOutlined } from "@mui/icons-material";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
-import MailIcon from "@mui/icons-material/Mail";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import { Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
-import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
+import styled from '@emotion/styled';
+import { BoyOutlined } from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MailIcon from '@mui/icons-material/Mail';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
-import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../actions/userAction";
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
+import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { logout } from '../../actions/userAction';
 
 const Container = styled.div`
   .MuiTypography-body1 {
@@ -151,11 +152,15 @@ const Img = styled.img`
 const Name = styled.h6`
   color: #ffffff;
 `;
-export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
+export default function LeftDrawer({
+  leftOpen, setLeftOpen, open, setOpen,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const toggleDrawer = () => (event) => {
     setLeftOpen(!leftOpen);
@@ -166,12 +171,12 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
     window.location.reload();
   };
 
-  console.log(user, 'user')
+  console.log(user, 'user');
 
   function ListA(anchor) {
     return (
       <Box
-        sx={{ width: 250, cursor: "pointer" }}
+        sx={{ width: 250, cursor: 'pointer' }}
         role="presentation"
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
@@ -181,60 +186,66 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
             container
             spacing={2}
             alignItems="center"
-            style={{ width: "100%", marginLefr: "0", marginTop: "0" }}
+            style={{ width: '100%', marginLefr: '0', marginTop: '0' }}
           >
             <Grid sm={3} xs={3}>
               <Img
                 src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
                 alt=""
-                style={{ borderRadius: "50%" }}
+                style={{ borderRadius: '50%' }}
               />
             </Grid>
             <Grid sm={6} xs={6}>
               <Name>{user && user.username}</Name>
             </Grid>
             <Grid sm={3} xs={3}>
-              <ChevronRightOutlinedIcon style={{ color: "#FFFFFF" }} />
+              <ChevronRightOutlinedIcon style={{ color: '#FFFFFF' }} />
             </Grid>
           </Grid>
         </Account>
         <Container>
           <ListI onClick={() => setOpen(true)}>
-            <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} /> My
+            <AccountBalanceWalletOutlinedIcon style={{ width: '60px' }} />
+            {' '}
+            My
             Balance
           </ListI>
           <ListI onClick={() => handleLogout()}>
-            <LogoutIcon style={{ width: "60px" }} /> Logout
+            <LogoutIcon style={{ width: '60px' }} />
+            {' '}
+            Logout
           </ListI>
-          <ListI onClick={() => navigate("/findpeople")}>
-            <BoyOutlined style={{ width: "60px" }} /> Find People
+          <ListI onClick={() => navigate('/findpeople')}>
+            <BoyOutlined style={{ width: '60px' }} />
+            {' '}
+            Find People
           </ListI>
-          <ListI onClick={() => navigate("/my-info")}>
-            <SettingsOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/my-info')}>
+            <SettingsOutlinedIcon style={{ width: '60px' }} />
             My Info & Settings
           </ListI>
-          <ListI onClick={() => navigate("/donate")}>
-            <PaidOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/donate')}>
+            <PaidOutlinedIcon style={{ width: '60px' }} />
             Donate
           </ListI>
-          <ListI onClick={() => navigate("/termsAndConditions")}>
-            <TopicOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/termsAndConditions')}>
+            <TopicOutlinedIcon style={{ width: '60px' }} />
             Terms & Conditions
           </ListI>
-          <ListI onClick={() => navigate("/privacyPolicy")}>
-            <PrivacyTipOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/privacyPolicy')}>
+            <PrivacyTipOutlinedIcon style={{ width: '60px' }} />
             Privacy Policy
           </ListI>
-          <ListI onClick={() => navigate("/refund")}>
-          <AccountBalanceWalletOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/refund')}>
+            <AccountBalanceWalletOutlinedIcon style={{ width: '60px' }} />
             Refund Policy
           </ListI>
           {/* <ListI>
             <MoreHorizOutlinedIcon style={{ width: "60px" }} />
             More
           </ListI> */}
-          <ListI onClick={() => navigate("/helpAndSupport")}>
-            <HelpOutlineOutlinedIcon style={{ width: "60px" }} />
+          <ListI onClick={() => navigate('/helpAndSupport')}>
+            <HelpOutlineOutlinedIcon style={{ width: '60px' }} />
             Help & Support
           </ListI>
         </Container>
@@ -247,7 +258,7 @@ export default function LeftDrawer({ leftOpen, setLeftOpen, open, setOpen }) {
       <Drawer
         open={leftOpen}
         onClose={toggleDrawer(false)}
-        style={{ padding: "0 !important" }}
+        style={{ padding: '0 !important' }}
       >
         <ListA />
       </Drawer>

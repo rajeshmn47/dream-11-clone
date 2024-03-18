@@ -4,7 +4,7 @@ import {
   MATCH_LIVE_SUCCESS,
   MATCH_REQUEST,
   MATCH_SUCCESS,
-} from "../constants/matchConstants";
+} from '../constants/matchConstants';
 
 export const matchReducer = (state = { match: {} }, action) => {
   switch (action.type) {

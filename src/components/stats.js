@@ -1,56 +1,57 @@
-import "./create.css";
+import './create.css';
+
 import {
   PlaylistAddCheckCircleSharp,
   SendTimeExtension,
   SettingsApplicationsTwoTone,
-} from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Box, Grid } from "@mui/material";
-import { alpha, styled } from "@mui/material/styles";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import { DataGrid, gridClasses } from "@mui/x-data-grid";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+} from '@mui/icons-material';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Box, Grid } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import { DataGrid, gridClasses } from '@mui/x-data-grid';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { getrowClass } from "../utils/getrowclass";
-import Bottomnav from "./navbar/bottomnavbar";
-import Next from "./captain";
-import BasicTabs from "./MatchTabs";
-import CategoryTabs from "./createteam/playerscategory";
-import StatsName from "./statsname";
-import Steppr from "./stepper";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import { getrowClass } from '../utils/getrowclass';
+import Next from './captain';
+import CategoryTabs from './createteam/playerscategory';
+import BasicTabs from './MatchTabs';
+import Bottomnav from './navbar/bottomnavbar';
+import StatsName from './statsname';
+import Steppr from './stepper';
 
 const columns = [
   {
-    field: "playerId",
-    headerName: "ID",
+    field: 'playerId',
+    headerName: 'ID',
     width: 0,
     hide: true,
     editable: true,
   },
   {
-    field: "playerName",
-    headerName: "PLAYERS",
+    field: 'playerName',
+    headerName: 'PLAYERS',
     flex: 0.5,
     width: 180,
     editable: true,
     renderCell: StatsName,
   },
   {
-    field: "points",
-    headerName: "POINTS",
+    field: 'points',
+    headerName: 'POINTS',
     flex: 0.5,
     width: 180,
     editable: true,
@@ -59,98 +60,98 @@ const columns = [
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
-    backgroundColor: "#ceffce",
-    ".dreamicon": {
-      display: "block",
+    backgroundColor: '#ceffce',
+    '.dreamicon': {
+      display: 'block',
     },
-    "&:hover, &.Mui-hovered": {
+    '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      "@media (hover: none)": {
-        backgroundColor: "transparent",
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
       },
     },
-    "&.Mui-selected": {
+    '&.Mui-selected': {
       backgroundColor: alpha(
         theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity
+        ODD_OPACITY + theme.palette.action.selectedOpacity,
       ),
-      "&:hover, &.Mui-hovered": {
+      '&:hover, &.Mui-hovered': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          ODD_OPACITY
+            + theme.palette.action.selectedOpacity
+            + theme.palette.action.hoverOpacity,
         ),
         // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
+        '@media (hover: none)': {
           backgroundColor: alpha(
             theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity
+            ODD_OPACITY + theme.palette.action.selectedOpacity,
           ),
         },
       },
     },
   },
   [`& .${gridClasses.row}.prime`]: {
-    backgroundColor: "#ceffce",
-    ".dreamicon": {
-      display: "block",
+    backgroundColor: '#ceffce',
+    '.dreamicon': {
+      display: 'block',
     },
-    "&:hover, &.Mui-hovered": {
+    '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      "@media (hover: none)": {
-        backgroundColor: "transparent",
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
       },
     },
-    "&.Mui-selected": {
+    '&.Mui-selected': {
       backgroundColor: alpha(
         theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity
+        ODD_OPACITY + theme.palette.action.selectedOpacity,
       ),
-      "&:hover, &.Mui-hovered": {
+      '&:hover, &.Mui-hovered': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          ODD_OPACITY
+            + theme.palette.action.selectedOpacity
+            + theme.palette.action.hoverOpacity,
         ),
         // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
+        '@media (hover: none)': {
           backgroundColor: alpha(
             theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity
+            ODD_OPACITY + theme.palette.action.selectedOpacity,
           ),
         },
       },
     },
   },
   [`& .${gridClasses.row}.sikh`]: {
-    ".dreamicon": {
-      display: "block",
+    '.dreamicon': {
+      display: 'block',
     },
-    "&:hover, &.Mui-hovered": {
+    '&:hover, &.Mui-hovered': {
       backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      "@media (hover: none)": {
-        backgroundColor: "transparent",
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
       },
     },
-    "&.Mui-selected": {
+    '&.Mui-selected': {
       backgroundColor: alpha(
         theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity
+        ODD_OPACITY + theme.palette.action.selectedOpacity,
       ),
-      "&:hover, &.Mui-hovered": {
+      '&:hover, &.Mui-hovered': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          ODD_OPACITY
+            + theme.palette.action.selectedOpacity
+            + theme.palette.action.hoverOpacity,
         ),
         // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
+        '@media (hover: none)': {
           backgroundColor: alpha(
             theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity
+            ODD_OPACITY + theme.palette.action.selectedOpacity,
           ),
         },
       },
@@ -186,8 +187,8 @@ export function Stats({ matchdata, team }) {
           .map((obj) => ({
             ...obj,
             isSelected: false,
-            "& .MuiDataGrid-cell:hover": {
-              color: "primary.main",
+            '& .MuiDataGrid-cell:hover': {
+              color: 'primary.main',
             },
           }));
         setPlayers([...playersdata]);
@@ -224,7 +225,7 @@ export function Stats({ matchdata, team }) {
   };
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 400, width: '100%' }}>
       <StripedDataGrid
         loading={loading}
         rows={players}
@@ -243,9 +244,7 @@ export function Stats({ matchdata, team }) {
             },
           },
         }}
-        getRowClassName={(params) =>
-          getrowClass(allPlayers, dreamTeam, params.row.playerName)
-        }
+        getRowClassName={(params) => getrowClass(allPlayers, dreamTeam, params.row.playerName)}
       />
     </Box>
   );

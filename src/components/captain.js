@@ -1,28 +1,28 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { style } from "@mui/system";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { style } from '@mui/system';
+import { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { getImgurl } from "../utils/img_url";
-import Bottomnav from "./navbar/bottomnavbar";
-import SavedTeam from "./savedteam";
-import Steppr from "./stepper";
-import { useAlert } from "react-alert";
-import Loader from "./loader";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import { getImgurl } from '../utils/img_url';
+import Loader from './loader';
+import Bottomnav from './navbar/bottomnavbar';
+import SavedTeam from './savedteam';
+import Steppr from './stepper';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -164,7 +164,7 @@ export function Captain({ players, editMode, teamId }) {
     }));
     setSelectedPlayers([...pl]);
   }, [players]);
-  console.log(selectedPlayers, "select");
+  console.log(selectedPlayers, 'select');
   const handleCaptain = (i) => {
     const op = players.map((p) => {
       p.isCaptain = false;
@@ -177,7 +177,7 @@ export function Captain({ players, editMode, teamId }) {
       }
       return p;
     });
-    console.log("clicked", po);
+    console.log('clicked', po);
     setSelectedPlayers([...po]);
   };
 
@@ -198,7 +198,7 @@ export function Captain({ players, editMode, teamId }) {
   const handleSave = async () => {
     try {
       setLoading(true);
-      console.log("clicked next");
+      console.log('clicked next');
       const data = await API.post(`${URL}/saveteam/${id}`, {
         players: selectedPlayers,
         matchId: id,
@@ -211,7 +211,7 @@ export function Captain({ players, editMode, teamId }) {
       alert.success(data.data.message);
       navigate(`/contests/${id}`);
     } catch (error) {
-      alert.error(error.response.data.message)
+      alert.error(error.response.data.message);
       navigate(`/contests/${id}`);
     }
   };
@@ -219,7 +219,7 @@ export function Captain({ players, editMode, teamId }) {
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      console.log("clicked next");
+      console.log('clicked next');
       const data = await API.put(`${URL}/updateTeam/${teamId}`, {
         players: selectedPlayers,
         matchId: id,
@@ -231,9 +231,8 @@ export function Captain({ players, editMode, teamId }) {
       setLoading(false);
       alert.success(data.data.message);
       navigate(`/contests/${id}`);
-    }
-    catch (error) {
-      alert.error(error.response.data.message)
+    } catch (error) {
+      alert.error(error.response.data.message);
       navigate(`/contests/${id}`);
     }
   };
@@ -247,7 +246,8 @@ export function Captain({ players, editMode, teamId }) {
     <>
       {!save ? (
         <>
-          {loading && <Loader />}<Description>
+          {loading && <Loader />}
+          <Description>
             <h3>Choose your captain and vicecaptain</h3>
             <p>C gets 2x points, VC gets 1.5x points</p>
           </Description>
@@ -260,13 +260,13 @@ export function Captain({ players, editMode, teamId }) {
                 </Name>
                 <CaptainC
                   onClick={() => handleCaptain(p.playerId)}
-                  className={p.isCaptain ? "captain" : "notcaptain"}
+                  className={p.isCaptain ? 'captain' : 'notcaptain'}
                 >
                   c
                 </CaptainC>
                 <ViceCaptain
                   onClick={() => handleViceCaptain(p.playerId)}
-                  className={p.isViceCaptain ? "captain" : "notcaptain"}
+                  className={p.isViceCaptain ? 'captain' : 'notcaptain'}
                 >
                   vc
                 </ViceCaptain>
@@ -281,16 +281,16 @@ export function Captain({ players, editMode, teamId }) {
             </PrevButton>
             {editMode ? (
               <NextButton
-                disabled={(!isCandVcselected(selectedPlayers)) || loading}
-                className={(isCandVcselected || (!loading)) ? "selectedc" : "not"}
+                disabled={!isCandVcselected(selectedPlayers) || loading}
+                className={isCandVcselected || !loading ? 'selectedc' : 'not'}
                 onClick={() => handleUpdate()}
               >
                 save
               </NextButton>
             ) : (
               <NextButton
-                disabled={(!isCandVcselected(selectedPlayers)) || loading}
-                className={(isCandVcselected || (!loading)) ? "selectedc" : "not"}
+                disabled={!isCandVcselected(selectedPlayers) || loading}
+                className={isCandVcselected || !loading ? 'selectedc' : 'not'}
                 onClick={() => handleSave()}
               >
                 save

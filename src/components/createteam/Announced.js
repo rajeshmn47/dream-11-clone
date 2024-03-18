@@ -1,5 +1,6 @@
-import "../../App.css";
-import styled from "@emotion/styled";
+import '../../App.css';
+
+import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ const BottomU = styled.div`
 function Announced({ title }) {
   return (
     <>
-      {title == "Announced" ? (
+      {title == 'Announced' ? (
         <Container>
           <TopLine />
           <Bottom>{title}</Bottom>

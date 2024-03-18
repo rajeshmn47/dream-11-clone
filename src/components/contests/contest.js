@@ -1,12 +1,12 @@
-import "../home.css";
-import "../create.css";
+import '../home.css';
+import '../create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Grid, Slider } from "@mui/material";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import Brightness1Icon from '@mui/icons-material/Brightness1';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import { Grid, Slider } from '@mui/material';
 
 const Top = styled.div`
   background-color: var(--black);
@@ -116,52 +116,62 @@ const Last = styled.div`
   color: #888;
 `;
 
-const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
+const tabs = [{ label: 'winnings' }, { label: 'leaderboard' }];
 
 export function ContestDetail({ contest }) {
   return (
-    <>
-      <ContestsContainer container>
-        {contest && (
-          <ContestContainer>
-            <Contest>
-              <First>
-                <p>Prize Pool</p>
-                <p>Entry</p>
-              </First>
-              <First>
-                <h1>{contest.price}</h1>
-                <First>
-                  <del>₹ 19</del>
-                  <FreeButton>
-                    ₹ {Math.floor(contest.price / contest.totalSpots)}
-                  </FreeButton>
-                </First>
-              </First>
-              <SliderContainer>
-                <Slider
-                  defaultValue={contest.totalSpots - contest.spotsLeft}
-                  min={0}
-                  max={contest.totalSpots}
-                />
-              </SliderContainer>
-              <First>
-                <SpotsLeft>{contest.spotsLeft} spots left</SpotsLeft>
-                <SpotsRight>{contest.totalSpots} spots</SpotsRight>
-              </First>
-            </Contest>
-            <Last>
-              ₹{Math.floor(contest.price / contest.totalSpots)}
-              <EmojiEventsOutlinedIcon
-                style={{ margin: "0 15px", marginBottom: "3px" }}
-              />
-              {Math.floor((contest.numWinners / contest.totalSpots) * 100)}%
-              Single
-            </Last>
-          </ContestContainer>
-        )}
-      </ContestsContainer>
-    </>
+    <ContestsContainer container>
+      {contest && (
+      <ContestContainer>
+        <Contest>
+          <First>
+            <p>Prize Pool</p>
+            <p>Entry</p>
+          </First>
+          <First>
+            <h1>{contest.price}</h1>
+            <First>
+              <del>₹ 19</del>
+              <FreeButton>
+                ₹
+                {' '}
+                {Math.floor(contest.price / contest.totalSpots)}
+              </FreeButton>
+            </First>
+          </First>
+          <SliderContainer>
+            <Slider
+              defaultValue={contest.totalSpots - contest.spotsLeft}
+              min={0}
+              max={contest.totalSpots}
+            />
+          </SliderContainer>
+          <First>
+            <SpotsLeft>
+              {contest.spotsLeft}
+              {' '}
+              spots left
+            </SpotsLeft>
+            <SpotsRight>
+              {contest.totalSpots}
+              {' '}
+              spots
+            </SpotsRight>
+          </First>
+        </Contest>
+        <Last>
+          ₹
+          {Math.floor(contest.price / contest.totalSpots)}
+          <EmojiEventsOutlinedIcon
+            style={{ margin: '0 15px', marginBottom: '3px' }}
+          />
+          {Math.floor((contest.numWinners / contest.totalSpots) * 100)}
+          %
+          Single
+        </Last>
+      </ContestContainer>
+      )}
+    </ContestsContainer>
   );
 }
 

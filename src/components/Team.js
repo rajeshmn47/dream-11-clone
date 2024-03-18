@@ -1,27 +1,28 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import EditIcon from "@mui/icons-material/Edit";
-import { Grid } from "@mui/material";
-import { style } from "@mui/system";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { URL } from "../constants/userConstants";
-import { checkar, checkwk, getImgurl } from "../utils/img_url";
-import Bottomnav from "./navbar/bottomnavbar";
-import Steppr from "./stepper";
-import { showName } from "../utils/name";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Grid } from '@mui/material';
+import { style } from '@mui/system';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import { URL } from '../constants/userConstants';
+import { checkar, checkwk, getImgurl } from '../utils/img_url';
+import { showName } from '../utils/name';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -296,19 +297,17 @@ export function Team({
       {matchinfo.length > 0 && captains.length > 0 && (
         <>
           {!(
-            matchlive?.result == "In Progress" ||
-            matchlive?.result == "Complete"
+            matchlive?.result == 'In Progress'
+            || matchlive?.result == 'Complete'
           ) && (
             <EditIconContainer
-              onClick={() =>
-                navigate(`/createTeam/${matchId}`, {
-                  state: {
-                    selectedPlayers: selectedPlayers,
-                    editMode: true,
-                    teamId: teamId,
-                  },
-                })
-              }
+              onClick={() => navigate(`/createTeam/${matchId}`, {
+                state: {
+                  selectedPlayers,
+                  editMode: true,
+                  teamId,
+                },
+              })}
             />
           )}
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
@@ -355,31 +354,37 @@ export function Team({
       )}
       <Bottom container spacing={1}>
         <Each item xs={3} sm={3}>
-          WK{" "}
+          WK
+          {' '}
           <span>
             {selectedPlayers.filter((f) => checkwk(f.position)).length}
           </span>
         </Each>
         <Each item xs={3} sm={3}>
-          BAT{" "}
+          BAT
+          {' '}
           <span>
             {
               selectedPlayers.filter(
-                (f) => f.position == "batsmen" || f.position == "batsman"
+                (f) => f.position == 'batsmen' || f.position == 'batsman',
               ).length
-            }{" "}
+            }
+            {' '}
           </span>
         </Each>
         <Each item xs={3} sm={3}>
-          AR{" "}
+          AR
+          {' '}
           <span>
-            {selectedPlayers.filter((f) => checkar(f.position)).length}{" "}
+            {selectedPlayers.filter((f) => checkar(f.position)).length}
+            {' '}
           </span>
         </Each>
         <Each item xs={3} sm={3}>
-          BOWL{" "}
+          BOWL
+          {' '}
           <span>
-            {selectedPlayers.filter((f) => f.position === "bowler").length}
+            {selectedPlayers.filter((f) => f.position === 'bowler').length}
           </span>
         </Each>
       </Bottom>

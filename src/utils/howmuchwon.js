@@ -1,6 +1,6 @@
-import moment from "moment";
+import moment from 'moment';
 
-const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-const value = "";
+const value = '';
 export async function howmuchwon(contests, teams) {}

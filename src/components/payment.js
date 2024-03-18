@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import { TextField, useRadioGroup } from "@mui/material";
-import Axios from "axios";
-import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import styled from '@emotion/styled';
+import { TextField, useRadioGroup } from '@mui/material';
+import Axios from 'axios';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import Confirmation from "./Confirmation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
 
 const Wrapper = styled.div`
   font-family: system-ui !important;
@@ -81,12 +81,12 @@ function Payment() {
     const orderUrl = `${API_URL}order/${Total}`;
     const response = await API.get(API_URL);
     const { data } = response;
-    console.log("rajesh");
+    console.log('rajesh');
     console.log(response);
     const options = {
-      key: "rzp_test_3FLuLisPuowtZP",
-      name: "RazorPay",
-      description: "Integration of Razorpay",
+      key: 'rzp_test_3FLuLisPuowtZP',
+      name: 'RazorPay',
+      description: 'Integration of Razorpay',
       order_id: data.id,
       handler: async (response) => {
         try {
@@ -96,17 +96,17 @@ function Payment() {
           const successObj = JSON.parse(captureResponse.data);
           const { captured } = successObj;
           if (captured) {
-            console.log("success");
+            console.log('success');
           }
         } catch (err) {
           console.log(err);
         } finally {
           handleData();
-          navigate("/");
+          navigate('/');
         }
       },
       theme: {
-        color: "#e46d47",
+        color: '#e46d47',
       },
     };
     const rzp1 = new window.Razorpay(options);
@@ -118,10 +118,10 @@ function Payment() {
   };
   const handleData = () => {
     const config = {
-      method: "patch",
+      method: 'patch',
       url: `${URL}/payment/addamount/`,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       data: JSON.stringify(data),
     };

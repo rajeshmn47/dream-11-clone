@@ -1,35 +1,37 @@
-import "./../register.css";
-import "./myInfo.css";
-import styled from "@emotion/styled";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import axios from "axios";
-import { react, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import { URL } from "../../constants/userConstants";
-import { useAlert } from "react-alert";
-import { Typography } from "@mui/material";
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-import { useSelector } from "react-redux";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { Country, State, City } from "country-state-city";
-import Select from "react-select";
+import '../register.css';
+import './myInfo.css';
+import 'react-phone-number-input/style.css';
+
+import styled from '@emotion/styled';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateField } from '@mui/x-date-pickers/DateField';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import axios from 'axios';
+import { City, Country, State } from 'country-state-city';
+import { react, useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { Controller, useForm } from 'react-hook-form';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import * as Yup from 'yup';
+
+import { URL } from '../../constants/userConstants';
 
 const PHONE_REGEX = new RegExp(
-  /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim
+  /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim,
 );
 
 const Err = styled.p`
@@ -37,12 +39,14 @@ const Err = styled.p`
 `;
 
 export function MyInfo() {
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const alert = useAlert();
   const [err, setErr] = useState();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
@@ -50,15 +54,15 @@ export function MyInfo() {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   useEffect(() => {
-    setValue("email", user?.email);
-    setValue("username", user?.username);
-    setValue("phoneNumber", user?.phonenumber);
-    setValue("password", user?.password);
-    setValue("country", "india");
+    setValue('email', user?.email);
+    setValue('username', user?.username);
+    setValue('phoneNumber', user?.phonenumber);
+    setValue('password', user?.password);
+    setValue('country', 'india');
   }, [user]);
   useEffect(() => {
     const getCountries = async () => {
@@ -92,15 +96,15 @@ export function MyInfo() {
           isoCode,
           name,
         }));
-        const [{ isoCode: firstState = "" } = {}] = allStates;
+        const [{ isoCode: firstState = '' } = {}] = allStates;
         setCities([]);
-        setSelectedCity("");
+        setSelectedCity('');
         setStates(allStates);
         setSelectedState(firstState);
       } catch (error) {
         setStates([]);
         setCities([]);
-        setSelectedCity("");
+        setSelectedCity('');
       }
     };
 
@@ -112,13 +116,13 @@ export function MyInfo() {
       try {
         const result = await csc.getCitiesOfState(
           selectedCountry,
-          selectedState
+          selectedState,
         );
         let allCities = [];
         allCities = result?.map(({ name }) => ({
           name,
         }));
-        const [{ name: firstCity = "" } = {}] = allCities;
+        const [{ name: firstCity = '' } = {}] = allCities;
         setCities(allCities);
         setSelectedCity(firstCity);
       } catch (error) {
@@ -130,25 +134,25 @@ export function MyInfo() {
   }, [selectedState]);
   const validationSchema = Yup.object().shape({
     username: Yup.string()
-      .required("Username is required")
-      .min(6, "Username must be at least 6 characters")
-      .max(20, "Username must not exceed 20 characters"),
-    email: Yup.string().required("Email is required").email("Email is invalid"),
+      .required('Username is required')
+      .min(6, 'Username must be at least 6 characters')
+      .max(20, 'Username must not exceed 20 characters'),
+    email: Yup.string().required('Email is required').email('Email is invalid'),
     password: Yup.string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters")
-      .max(40, "Password must not exceed 40 characters"),
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters')
+      .max(40, 'Password must not exceed 40 characters'),
     phoneInput: Yup.string(),
     phoneNumber: Yup.string()
-      .required("Phone Number is required")
-      .matches(/^[0-9+-]+$/, "It must be in numbers")
-      .min(10, "Phone Number must be at least 10 characters")
-      .max(10, "Phone Number must not exceed 10 characters"),
-    dateOfBirth: Yup.string().optional("Password is required"),
-    country: Yup.string().optional("Password is required"),
-    state: Yup.string().optional("Password is required"),
-    city: Yup.string().optional("Password is required"),
-    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
+      .required('Phone Number is required')
+      .matches(/^[0-9+-]+$/, 'It must be in numbers')
+      .min(10, 'Phone Number must be at least 10 characters')
+      .max(10, 'Phone Number must not exceed 10 characters'),
+    dateOfBirth: Yup.string().optional('Password is required'),
+    country: Yup.string().optional('Password is required'),
+    state: Yup.string().optional('Password is required'),
+    city: Yup.string().optional('Password is required'),
+    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required'),
   });
   const {
     register,
@@ -159,10 +163,10 @@ export function MyInfo() {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  console.log(errors, "errors");
+  console.log(errors, 'errors');
   const onSubmit = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
-    //e.preventDefault();
+    // e.preventDefault();
     setEmail(formData.email);
     const data = await axios.post(`${URL}/auth/updateProfile`, {
       ...formData,
@@ -191,7 +195,7 @@ export function MyInfo() {
     <>
       <div className="myInfoTop">
         <ArrowBackIcon
-          style={{ marginRight: "20px" }}
+          style={{ marginRight: '20px' }}
           onClick={() => navigate(-1)}
         />
         My Info and Settings
@@ -207,8 +211,8 @@ export function MyInfo() {
             fullWidth
             margin="dense"
             InputLabelProps={{ shrink: true }}
-            {...register("email")}
-            error={errors.email ? true : false}
+            {...register('email')}
+            error={!!errors.email}
           />
           <Typography variant="inherit" color="textSecondary">
             {errors.email?.message}
@@ -222,8 +226,8 @@ export function MyInfo() {
             fullWidth
             margin="dense"
             InputLabelProps={{ shrink: true }}
-            {...register("username")}
-            error={errors.username ? true : false}
+            {...register('username')}
+            error={!!errors.username}
           />
           <Typography variant="inherit" color="textSecondary">
             {errors.username?.message}
@@ -237,8 +241,8 @@ export function MyInfo() {
             fullWidth
             margin="dense"
             InputLabelProps={{ shrink: true }}
-            {...register("phoneNumber")}
-            error={errors.phoneNumber ? true : false}
+            {...register('phoneNumber')}
+            error={!!errors.phoneNumber}
           />
           <Typography variant="inherit" color="textSecondary">
             {errors.phoneNumber?.message}
@@ -252,19 +256,19 @@ export function MyInfo() {
             fullWidth
             margin="dense"
             InputLabelProps={{ shrink: true }}
-            {...register("password")}
-            error={errors.password ? true : false}
+            {...register('password')}
+            error={!!errors.password}
           />
           <Typography variant="inherit" color="textSecondary">
             {errors.password?.message}
           </Typography>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DateField"]}>
+            <DemoContainer components={['DateField']}>
               <DatePicker
                 label="Basic date picker"
                 slotProps={{
                   textField: {
-                    variant: "standard",
+                    variant: 'standard',
                     InputLabelProps: { shrink: true },
                   },
                 }}
@@ -281,12 +285,8 @@ export function MyInfo() {
             <label className="selectLabel">Select a Country</label>
             <Select
               options={Country.getAllCountries()}
-              getOptionLabel={(options) => {
-                return options["name"];
-              }}
-              getOptionValue={(options) => {
-                return options["name"];
-              }}
+              getOptionLabel={(options) => options.name}
+              getOptionValue={(options) => options.name}
               value={selectedCountry}
               onChange={(item) => {
                 setSelectedCountry(item);
@@ -295,19 +295,19 @@ export function MyInfo() {
               styles={{
                 control: (provided, state) => ({
                   ...provided,
-                  boxShadow: "none",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  backgroundColor: "#fafafa",
-                  borderRadius: "0",
-                  textAlign: "left",
-                  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
+                  boxShadow: 'none',
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                  backgroundColor: '#fafafa',
+                  borderRadius: '0',
+                  textAlign: 'left',
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
                 }),
                 menu: (provided, state) => ({
                   ...provided,
-                  border: "none",
-                  boxShadow: "none",
+                  border: 'none',
+                  boxShadow: 'none',
                 }),
               }}
             />
@@ -316,12 +316,8 @@ export function MyInfo() {
             <label className="selectLabel">Select a State</label>
             <Select
               options={State?.getStatesOfCountry(selectedCountry?.isoCode)}
-              getOptionLabel={(options) => {
-                return options["name"];
-              }}
-              getOptionValue={(options) => {
-                return options["name"];
-              }}
+              getOptionLabel={(options) => options.name}
+              getOptionValue={(options) => options.name}
               value={selectedState}
               onChange={(item) => {
                 setSelectedState(item);
@@ -330,27 +326,27 @@ export function MyInfo() {
               styles={{
                 control: (provided, state) => ({
                   ...provided,
-                  boxShadow: "none",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  backgroundColor: "#fafafa",
-                  borderRadius: "0",
-                  textAlign: "left",
-                  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
-                  padding: "0",
+                  boxShadow: 'none',
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                  backgroundColor: '#fafafa',
+                  borderRadius: '0',
+                  textAlign: 'left',
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
+                  padding: '0',
                 }),
                 menu: (provided, state) => ({
                   ...provided,
-                  border: "none",
-                  boxShadow: "none",
-                  padding: "0",
+                  border: 'none',
+                  boxShadow: 'none',
+                  padding: '0',
                 }),
                 option: (provided, state) => ({
                   ...provided,
-                  backgroundColor: state.isFocused && "lightgray",
-                  color: state.isFocused && "red",
-                  padding: "0",
+                  backgroundColor: state.isFocused && 'lightgray',
+                  color: state.isFocused && 'red',
+                  padding: '0',
                 }),
               }}
             />
@@ -360,14 +356,10 @@ export function MyInfo() {
             <Select
               options={City.getCitiesOfState(
                 selectedState?.countryCode,
-                selectedState?.isoCode
+                selectedState?.isoCode,
               )}
-              getOptionLabel={(options) => {
-                return options["name"];
-              }}
-              getOptionValue={(options) => {
-                return options["name"];
-              }}
+              getOptionLabel={(options) => options.name}
+              getOptionValue={(options) => options.name}
               value={selectedCity}
               onChange={(item) => {
                 setSelectedCity(item);
@@ -376,21 +368,21 @@ export function MyInfo() {
               styles={{
                 control: (provided, state) => ({
                   ...provided,
-                  boxShadow: "none",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  backgroundColor: "#fafafa",
-                  borderRadius: "0",
-                  textAlign: "left",
-                  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
-                  padding: "0",
+                  boxShadow: 'none',
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                  backgroundColor: '#fafafa',
+                  borderRadius: '0',
+                  textAlign: 'left',
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
+                  padding: '0',
                 }),
                 menu: (provided, state) => ({
                   ...provided,
-                  border: "none",
-                  boxShadow: "none",
-                  padding: "0",
+                  border: 'none',
+                  boxShadow: 'none',
+                  padding: '0',
                 }),
               }}
             />
@@ -400,9 +392,9 @@ export function MyInfo() {
             type="submit"
             disableElevation
             style={{
-              backgroundColor: "#109e38",
-              marginTop: "10px",
-              margin: "10px 2vw",
+              backgroundColor: '#109e38',
+              marginTop: '10px',
+              margin: '10px 2vw',
             }}
           >
             Update

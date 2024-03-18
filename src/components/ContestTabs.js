@@ -1,23 +1,23 @@
-import styled from "@emotion/styled";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Button, Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
+import styled from '@emotion/styled';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Button, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { FURL, URL } from "../constants/userConstants";
-import { leaderboardChanges } from "../utils/leaderboardchanges";
-import SelectTeam from "./selectteam";
-import { useAlert } from "react-alert";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { FURL, URL } from '../constants/userConstants';
+import { leaderboardChanges } from '../utils/leaderboardchanges';
+import SelectTeam from './selectteam';
 
 const ContestsContainer = styled(Grid)``;
 const Tabel = styled.div`
@@ -212,7 +212,9 @@ const Won = styled.div`
   font-size: 14px;
 `;
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -240,7 +242,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -255,11 +257,11 @@ export default function ContestTabs({ contest, leaderboard, handleSwap }) {
   };
   leaderboardChanges(leaderboard);
   const handleClick = (e, id) => {
-    navigate(`/savedteam/${id}`)
-  }
+    navigate(`/savedteam/${id}`);
+  };
 
   return (
-    <Container style={{ width: "100%" }}>
+    <Container style={{ width: '100%' }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -277,11 +279,14 @@ export default function ContestTabs({ contest, leaderboard, handleSwap }) {
                 <th>Rank</th>
                 <th>Winnings</th>
               </tr>
-              {contest &&
-                contest.prizeDetails.map((p, index) => (
+              {contest
+                && contest.prizeDetails.map((p, index) => (
                   <tr>
                     <td>{index + 1}</td>
-                    <td>₹{p.prize}</td>
+                    <td>
+                      ₹
+                      {p.prize}
+                    </td>
                   </tr>
                 ))}
             </table>
@@ -291,98 +296,117 @@ export default function ContestTabs({ contest, leaderboard, handleSwap }) {
       <TabPanel value={value} index={1}>
         <Paragraph>View all the teams after contest deadline</Paragraph>
         <LastPanel />
-        {< Tabel >
+        <Tabel>
           <table>
             <tr>
-              <th id="morewidth">All Teams ({leaderboard.length})</th>
+              <th id="morewidth">
+                All Teams (
+                {leaderboard.length}
+                )
+              </th>
               <th>Points</th>
               <th>Rank</th>
             </tr>
 
-            {leaderboard.length > 0 &&
-              leaderboard
-                .sort((a, b) => b._doc.points - a._doc.points)
-                .map((f, index) => (
-                  <tr
-                    className={f._doc.userId === user?._id ? "selected" : ""}
-                    onClick={(e) => handleClick(e, f._doc._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <td style={{ width: "200px !important" }} id="morewidth">
-                      <Profile>
-                        <img src={`${FURL}/profilepic.png`} alt="" />
-                        <Name>
-                          {f.user.username}{" "}(T{f._doc.teamId})
-                          <Won>
-                            {match_details?.result == "Complete" && (
+            {leaderboard.length > 0
+                && leaderboard
+                  .sort((a, b) => b._doc.points - a._doc.points)
+                  .map((f, index) => (
+                    <tr
+                      className={f._doc.userId === user?._id ? 'selected' : ''}
+                      onClick={(e) => handleClick(e, f._doc._id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <td style={{ width: '200px !important' }} id="morewidth">
+                        <Profile>
+                          <img src={`${FURL}/profilepic.png`} alt="" />
+                          <Name>
+                            {f.user.username}
+                            {' '}
+                            (T
+                            {f._doc.teamId}
+                            )
+                            <Won>
+                              {match_details?.result == 'Complete' && (
                               <p
                                 style={{
-                                  display: "flex",
-                                  alignItems: "center",
+                                  display: 'flex',
+                                  alignItems: 'center',
                                 }}
                               >
                                 {f._doc.userId == user._id ? (
                                   <>
                                     <span
                                       style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        marginRight: "6px",
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginRight: '6px',
                                       }}
                                     >
-                                      {index < contest?.prizeDetails.length &&
-                                        match_details?.result == "Complete" && (
-                                          <>
-                                            <EmojiEventsOutlinedIcon
-                                              style={{
-                                                color:
-                                                  "var(--green) !important",
-                                                fontSize: "16px",
-                                                marginTop: "3px",
-                                                marginRight: "5px",
-                                              }}
-                                            />
-                                            you won
-                                          </>
-                                        )}
-                                    </span>{" "}
+                                      {index < contest?.prizeDetails.length
+                                          && match_details?.result
+                                            == 'Complete' && (
+                                            <>
+                                              <EmojiEventsOutlinedIcon
+                                                style={{
+                                                  color:
+                                                    'var(--green) !important',
+                                                  fontSize: '16px',
+                                                  marginTop: '3px',
+                                                  marginRight: '5px',
+                                                }}
+                                              />
+                                              you won
+                                            </>
+                                      )}
+                                    </span>
+                                    {' '}
                                     <span>
-                                      {index < contest?.prizeDetails.length &&
-                                        "₹" +
-                                        contest?.prizeDetails[index].prize}
+                                      {index < contest?.prizeDetails.length
+                                          && `₹${
+                                            contest?.prizeDetails[index].prize}`}
                                     </span>
                                   </>
                                 ) : (
                                   <>
                                     <EmojiEventsOutlinedIcon
                                       style={{
-                                        color: "var(--green) !important",
-                                        fontSize: "16px",
-                                        marginTop: "3px",
-                                        marginRight: "5px",
+                                        color: 'var(--green) !important',
+                                        fontSize: '16px',
+                                        marginTop: '3px',
+                                        marginRight: '5px',
                                       }}
                                     />
                                     <span>won</span>
                                     <span>
-                                      {index < contest?.prizeDetails.length &&
-                                        contest?.prizeDetails[index].prize}
+                                      {index < contest?.prizeDetails.length
+                                          && contest?.prizeDetails[index].prize}
                                     </span>
                                   </>
                                 )}
                               </p>
-                            )}
-                          </Won>
-                        </Name>
-                      </Profile>
-                    </td>
-                    <td>{f._doc.points}</td>
-                    <td style={{ zIndex: 10 }}>{f._doc.userId === user?._id && <SwapHorizIcon onClick={(e) => handleSwap(e, f?._doc)} />}</td>
-                    <td>#{index + 1}</td>
-                  </tr>
-                ))}
+                              )}
+                            </Won>
+                          </Name>
+                        </Profile>
+                      </td>
+                      <td>{f._doc.points}</td>
+                      <td style={{ zIndex: 10 }}>
+                        {f._doc.userId === user?._id && (
+                          <SwapHorizIcon
+                            onClick={(e) => handleSwap(e, f?._doc)}
+                          />
+                        )}
+                      </td>
+                      <td>
+                        #
+                        {index + 1}
+                      </td>
+                    </tr>
+                  ))}
           </table>
-        </Tabel>}
+        </Tabel>
       </TabPanel>
-    </Container >
+    </Container>
   );
 }

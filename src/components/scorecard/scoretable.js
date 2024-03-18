@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import styled from '@emotion/styled';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
 
-import { setshow } from "../../utils/dateformat";
+import { setshow } from '../../utils/dateformat';
 
 const Container = styled.div`
   .MuiPaper-root {
@@ -50,7 +50,7 @@ const Table = styled.table`
   td {
     padding: 5px 0;
     width: 25px;
-    overflow:hidden;
+    overflow: hidden;
   }
   width: 100%;
 `;
@@ -58,7 +58,7 @@ const Table = styled.table`
 const Th = styled.th`
   text-align: left !important;
   text-overflow: ellipsis;
-  width:120px;
+  width: 120px;
 `;
 
 const Td = styled.td`
@@ -104,8 +104,8 @@ const Scores = styled.div`
   font-size: 14px;
 `;
 const S = styled.div`
-width: 35px;
-text-overflow:ellipsis;
+  width: 35px;
+  text-overflow: ellipsis;
 `;
 
 export function ScoreTable({ rows, batsmen, bowlers }) {
@@ -123,53 +123,55 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               <th>Eco</th>
             </tr>
           </thead>
-          {rows?.length > 0 &&
-            rows
+          {rows?.length > 0
+            && rows
               .filter((k) => k.overs > 0)
               .map((t) => (
                 <tr>
-                  <Td style={{ textTransform: "capitalize" }}>
+                  <Td style={{ textTransform: 'capitalize' }}>
                     <Name>{t.playerName}</Name>
                   </Td>
                   <td>{t.overs}</td>
                   <td>{t.maidens}</td>
                   <td>{t.runsConceded}</td>
                   <td>{t.wickets}</td>
-                  <td><S>{Math.floor(t.economy * 10) / 10}</S></td>
+                  <td>
+                    <S>{Math.floor(t.economy * 10) / 10}</S>
+                  </td>
                 </tr>
               ))}
         </Table>
       ) : null}
       {batsmen ? (
-        <>
-          <Table>
-            <thead>
-              <tr>
-                <Th>Batter</Th>
-                <th>R</th>
-                <th>B</th>
-                <th>4s</th>
-                <th>6s</th>
-                <th>S/R</th>
-              </tr>
-            </thead>
-            {rows?.length > 0 &&
-              rows
+        <Table>
+          <thead>
+            <tr>
+              <Th>Batter</Th>
+              <th>R</th>
+              <th>B</th>
+              <th>4s</th>
+              <th>6s</th>
+              <th>S/R</th>
+            </tr>
+          </thead>
+          {rows?.length > 0
+              && rows
                 .filter((k) => k.balls > 0)
                 .map((t) => (
                   <tr>
-                    <Td style={{ textTransform: "capitalize" }}>
+                    <Td style={{ textTransform: 'capitalize' }}>
                       <Name>{t.playerName}</Name>
                     </Td>
                     <td>{t.runs}</td>
                     <td>{t.balls}</td>
                     <td>{t.fours}</td>
                     <td>{t.sixes}</td>
-                    <td><S>{t.strikeRate}</S></td>
+                    <td>
+                      <S>{t.strikeRate}</S>
+                    </td>
                   </tr>
                 ))}
-          </Table>
-        </>
+        </Table>
       ) : null}
     </>
   );

@@ -20,18 +20,23 @@
 
 // export default Donate;
 
-import React from 'react'
+import React from 'react';
 
-const Donate = () => {
+function Donate() {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <img
-        src="mefigureQR.png"  
+        src="mefigureQR.png"
         alt="Donate Image"
-        style={{ maxWidth: '100%', maxHeight: '80%', width: 'auto', height: 'auto' }}
+        style={{
+          maxWidth: '100%',
+          maxHeight: '80%',
+          width: 'auto',
+          height: 'auto',
+        }}
       />
     </div>
-  )
+  );
 }
 
-export default Donate
+export default Donate;

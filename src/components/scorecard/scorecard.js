@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import styled from '@emotion/styled';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
 
-import { setshow } from "../../utils/dateformat";
-import ScoreTable from "./scoretable";
+import { setshow } from '../../utils/dateformat';
+import ScoreTable from './scoretable';
 
 const Container = styled.div`
   .MuiPaper-root {
@@ -23,7 +23,7 @@ const Container = styled.div`
     background-color: #ffffff;
   }
   .not {
-    background-color:  #ceffce !important;
+    background-color: #ceffce !important;
   }
   .MuiAccordion-root {
     margin: 0 0 !important;
@@ -111,13 +111,13 @@ const NotStarted = styled.h3`
 `;
 
 export function ScoreCard({ data, g, livescore }) {
-  const [expanded, setExpanded] = React.useState("panel2");
+  const [expanded, setExpanded] = React.useState('panel2');
   const [fow, setFow] = useState([]);
   const [fowsSi, setFowsSI] = useState([]);
   useEffect(() => {
     if (data?.titleFI) {
-      const a = [...data?.fowFI?.split(",")];
-      const lmn = [...data?.fowSI?.split(",")];
+      const a = [...data?.fowFI?.split(',')];
+      const lmn = [...data?.fowSI?.split(',')];
       setFow([...setshow(a)]);
       setFowsSI([...setshow(lmn)]);
     }
@@ -130,9 +130,9 @@ export function ScoreCard({ data, g, livescore }) {
       {data?.titleFI ? (
         <>
           <Accordion
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-            className={expanded == "panel1" ? "expanded" : "not"}
+            expanded={expanded === 'panel1'}
+            onChange={handleChange('panel1')}
+            className={expanded == 'panel1' ? 'expanded' : 'not'}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -143,7 +143,8 @@ export function ScoreCard({ data, g, livescore }) {
                 <Code>{data?.titleFI}</Code>
 
                 <Scores>
-                  <Overs>{`(${data?.oversFI} overs)`}</Overs>{" "}
+                  <Overs>{`(${data?.oversFI} overs)`}</Overs>
+                  {' '}
                   {`${data.runFI}/${data.wicketsFI}`}
                 </Scores>
               </MatchData>
@@ -151,13 +152,13 @@ export function ScoreCard({ data, g, livescore }) {
             <AccordionDetails>
               {data.isHomeFirst ? (
                 <>
-                  <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
-                  <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
+                  <ScoreTable rows={data.teamHomePlayers} batsmen />
+                  <ScoreTable rows={data.teamAwayPlayers} bowlers />
                 </>
               ) : (
                 <>
-                  <ScoreTable rows={data.teamAwayPlayers} batsmen={true} />
-                  <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
+                  <ScoreTable rows={data.teamAwayPlayers} batsmen />
+                  <ScoreTable rows={data.teamHomePlayers} bowlers />
                 </>
               )}
               <Table>
@@ -166,7 +167,7 @@ export function ScoreCard({ data, g, livescore }) {
                   <th>Score</th>
                   <th>Over</th>
                 </tr>
-                {/*fow?.length > 0 &&
+                {/* fow?.length > 0 &&
                   fow.map((t) => (
                     <tr>
                       <Td style={{ textTransform: "capitalize" }}>
@@ -175,14 +176,14 @@ export function ScoreCard({ data, g, livescore }) {
                       <td>{t.fall}</td>
                       <td>{t.over}</td>
                     </tr>
-                  ))*/}
+                  )) */}
               </Table>
             </AccordionDetails>
           </Accordion>
           <Accordion
-            expanded={expanded === "panel2"}
-            onChange={handleChange("panel2")}
-            className={expanded == "panel2" ? "expanded" : "not"}
+            expanded={expanded === 'panel2'}
+            onChange={handleChange('panel2')}
+            className={expanded == 'panel2' ? 'expanded' : 'not'}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -192,21 +193,24 @@ export function ScoreCard({ data, g, livescore }) {
               <MatchData>
                 <Code>{data?.titleSI}</Code>
                 <Scores>
-                  <Overs>{`(${data?.oversSI} overs)`}</Overs>{" "}
-                  {`${data.runSI}/${data.wicketsSI}`}{" "}
-                </Scores>{" "}
+                  <Overs>{`(${data?.oversSI} overs)`}</Overs>
+                  {' '}
+                  {`${data.runSI}/${data.wicketsSI}`}
+                  {' '}
+                </Scores>
+                {' '}
               </MatchData>
             </AccordionSummary>
             <AccordionDetails>
               {!data.isHomeFirst ? (
                 <>
-                  <ScoreTable rows={data.teamHomePlayers} batsmen={true} />
-                  <ScoreTable rows={data.teamAwayPlayers} bowlers={true} />
+                  <ScoreTable rows={data.teamHomePlayers} batsmen />
+                  <ScoreTable rows={data.teamAwayPlayers} bowlers />
                 </>
               ) : (
                 <>
-                  <ScoreTable rows={data.teamAwayPlayers} batsmen={true} />
-                  <ScoreTable rows={data.teamHomePlayers} bowlers={true} />
+                  <ScoreTable rows={data.teamAwayPlayers} batsmen />
+                  <ScoreTable rows={data.teamHomePlayers} bowlers />
                 </>
               )}
               <Table>
@@ -215,7 +219,7 @@ export function ScoreCard({ data, g, livescore }) {
                   <th>Score</th>
                   <th>Over</th>
                 </tr>
-                {/*fowsSi?.length > 0 &&
+                {/* fowsSi?.length > 0 &&
                   fowsSi.map((t) => (
                     <tr>
                       <Td style={{ textTransform: "capitalize" }}>
@@ -224,7 +228,7 @@ export function ScoreCard({ data, g, livescore }) {
                       <td>{t.fall}</td>
                       <td>{t.over}</td>
                     </tr>
-                  ))*/}
+                  )) */}
               </Table>
             </AccordionDetails>
           </Accordion>

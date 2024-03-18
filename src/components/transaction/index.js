@@ -1,28 +1,30 @@
-import styled from "@emotion/styled";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Button, Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import SouthIcon from "@mui/icons-material/South";
-import Slider from "@mui/material/Slider";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import axios from "axios";
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams,useLocation } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { URL } from "../../constants/userConstants";
-import Navbar from "../navbar";
-import Bottomnav from "../navbar/bottomnavbar";
-import Deposit from "./deposit";
-import Withdraw from "./withdraw";
-import "./deposit.css";
+import './deposit.css';
+
+import styled from '@emotion/styled';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import SouthIcon from '@mui/icons-material/South';
+import { Button, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { URL } from '../../constants/userConstants';
+import Navbar from '../navbar';
+import Bottomnav from '../navbar/bottomnavbar';
+import Deposit from './deposit';
+import Withdraw from './withdraw';
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -219,7 +221,9 @@ const F = styled.div`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -247,15 +251,17 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function TransactionTabs({ tabs, g, livescore }) {
   const { state } = useLocation();
   const [value, setValue] = React.useState(0);
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const { id } = useParams();
   const { match_details, matchlive } = useSelector((state) => state.match);
@@ -272,20 +278,20 @@ export default function TransactionTabs({ tabs, g, livescore }) {
   const [modal, setModal] = React.useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    if(state?.tab=="withdrawal"){
-      setValue(1)
+    if (state?.tab == 'withdrawal') {
+      setValue(1);
     }
-  }, [state])
+  }, [state]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleOpen = (i) => {
     if (
-      !(matchlive?.result == "In Progress" || matchlive?.result == "Complete")
+      !(matchlive?.result == 'In Progress' || matchlive?.result == 'Complete')
     ) {
       if (!team?.length > 0) {
         setValue(2);
-        alert.info("create a team before joining contest!");
+        alert.info('create a team before joining contest!');
       } else {
         setModal(i);
         setSelectTeams({ selected: true, team: null });
@@ -297,32 +303,32 @@ export default function TransactionTabs({ tabs, g, livescore }) {
   };
 
   const handlejoin = async (t) => {
-    console.log("join contest");
+    console.log('join contest');
     const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+      `${URL}/getjoinedcontest/${id}?userid=${user._id}`,
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
-    alert.success("contest joined successfully");
+    alert.success('contest joined successfully');
     setSelectTeams({ selected: false, team: t });
   };
 
   const loadjoined = async (t) => {
-    console.log("join contest");
+    console.log('join contest');
     const joinedC = await axios.get(
-      `${URL}/getjoinedcontest/${id}?userid=${user._id}`
+      `${URL}/getjoinedcontest/${id}?userid=${user._id}`,
     );
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(contest, matchlive, "match_details");
+  console.log(contest, matchlive, 'match_details');
   return (
     <>
       <Navbar />
-      <Container style={{ zIndex: "1" }}>
+      <Container style={{ zIndex: '1' }}>
         <Title>transfer online</Title>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Box>
             <Tabs
               value={value}
@@ -333,14 +339,14 @@ export default function TransactionTabs({ tabs, g, livescore }) {
               aria-label="scrollable force tabs example"
             >
               <Tab
-                icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
+                icon={<AccountBalanceIcon style={{ margin: '0 5px' }} />}
                 label="Deposit"
                 {...a11yProps(0)}
               />
 
               <Tab
-                icon={<AccountBalanceIcon style={{ margin: "0 5px" }} />}
-                label={`Withdrawal`}
+                icon={<AccountBalanceIcon style={{ margin: '0 5px' }} />}
+                label="Withdrawal"
                 {...a11yProps(1)}
               />
             </Tabs>

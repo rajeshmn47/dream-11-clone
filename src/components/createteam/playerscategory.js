@@ -1,37 +1,26 @@
-import styled from "@emotion/styled";
-import {
-  CheckBoxOutlineBlankTwoTone,
-  SettingsSystemDaydream,
-} from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import { Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { URL } from "../../constants/userConstants";
+import { API } from '../../actions/userAction';
+import { URL } from '../../constants/userConstants';
 import {
   checkar,
   checkwk,
   getImgurl,
-  isUnAnnounced,
-} from "../../utils/img_url";
-import Announced from "./Announced";
-import ConfirmModal from "../confirmcontest";
-import BaseTab from "../ContestTabs";
-import SavedTeam from "../savedteam";
-import Loader from "../loader";
-import { API } from "../../actions/userAction";
+} from '../../utils/img_url';
+import Loader from '../loader';
+import Announced from './Announced';
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -145,7 +134,7 @@ const AddButton = styled.button`
 
 const RemoveButton = styled.button`
   color: #df5f1f;
-  background-color:  var(--lightgreen);
+  background-color: var(--lightgreen);
   border: none;
   outline: none;
   margin-right: 15px;
@@ -237,7 +226,9 @@ const Away = styled.div`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -265,7 +256,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -289,11 +280,9 @@ export default function LiveCategoryTabs({
     async function getplayers() {
       if (user?._id && match) {
         const data = await API.get(
-          `${URL}/getteam/${match?.teamHomeName}/${match?.teamAwayName}`
+          `${URL}/getteam/${match?.teamHomeName}/${match?.teamAwayName}`,
         );
-        const contestdata = await API.get(
-          `${URL}/getcontestsofuser/${id}`
-        );
+        const contestdata = await API.get(`${URL}/getcontestsofuser/${id}`);
         setContest(contestdata.data.contests);
       }
     }
@@ -303,13 +292,9 @@ export default function LiveCategoryTabs({
   useEffect(() => {
     async function getplayers() {
       if (user?._id) {
-        const data = await API.get(
-          `${URL}/getteam/?matchId=${id}`
-        );
+        const data = await API.get(`${URL}/getteam/?matchId=${id}`);
         setTeam(data.data.team);
-        const contestdata = await API.get(
-          `${URL}/getcontestsofuser/${id}`
-        );
+        const contestdata = await API.get(`${URL}/getcontestsofuser/${id}`);
         setContest(contestdata.data.contests);
       }
     }
@@ -319,12 +304,12 @@ export default function LiveCategoryTabs({
     setValue(newValue);
   };
   const handleOpen = (i) => {
-    console.log("stillitis clicked");
+    console.log('stillitis clicked');
     setModal(i);
     setOpen(true);
   };
   const handleClose = () => {
-    console.log("handleopenclose");
+    console.log('handleopenclose');
     setOpen(false);
   };
   const handleClick = (i) => {
@@ -349,8 +334,8 @@ export default function LiveCategoryTabs({
 
   return (
     <Contest>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -365,7 +350,7 @@ export default function LiveCategoryTabs({
             />
             <Tab
               label={`BAT(${
-                players.filter((p) => p.position === "batsman" && p.isSelected)
+                players.filter((p) => p.position === 'batsman' && p.isSelected)
                   .length
               })`}
               {...a11yProps(1)}
@@ -379,7 +364,7 @@ export default function LiveCategoryTabs({
             />
             <Tab
               label={`BOW(${
-                players.filter((p) => p.position === "bowler" && p.isSelected)
+                players.filter((p) => p.position === 'bowler' && p.isSelected)
                   .length
               })`}
               {...a11yProps(3)}
@@ -397,7 +382,7 @@ export default function LiveCategoryTabs({
                       .filter((p, index) => checkwk(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -429,8 +414,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -449,7 +434,7 @@ export default function LiveCategoryTabs({
                       .filter((p, index) => checkwk(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -481,8 +466,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -505,12 +490,11 @@ export default function LiveCategoryTabs({
                   {players.length > 0 ? (
                     players
                       .filter(
-                        (p, index) =>
-                          p.position === "batsman" || p.position == "batsmen"
+                        (p, index) => p.position === 'batsman' || p.position == 'batsmen',
                       )
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -542,8 +526,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -562,12 +546,11 @@ export default function LiveCategoryTabs({
                   {nonPlayers.length > 0 ? (
                     nonPlayers
                       .filter(
-                        (p, index) =>
-                          p.position === "batsman" || p.position == "batsmen"
+                        (p, index) => p.position === 'batsman' || p.position == 'batsmen',
                       )
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -599,8 +582,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -625,7 +608,7 @@ export default function LiveCategoryTabs({
                       .filter((p) => checkar(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -657,8 +640,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -677,7 +660,7 @@ export default function LiveCategoryTabs({
                       .filter((p) => checkar(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -709,8 +692,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -732,10 +715,10 @@ export default function LiveCategoryTabs({
                   <Announced title="Announced" />
                   {players.length > 0 ? (
                     players
-                      .filter((p) => p.position === "bowler")
+                      .filter((p) => p.position === 'bowler')
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -767,8 +750,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -784,10 +767,10 @@ export default function LiveCategoryTabs({
                   <Announced title="Unannounced" />
                   {nonPlayers.length > 0 ? (
                     nonPlayers
-                      .filter((p) => p.position === "bowler")
+                      .filter((p) => p.position === 'bowler')
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -819,8 +802,8 @@ export default function LiveCategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />

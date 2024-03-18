@@ -41,7 +41,7 @@ import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 export const userReducer = (state = { user: {} }, action) => {
   switch (action.type) {

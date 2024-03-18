@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import ReactCanvasConfetti from "react-confetti";
-import { useWindowSize } from "react-use";
+import { useEffect, useState } from 'react';
+import ReactCanvasConfetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
-import DecorationSmall from "./assets/DiwaSmall.svg";
-import Cracker from "./Cracker";
+import DecorationSmall from './assets/DiwaSmall.svg';
+import Cracker from './Cracker';
 
 function Animate({ confetti, setConfetti }) {
   const { width, height } = useWindowSize();
@@ -24,9 +24,9 @@ function Animate({ confetti, setConfetti }) {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", showAnimation);
+    window.addEventListener('resize', showAnimation);
     return () => {
-      window.removeEventListener("resize", showAnimation);
+      window.removeEventListener('resize', showAnimation);
     };
   }, [dimensions]);
 

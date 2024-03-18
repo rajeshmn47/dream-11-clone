@@ -1,26 +1,26 @@
-import styled from "@emotion/styled";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { Dialog } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useAlert } from "react-alert";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { Dialog } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "400px",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '400px',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -81,9 +81,9 @@ export default function ConfirmModal({
   const join = async () => {
     try {
       const data = await API.get(
-        `${URL}/joincontest/${modal._id}?teamid=${teamid}`
+        `${URL}/joincontest/${modal._id}?teamid=${teamid}`,
       );
-      alert.success("joined contest successfully");
+      alert.success('joined contest successfully');
       loadjoined();
       setSelectedTeam(null);
       setOpen(false);
@@ -98,7 +98,7 @@ export default function ConfirmModal({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      style={{ height: "400px" }}
+      style={{ height: '400px' }}
     >
       {modal && (
         <Main>
@@ -107,7 +107,7 @@ export default function ConfirmModal({
             <h5>
               <CloseRoundedIcon
                 onClick={() => handleClose()}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               />
             </h5>
           </FlexBox>

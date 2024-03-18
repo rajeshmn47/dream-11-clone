@@ -1,12 +1,12 @@
 export function getrowClass(allplayers, dreamteam, name) {
-  console.log(allplayers, dreamteam, "dreamteam");
+  console.log(allplayers, dreamteam, 'dreamteam');
   const q = both(allplayers, dreamteam, name)
-    ? "prime"
+    ? 'prime'
     : allplayers.find((k) => k.playerName == name)
-    ? "even"
-    : dreamteam.find((p) => p.playerName == name)
-    ? "sikh"
-    : "odd";
+      ? 'even'
+      : dreamteam.find((p) => p.playerName == name)
+        ? 'sikh'
+        : 'odd';
   return q;
 }
 

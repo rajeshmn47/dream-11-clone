@@ -1,35 +1,37 @@
-import styled from "@emotion/styled";
-import { SettingsSystemDaydream } from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import { Button, Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import SouthIcon from "@mui/icons-material/South";
-import Slider from "@mui/material/Slider";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { FURL, URL } from "../constants/userConstants";
-import Commentary from "./commentary";
-import ConfirmModal from "./confirmcontest";
-import BaseTab from "./ContestTabs";
-import { LeaderBoard } from "./leaderboard";
-import Loader from "./loader";
-import SavedTeam from "./savedteam";
-import ScoreCard from "./scorecard/scorecard";
-import SelectTeam from "./selectteam";
-import Stats from "./stats";
-import { TeamShort } from "./TeamShort";
-import { leaderboardChanges } from "../utils/leaderboardchanges";
-import EmojiEventsOutlined from "@mui/icons-material/EmojiEventsOutlined";
-import { API } from "../actions/userAction";
+import styled from '@emotion/styled';
+import { SettingsSystemDaydream } from '@mui/icons-material';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import EmojiEventsOutlined from '@mui/icons-material/EmojiEventsOutlined';
+import SouthIcon from '@mui/icons-material/South';
+import { Button, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { API } from '../actions/userAction';
+import { FURL, URL } from '../constants/userConstants';
+import { leaderboardChanges } from '../utils/leaderboardchanges';
+import Commentary from './commentary';
+import ConfirmModal from './confirmcontest';
+import BaseTab from './ContestTabs';
+import { LeaderBoard } from './leaderboard';
+import Loader from './loader';
+import SavedTeam from './savedteam';
+import ScoreCard from './scorecard/scorecard';
+import SelectTeam from './selectteam';
+import Stats from './stats';
+import { TeamShort } from './TeamShort';
+
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
@@ -253,7 +255,9 @@ const F = styled.div`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -281,14 +285,16 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 export default function MatchTabs({ tabs, g, livescore }) {
   const [value, setValue] = React.useState(0);
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const { id } = useParams();
   const { match_details, matchlive } = useSelector((state) => state.match);
@@ -308,12 +314,8 @@ export default function MatchTabs({ tabs, g, livescore }) {
   useEffect(() => {
     async function getplayers() {
       if (user?._id && id) {
-        const data = await API.get(
-          `${URL}/getteam/?matchId=${id}`
-        );
-        const joinedC = await API.get(
-          `${URL}/getjoinedcontest/${id}`
-        );
+        const data = await API.get(`${URL}/getteam/?matchId=${id}`);
+        const joinedC = await API.get(`${URL}/getjoinedcontest/${id}`);
         leaderboardChanges(joinedC.data.contests);
         setContest([...joinedC.data.contests]);
         setTeam([...data.data.team]);
@@ -325,7 +327,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
     async function getteams() {
       if (contest[0]?._id) {
         const teamdata = await API.get(
-          `${URL}/getteamsofcontest/${contest[0]?._id}`
+          `${URL}/getteamsofcontest/${contest[0]?._id}`,
         );
         setLeaderboard(teamdata.data.teams);
       }
@@ -349,11 +351,11 @@ export default function MatchTabs({ tabs, g, livescore }) {
   };
   const handleOpen = (i) => {
     if (
-      !(matchlive?.result == "In Progress" || matchlive?.result == "Complete")
+      !(matchlive?.result == 'In Progress' || matchlive?.result == 'Complete')
     ) {
       if (!team?.length > 0) {
         setValue(2);
-        alert.info("create a team before joining contest!");
+        alert.info('create a team before joining contest!');
       } else {
         setModal(i);
         setSelectTeams({ selected: true, team: null });
@@ -365,31 +367,27 @@ export default function MatchTabs({ tabs, g, livescore }) {
   };
 
   const handlejoin = async (t) => {
-    console.log("join contest");
-    const joinedC = await API.get(
-      `${URL}/getjoinedcontest/${id}`
-    );
+    console.log('join contest');
+    const joinedC = await API.get(`${URL}/getjoinedcontest/${id}`);
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
-    alert.success("contest joined successfully");
+    alert.success('contest joined successfully');
     setSelectTeams({ selected: false, team: t });
   };
 
   const loadjoined = async (t) => {
-    console.log("join contest");
-    const joinedC = await API.get(
-      `${URL}/getjoinedcontest/${id}`
-    );
+    console.log('join contest');
+    const joinedC = await API.get(`${URL}/getjoinedcontest/${id}`);
     setContest([...joinedC.data.contests]);
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
-  console.log(contest, matchlive, "match_details");
+  console.log(contest, matchlive, 'match_details');
   return (
-    <div style={{ zIndex: "1" }}>
+    <div style={{ zIndex: '1' }}>
       {!selectTeams.selected ? (
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs
               value={value}
               onChange={handleChange}
@@ -416,8 +414,8 @@ export default function MatchTabs({ tabs, g, livescore }) {
 
           <TabPanel value={value} index={0}>
             <ContestsContainer container item sm={12} xs={12}>
-              {tabs &&
-                tabs.map((tab) => (
+              {tabs
+                && tabs.map((tab) => (
                   <ContestContainer onClick={() => handleOpen(tab)}>
                     <Contest>
                       <First>
@@ -429,7 +427,9 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         <First>
                           <del>₹ 19</del>
                           <FreeButton>
-                            ₹ {Math.floor(tab.price / tab.totalSpots)}
+                            ₹
+                            {' '}
+                            {Math.floor(tab.price / tab.totalSpots)}
                           </FreeButton>
                         </First>
                       </First>
@@ -442,16 +442,26 @@ export default function MatchTabs({ tabs, g, livescore }) {
                         />
                       </SliderContainer>
                       <First>
-                        <SpotsLeft>{tab.spotsLeft} spots left</SpotsLeft>
-                        <SpotsRight>{tab.totalSpots} spots</SpotsRight>
+                        <SpotsLeft>
+                          {tab.spotsLeft}
+                          {' '}
+                          spots left
+                        </SpotsLeft>
+                        <SpotsRight>
+                          {tab.totalSpots}
+                          {' '}
+                          spots
+                        </SpotsRight>
                       </First>
                     </Contest>
                     <Last>
-                      ₹{Math.floor(tab.price / tab.totalSpots)}
+                      ₹
+                      {Math.floor(tab.price / tab.totalSpots)}
                       <EmojiEventsOutlinedIcon
-                        style={{ margin: "0 15px", marginBottom: "3px" }}
+                        style={{ margin: '0 15px', marginBottom: '3px' }}
                       />
-                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}%
+                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}
+                      %
                       Single
                     </Last>
                   </ContestContainer>
@@ -474,18 +484,18 @@ export default function MatchTabs({ tabs, g, livescore }) {
               {contest.length > 0 ? (
                 contest.map((tab) => (
                   <ContestContainerJ
-                    onClick={() =>
-                      navigate(`/contestdetail/${tab.contest._id}`, {
-                        state: {
-                          match_details: matchlive,
-                        },
-                      })
-                    }
+                    onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
+                      state: {
+                        match_details: matchlive,
+                      },
+                    })}
                   >
                     <ContestJ>
                       <First>
                         <div>
-                          <p>Prize Pool</p>₹{tab?.contest?.price}
+                          <p>Prize Pool</p>
+                          ₹
+                          {tab?.contest?.price}
                         </div>
                         <div>
                           <p>spots</p>
@@ -496,18 +506,20 @@ export default function MatchTabs({ tabs, g, livescore }) {
                           <p>
                             ₹
                             {Math.floor(
-                              tab?.contest?.price / tab?.contest?.totalSpots
+                              tab?.contest?.price / tab?.contest?.totalSpots,
                             )}
                           </p>
                         </div>
-                        {matchlive?.result == "Complet" && (
+                        {matchlive?.result == 'Complet' && (
                           <h5
                             style={{
-                              color: "var(--green)",
-                              fontFamily: "OpenSans",
+                              color: 'var(--green)',
+                              fontFamily: 'OpenSans',
                             }}
                           >
-                            u won {tab?.team?.won}
+                            u won
+                            {' '}
+                            {tab?.team?.won}
                             rs!
                           </h5>
                         )}
@@ -515,70 +527,77 @@ export default function MatchTabs({ tabs, g, livescore }) {
                     </ContestJ>
                     <LastJ>
                       <div>
-                        <p style={{ display: "flex", alignItems: "center" }}>
-                          <F>1st</F> {tab.contest.prizeDetails[0].prize}
+                        <p style={{ display: 'flex', alignItems: 'center' }}>
+                          <F>1st</F>
+                          {' '}
+                          {tab.contest.prizeDetails[0].prize}
                         </p>
                       </div>
                       <First>
-                        <EmojiEventsOutlinedIcon />{" "}
-                        {Math.floor((5 / tab.contest.totalSpots) * 100)}%
+                        <EmojiEventsOutlinedIcon />
+                        {' '}
+                        {Math.floor((5 / tab.contest.totalSpots) * 100)}
+                        %
                       </First>
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
                         <M>m</M>
                         <C>c</C>
                       </div>
                     </LastJ>
                     {tab.teams.map((t) => (
-                      <>
-                        <StatusC>
-                          <SpotsLeft>
-                            {t?.username}
-                            {matchlive?.result == "Complete" ? (
-                              <p
-                                style={{
-                                  color: "var(--green)",
-                                  fontSize: "12px",
-                                }}
-                              >
-                                you won ₹{t.won}
-                              </p>
-                            ) : (
-                              <p
-                                style={{
-                                  color: "var(--green)",
-                                  fontSize: "12px",
-                                }}
-                              >
-                                IN WINNING ZONE
-                              </p>
-                            )}
-                          </SpotsLeft>
-                          <SpotsLeft>T{t?.teamId}</SpotsLeft>
-                          <SpotsLeft>{t?.points}</SpotsLeft>
-                          <SpotsRight
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            #{t?.rank}
-                            {t?.rank < tab?.contest?.prizeDetails?.length ? (
-                              <ArrowUpwardIcon
-                                style={{
-                                  color: "var(--green)",
-                                  fontSize: "18px",
-                                  marginLeft: "5px",
-                                }}
-                              />
-                            ) : (
-                              <SouthIcon
-                                style={{
-                                  color: "red",
-                                  fontSize: "18px",
-                                  marginLeft: "5px",
-                                }}
-                              />
-                            )}
-                          </SpotsRight>
-                        </StatusC>
-                      </>
+                      <StatusC>
+                        <SpotsLeft>
+                          {t?.username}
+                          {matchlive?.result == 'Complete' ? (
+                            <p
+                              style={{
+                                color: 'var(--green)',
+                                fontSize: '12px',
+                              }}
+                            >
+                              you won ₹
+                              {t.won}
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                color: 'var(--green)',
+                                fontSize: '12px',
+                              }}
+                            >
+                              IN WINNING ZONE
+                            </p>
+                          )}
+                        </SpotsLeft>
+                        <SpotsLeft>
+                          T
+                          {t?.teamId}
+                        </SpotsLeft>
+                        <SpotsLeft>{t?.points}</SpotsLeft>
+                        <SpotsRight
+                          style={{ display: 'flex', alignItems: 'center' }}
+                        >
+                          #
+                          {t?.rank}
+                          {t?.rank < tab?.contest?.prizeDetails?.length ? (
+                            <ArrowUpwardIcon
+                              style={{
+                                color: 'var(--green)',
+                                fontSize: '18px',
+                                marginLeft: '5px',
+                              }}
+                            />
+                          ) : (
+                            <SouthIcon
+                              style={{
+                                color: 'red',
+                                fontSize: '18px',
+                                marginLeft: '5px',
+                              }}
+                            />
+                          )}
+                        </SpotsRight>
+                      </StatusC>
                     ))}
                   </ContestContainerJ>
                 ))
@@ -595,8 +614,8 @@ export default function MatchTabs({ tabs, g, livescore }) {
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {team?.length > 0 &&
-              team.map((t) => (
+            {team?.length > 0
+              && team.map((t) => (
                 <TeamShort
                   match={matchlive || match_details}
                   match_info={match_details}
@@ -606,14 +625,14 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 />
               ))}
             {!(
-              matchlive?.result == "In Progress" ||
-              matchlive?.result == "Complete"
+              matchlive?.result == 'In Progress'
+              || matchlive?.result == 'Complete'
             ) && (
-                <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
-                  <AddCircleOutlineRoundedIcon />
-                  <p style={{ textTransform: "uppercase" }}>create team</p>
-                </CreateTeam>
-              )}
+              <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
+                <AddCircleOutlineRoundedIcon />
+                <p style={{ textTransform: 'uppercase' }}>create team</p>
+              </CreateTeam>
+            )}
           </TabPanel>
           <TabP value={value} index={3}>
             <Commentary matchdata={match_details} />
@@ -645,7 +664,18 @@ export default function MatchTabs({ tabs, g, livescore }) {
                 players={t.players}
                 plo={t}
                 id={id}
-                teamIds={contest.find((c) => c?.contest?._id == modal?._id)?.teams?.map((t) => t?._id).length > 0 && contest?.length > 0 ? [...contest.find((c) => c?.contest?._id == modal?._id)?.teams?.map((t) => t?._id)] : ['id']}
+                teamIds={
+                  contest
+                    .find((c) => c?.contest?._id == modal?._id)
+                    ?.teams?.map((t) => t?._id).length > 0
+                  && contest?.length > 0
+                    ? [
+                      ...contest
+                        .find((c) => c?.contest?._id == modal?._id)
+                        ?.teams?.map((t) => t?._id),
+                    ]
+                    : ['id']
+                }
                 selectTeams={selectTeams}
                 setSelectTeams={setSelectTeams}
                 selectedTeam={selectedTeam}

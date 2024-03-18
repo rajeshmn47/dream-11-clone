@@ -1,23 +1,23 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import WestIcon from "@mui/icons-material/West";
-import { Grid } from "@mui/material";
-import Tab from "@mui/material/Tab";
-import axios from "axios";
-import { getDatabase, onValue, ref } from "firebase/database";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import Brightness1Icon from '@mui/icons-material/Brightness1';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import WestIcon from '@mui/icons-material/West';
+import { Grid } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import axios from 'axios';
+import { getDatabase, onValue, ref } from 'firebase/database';
 import {
   collection,
   doc,
@@ -29,28 +29,28 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import ReactCanvasConfetti from "react-confetti";
-import { useDispatch, useSelector } from "react-redux";
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import ReactCanvasConfetti from 'react-confetti';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   unstable_HistoryRouter,
   useLocation,
   useNavigate,
   useParams,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import { getmatch } from "../actions/matchAction";
-import { API, addconfetti, removeconfetti } from "../actions/userAction";
-import { URL } from "../constants/userConstants";
-import db from "../firebase";
-import { showBalls } from "../utils/lastballs";
-import { showName } from "../utils/name";
-import Bottomnav from "./navbar/bottomnavbar";
-import MatchTabs from "./MatchTabs";
-import SavedTeam from "./savedteam";
-import ShowOver from "./showover";
-import Steppr from "./stepper";
+import { getmatch } from '../actions/matchAction';
+import { addconfetti, API, removeconfetti } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import db from '../firebase';
+import { showBalls } from '../utils/lastballs';
+import { showName } from '../utils/name';
+import MatchTabs from './MatchTabs';
+import Bottomnav from './navbar/bottomnavbar';
+import SavedTeam from './savedteam';
+import ShowOver from './showover';
+import Steppr from './stepper';
 
 const TopContainer = styled.div`
   background-color: var(--black);
@@ -189,20 +189,20 @@ export function MatchDetails({ players }) {
   useEffect(() => {
     async function getdata(m) {
       if (match_details?.matchId) {
-        const docRef = doc(db, "commentary", match_details.matchId);
+        const docRef = doc(db, 'commentary', match_details.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
         } else {
           // docSnap.data() will be undefined in this case
         }
         const unsub = onSnapshot(
-          doc(db, "commentary", match_details?.matchId),
+          doc(db, 'commentary', match_details?.matchId),
           (doc) => {
             if (doc.data()) {
               setCommentary([...doc.data().commentary]);
               setLivescore({ ...doc.data().miniscore });
             }
-          }
+          },
         );
       }
     }
@@ -214,9 +214,9 @@ export function MatchDetails({ players }) {
   }, [match_details]);
 
   useEffect(() => {
-    window.addEventListener("resize", showAnimation);
+    window.addEventListener('resize', showAnimation);
     return () => {
-      window.removeEventListener("resize", showAnimation);
+      window.removeEventListener('resize', showAnimation);
     };
   }, [dimensions]);
   const { search } = useLocation();
@@ -241,11 +241,14 @@ export function MatchDetails({ players }) {
             <LeftSide>
               <WestIcon
                 onClick={() => history(-1)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               />
               {match_details && (
                 <h1>
-                  {match_details.teamAwayCode} Vs {match_details.teamHomeCode}
+                  {match_details.teamAwayCode}
+                  {' '}
+                  Vs
+                  {match_details.teamHomeCode}
                 </h1>
               )}
             </LeftSide>
@@ -262,21 +265,24 @@ export function MatchDetails({ players }) {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Grid item sm={4} xs={4} style={{ textAlign: "left" }}>
+                <Grid item sm={4} xs={4} style={{ textAlign: 'left' }}>
                   <p
                     style={{
-                      height: "15px",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
+                      height: '15px',
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden',
                     }}
                   >
                     {matchlive.titleFI}
                   </p>
                   <p>
-                    {livescore.matchScoreDetails.inningsScoreList[0]?.score}/
-                    {livescore.matchScoreDetails.inningsScoreList[0]?.wickets ||
-                      0}
-                    ({livescore.matchScoreDetails.inningsScoreList[0]?.overs})
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.score}
+                    /
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.wickets
+                      || 0}
+                    (
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
+                    )
                   </p>
                 </Grid>
                 <Grid
@@ -284,29 +290,29 @@ export function MatchDetails({ players }) {
                   sm={4}
                   xs={4}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
                   <GreenMark />
-                  {matchlive.result == "Complete" ? "Completed" : "In Play"}
+                  {matchlive.result == 'Complete' ? 'Completed' : 'In Play'}
                 </Grid>
-                <Grid item sm={4} xs={4} style={{ textAlign: "right" }}>
+                <Grid item sm={4} xs={4} style={{ textAlign: 'right' }}>
                   {matchlive?.runSI && livescore?.matchScoreDetails && (
                     <>
                       <p
                         style={{
-                          height: "15px",
-                          textOverflow: "ellipsis",
-                          overflow: "hidden",
+                          height: '15px',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
                         }}
                       >
-                        {" "}
+                        {' '}
                         {matchlive.titleSI}
                       </p>
                       <p>
-                        {" "}
+                        {' '}
                         {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                         /
                         {livescore.matchScoreDetails.inningsScoreList[1]
@@ -321,36 +327,43 @@ export function MatchDetails({ players }) {
               </Grid>
               <p
                 style={{
-                  textAlign: "center",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
                 }}
               >
-                {matchlive?.status?.split("(11b rem)").join("")}
+                {matchlive?.status?.split('(11b rem)').join('')}
               </p>
               <Separator />
               <BottomT>
                 <Batsman>
                   <BowlTop>
                     <Name>{showName(livescore?.batsmanStriker?.batName)}</Name>
-                    {livescore?.batsmanStriker?.batRuns}(
-                    {livescore?.batsmanStriker?.batBalls})
+                    {livescore?.batsmanStriker?.batRuns}
+                    (
+                    {livescore?.batsmanStriker?.batBalls}
+                    )
                   </BowlTop>
                   <BowlTop>
                     <Name>
                       {showName(livescore?.batsmanNonStriker?.batName)}
                       ()
                     </Name>
-                    {livescore?.batsmanNonStriker?.batRuns}(
-                    {livescore?.batsmanNonStriker?.batBalls})
+                    {livescore?.batsmanNonStriker?.batRuns}
+                    (
+                    {livescore?.batsmanNonStriker?.batBalls}
+                    )
                   </BowlTop>
                 </Batsman>
                 <Bowler>
                   <BowlTop>
                     <Name>{showName(livescore?.bowlerStriker?.bowlName)}</Name>
-                    {livescore?.bowlerStriker?.bowlWkts}/
-                    {livescore?.bowlerStriker?.bowlRuns}(
-                    {livescore?.bowlerStriker?.bowlOvs})
+                    {livescore?.bowlerStriker?.bowlWkts}
+                    /
+                    {livescore?.bowlerStriker?.bowlRuns}
+                    (
+                    {livescore?.bowlerStriker?.bowlOvs}
+                    )
                   </BowlTop>
                   <BowlTop>
                     <ShowOver arr={livescore?.recentOvsStats} />

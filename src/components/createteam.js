@@ -1,27 +1,27 @@
-import "./create.css";
+import './create.css';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   PlaylistAddCheckCircleSharp,
   SendTimeExtension,
   SettingsApplicationsTwoTone,
-} from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+} from '@mui/icons-material';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import Bottomnav from "./navbar/bottomnavbar";
-import Next from "./captain";
-import Steppr from "./stepper";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import Next from './captain';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -173,7 +173,7 @@ export function CreateTeam() {
   };
 
   const handleNext = () => {
-    console.log("clicked next");
+    console.log('clicked next');
     setNext(true);
   };
 
@@ -182,19 +182,19 @@ export function CreateTeam() {
       {!next ? (
         <>
           <NoPlayers container spacing={2}>
-            {players.filter((k) => k.isSelected === true).length <= 11 &&
-              players
+            {players.filter((k) => k.isSelected === true).length <= 11
+              && players
                 .filter((k) => k.isSelected === true)
                 .map((p, index) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
                     <NoPlayer />
                   </Grid>
                 ))}
-            {players.filter((k) => k.isSelected === true).length <= 11 &&
-              players
+            {players.filter((k) => k.isSelected === true).length <= 11
+              && players
                 .slice(
                   0,
-                  11 - players.filter((k) => k.isSelected === true).length
+                  11 - players.filter((k) => k.isSelected === true).length,
                 )
                 .map((g) => (
                   <Grid item lg={1} md={1} xs={1} sm={1}>
@@ -206,7 +206,7 @@ export function CreateTeam() {
             {players.length > 0 ? (
               players.map((p) => (
                 <EachPlayer
-                  className={p.isSelected ? "selected" : "notselected"}
+                  className={p.isSelected ? 'selected' : 'notselected'}
                 >
                   <img src={p.image} alt="" />
                   <h1>{p.playerName}</h1>
@@ -218,14 +218,14 @@ export function CreateTeam() {
                     <AddButton
                       onClick={() => handleClick(p._id)}
                       disabled={
-                        players.filter((k) => k.isSelected === true).length >=
-                        11
+                        players.filter((k) => k.isSelected === true).length
+                        >= 11
                       }
                       className={
-                        players.filter((k) => k.isSelected === true).length >=
-                        11
-                          ? "disabled"
-                          : "notdisabled"
+                        players.filter((k) => k.isSelected === true).length
+                        >= 11
+                          ? 'disabled'
+                          : 'notdisabled'
                       }
                     >
                       <AddCircleOutlineRoundedIcon />
@@ -246,8 +246,8 @@ export function CreateTeam() {
               }
               className={
                 players.filter((k) => k.isSelected === true).length >= 11
-                  ? "notdisabled"
-                  : "disablednext"
+                  ? 'notdisabled'
+                  : 'disablednext'
               }
               onClick={() => handleNext()}
             >

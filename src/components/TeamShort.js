@@ -1,26 +1,26 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Grid } from "@mui/material";
-import { style } from "@mui/system";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Grid } from '@mui/material';
+import { style } from '@mui/system';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { checkar, checkwk, getImgurl } from "../utils/img_url";
-import Bottomnav from "./navbar/bottomnavbar";
-import Steppr from "./stepper";
-import Team from "./Team";
+import { URL } from '../constants/userConstants';
+import { checkar, checkwk, getImgurl } from '../utils/img_url';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
+import Team from './Team';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -273,18 +273,16 @@ const VcaptainI = styled.div`
   width: 15px;
   background-color: var(--black);
 `;
-export function TeamShort({ match, match_info, players, id, plo }) {
+export function TeamShort({
+  match, match_info, players, id, plo,
+}) {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [captains, setCaptains] = useState([]);
   const [matchinfo, setMatchinfo] = useState([]);
   useEffect(() => {
     async function filterDifferent() {
-      const h = match.teamHomePlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId == s.playerId)
-      ).length;
-      const o = match.teamAwayPlayers.filter((f) =>
-        selectedPlayers.some((s) => f.playerId == s.playerId)
-      ).length;
+      const h = match.teamHomePlayers.filter((f) => selectedPlayers.some((s) => f.playerId == s.playerId)).length;
+      const o = match.teamAwayPlayers.filter((f) => selectedPlayers.some((s) => f.playerId == s.playerId)).length;
       const a = [
         { awayCode: match_info.teamAwayCode, number: o },
         { homeCode: match_info.teamHomeCode, number: h },

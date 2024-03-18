@@ -1,35 +1,35 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import WestIcon from "@mui/icons-material/West";
-import { Button, Grid, Slider } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import Tab from "@mui/material/Tab";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Contest from "./contests/contest";
-import { URL } from "../constants/userConstants";
-import Bottomnav from "./navbar/bottomnavbar";
-import SavedTeam from "./savedteam";
-import Steppr from "./stepper";
-import ContestTabs from "./ContestTabs";
-import MatchTabs from "./MatchTabs";
-import { API } from "../actions/userAction";
-import SelectTeam from "./selectteam";
-import { useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import Brightness1Icon from '@mui/icons-material/Brightness1';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import WestIcon from '@mui/icons-material/West';
+import { Button, Grid, Slider } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import Contest from './contests/contest';
+import ContestTabs from './ContestTabs';
+import MatchTabs from './MatchTabs';
+import Bottomnav from './navbar/bottomnavbar';
+import SavedTeam from './savedteam';
+import SelectTeam from './selectteam';
+import Steppr from './stepper';
 
 const Top = styled.div`
   background-color: var(--black);
@@ -89,7 +89,7 @@ const ContestContainer = styled.div`
   cursor: pointer;
 `;
 
-const tabs = [{ label: "winnings" }, { label: "leaderboard" }];
+const tabs = [{ label: 'winnings' }, { label: 'leaderboard' }];
 
 export function ContestDetail() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -130,7 +130,7 @@ export function ContestDetail() {
     async function getplayers() {
       if (user?._id && match_details?.matchId) {
         const data = await API.get(
-          `${URL}/getteam/?matchId=${match_details?.matchId}`
+          `${URL}/getteam/?matchId=${match_details?.matchId}`,
         );
         setTeams([...data.data.team]);
       }
@@ -138,13 +138,12 @@ export function ContestDetail() {
     getplayers();
   }, [user, match_details]);
   useEffect(() => {
-    if (!!selectedTeam) {
+    if (selectedTeam) {
       setSelectTeams({
         selected: true,
         team: selectedTeam,
       });
-    }
-    else {
+    } else {
       setSelectTeams({
         selected: false,
         team: null,
@@ -152,13 +151,12 @@ export function ContestDetail() {
     }
   }, [selectedTeam]);
   useEffect(() => {
-    if (!!switchTeam) {
+    if (switchTeam) {
       setSelectTeams({
         selected: true,
         team: null,
       });
-    }
-    else {
+    } else {
       setSelectTeams({
         selected: false,
         team: null,
@@ -170,12 +168,14 @@ export function ContestDetail() {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
-    setSwitchTeam(team)
-  }
+    setSwitchTeam(team);
+  };
   const handleJoin = async (e) => {
     try {
       if (switchTeam?._id && selectedTeam?._id) {
-        const { data } = await API.get(`${URL}/reJoinCn/${contest?._id}?oldTeamId=${switchTeam?._id}&newTeamId=${selectedTeam?._id}`)
+        const { data } = await API.get(
+          `${URL}/reJoinCn/${contest?._id}?oldTeamId=${switchTeam?._id}&newTeamId=${selectedTeam?._id}`,
+        );
         setSelectedTeam(null);
         setSwitchTeam(null);
         const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
@@ -185,28 +185,36 @@ export function ContestDetail() {
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
         setLeaderboard([...t]);
       }
+    } catch (error) {
+      console.log(error.response);
     }
-    catch (error) {
-      console.log(error.response)
-    }
-  }
-  console.log(!!selectTeams?.team, selectTeams?.team, switchTeam, 'match_details');
+  };
+  console.log(
+    !!selectTeams?.team,
+    selectTeams?.team,
+    switchTeam,
+    'match_details',
+  );
   return (
     <>
-      {contest && !selectTeams?.selected ?
+      {contest && !selectTeams?.selected ? (
         <>
           <ContestsContainer container>
             <Top>
               <LeftSide>
                 <WestIcon
                   onClick={() => history(-1)}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 />
                 {match && (
                   <h1>
-                    <span style={{ marginRight: "5px" }}>{match.teamAwayCode}</span>
+                    <span style={{ marginRight: '5px' }}>
+                      {match.teamAwayCode}
+                    </span>
                     vs
-                    <span style={{ marginLeft: "5px" }}>{match.teamHomeCode}</span>
+                    <span style={{ marginLeft: '5px' }}>
+                      {match.teamHomeCode}
+                    </span>
                   </h1>
                 )}
               </LeftSide>
@@ -223,14 +231,17 @@ export function ContestDetail() {
             leaderboard={leaderboard}
             handleSwap={handleSwap}
           />
-        </> :
+        </>
+      ) : (
         <>
           {teams?.map((t) => (
             <SelectTeam
               players={t.players}
               plo={t}
               id={match_details?.matchId}
-              teamIds={contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']}
+              teamIds={
+                contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']
+              }
               selectTeams={selectTeams}
               setSelectTeams={setSelectTeams}
               selectedTeam={selectedTeam}
@@ -240,9 +251,11 @@ export function ContestDetail() {
             />
           ))}
           <Button>create team</Button>
-          <Button disabled={!selectTeams?.team} onClick={() => handleJoin()}>Join Team</Button>
+          <Button disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+            Join Team
+          </Button>
         </>
-      }
+      )}
     </>
   );
 }

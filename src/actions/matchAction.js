@@ -3,12 +3,12 @@ import {
   MATCH_LIVE_SUCCESS,
   MATCH_REQUEST,
   MATCH_SUCCESS,
-} from "../constants/matchConstants";
-import { URL } from "../constants/userConstants";
-import { API } from "./userAction";
+} from '../constants/matchConstants';
+import { URL } from '../constants/userConstants';
+import { API } from './userAction';
 
 const headers = {
-  Accept: "application/json",
+  Accept: 'application/json',
 };
 
 export const getmatch = (id) => async (dispatch) => {

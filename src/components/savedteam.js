@@ -1,28 +1,28 @@
-import "./home.css";
-import "./create.css";
+import './home.css';
+import './create.css';
 
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Grid } from "@mui/material";
-import { style } from "@mui/system";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Grid } from '@mui/material';
+import { style } from '@mui/system';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { URL } from "../constants/userConstants";
-import { getImgurl } from "../utils/img_url";
-import Bottomnav from "./navbar/bottomnavbar";
-import Loader from "./loader";
-import Steppr from "./stepper";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import { getImgurl } from '../utils/img_url';
+import Loader from './loader';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -228,15 +228,15 @@ export function SavedTeam() {
     return a && b;
   };
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: '100%' }}>
       {players ? (
         <Container>
           <div
             style={{
-              position: "fixed",
-              top: "20px",
-              right: "20px",
-              cursor: "pointer",
+              position: 'fixed',
+              top: '20px',
+              right: '20px',
+              cursor: 'pointer',
             }}
           >
             <CloseIcon onClick={() => navigate(-1)} />
@@ -246,7 +246,7 @@ export function SavedTeam() {
               <Grid item xs={6} sm={6}>
                 <PlayerP>
                   <img src={getImgurl(p.image, p.playerName)} alt="" />
-                  <Title>{p.playerName.split(" ")[1]}</Title>
+                  <Title>{p.playerName.split(' ')[1]}</Title>
                 </PlayerP>
               </Grid>
             ))}
@@ -256,7 +256,7 @@ export function SavedTeam() {
               <Grid item xs={3} sm={3}>
                 <PlayerP>
                   <img src={getImgurl(p.image, p.playerName)} alt="" />
-                  <Title>{p.playerName.split(" ")[1]}</Title>
+                  <Title>{p.playerName.split(' ')[1]}</Title>
                 </PlayerP>
               </Grid>
             ))}
@@ -266,7 +266,7 @@ export function SavedTeam() {
               <Grid item xs={6} sm={6}>
                 <PlayerP>
                   <img src={getImgurl(p.image, p.playerName)} alt="" />
-                  <Title>{p.playerName.split(" ")[1]}</Title>
+                  <Title>{p.playerName.split(' ')[1]}</Title>
                 </PlayerP>
               </Grid>
             ))}
@@ -276,7 +276,7 @@ export function SavedTeam() {
               <Grid item xs={4} sm={4}>
                 <PlayerP>
                   <img src={getImgurl(p.image, p.playerName)} alt="" />
-                  <Title>{p.playerName.split(" ")[1]}</Title>
+                  <Title>{p.playerName.split(' ')[1]}</Title>
                 </PlayerP>
               </Grid>
             ))}

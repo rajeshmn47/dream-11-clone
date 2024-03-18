@@ -1,21 +1,23 @@
-import "./home.css";
-import styled from "@emotion/styled";
-import { SettingsApplicationsTwoTone } from "@mui/icons-material";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Button, Drawer, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { logout } from "../actions/userAction";
-import Bottomnav from "./navbar/bottomnavbar";
-import LeftDrawer from "./navbar/leftDrawer";
-import Steppr from "./stepper";
+import './home.css';
+
+import styled from '@emotion/styled';
+import { SettingsApplicationsTwoTone } from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Button, Drawer, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { logout } from '../actions/userAction';
+import Bottomnav from './navbar/bottomnavbar';
+import LeftDrawer from './navbar/leftDrawer';
+import Steppr from './stepper';
 
 const RightSide = styled.div`
   width: 90px;
@@ -47,8 +49,7 @@ const Center = styled.div`
   font-weight: 700;
 `;
 
-const WithdrawContainer = styled(Grid)`
-`
+const WithdrawContainer = styled(Grid)``;
 
 const AddButton = styled(Button)`
   background-color: var(--green);
@@ -102,7 +103,7 @@ export function Navbar({ home }) {
   };
   return (
     <>
-      {" "}
+      {' '}
       <LeftDrawer
         leftOpen={leftOpen}
         setLeftOpen={setLeftOpen}
@@ -112,7 +113,7 @@ export function Navbar({ home }) {
       <div className="logintopbar">
         <Account
           onClick={() => handleLeftClick()}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: 'pointer' }}
           className="name"
         >
           {user?.username && user?.username.charAt(0)}
@@ -120,10 +121,10 @@ export function Navbar({ home }) {
         <Center>
           <EmojiEventsOutlinedIcon
             style={{
-              marginRight: "10px",
-              fontSize: "20px",
-              stroke: "white",
-              strokeWidth: "1.5",
+              marginRight: '10px',
+              fontSize: '20px',
+              stroke: 'white',
+              strokeWidth: '1.5',
             }}
           />
           Power11
@@ -131,20 +132,20 @@ export function Navbar({ home }) {
         <RightSide>
           <NotificationAddOutlinedIcon
             style={{
-              marginRight: "10px",
-              cursor: "pointer",
-              fontSize: "20px",
-              stroke: "white",
-              strokeWidth: "1.5",
+              marginRight: '10px',
+              cursor: 'pointer',
+              fontSize: '20px',
+              stroke: 'white',
+              strokeWidth: '1.5',
             }}
           />
           <AccountBalanceWalletOutlinedIcon
             onClick={() => handleClick()}
             style={{
-              cursor: "pointer",
-              fontSize: "20px",
-              stroke: "white",
-              strokeWidth: "1.5",
+              cursor: 'pointer',
+              fontSize: '20px',
+              stroke: 'white',
+              strokeWidth: '1.5',
             }}
           />
         </RightSide>
@@ -152,29 +153,46 @@ export function Navbar({ home }) {
       <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
         <DeatilTop>
           <p>total balance</p>
-          <h5>₹{user && user.wallet}</h5>
+          <h5>
+            ₹
+            {user && user.wallet}
+          </h5>
         </DeatilTop>
-        <AddButton onClick={() => navigate("/payment", {
-          state: {
-            tab: 'deposit',
-          },
-        })}>add cash</AddButton>
+        <AddButton
+          onClick={() => navigate('/payment', {
+            state: {
+              tab: 'deposit',
+            },
+          })}
+        >
+          add cash
+        </AddButton>
         <Deatil>
           <p>Amount added</p>
-          <h5>₹ {user?.totalAmountAdded}</h5>
+          <h5>
+            ₹
+            {user?.totalAmountAdded}
+          </h5>
         </Deatil>
         <Deatil>
           <WithdrawContainer container>
             <Grid item sm={7} xs={7}>
               <p>winnings</p>
-              <h5>₹ {user?.totalAmountWon}</h5>
+              <h5>
+                ₹
+                {user?.totalAmountWon}
+              </h5>
             </Grid>
             <Grid item sm={5} xx={5}>
-              <Button onClick={() => navigate("/transaction", {
-                state: {
-                  tab: 'withdrawal',
-                },
-              })}>Withdraw</Button>
+              <Button
+                onClick={() => navigate('/transaction', {
+                  state: {
+                    tab: 'withdrawal',
+                  },
+                })}
+              >
+                Withdraw
+              </Button>
             </Grid>
           </WithdrawContainer>
         </Deatil>
@@ -185,34 +203,46 @@ export function Navbar({ home }) {
       </Drawer>
       {home && (
         <div className="hometop">
-          <div onClick={() => navigate("/")}
-            className={location.pathname == "/" ? "hometopicon selectgame" : "hometopicon"}>
+          <div
+            onClick={() => navigate('/')}
+            className={
+              location.pathname == '/'
+                ? 'hometopicon selectgame'
+                : 'hometopicon'
+            }
+          >
             <SportsCricketIcon
-              style={{ fontSize: "20px", fontWeight: "400" }}
-              className={location.pathname == "/" ? "selectedIcon" : ""}
+              style={{ fontSize: '20px', fontWeight: '400' }}
+              className={location.pathname == '/' ? 'selectedIcon' : ''}
             />
             <h5>Cricket</h5>
           </div>
           <div
-            onClick={() => navigate("/football")}
-            className={location.pathname == "/football" ? "hometopicon selectgame" : "hometopicon"}
-            style={{ fontSize: "12px", fontWeight: "400" }}
+            onClick={() => navigate('/football')}
+            className={
+              location.pathname == '/football'
+                ? 'hometopicon selectgame'
+                : 'hometopicon'
+            }
+            style={{ fontSize: '12px', fontWeight: '400' }}
           >
-            <SportsSoccerIcon style={{ fontSize: "20px", fontWeight: "400" }} />
+            <SportsSoccerIcon style={{ fontSize: '20px', fontWeight: '400' }} />
             <h5>Football</h5>
           </div>
           <div
             className="hometopicon"
-            style={{ fontSize: "12px", fontWeight: "400" }}
+            style={{ fontSize: '12px', fontWeight: '400' }}
           >
-            <SportsBasketballIcon style={{ fontSize: "20px", fontWeight: "400" }} />
+            <SportsBasketballIcon
+              style={{ fontSize: '20px', fontWeight: '400' }}
+            />
             <h5>Basketball</h5>
           </div>
           <div
             className="hometopicon"
-            style={{ fontSize: "12px", fontWeight: "400" }}
+            style={{ fontSize: '12px', fontWeight: '400' }}
           >
-            <SportsHockeyIcon style={{ fontSize: "20px", fontWeight: "400" }} />
+            <SportsHockeyIcon style={{ fontSize: '20px', fontWeight: '400' }} />
             <h5>Hockey</h5>
           </div>
         </div>

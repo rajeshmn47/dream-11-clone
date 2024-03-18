@@ -1,45 +1,43 @@
-import "./home.css";
+import './home.css';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   SettingsApplicationsTwoTone,
   SportsCricketOutlined,
-} from "@mui/icons-material";
-import React from "react";
-import { useParams } from "react-router-dom";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import PeopleIcon from "@mui/icons-material/People";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import { Button, Drawer, Typography } from "@mui/material";
-import extractColors from "extract-colors";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Box } from "@mui/material";
-import { Tab } from "@mui/material";
-import { Tabs } from "@mui/material";
-import { URL } from "../constants/userConstants";
+} from '@mui/icons-material';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import PeopleIcon from '@mui/icons-material/People';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import {
+  Box, Button, Drawer, Tab, Tabs, Typography,
+} from '@mui/material';
+import extractColors from 'extract-colors';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
-} from "../utils/dateformat";
-import Bottomnav from "./navbar/bottomnavbar";
-import Loader from "./loader";
-import Navbar from "./navbar";
-import Steppr from "./stepper";
-import Match from "./home/match";
-import { API } from "../actions/userAction";
+} from '../utils/dateformat';
+import Match from './home/match';
+import Loader from './loader';
+import Navbar from './navbar';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -107,7 +105,9 @@ const ViewAll = styled(Button)`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -135,7 +135,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -164,13 +164,13 @@ export function Completed() {
         setLoading(true);
         const data = await API.get(`${URL}/myMatches`);
         const cm = data.data.completed.results.sort(
-          (b, a) => new Date(a.date) - new Date(b.date)
+          (b, a) => new Date(a.date) - new Date(b.date),
         );
         const um = data.data.upcoming?.results.sort(
-          (b, a) => new Date(a.date) - new Date(b.date)
+          (b, a) => new Date(a.date) - new Date(b.date),
         );
         const lm = data.data.live?.results.sort(
-          (b, a) => new Date(a.date) - new Date(b.date)
+          (b, a) => new Date(a.date) - new Date(b.date),
         );
         setPast(cm);
         setUpcoming(um);
@@ -181,10 +181,9 @@ export function Completed() {
     getupcoming();
   }, [user]);
   useEffect(() => {
-    const servertoken =
-      localStorage.getItem("token") && localStorage.getItem("token");
+    const servertoken = localStorage.getItem('token') && localStorage.getItem('token');
     if (!servertoken) {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
   const handleClick = () => {
@@ -199,8 +198,8 @@ export function Completed() {
       {!loading ? (
         <Container>
           <div className="homecontainer">
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Box sx={{ width: '100%' }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
                   value={value}
                   onChange={handleChange}
@@ -210,15 +209,8 @@ export function Completed() {
                   aria-label="scrollable force tabs example"
                 >
                   <Tab label="Upcoming" {...a11yProps(0)} />
-                  <Tab
-                    label={`Live`}
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    label={`Completed`}
-                    {...a11yProps(2)}
-                  />
-
+                  <Tab label="Live" {...a11yProps(1)} />
+                  <Tab label="Completed" {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
@@ -230,133 +222,174 @@ export function Completed() {
                           className="matchcontainer"
                           onClick={() => navigate(`/contests/${u.id}`)}
                           style={{
-                            postion: "absolute !important",
-                            backgroundColor: "#000",
+                            postion: 'absolute !important',
+                            backgroundColor: '#000',
                           }}
                         >
                           <Top>
                             <h5
                               style={{
-                                color: "#595959",
-                                height: "3vh",
-                                fontSize: "12px",
-                                fontWeight: "200",
-                                display: "flex",
-                                alignItems: "center",
+                                color: '#595959',
+                                height: '3vh',
+                                fontSize: '12px',
+                                fontWeight: '200',
+                                display: 'flex',
+                                alignItems: 'center',
                               }}
                             >
                               {u.match_title}
                             </h5>
                             <NotificationAddOutlinedIcon
-                              style={{ fontSize: "18px" }}
+                              style={{ fontSize: '18px' }}
                             />
                           </Top>
                           <div className="match">
                             <div className="matchcenter">
                               <div className="matchlefts">
-                                <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                                <img
+                                  src={u.teamAwayFlagUrl}
+                                  alt=""
+                                  width="40"
+                                />
                                 <h5>{u.away.code}</h5>
                               </div>
                               <div
-                                className={u.result == "Yes" ? "completed" : "time"}
+                                className={
+                                  u.result == 'Yes' ? 'completed' : 'time'
+                                }
                               >
-                                {u.result != "Yes" && (
+                                {u.result != 'Yes' && (
                                   <div
                                     style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      flexDirection: "column",
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      flexDirection: 'column',
                                     }}
                                   >
                                     <p
                                       style={{
-                                        color: "#5e5b5b",
-                                        textTransform: "auto",
-                                        fontSize: "10px",
-                                        marginTop: "2px",
-                                        fontWeight: "200"
+                                        color: '#5e5b5b',
+                                        textTransform: 'auto',
+                                        fontSize: '10px',
+                                        marginTop: '2px',
+                                        fontWeight: '200',
                                       }}
                                     >
-                                      {!(u.result == "Yes") ? (
-                                        sameDayorNot(new Date(), new Date(u.date)) ||
-                                          isTommorrow(new Date(), new Date(u.date)) ? (
+                                      {!(u.result == 'Yes') ? (
+                                        sameDayorNot(
+                                          new Date(),
+                                          new Date(u.date),
+                                        )
+                                        || isTommorrow(
+                                          new Date(),
+                                          new Date(u.date),
+                                        ) ? (
                                           <div>
-                                            <p>{hoursRemaining(u.date, "k", date)}</p>
+                                            <p>
+                                              {hoursRemaining(
+                                                u.date,
+                                                'k',
+                                                date,
+                                              )}
+                                            </p>
                                             <p
                                               style={{
-                                                color: "#5e5b5b",
-                                                textTransform: "auto",
-                                                fontSize: "10px",
-                                                marginTop: "2px",
+                                                color: '#5e5b5b',
+                                                textTransform: 'auto',
+                                                fontSize: '10px',
+                                                marginTop: '2px',
                                               }}
                                             >
-                                              {getDisplayDate(u.date, "i", date) &&
-                                                getDisplayDate(u.date, "i", date)}
+                                              {getDisplayDate(
+                                                u.date,
+                                                'i',
+                                                date,
+                                              )
+                                                && getDisplayDate(
+                                                  u.date,
+                                                  'i',
+                                                  date,
+                                                )}
                                             </p>
                                           </div>
-                                        ) : (
-                                          <p
-                                            style={{
-                                              color: "#e10000",
-                                              textTransform: "auto",
-                                            }}
-                                          >
-                                            {getDisplayDate(u.date, "i") && getDisplayDate(u.date, "i")}
-                                          </p>
-                                        )
+                                          ) : (
+                                            <p
+                                              style={{
+                                                color: '#e10000',
+                                                textTransform: 'auto',
+                                              }}
+                                            >
+                                              {getDisplayDate(u.date, 'i')
+                                              && getDisplayDate(u.date, 'i')}
+                                            </p>
+                                          )
                                       ) : (
-                                        "Completed"
+                                        'Completed'
                                       )}
                                     </p>
                                   </div>
                                 )}
                               </div>
                               <div className="matchrights">
-                                <h5> {u.home.code}</h5>
-                                <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                                <h5>
+                                  {' '}
+                                  {u.home.code}
+                                </h5>
+                                <img
+                                  src={u.teamHomeFlagUrl}
+                                  alt=""
+                                  width="40"
+                                />
                               </div>
                             </div>
                           </div>
                           <div
                             className="bottom"
-                            style={{ position: "relative", padding: "6px 15px" }}
+                            style={{
+                              position: 'relative',
+                              padding: '6px 15px',
+                            }}
                           >
                             <div
                               style={{
-                                display: "flex",
-                                width: "150px",
-                                justifyContent: "space-between",
-                                alignItems: "center",
+                                display: 'flex',
+                                width: '150px',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
                               }}
                             >
                               {u.teams.length > 0 && (
                                 <h5
                                   className=""
                                   style={{
-                                    textTransform: "capitalize",
-                                    fontSize: "12px",
+                                    textTransform: 'capitalize',
+                                    fontSize: '12px',
                                   }}
                                 >
-                                  {u.teams.length} teams
+                                  {u.teams.length}
+                                  {' '}
+                                  teams
                                 </h5>
                               )}
                               <div className="meg">
                                 {u.contests.length > 0 && (
                                   <h5
                                     style={{
-                                      textTransform: "capitalize",
-                                      fontSize: "12px",
+                                      textTransform: 'capitalize',
+                                      fontSize: '12px',
                                     }}
                                   >
-                                    {u.contests.length} contests
+                                    {u.contests.length}
+                                    {' '}
+                                    contests
                                   </h5>
                                 )}
                               </div>
                             </div>
                             <div className="icon">
                               <SportsCricketOutlined
-                                style={{ color: "#595959", fontSize: "18px" }}
+                                style={{ color: '#595959', fontSize: '18px' }}
                               />
                             </div>
                           </div>
@@ -367,14 +400,13 @@ export function Completed() {
                 </div>
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {live?.length > 0 && <div className="matches">
-                  <>
-                    {(live.map((u) => (
+                {live?.length > 0 && (
+                  <div className="matches">
+                    {live.map((u) => (
                       <Match u={u} live />
-                    ))
-                    )}
-                  </>
-                </div>}
+                    ))}
+                  </div>
+                )}
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <div className="matches">
@@ -385,127 +417,156 @@ export function Completed() {
                           className="matchcontainer"
                           onClick={() => navigate(`/contests/${u.id}`)}
                           style={{
-                            postion: "absolute !important",
-                            backgroundColor: "#000",
+                            postion: 'absolute !important',
+                            backgroundColor: '#000',
                           }}
                         >
                           <Top>
                             <h5
                               style={{
-                                color: "#595959",
-                                height: "3vh",
-                                fontSize: "12px",
-                                fontWeight: "200",
-                                display: "flex",
-                                alignItems: "center",
+                                color: '#595959',
+                                height: '3vh',
+                                fontSize: '12px',
+                                fontWeight: '200',
+                                display: 'flex',
+                                alignItems: 'center',
                               }}
                             >
-                              <span style={{ marginRight: "5px" }}>
+                              <span style={{ marginRight: '5px' }}>
                                 {u.away.code}
-                              </span>{" "}
+                              </span>
+                              {' '}
                               vs
-                              <span style={{ marginLeft: "5px" }}>{u.home.code}</span>
+                              <span style={{ marginLeft: '5px' }}>
+                                {u.home.code}
+                              </span>
                             </h5>
                             <NotificationAddOutlinedIcon
-                              style={{ fontSize: "18px" }}
+                              style={{ fontSize: '18px' }}
                             />
                           </Top>
                           <div className="match">
                             <div className="matchcenter">
                               <div className="matchlefts">
-                                <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                                <img
+                                  src={u.teamAwayFlagUrl}
+                                  alt=""
+                                  width="40"
+                                />
                                 <h5>{u.away.code}</h5>
                               </div>
                               <div
-                                className={u.result == "Yes" ? "completed" : "time"}
+                                className={
+                                  u.result == 'Yes' ? 'completed' : 'time'
+                                }
                               >
-                                {u.result === "Yes" && (
+                                {u.result === 'Yes' && (
                                   <div
                                     style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      flexDirection: "column",
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      flexDirection: 'column',
                                     }}
                                   >
                                     <div
                                       style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        textTransform: "uppercase",
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        textTransform: 'uppercase',
                                       }}
                                     >
                                       <Dot />
-                                      <h5 style={{ fontWeight: "200" }}>
+                                      <h5 style={{ fontWeight: '200' }}>
                                         Completed
                                       </h5>
                                     </div>
                                     <p
                                       style={{
-                                        color: "#5e5b5b",
-                                        textTransform: "auto",
-                                        fontSize: "10px",
-                                        marginTop: "2px",
-                                        fontWeight: '200'
+                                        color: '#5e5b5b',
+                                        textTransform: 'auto',
+                                        fontSize: '10px',
+                                        marginTop: '2px',
+                                        fontWeight: '200',
                                       }}
                                     >
-                                      {getDisplayDate(u.date, "i", date)}
+                                      {getDisplayDate(u.date, 'i', date)}
                                     </p>
                                   </div>
                                 )}
                               </div>
                               <div className="matchrights">
-                                <h5> {u.home.code}</h5>
-                                <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                                <h5>
+                                  {' '}
+                                  {u.home.code}
+                                </h5>
+                                <img
+                                  src={u.teamHomeFlagUrl}
+                                  alt=""
+                                  width="40"
+                                />
                               </div>
                             </div>
                           </div>
                           <div
                             className="bottom"
-                            style={{ position: "relative", padding: "6px 15px" }}
+                            style={{
+                              position: 'relative',
+                              padding: '6px 15px',
+                            }}
                           >
                             <div
                               style={{
-                                display: "flex",
-                                width: "150px",
-                                justifyContent: "space-between",
-                                alignItems: "center",
+                                display: 'flex',
+                                width: '150px',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
                               }}
                             >
                               {u.teams.length > 0 && (
                                 <h5
                                   className=""
                                   style={{
-                                    textTransform: "capitalize",
-                                    fontSize: "12px",
-                                    fontWeight: "200"
+                                    textTransform: 'capitalize',
+                                    fontSize: '12px',
+                                    fontWeight: '200',
                                   }}
                                 >
-                                  {u.teams.length} teams
+                                  {u.teams.length}
+                                  {' '}
+                                  teams
                                 </h5>
                               )}
                               <div className="meg">
                                 {u.contests.length > 0 && (
                                   <h5
                                     style={{
-                                      textTransform: "capitalize",
-                                      fontSize: "12px",
-                                      fontWeight: "200"
+                                      textTransform: 'capitalize',
+                                      fontSize: '12px',
+                                      fontWeight: '200',
                                     }}
                                   >
-                                    {u.contests.length} contests
+                                    {u.contests.length}
+                                    {' '}
+                                    contests
                                   </h5>
                                 )}
                               </div>
                             </div>
                             <div className="icon">
                               <h5
-                                style={{ marginRight: "10px", color: "var(--red)", fontWeight: "200", textTransform: 'uppercase' }}
+                                style={{
+                                  marginRight: '10px',
+                                  color: 'var(--red)',
+                                  fontWeight: '200',
+                                  textTransform: 'uppercase',
+                                }}
                               >
-                                YOU Won ₹{u.won}
+                                YOU Won ₹
+                                {u.won}
                               </h5>
                               <SportsCricketOutlined
-                                style={{ color: "#595959", fontSize: "18px" }}
+                                style={{ color: '#595959', fontSize: '18px' }}
                               />
                             </div>
                           </div>
@@ -516,7 +577,6 @@ export function Completed() {
                 </div>
               </TabPanel>
             </Box>
-
           </div>
         </Container>
       ) : (

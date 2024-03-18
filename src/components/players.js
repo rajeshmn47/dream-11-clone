@@ -1,23 +1,23 @@
-import "./home.css";
+import './home.css';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   PlaylistAddCheckCircleSharp,
   SettingsApplicationsTwoTone,
-} from "@mui/icons-material";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import SportsCricketIcon from "@mui/icons-material/SportsCricket";
-import SportsHockeyIcon from "@mui/icons-material/SportsHockey";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+} from '@mui/icons-material';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsCricketIcon from '@mui/icons-material/SportsCricket';
+import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { URL } from "../constants/userConstants";
-import Bottomnav from "./navbar/bottomnavbar";
-import Steppr from "./stepper";
-import { API } from "../actions/userAction";
+import { API } from '../actions/userAction';
+import { URL } from '../constants/userConstants';
+import Bottomnav from './navbar/bottomnavbar';
+import Steppr from './stepper';
 
 const PlayersContainer = styled.div``;
 const Player = styled.div`
@@ -30,8 +30,10 @@ const Player = styled.div`
   }
 `;
 export function Players() {
-  const { user, isAuthenticated, loading, error } = useSelector(
-    (state) => state.user
+  const {
+    user, isAuthenticated, loading, error,
+  } = useSelector(
+    (state) => state.user,
   );
   const [upcoming, setUpcoming] = useState([]);
   const [live, setLive] = useState([]);
@@ -52,7 +54,7 @@ export function Players() {
   return (
     <>
       <div className="logintopbar">
-        <EmojiEventsOutlinedIcon style={{ marginRight: "1vw" }} />
+        <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
         Dream 11
       </div>
       <div className="stepper">
@@ -60,7 +62,7 @@ export function Players() {
       </div>
       <div className="hometop">
         <div className="hometopicon selectgame">
-          <SportsCricketIcon style={{ color: "#C41E22" }} />
+          <SportsCricketIcon style={{ color: '#C41E22' }} />
           <h5>Cricket</h5>
         </div>
         <div className="hometopicon">
@@ -84,11 +86,11 @@ export function Players() {
       <div className="matches">
         {players.length > 0
           ? players.map((u) => (
-              <Player>
-                <h1>{u.name}</h1>
-                <img src={u.image} alt="" />
-              </Player>
-            ))
+            <Player>
+              <h1>{u.name}</h1>
+              <img src={u.image} alt="" />
+            </Player>
+          ))
           : null}
       </div>
       <Bottomnav />

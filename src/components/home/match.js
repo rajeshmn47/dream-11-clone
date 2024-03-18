@@ -1,27 +1,28 @@
-import "./home.css";
-import styled from "@emotion/styled";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import NotificationAddOutlinedIcon from "@mui/icons-material/NotificationAddOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import { Button } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
-import SportsCricketOutlinedIcon from "@mui/icons-material/SportsCricketOutlined";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { GrMultimedia } from "react-icons/gr";
+import './home.css';
 
-import { URL } from "../../constants/userConstants";
+import styled from '@emotion/styled';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import SportsCricketOutlinedIcon from '@mui/icons-material/SportsCricketOutlined';
+import { Button } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { GrMultimedia } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { URL } from '../../constants/userConstants';
 import {
   getDisplayDate,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
-} from "../../utils/dateformat";
-import Bottomnav from "../navbar/bottomnavbar";
-import Loader from "../loader";
-import Navbar from "../navbar";
+} from '../../utils/dateformat';
+import Loader from '../loader';
+import Navbar from '../navbar';
+import Bottomnav from '../navbar/bottomnavbar';
 
 const RightSide = styled.div`
   width: 90px;
@@ -134,10 +135,9 @@ export function Match({ u, live }) {
     };
   }, []);
   useEffect(() => {
-    const servertoken =
-      localStorage.getItem("token") && localStorage.getItem("token");
+    const servertoken = localStorage.getItem('token') && localStorage.getItem('token');
     if (!servertoken) {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
   const handleClick = () => {
@@ -151,87 +151,104 @@ export function Match({ u, live }) {
       <Top>
         <h5
           style={{
-            color: "#595959",
-            fontSize: "12px",
-            fontWeight: "800",
-            display: "flex",
-            alignItems: "center",
+            color: '#595959',
+            fontSize: '12px',
+            fontWeight: '800',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          <span style={{
-            marginRight: "5px", textOverflow: "ellipsis", whiteSpace: "nowrap",
-            width: "180px", overflow: "hidden", fontWeight: "200"
-          }}>{u.match_title}</span>
+          <span
+            style={{
+              marginRight: '5px',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              width: '180px',
+              overflow: 'hidden',
+              fontWeight: '200',
+            }}
+          >
+            {u.match_title}
+          </span>
         </h5>
         <h5
           style={{
-            color: "rgb(31, 169, 81)",
-            fontFamily: "Montserrat",
-            textOverflow: "ellipsis", whiteSpace: "nowrap",
-            width: "100px"
+            color: 'rgb(31, 169, 81)',
+            fontFamily: 'Montserrat',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            width: '100px',
           }}
         >
           {live || u.lineups}
         </h5>
-        <NotificationAddOutlinedIcon style={{ fontSize: "20px" }} />
+        <NotificationAddOutlinedIcon style={{ fontSize: '20px' }} />
       </Top>
       <div className="match">
         <div className="matchcenter">
           <div className="matchlefts">
             <img src={u.teamAwayFlagUrl} alt="" width="40" />
-            <h5 style={{ color: "#212121" }}>{u.away.code}</h5>
+            <h5 style={{ color: '#212121' }}>{u.away.code}</h5>
           </div>
           {live ? (
             <div
               style={{
-                width: "40px",
-                textAlign: "center",
-
+                width: '40px',
+                textAlign: 'center',
               }}
             >
-              <h5 style={{ color: "var(--green)", marginBottom: "3px", fontWeight: "200" }}>
+              <h5
+                style={{
+                  color: 'var(--green)',
+                  marginBottom: '3px',
+                  fontWeight: '200',
+                }}
+              >
                 live
               </h5>
               <LinearProgress color="success" />
             </div>
           ) : (
-            <h5 className={u.result == "Yes" ? "completed" : "time"}>
-              {!(u.result == "Yes") ? (
-                sameDayorNot(new Date(), new Date(u.date)) ||
-                  isTommorrow(new Date(), new Date(u.date)) ? (
+            <h5 className={u.result == 'Yes' ? 'completed' : 'time'}>
+              {!(u.result == 'Yes') ? (
+                sameDayorNot(new Date(), new Date(u.date))
+                || isTommorrow(new Date(), new Date(u.date)) ? (
                   <div>
-                    <p>{hoursRemaining(u.date, "k", date)}</p>
+                    <p>{hoursRemaining(u.date, 'k', date)}</p>
                     <p
                       style={{
-                        color: "#5e5b5b",
-                        textTransform: "auto",
-                        fontSize: "10px",
-                        marginTop: "2px",
-                        fontWeight: "200"
+                        color: '#5e5b5b',
+                        textTransform: 'auto',
+                        fontSize: '10px',
+                        marginTop: '2px',
+                        fontWeight: '200',
                       }}
                     >
-                      {getDisplayDate(u.date, "i", date) &&
-                        getDisplayDate(u.date, "i", date)}
+                      {getDisplayDate(u.date, 'i', date)
+                        && getDisplayDate(u.date, 'i', date)}
                     </p>
                   </div>
-                ) : (
-                  <p
-                    style={{
-                      color: "#e10000",
-                      textTransform: "auto",
-                      fontWeight: "200"
-                    }}
-                  >
-                    {getDisplayDate(u.date, "i") && getDisplayDate(u.date, "i")}
-                  </p>
-                )
+                  ) : (
+                    <p
+                      style={{
+                        color: '#e10000',
+                        textTransform: 'auto',
+                        fontWeight: '200',
+                      }}
+                    >
+                      {getDisplayDate(u.date, 'i') && getDisplayDate(u.date, 'i')}
+                    </p>
+                  )
               ) : (
-                "Completed"
+                'Completed'
               )}
             </h5>
           )}
           <div className="matchrights">
-            <h5 style={{ color: "#212121" }}> {u.home.code}</h5>
+            <h5 style={{ color: '#212121' }}>
+              {' '}
+              {u.home.code}
+            </h5>
             <img src={u.teamHomeFlagUrl} alt="" width="40" />
           </div>
         </div>
@@ -240,15 +257,29 @@ export function Match({ u, live }) {
         <div className="meta">
           <div className="mega">Mega</div>
           <div className="meg">
-            <h5 style={{ fontSize: "10px", textTransform: "capitalize", fontWeight: "200" }}>
+            <h5
+              style={{
+                fontSize: '10px',
+                textTransform: 'capitalize',
+                fontWeight: '200',
+              }}
+            >
               ₹59 crores
             </h5>
           </div>
         </div>
         <div className="icon">
-          <GrMultimedia className="reacticon" style={{ fontSize: "16px", fontWeight: "200" }} />
+          <GrMultimedia
+            className="reacticon"
+            style={{ fontSize: '16px', fontWeight: '200' }}
+          />
           <SportsCricketOutlinedIcon
-            style={{ color: "#595959", fontSize: "20px", marginLeft: "5px", fontWeight: "200" }}
+            style={{
+              color: '#595959',
+              fontSize: '20px',
+              marginLeft: '5px',
+              fontWeight: '200',
+            }}
           />
         </div>
       </div>

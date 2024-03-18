@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const More = () => {
-  return (
-    <div>more</div>
-  )
+function More() {
+  return <div>more</div>;
 }
 
-export default More
+export default More;

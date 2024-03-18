@@ -1,34 +1,34 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import {
   CheckBoxOutlineBlankTwoTone,
   SettingsSystemDaydream,
-} from "@mui/icons-material";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
-import { Grid } from "@mui/material";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import PropTypes from "prop-types";
-import * as React from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+} from '@mui/icons-material';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { URL } from "../../../constants/userConstants";
-import { playedlm } from "../../../utils/createteams";
+import { API } from '../../../actions/userAction';
+import { URL } from '../../../constants/userConstants';
+import { playedlm } from '../../../utils/createteams';
 import {
   checkar,
   checkwk,
   getImgurl,
   isUnAnnounced,
-} from "../../../utils/img_url";
-import Loader from "../../loader";
-import { API } from "../../../actions/userAction";
+} from '../../../utils/img_url';
+import Loader from '../../loader';
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -233,7 +233,9 @@ const Away = styled.div`
 `;
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -261,7 +263,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -283,13 +285,9 @@ export default function CategoryTabs({
   useEffect(() => {
     async function getplayers() {
       if (user?._id) {
-        const data = await API.get(
-          `${URL}/getteam/?matchId=${id}`
-        );
+        const data = await API.get(`${URL}/getteam/?matchId=${id}`);
         setTeam(data.data.team);
-        const contestdata = await API.get(
-          `${URL}/getcontestsofuser/${id}`
-        );
+        const contestdata = await API.get(`${URL}/getcontestsofuser/${id}`);
         setContest(contestdata.data.contests);
       }
     }
@@ -327,35 +325,39 @@ export default function CategoryTabs({
 
   return (
     <Contest>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
             <Tab
-              label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
+              label={`WK(${
+                players.filter((p) => checkwk(p.position) && p.isSelected)
                   .length
-                })`}
+              })`}
               {...a11yProps(0)}
             />
             <Tab
-              label={`BAT(${players.filter((p) => p.position === "batsman" && p.isSelected)
+              label={`BAT(${
+                players.filter((p) => p.position === 'batsman' && p.isSelected)
                   .length
-                })`}
+              })`}
               {...a11yProps(1)}
             />
             <Tab
-              label={`AR(${players.filter((p) => checkar(p.position) && p.isSelected)
+              label={`AR(${
+                players.filter((p) => checkar(p.position) && p.isSelected)
                   .length
-                })`}
+              })`}
               {...a11yProps(2)}
             />
             <Tab
-              label={`BOW(${players.filter((p) => p.position === "bowler" && p.isSelected)
+              label={`BOW(${
+                players.filter((p) => p.position === 'bowler' && p.isSelected)
                   .length
-                })`}
+              })`}
               {...a11yProps(3)}
             />
           </Tabs>
@@ -370,7 +372,7 @@ export default function CategoryTabs({
                       .filter((p, index) => checkwk(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -387,7 +389,7 @@ export default function CategoryTabs({
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
                               <p>
-                                {" "}
+                                {' '}
                                 <BlueDot />
                                 played last matche
                               </p>
@@ -408,8 +410,8 @@ export default function CategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -431,12 +433,11 @@ export default function CategoryTabs({
                   {players.length > 0 ? (
                     players
                       .filter(
-                        (p, index) =>
-                          p.position === "batsman" || p.position == "batsmen"
+                        (p, index) => p.position === 'batsman' || p.position == 'batsmen',
                       )
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -453,7 +454,7 @@ export default function CategoryTabs({
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
                               <p>
-                                {" "}
+                                {' '}
                                 <BlueDot />
                                 played last match
                               </p>
@@ -474,8 +475,8 @@ export default function CategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -499,13 +500,14 @@ export default function CategoryTabs({
                       .filter((p) => checkar(p.position))
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
                               src={getImgurl(p.image, p.playerName)}
                               alt=""
-                            />{" "}
+                            />
+                            {' '}
                             {p.isHome ? (
                               <Home>{p.code}</Home>
                             ) : (
@@ -516,7 +518,7 @@ export default function CategoryTabs({
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
                               <p>
-                                {" "}
+                                {' '}
                                 <BlueDot />
                                 played last match
                               </p>
@@ -537,8 +539,8 @@ export default function CategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
@@ -559,10 +561,10 @@ export default function CategoryTabs({
                 <>
                   {players.length > 0 ? (
                     players
-                      .filter((p) => p.position === "bowler")
+                      .filter((p) => p.position === 'bowler')
                       .map((p) => (
                         <EachPlayer
-                          className={p.isSelected ? "selected" : "notselected"}
+                          className={p.isSelected ? 'selected' : 'notselected'}
                         >
                           <ImgCtr>
                             <img
@@ -579,7 +581,7 @@ export default function CategoryTabs({
                             <h1>{p.playerName}</h1>
                             {playedlm(lmPlayers, p) ? (
                               <p>
-                                {" "}
+                                {' '}
                                 <BlueDot />
                                 played last match
                               </p>
@@ -600,8 +602,8 @@ export default function CategoryTabs({
                               className={
                                 players.filter((k) => k.isSelected === true)
                                   .length >= 11
-                                  ? "disabled"
-                                  : "notdisabled"
+                                  ? 'disabled'
+                                  : 'notdisabled'
                               }
                             >
                               <AddCircleOutlineRoundedIcon />
