@@ -224,6 +224,7 @@ export function MatchDetails({ players }) {
                   {match_details.teamAwayCode}
                   {' '}
                   Vs
+                  {' '}
                   {match_details.teamHomeCode}
                 </h1>
               )}
@@ -240,8 +241,12 @@ export function MatchDetails({ players }) {
                 container
                 justifyContent="space-between"
                 alignItems="center"
+                spacing={1}
               >
-                <Grid item sm={4} xs={4} style={{ textAlign: 'left' }}>
+                <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
+                  <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%" }} alt="" />
+                </Grid>
+                <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'left' }}>
                   <p
                     style={{
                       height: '15px',
@@ -249,7 +254,7 @@ export function MatchDetails({ players }) {
                       overflow: 'hidden',
                     }}
                   >
-                    {matchlive.titleFI}
+                    {matchlive.titleFI}hj
                   </p>
                   <p>
                     {livescore.matchScoreDetails.inningsScoreList[0]?.score}
@@ -263,8 +268,8 @@ export function MatchDetails({ players }) {
                 </Grid>
                 <Grid
                   item
-                  sm={4}
-                  xs={4}
+                  sm={3}
+                  xs={3}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -272,9 +277,9 @@ export function MatchDetails({ players }) {
                   }}
                 >
                   <GreenMark />
-                  {matchlive.result == 'Complete' ? 'Completed' : 'In Play'}
+                  {matchlive.result == 'Complete' ? 'completed' : 'In Play'}
                 </Grid>
-                <Grid item sm={4} xs={4} style={{ textAlign: 'right' }}>
+                <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'right' }}>
                   {matchlive?.runSI && livescore?.matchScoreDetails && (
                     <>
                       <p
@@ -299,6 +304,9 @@ export function MatchDetails({ players }) {
                       </p>
                     </>
                   )}
+                </Grid>
+                <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
+                  <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%" }} alt="" />
                 </Grid>
               </Grid>
               <p
