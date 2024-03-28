@@ -199,7 +199,6 @@ export function Home() {
               (u) => u && (
                 <div style={{
                   postion: 'absolute !important',
-                  backgroundColor: '#000',
                   position: 'absolute',
                   left: '10px',
                   right: '10px'
