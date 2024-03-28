@@ -128,6 +128,10 @@
   width: 28%;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (min-width: 600px) {
+    width: 140px;
+  }
 }
 
 .matchcenter img {
@@ -146,6 +150,10 @@
   width: 28%;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (min-width: 600px) {
+    width: 140px;
+  }
 }
 
 .mega {

@@ -44,7 +44,21 @@ const Center = styled.div`
   align-items: center;
   font-size: 21px;
   font-weight: 700;
+  @media only screen and (min-width: 600px) {
+    font-size: 34px;
+    font-weight: 800;
+  }
 `;
+const EmojiIcon = styled(EmojiEventsOutlinedIcon)`
+              margin-right: 10px;
+              font-size: 20px;
+              stroke: white;
+              stroke-width: 1.5;
+  @media only screen and (min-width: 600px) {
+    font-size: 34px;
+    font-weight: 800;
+  }
+`
 
 const WithdrawContainer = styled(Grid)``;
 
@@ -116,14 +130,7 @@ export function Navbar({ home }) {
           {user?.username && user?.username.charAt(0)}
         </Account>
         <Center>
-          <EmojiEventsOutlinedIcon
-            style={{
-              marginRight: '10px',
-              fontSize: '20px',
-              stroke: 'white',
-              strokeWidth: '1.5',
-            }}
-          />
+          <EmojiIcon />
           Power11
         </Center>
         <RightSide>
