@@ -46,6 +46,10 @@ const TopContainer = styled.div`
   width: 100%;
   z-index: 1000;
   box-sizing: border-box;
+
+  @media only screen and (min-width: 600px) {
+   height:240px;
+  }
 `;
 
 const GreenMark = styled.span`

@@ -93,10 +93,17 @@
   border-radius: 5px;
   overflow: hidden;
   background-color: transparent !important;
-  margin: 10px 0;
+  margin: 10px auto;
   position: absolute;
   left: 10px;
-  right: 10px;
+  max-width: 560px;
+
+  @media only screen and (max-width: 600px) {
+    left: 10px !important;
+  }
+  @media only screen and (min-width: 600px) {
+    left: 10px !important;
+  }
 }
 
 #section1::before {
@@ -153,7 +160,7 @@
 .mega {
   background-color: #d4f1e3;
   color: var(--red);
-  width: 12vw;
+  width: 90px;
   box-sizing: border-box;
   border-radius: 4px;
   display: inline-block;
