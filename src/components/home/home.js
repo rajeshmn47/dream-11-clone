@@ -361,7 +361,7 @@ export function Home() {
               upcoming?.length > 0 ? (
                 <>
                   {upcoming.map((u) => (
-                    <Grid item sm={12} lg={4} md={4}>
+                    <Grid item sm={12} xs={12} lg={4} md={4}>
                       <Match u={u} />
                     </Grid>
                   ))}
