@@ -94,16 +94,7 @@
   overflow: hidden;
   background-color: transparent !important;
   margin: 10px auto;
-  position: absolute;
-  left: 10px;
   max-width: 560px;
-
-  @media only screen and (max-width: 600px) {
-    left: 10px !important;
-  }
-  @media only screen and (min-width: 600px) {
-    left: 10px !important;
-  }
 }
 
 #section1::before {

@@ -72,6 +72,9 @@ const Top = styled.div`
 const Bottom = styled.div`
   margin-top: 150px;
   z-index: 10;
+  @media only screen and (min-width: 600px) {
+    margin-top: 240px;
+  }
 `;
 const LeftSide = styled.div`
   width: 170px;
