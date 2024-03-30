@@ -40,9 +40,9 @@ const Event = styled.div`
   justify-content: center;
 `;
 
-const Des = styled.p`
+const Des = styled.div`
   text-align: left;
-  width: 280px;
+  width: 100%;
   line-height: 20px;
   line-break: break;
   font-size: 14px;
@@ -153,7 +153,7 @@ export function Commentary({ matchdata }) {
   }, [commentary]);
 
   return (
-    <CommentaryContainer>
+    <CommentaryContainer container>
       {commentary?.map((p) => (
         <>
           {p?.event == 'over-break' ? (

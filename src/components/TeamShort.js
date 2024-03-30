@@ -298,7 +298,7 @@ export function TeamShort({
   }, [id]);
 
   return (
-    <div>
+    <Grid item md={6} lg={6} xs={12} sm={12}>
       {players ? (
         <Team
           matchinfo={matchinfo}
@@ -310,7 +310,7 @@ export function TeamShort({
       ) : (
         <h1>select team</h1>
       )}
-    </div>
+    </Grid>
   );
 }
 

@@ -48,7 +48,7 @@ const TopContainer = styled.div`
   box-sizing: border-box;
 
   @media only screen and (min-width: 600px) {
-   height:240px;
+   height:180px;
   }
 `;
 
@@ -73,7 +73,7 @@ const Bottom = styled.div`
   margin-top: 150px;
   z-index: 10;
   @media only screen and (min-width: 600px) {
-    margin-top: 240px;
+    margin-top: 180px;
   }
 `;
 const LeftSide = styled.div`
@@ -251,7 +251,7 @@ export function MatchDetails({ players }) {
                 spacing={1}
               >
                 <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
-                  <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%" }} alt="" />
+                  <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%",maxWidth:"50px" }} alt="" />
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'left' }}>
                   <p
@@ -313,7 +313,7 @@ export function MatchDetails({ players }) {
                   )}
                 </Grid>
                 <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
-                  <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%" }} alt="" />
+                  <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%",maxWidth:"50px" }} alt="" />
                 </Grid>
               </Grid>
               <p

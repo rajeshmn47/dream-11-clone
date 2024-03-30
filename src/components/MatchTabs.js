@@ -407,58 +407,60 @@ export default function MatchTabs({ tabs, g, livescore }) {
           </Box>
 
           <TabPanel value={value} index={0}>
-            <ContestsContainer container item sm={12} xs={12}>
+            <ContestsContainer container item sm={12} xs={12} spacing={2}>
               {tabs
                 && tabs.map((tab) => (
-                  <ContestContainer onClick={() => handleOpen(tab)}>
-                    <Contest>
-                      <First>
-                        <p>Prize Pool</p>
-                        <p>Entry</p>
-                      </First>
-                      <First>
-                        <h1>{tab.price}</h1>
+                  <Grid item md={6} lg={6} sm={12} xs={12} onClick={() => handleOpen(tab)}>
+                    <ContestContainer>
+                      <Contest>
                         <First>
-                          <del>₹ 19</del>
-                          <FreeButton>
-                            ₹
-                            {' '}
-                            {Math.floor(tab.price / tab.totalSpots)}
-                          </FreeButton>
+                          <p>Prize Pool</p>
+                          <p>Entry</p>
                         </First>
-                      </First>
-                      <SliderContainer>
-                        <Slider
-                          defaultValue={tab.totalSpots - tab.spotsLeft}
-                          min={0}
-                          max={tab.totalSpots}
-                          disabled
+                        <First>
+                          <h1>{tab.price}</h1>
+                          <First>
+                            <del>₹ 19</del>
+                            <FreeButton>
+                              ₹
+                              {' '}
+                              {Math.floor(tab.price / tab.totalSpots)}
+                            </FreeButton>
+                          </First>
+                        </First>
+                        <SliderContainer>
+                          <Slider
+                            defaultValue={tab.totalSpots - tab.spotsLeft}
+                            min={0}
+                            max={tab.totalSpots}
+                            disabled
+                          />
+                        </SliderContainer>
+                        <First>
+                          <SpotsLeft>
+                            {tab.spotsLeft}
+                            {' '}
+                            spots left
+                          </SpotsLeft>
+                          <SpotsRight>
+                            {tab.totalSpots}
+                            {' '}
+                            spots
+                          </SpotsRight>
+                        </First>
+                      </Contest>
+                      <Last>
+                        ₹
+                        {Math.floor(tab.price / tab.totalSpots)}
+                        <EmojiEventsOutlinedIcon
+                          style={{ margin: '0 15px', marginBottom: '3px' }}
                         />
-                      </SliderContainer>
-                      <First>
-                        <SpotsLeft>
-                          {tab.spotsLeft}
-                          {' '}
-                          spots left
-                        </SpotsLeft>
-                        <SpotsRight>
-                          {tab.totalSpots}
-                          {' '}
-                          spots
-                        </SpotsRight>
-                      </First>
-                    </Contest>
-                    <Last>
-                      ₹
-                      {Math.floor(tab.price / tab.totalSpots)}
-                      <EmojiEventsOutlinedIcon
-                        style={{ margin: '0 15px', marginBottom: '3px' }}
-                      />
-                      {Math.floor((tab.numWinners / tab.totalSpots) * 100)}
-                      %
-                      Single
-                    </Last>
-                  </ContestContainer>
+                        {Math.floor((tab.numWinners / tab.totalSpots) * 100)}
+                        %
+                        Single
+                      </Last>
+                    </ContestContainer>
+                  </Grid>
                 ))}
               <ConfirmModal
                 open={open}
@@ -474,126 +476,134 @@ export default function MatchTabs({ tabs, g, livescore }) {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <ContestsContainer container item sm={12} xs={12}>
+            <ContestsContainer container spacing={2}>
               {contest.length > 0 ? (
                 contest.map((tab) => (
-                  <ContestContainerJ
+                  <Grid item md={6} lg={6} sm={12} xs={12}
                     onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
                       state: {
                         match_details: matchlive,
                       },
                     })}
                   >
-                    <ContestJ>
-                      <First>
-                        <div>
-                          <p>Prize Pool</p>
-                          ₹
-                          {tab?.contest?.price}
-                        </div>
-                        <div>
-                          <p>spots</p>
-                          <p>{Math.floor(tab?.contest?.totalSpots)}</p>
-                        </div>
-                        <div>
-                          <p>Entry</p>
-                          <p>
+                    <ContestContainerJ item md={6} lg={6} sm={12} xs={12}
+                      onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
+                        state: {
+                          match_details: matchlive,
+                        },
+                      })}
+                    >
+                      <ContestJ>
+                        <First>
+                          <div>
+                            <p>Prize Pool</p>
                             ₹
-                            {Math.floor(
-                              tab?.contest?.price / tab?.contest?.totalSpots,
-                            )}
+                            {tab?.contest?.price}
+                          </div>
+                          <div>
+                            <p>spots</p>
+                            <p>{Math.floor(tab?.contest?.totalSpots)}</p>
+                          </div>
+                          <div>
+                            <p>Entry</p>
+                            <p>
+                              ₹
+                              {Math.floor(
+                                tab?.contest?.price / tab?.contest?.totalSpots,
+                              )}
+                            </p>
+                          </div>
+                          {matchlive?.result == 'Complet' && (
+                            <h5
+                              style={{
+                                color: 'var(--green)',
+                                fontFamily: 'OpenSans',
+                              }}
+                            >
+                              u won
+                              {' '}
+                              {tab?.team?.won}
+                              rs!
+                            </h5>
+                          )}
+                        </First>
+                      </ContestJ>
+                      <LastJ>
+                        <div>
+                          <p style={{ display: 'flex', alignItems: 'center' }}>
+                            <F>1st</F>
+                            {' '}
+                            {tab.contest.prizeDetails[0].prize}
                           </p>
                         </div>
-                        {matchlive?.result == 'Complet' && (
-                          <h5
-                            style={{
-                              color: 'var(--green)',
-                              fontFamily: 'OpenSans',
-                            }}
-                          >
-                            u won
-                            {' '}
-                            {tab?.team?.won}
-                            rs!
-                          </h5>
-                        )}
-                      </First>
-                    </ContestJ>
-                    <LastJ>
-                      <div>
-                        <p style={{ display: 'flex', alignItems: 'center' }}>
-                          <F>1st</F>
+                        <First>
+                          <EmojiEventsOutlinedIcon />
                           {' '}
-                          {tab.contest.prizeDetails[0].prize}
-                        </p>
-                      </div>
-                      <First>
-                        <EmojiEventsOutlinedIcon />
-                        {' '}
-                        {Math.floor((5 / tab.contest.totalSpots) * 100)}
-                        %
-                      </First>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <M>m</M>
-                        <C>c</C>
-                      </div>
-                    </LastJ>
-                    {tab.teams.map((t) => (
-                      <StatusC>
-                        <SpotsLeft>
-                          {t?.username}
-                          {matchlive?.result == 'Complete' ? (
-                            <p
-                              style={{
-                                color: 'var(--green)',
-                                fontSize: '12px',
-                              }}
-                            >
-                              you won ₹
-                              {t.won}
-                            </p>
-                          ) : (
-                            <p
-                              style={{
-                                color: 'var(--green)',
-                                fontSize: '12px',
-                              }}
-                            >
-                              IN WINNING ZONE
-                            </p>
-                          )}
-                        </SpotsLeft>
-                        <SpotsLeft>
-                          T
-                          {t?.teamId}
-                        </SpotsLeft>
-                        <SpotsLeft>{t?.points}</SpotsLeft>
-                        <SpotsRight
-                          style={{ display: 'flex', alignItems: 'center' }}
-                        >
-                          #
-                          {t?.rank}
-                          {t?.rank < tab?.contest?.prizeDetails?.length ? (
-                            <ArrowUpwardIcon
-                              style={{
-                                color: 'var(--green)',
-                                fontSize: '18px',
-                                marginLeft: '5px',
-                              }}
-                            />
-                          ) : (
-                            <SouthIcon
-                              style={{
-                                color: 'red',
-                                fontSize: '18px',
-                                marginLeft: '5px',
-                              }}
-                            />
-                          )}
-                        </SpotsRight>
-                      </StatusC>
-                    ))}
-                  </ContestContainerJ>
+                          {Math.floor((5 / tab.contest.totalSpots) * 100)}
+                          %
+                        </First>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <M>m</M>
+                          <C>c</C>
+                        </div>
+                      </LastJ>
+                      {tab.teams.map((t) => (
+                        <StatusC>
+                          <SpotsLeft>
+                            {t?.username}
+                            {matchlive?.result == 'Complete' ? (
+                              <p
+                                style={{
+                                  color: 'var(--green)',
+                                  fontSize: '12px',
+                                }}
+                              >
+                                you won ₹
+                                {t.won}
+                              </p>
+                            ) : (
+                              <p
+                                style={{
+                                  color: 'var(--green)',
+                                  fontSize: '12px',
+                                }}
+                              >
+                                IN WINNING ZONE
+                              </p>
+                            )}
+                          </SpotsLeft>
+                          <SpotsLeft>
+                            T
+                            {t?.teamId}
+                          </SpotsLeft>
+                          <SpotsLeft>{t?.points}</SpotsLeft>
+                          <SpotsRight
+                            style={{ display: 'flex', alignItems: 'center' }}
+                          >
+                            #
+                            {t?.rank}
+                            {t?.rank < tab?.contest?.prizeDetails?.length ? (
+                              <ArrowUpwardIcon
+                                style={{
+                                  color: 'var(--green)',
+                                  fontSize: '18px',
+                                  marginLeft: '5px',
+                                }}
+                              />
+                            ) : (
+                              <SouthIcon
+                                style={{
+                                  color: 'red',
+                                  fontSize: '18px',
+                                  marginLeft: '5px',
+                                }}
+                              />
+                            )}
+                          </SpotsRight>
+                        </StatusC>
+                      ))}
+                    </ContestContainerJ>
+                  </Grid>
                 ))
               ) : (
                 <NoContests>
@@ -608,25 +618,27 @@ export default function MatchTabs({ tabs, g, livescore }) {
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {team?.length > 0
-              && team.map((t) => (
-                <TeamShort
-                  match={matchlive || match_details}
-                  match_info={match_details}
-                  players={t.players}
-                  plo={t}
-                  id={id}
-                />
-              ))}
-            {!(
-              matchlive?.result == 'In Progress'
-              || matchlive?.result == 'Complete'
-            ) && (
-              <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
-                <AddCircleOutlineRoundedIcon />
-                <p style={{ textTransform: 'uppercase' }}>create team</p>
-              </CreateTeam>
-            )}
+            <Grid container spacing={2}>
+              {team?.length > 0
+                && team.map((t) => (
+                  <TeamShort
+                    match={matchlive || match_details}
+                    match_info={match_details}
+                    players={t.players}
+                    plo={t}
+                    id={id}
+                  />
+                ))}
+              {!(
+                matchlive?.result == 'In Progress'
+                || matchlive?.result == 'Complete'
+              ) && (
+                  <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
+                    <AddCircleOutlineRoundedIcon />
+                    <p style={{ textTransform: 'uppercase' }}>create team</p>
+                  </CreateTeam>
+                )}
+            </Grid>
           </TabPanel>
           <TabP value={value} index={3}>
             <Commentary matchdata={match_details} />
@@ -662,7 +674,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                   contest
                     .find((c) => c?.contest?._id == modal?._id)
                     ?.teams?.map((t) => t?._id).length > 0
-                  && contest?.length > 0
+                    && contest?.length > 0
                     ? [
                       ...contest
                         .find((c) => c?.contest?._id == modal?._id)
