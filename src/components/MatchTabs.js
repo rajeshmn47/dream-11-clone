@@ -410,7 +410,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
             <ContestsContainer container item sm={12} xs={12} spacing={2}>
               {tabs
                 && tabs.map((tab) => (
-                  <Grid item md={6} lg={6} sm={12} xs={12} onClick={() => handleOpen(tab)}>
+                  <Grid item md={4} lg={4} sm={12} xs={12} onClick={() => handleOpen(tab)}>
                     <ContestContainer>
                       <Contest>
                         <First>
@@ -479,7 +479,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
             <ContestsContainer container spacing={2}>
               {contest.length > 0 ? (
                 contest.map((tab) => (
-                  <Grid item md={6} lg={6} sm={12} xs={12}
+                  <Grid item md={4} lg={4} sm={12} xs={12}
                     onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
                       state: {
                         match_details: matchlive,

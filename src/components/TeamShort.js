@@ -298,7 +298,7 @@ export function TeamShort({
   }, [id]);
 
   return (
-    <Grid item md={6} lg={6} xs={12} sm={12}>
+    <Grid item md={4} lg={4} xs={12} sm={12}>
       {players ? (
         <Team
           matchinfo={matchinfo}
