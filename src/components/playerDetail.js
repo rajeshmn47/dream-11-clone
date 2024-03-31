@@ -131,14 +131,14 @@ export function PlayerDetail() {
                     <Match><p>
                       {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
                       {"-"}
-                      ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
+                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded}
                     </p>
                       <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
                     </Match> :
                     <Match>
                       <p>
-                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
-                        ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
+                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}{"-"}
+                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded}
                       </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
                     </Match>}
                 </Grid>
