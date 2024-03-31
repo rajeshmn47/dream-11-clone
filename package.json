@@ -69,7 +69,7 @@
     "yup": "^1.3.0"
   },
   "scripts": {
-    "start": "BROWSER=none DISABLE_ESLINT_PLUGIN=true REACT_APP_API=local react-scripts start --max_old_space_size=4096",
+    "start": "BROWSER=none DISABLE_ESLINT_PLUGIN=true REACT_APP_API=local react-scripts start --max_old_space_size=99096",
     "production": "REACT_APP_API=production react-scripts start",
     "dev": "REACT_APP_API=local react-scripts start",
     "build": "REACT_APP_API=production react-scripts build",

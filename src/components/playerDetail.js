@@ -18,6 +18,10 @@ const Container = styled.div`
   }
 `;
 
+const Flag = styled.img`
+width:80px;
+`
+
 const Name = styled.h1`
 font-size:50px;
 color: #fff;;
@@ -27,7 +31,7 @@ text-transform:capitalize;
 
 const Player = styled.div`
 background:  rgb(67, 108, 171);
-height: 400px;
+height: 300px;
 display:flex;
 justify-content:center;
 align-items:flex-end;
@@ -52,6 +56,8 @@ flex-direction:column;
 `;
 
 const Heading = styled.h3`
+margin: 0 auto;
+margin-bottom: 10px;
 `
 
 export function PlayerDetail() {
@@ -84,6 +90,8 @@ export function PlayerDetail() {
               <img src={getImgurl(playerDetail?.image, playerDetail?.name)} style={{ width: "30%" }} alt="" />
             </ImageContainer></Grid>
           <Grid item md={6} lg={6}>
+            {playerDetail?.flagUrls?.length > 0 &&
+              playerDetail?.flagUrls?.map((flag) => <Flag src={flag} alt="" />)}
             <Name>
               {playerDetail?.name}
             </Name>
@@ -91,46 +99,52 @@ export function PlayerDetail() {
         </Grid>
       </Player>
       <Details>
-        <Heading>Batting</Heading>
-        <Grid container  position="relative">
-          {matches?.length > 0 ? matches?.map((_doc) =>
-            <Grid item>
-              {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
-                <Match><p>
-                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
-                  ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
-                </p>
-                  <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                </Match> :
-                <Match>
-                  <p>
-                    {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
-                    ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
-                  </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                </Match>}
+        <Grid container>
+          <Grid item md={6} lg={6}>
+            <Heading>Batting</Heading>
+            <Grid container position="relative">
+              {matches?.length > 0 ? matches?.map((_doc) =>
+                <Grid item>
+                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
+                    <Match><p>
+                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
+                      ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
+                    </p>
+                      <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
+                    </Match> :
+                    <Match>
+                      <p>
+                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
+                        ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
+                      </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
+                    </Match>}
+                </Grid>
+              ) : <Loader />}
             </Grid>
-          ):<Loader/>}
-        </Grid>
-        <Heading>Bowling</Heading>
-        <Grid container position="relative">
-          {matches?.length > 0 ? matches?.map((_doc) =>
-            <Grid item>
-              {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
-                <Match><p>
-                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
-                  {"-"}
-                  ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
-                </p>
-                  <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                </Match> :
-                <Match>
-                  <p>
-                    {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
-                    ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
-                  </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                </Match>}
+          </Grid>
+          <Grid item md={6} lg={6}>
+            <Heading>Bowling</Heading>
+            <Grid container position="relative">
+              {matches?.length > 0 ? matches?.map((_doc) =>
+                <Grid item>
+                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
+                    <Match><p>
+                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
+                      {"-"}
+                      ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
+                    </p>
+                      <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
+                    </Match> :
+                    <Match>
+                      <p>
+                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
+                        ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded})
+                      </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
+                    </Match>}
+                </Grid>
+              ) : <Loader />}
             </Grid>
-          ):<Loader/>}
+          </Grid>
         </Grid>
       </Details>
     </Container>
