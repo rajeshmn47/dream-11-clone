@@ -198,7 +198,7 @@ export function CreateTeam() {
                   className={p.isSelected ? 'selected' : 'notselected'}
                 >
                   <img src={p.image} alt="" />
-                  <h1>{p.playerName}</h1>
+                  <Link to={`/player/${p.playerId}`}>{p.playerName}</Link>
                   {p.isSelected ? (
                     <RemoveButton onClick={() => handleRemove(p._id)}>
                       <RemoveCircleOutlineRoundedIcon />

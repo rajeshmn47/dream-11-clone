@@ -7,7 +7,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
@@ -247,7 +247,7 @@ export function Captain({ players, editMode, teamId }) {
               <Player>
                 <Name>
                   <img src={getImgurl(p.image, p.playerId)} alt="" />
-                  <h1>{p.playerName}</h1>
+                  <Link to={`{/player/${p.playerId}`}>{p.playerName}</Link>
                 </Name>
                 <CaptainC
                   onClick={() => handleCaptain(p.playerId)}

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { API } from '../../../actions/userAction';
 import { URL } from '../../../constants/userConstants';
@@ -29,6 +29,9 @@ const ContestContainer = styled.div`
   margin: 10px 0;
 `;
 const Contest = styled.div`
+a{
+  text-decoration:none;
+}
   .MuiTabs-indicator {
     background-color: var(--red) !important;
     padding: 1px 0;
@@ -325,31 +328,27 @@ export default function CategoryTabs({
             aria-label="basic tabs example"
           >
             <Tab
-              label={`WK(${
-                players.filter((p) => checkwk(p.position) && p.isSelected)
-                  .length
-              })`}
+              label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
+                .length
+                })`}
               {...a11yProps(0)}
             />
             <Tab
-              label={`BAT(${
-                players.filter((p) => p.position === 'batsman' && p.isSelected)
-                  .length
-              })`}
+              label={`BAT(${players.filter((p) => p.position === 'batsman' && p.isSelected)
+                .length
+                })`}
               {...a11yProps(1)}
             />
             <Tab
-              label={`AR(${
-                players.filter((p) => checkar(p.position) && p.isSelected)
-                  .length
-              })`}
+              label={`AR(${players.filter((p) => checkar(p.position) && p.isSelected)
+                .length
+                })`}
               {...a11yProps(2)}
             />
             <Tab
-              label={`BOW(${
-                players.filter((p) => p.position === 'bowler' && p.isSelected)
-                  .length
-              })`}
+              label={`BOW(${players.filter((p) => p.position === 'bowler' && p.isSelected)
+                .length
+                })`}
               {...a11yProps(3)}
             />
           </Tabs>
@@ -378,7 +377,7 @@ export default function CategoryTabs({
                             )}
                           </ImgCtr>
                           <Center>
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {' '}
@@ -443,7 +442,7 @@ export default function CategoryTabs({
                             )}
                           </ImgCtr>
                           <Center>
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {' '}
@@ -507,7 +506,7 @@ export default function CategoryTabs({
                             )}
                           </ImgCtr>
                           <Center>
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {' '}
@@ -570,7 +569,7 @@ export default function CategoryTabs({
                             )}
                           </ImgCtr>
                           <Center>
-                            <h1>{p.playerName}</h1>
+                            <Link to={`{../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {' '}

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { API } from '../../actions/userAction';
 import { URL } from '../../constants/userConstants';
@@ -29,6 +29,9 @@ const ContestContainer = styled.div`
   margin: 10px 0;
 `;
 const Contest = styled.div`
+a{
+  text-decoration:none;
+}
   .MuiTabs-indicator {
     background-color: var(--red) !important;
     padding: 1px 0;
@@ -397,7 +400,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -449,7 +452,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <RedDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -509,7 +512,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -565,7 +568,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <RedDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -623,7 +626,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -675,7 +678,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <RedDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -733,7 +736,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`{/player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -785,7 +788,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <RedDot />
-                            <h1>{p.playerName}</h1>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (

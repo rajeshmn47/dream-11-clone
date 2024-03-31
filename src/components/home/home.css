@@ -130,7 +130,7 @@
   align-items: center;
 
   @media only screen and (min-width: 600px) {
-    width: 140px;
+    width: 180px;
   }
 }
 
@@ -152,7 +152,7 @@
   align-items: center;
 
   @media only screen and (min-width: 600px) {
-    width: 140px;
+    width: 180px;
   }
 }
 

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   .MuiPaper-root {
@@ -58,7 +59,7 @@ const Td = styled.td`
   text-align: left !important;
   width: 120px;
 `;
-const Name = styled.h6`
+const Name = styled(Link)`
   text-align: left !important;
   text-overflow: ellipsis;
   text-align: left !important;
@@ -122,7 +123,7 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               .map((t) => (
                 <tr>
                   <Td style={{ textTransform: 'capitalize' }}>
-                    <Name>{t.playerName}</Name>
+                    <Name to={`../player/${t.playerId}`}>{t.playerName}</Name>
                   </Td>
                   <td>{t.overs}</td>
                   <td>{t.maidens}</td>
@@ -148,22 +149,22 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
             </tr>
           </thead>
           {rows?.length > 0
-              && rows
-                .filter((k) => k.balls > 0)
-                .map((t) => (
-                  <tr>
-                    <Td style={{ textTransform: 'capitalize' }}>
-                      <Name>{t.playerName}</Name>
-                    </Td>
-                    <td>{t.runs}</td>
-                    <td>{t.balls}</td>
-                    <td>{t.fours}</td>
-                    <td>{t.sixes}</td>
-                    <td>
-                      <S>{t.strikeRate}</S>
-                    </td>
-                  </tr>
-                ))}
+            && rows
+              .filter((k) => k.balls > 0)
+              .map((t) => (
+                <tr>
+                  <Td style={{ textTransform: 'capitalize' }}>
+                    <Name to={`../player/${t.playerId}`}>{t.playerName}</Name>
+                  </Td>
+                  <td>{t.runs}</td>
+                  <td>{t.balls}</td>
+                  <td>{t.fours}</td>
+                  <td>{t.sixes}</td>
+                  <td>
+                    <S>{t.strikeRate}</S>
+                  </td>
+                </tr>
+              ))}
         </Table>
       ) : null}
     </>

@@ -407,7 +407,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
           </Box>
 
           <TabPanel value={value} index={0}>
-            <ContestsContainer container item sm={12} xs={12} spacing={2}>
+            <ContestsContainer container spacing={2} justifyContent="center">
               {tabs
                 && tabs.map((tab) => (
                   <Grid item md={4} lg={4} sm={12} xs={12} onClick={() => handleOpen(tab)}>
@@ -476,7 +476,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <ContestsContainer container spacing={2}>
+            <ContestsContainer container spacing={2} justifyContent="center">
               {contest.length > 0 ? (
                 contest.map((tab) => (
                   <Grid item md={4} lg={4} sm={12} xs={12}
@@ -618,7 +618,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
             </ContestsContainer>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} justifyContent="center">
               {team?.length > 0
                 && team.map((t) => (
                   <TeamShort
