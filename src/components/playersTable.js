@@ -34,8 +34,8 @@ const columns = [
         editable: true,
     },
     {
-        field: "totalScore",
-        headerName: "TOTAL SCORE",
+        field: "teamName",
+        headerName: "TEAM NAME",
         width: 180,
         hide: true,
         editable: true,
