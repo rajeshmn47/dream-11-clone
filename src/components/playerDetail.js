@@ -53,6 +53,8 @@ justify-content:center;
 display:flex;
 align-items:center;
 flex-direction:column;
+width: 100px;
+border-collapse:collapse;
 `;
 
 const Heading = styled.h3`
