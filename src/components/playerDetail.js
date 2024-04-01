@@ -18,8 +18,14 @@ const Container = styled.div`
   }
 `;
 
+const Flags = styled.div`
+display:flex;
+align-items:center;
+`
+
 const Flag = styled.img`
 width:80px;
+margin-right:10px;
 `
 
 const Name = styled.h1`
@@ -106,8 +112,10 @@ export function PlayerDetail() {
               <img src={getImgurl(playerDetail?.image, playerDetail?.name)} style={{ width: "30%" }} alt="" />
             </ImageContainer></Grid>
           <Grid item md={6} lg={6}>
-            {playerDetail?.flagUrls?.length > 0 &&
-              playerDetail?.flagUrls?.map((flag) => <Flag src={flag} alt="" />)}
+            <Flags>
+              {playerDetail?.flagUrls?.length > 0 &&
+                playerDetail?.flagUrls?.map((flag) => <Flag src={flag} alt="" />)}
+            </Flags>
             <Name>
               {playerDetail?.name}
             </Name>
@@ -165,7 +173,9 @@ export function PlayerDetail() {
       </Details>
       <Series>
         {seriesNames?.map((s) =>
-          <Link to={`../series/${s}`}>{s}</Link>)}
+          <div>
+            <Link to={`../series/${s}`}>{s}</Link>
+          </div>)}
       </Series>
     </Container>
   );

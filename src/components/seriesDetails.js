@@ -10,6 +10,7 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
+import PlayersTable from './playersTable';
 
 const Container = styled.div`
   position: relative;
@@ -25,6 +26,8 @@ const PlayerImage = styled.img`
 const Title = styled.div`
 border-bottom:1px solid #ccc;
   padding:5px;
+  font-weight:200;
+  font-size:12px;
 `
 
 const Details = styled.div`
@@ -48,10 +51,10 @@ align-items:center;
 const KeyStat = styled.div`
 margin:10px 0;
 border:1px solid #ccc;
-width: 300px;
+width: 360px;
 `
 const Player = styled.div`
-padding:5px 10px;
+padding:2px 10px;
 display:flex;
 align-items:center;
 justify-content:space-between;
@@ -60,10 +63,22 @@ const Name = styled.h3`
 width:100px;
 text-transform:capitalize;
 `;
+const NameContainer = styled.div`
+width:100px;
+text-transform:capitalize;
+`;
+const TeamName = styled.h3`
+width:100px;
+text-transform:capitalize;
+font-size:14px;
+font-weight:200;
+`;
 const Stat = styled.h3`
 
-`
+`;
 
+const Table = styled.div`
+`;
 
 const ImageContainer = styled.div`
 display:flex;
@@ -126,8 +141,11 @@ export function SeriesDetails() {
                     </Title>
                     <Player>
                         <PlayerImage src={getImgurl(players.sort((a, b) => b.totalScore - a.totalScore)[0]?.image, players.sort((a, b) => b.totalScore - a.totalScore)[0]?.playerName)} alt="" />
-                        <Name> {players.sort((a, b) => b.totalScore - a.totalScore)[0]?.playerName}</Name>
-                        <Stat>{players.sort((a, b) => b.totalFours - a.totalFours)[0]?.totalScore}</Stat>
+                        <NameContainer>
+                            <Name> {players.sort((a, b) => b.totalScore - a.totalScore)[0]?.playerName}</Name>
+                            <TeamName>{players.sort((a, b) => b.totalScore - a.totalScore)[0]?.teamName}</TeamName>
+                        </NameContainer>
+                        <Stat>{players.sort((a, b) => b.totalScore - a.totalScore)[0]?.totalScore}</Stat>
                     </Player>
                 </KeyStat>
                 <KeyStat>
@@ -136,7 +154,10 @@ export function SeriesDetails() {
                     </Title>
                     <Player>
                         <PlayerImage src={getImgurl(players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.image, players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.playerName)} alt="" />
-                        <Name>{players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.playerName}</Name>
+                        <NameContainer>
+                            <Name>{players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.playerName}</Name>
+                            <TeamName>{players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.teamName}</TeamName>
+                        </NameContainer>
                         <Stat>{players.sort((a, b) => b.totalWickets - a.totalWickets)[0]?.totalWickets}</Stat>
                     </Player>
                 </KeyStat>
@@ -146,7 +167,10 @@ export function SeriesDetails() {
                     </Title>
                     <Player>
                         <PlayerImage src={getImgurl(players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.image, players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.playerName)} alt="" />
-                        <Name> {players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.playerName}</Name >
+                        <NameContainer>
+                            <Name> {players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.playerName}</Name >
+                            <TeamName>{players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.teamName}</TeamName>
+                        </NameContainer>
                         <Stat>{players.sort((a, b) => b.totalSixes - a.totalSixes)[0]?.totalSixes}</Stat>
                     </Player >
                 </KeyStat >
@@ -156,11 +180,17 @@ export function SeriesDetails() {
                     </Title>
                     <Player>
                         <PlayerImage src={getImgurl(players.sort((a, b) => b.totalFours - a.totalFours)[0]?.image, players.sort((a, b) => b.totalFours - a.totalFours)[0]?.playerName)} alt="" />
-                        <Name>{players.sort((a, b) => b.totalFours - a.totalFours)[0]?.playerName}</Name >
+                        <NameContainer>
+                            <Name>{players.sort((a, b) => b.totalFours - a.totalFours)[0]?.playerName}</Name >
+                            <TeamName>{players.sort((a, b) => b.totalFours - a.totalFours)[0]?.teamName}</TeamName>
+                        </NameContainer>
                         <Stat>{players.sort((a, b) => b.totalFours - a.totalFours)[0]?.totalFours}</Stat>
                     </Player>
                 </KeyStat >
             </KeyStats >
+            <Table>
+                <PlayersTable players={players} />
+            </Table>
             <Series>
                 {seriesDetails?.map((s) =>
                     <div>
