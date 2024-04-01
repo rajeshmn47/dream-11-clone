@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
@@ -40,6 +40,13 @@ const Details = styled.div`
 padding:15px 30px;
 `
 
+const Series = styled.div`
+padding:15px 30px;
+a{
+  text-decoration:none;
+}
+`
+
 const ImageContainer = styled.div`
 display:flex;
 justify-content:center;
@@ -69,6 +76,7 @@ export function PlayerDetail() {
   const { id } = useParams();
   const [playerDetail, setPlayerDetail] = useState();
   const [matches, setMatches] = useState([]);
+  const [seriesNames, setSeriesNames] = useState();
 
   useEffect(() => {
     async function getplayers() {
@@ -82,6 +90,12 @@ export function PlayerDetail() {
     }
     getplayers();
   }, [user, id]);
+
+  useEffect(() => {
+    let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
+    let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
+    setSeriesNames([...unique])
+  }, [matches])
 
   return (
     <Container>
@@ -149,6 +163,10 @@ export function PlayerDetail() {
           </Grid>
         </Grid>
       </Details>
+      <Series>
+        {seriesNames?.map((s) =>
+          <Link to={`../series/${s}`}>{s}</Link>)}
+      </Series>
     </Container>
   );
 }

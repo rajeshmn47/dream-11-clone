@@ -37,6 +37,7 @@ import TermsAndConditions from './components/termsAndConditions';
 import Test from './components/test';
 import TransactionTabs from './components/transaction';
 import PlayerDetail from './components/playerDetail';
+import SeriesDetails from './components/seriesDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -117,6 +118,7 @@ function App() {
           <Route path="/more" element={<More />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/player/:id" element={<PlayerDetail/>} />
+          <Route path="/series/:name" element={<SeriesDetails/>} />
         </Routes>
       </BrowserRouter>
       {confetti && (

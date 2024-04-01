@@ -1,9 +1,15 @@
 export function getImgurl(id, name) {
+  console.log(id,name,'id&name')
   try {
+    if(id&&name){
     const k = 'https://www.cricbuzz.com/a/img/v1/152x152/i1/';
     const a = `c${id}/`;
     const b = `${name.split(' ').join('-').toLowerCase()}.jpg`;
     return k + a + b;
+    }
+    else{
+      return "abcd";
+    }
   } catch (e) {
     return 'nothing';
   }
