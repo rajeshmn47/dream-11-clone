@@ -312,7 +312,7 @@ export function MatchDetails({ players }) {
                     </>
                   )}
                 </Grid>
-                <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
+                <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'right' }}>
                   <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%",maxWidth:"50px" }} alt="" />
                 </Grid>
               </Grid>
