@@ -569,7 +569,7 @@ export default function CategoryTabs({
                             )}
                           </ImgCtr>
                           <Center>
-                            <Link to={`{../player/${p.playerId}`}>{p.playerName}</Link>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
                               <p>
                                 {' '}

@@ -736,7 +736,7 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <Link to={`{/player/${p.playerId}`}>{p.playerName}</Link>
+                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
