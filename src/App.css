@@ -87,6 +87,10 @@
   color: var(--red);
 }
 
+a {
+  color: #0066c0;
+}
+
 .selectedIcon {
   color: var(--red);
 }

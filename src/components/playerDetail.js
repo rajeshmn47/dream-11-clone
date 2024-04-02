@@ -151,7 +151,7 @@ export function PlayerDetail() {
         <Grid container>
           <Grid item md={6} lg={6}>
             <Heading>Batting</Heading>
-            <Grid container position="relative">
+            <Grid container position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
