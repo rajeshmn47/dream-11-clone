@@ -27,6 +27,9 @@ const Container = styled.div`
   .MuiAccordion-root {
     margin: 0 0 !important;
   }
+  a{
+    text-decoration:none;
+  }
 `;
 
 const Table = styled.table`

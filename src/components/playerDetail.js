@@ -26,6 +26,9 @@ align-items:center;
 const Flag = styled.img`
 width:80px;
 margin-right:10px;
+@media only screen and (max-width: 576px) {
+    width:40px;
+  }
 `
 
 const Name = styled.h1`
@@ -33,17 +36,29 @@ font-size:50px;
 color: #fff;;
 font-weight:600;
 text-transform:capitalize;
+@media only screen and (max-width: 576px) {
+    font-size:16px;
+  }
 `
 
 const Player = styled.div`
 background:  rgb(67, 108, 171);
-height: 300px;
+height: 200px;
 display:flex;
 justify-content:center;
 align-items:flex-end;
+padding:15px 30px;
+@media only screen and (max-width: 576px) {
+   height:150px;
+   justify-content:space-between;
+   padding:15px 15px;
+  }
 `
 const Details = styled.div`
 padding:15px 30px;
+@media only screen and (max-width: 576px) {
+   padding:15px 15px;
+  }
 `
 
 const Series = styled.div`
@@ -51,12 +66,21 @@ padding:15px 30px;
 a{
   text-decoration:none;
 }
+@media only screen and (max-width: 576px) {
+   padding:15px 15px;
+  }
 `
 
 const ImageContainer = styled.div`
 display:flex;
 justify-content:center;
 align-items:flex-end;
+img{
+  max-width:100%;
+  @media only screen and (max-width: 576px) {
+   width:100%;
+  }
+}
 `;
 
 const Match = styled.div`
@@ -73,6 +97,7 @@ border-collapse:collapse;
 const Heading = styled.h3`
 margin: 0 auto;
 margin-bottom: 10px;
+margin-top:15px;
 `
 
 export function PlayerDetail() {
@@ -106,12 +131,12 @@ export function PlayerDetail() {
   return (
     <Container>
       <Player>
-        <Grid container>
-          <Grid item md={6} lg={6}>
+        <Grid container spacing={2}>
+          <Grid item md={6} lg={6} sm={4} xs={4}>
             <ImageContainer>
-              <img src={getImgurl(playerDetail?.image, playerDetail?.name)} style={{ width: "30%" }} alt="" />
+              <img src={getImgurl(playerDetail?.image, playerDetail?.name)} alt="" />
             </ImageContainer></Grid>
-          <Grid item md={6} lg={6}>
+          <Grid item md={6} lg={6} sm={8} xs={8}>
             <Flags>
               {playerDetail?.flagUrls?.length > 0 &&
                 playerDetail?.flagUrls?.map((flag) => <Flag src={flag} alt="" />)}

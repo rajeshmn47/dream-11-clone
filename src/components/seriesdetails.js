@@ -14,12 +14,18 @@ import PlayersTable from './analytics/playersTable';
 
 const Container = styled.div`
   position: relative;
-  padding: 0 40px;
+  padding: 0 15px;
   .MuiBox-root {
     padding: 0 !important;
   }
   a{
     text-decoration:none;
+  }
+  @media only screen and (max-width: 576px) {
+    padding:0 15px;
+  }
+  @media only screen and (min-width: 600px) {
+    padding:0 40px;
   }
 `;
 
@@ -58,7 +64,8 @@ align-items:center;
 const KeyStat = styled(Grid)`
 `;
 const StatContainer = styled.div`
-border:1px solid #ccc;
+border:1px solid rgba(224, 224, 224, 1);
+border-radius:5px;
 `
 const Player = styled.div`
 padding:2px 10px;
@@ -82,6 +89,8 @@ font-size:14px;
 font-weight:200;
 `;
 const Stat = styled.h3`
+width: 50px;
+text-align: right;
 `;
 
 const Table = styled.div`
@@ -234,9 +243,9 @@ export function SeriesDetails() {
                 <PlayersTable players={players} />
             </Table>
             <Series>
-                {seriesDetails?.map((s) =>
+                {Array.from(new Set(seriesDetails?.map((s) => s.teamHomeName))).map((t) =>
                     <div>
-                        <Link to={`../series/${s.Title}`}>{s?.teamHomeName}</Link>
+                        <Link to={`../series/${t}`}>{t}</Link>
                     </div>)}
             </Series>
         </Container >
