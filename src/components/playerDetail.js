@@ -84,7 +84,7 @@ img{
 `;
 
 const Match = styled.div`
-border: 1px solid #ccc;
+border: 1px solid rgba(224, 224, 224, 1);
 padding: 15px 15px;
 justify-content:center;
 display:flex;
@@ -173,7 +173,7 @@ export function PlayerDetail() {
           </Grid>
           <Grid item md={6} lg={6}>
             <Heading>Bowling</Heading>
-            <Grid container position="relative">
+            <Grid container style={{width:'90%'}} position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
