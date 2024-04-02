@@ -1,8 +1,16 @@
 import { Box, Grid } from "@mui/material";
-import { alpha, styled } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { getImgurl } from "../../utils/img_url";
+import styled from "@emotion/styled";
+
+const Image = styled.img`
+width: 30px;
+border-radius:50%;
+margin-right:15px;
+`;
 
 const columns = [
     {
@@ -10,7 +18,8 @@ const columns = [
         headerName: "PLAYER NAME",
         width: 180,
         hide: true,
-        editable: true
+        editable: true,
+        renderCell: User
     },
     {
         field: "teamName",
@@ -50,6 +59,13 @@ const columns = [
     {
         field: "totalSixes",
         headerName: "TOTAL SIXES",
+        width: 180,
+        hide: true,
+        editable: true,
+    },
+    {
+        field: "matches",
+        headerName: "TOTAL MATCHES",
         width: 180,
         hide: true,
         editable: true,
@@ -152,7 +168,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     },
 }));
 
-export function PlayersTable({ players }) {
+export function User({ value }) {
     const [match, setMatch] = useState(null);
     const { id } = useParams();
     const [allPlayers, setAllplayers] = useState([]);
@@ -161,29 +177,10 @@ export function PlayersTable({ players }) {
     const [next, setNext] = useState(false);
     return (
         <>
-            <Box sx={{ height: 400, width: "100%", color: "#FFFFFF !important" }} className="container">
-                <StripedDataGrid
-                    loading={loading}
-                    rows={players}
-                    columns={columns}
-                    disableRowSelectionOnClick
-                    getRowId={(row) => row.playerId}
-                    showCellVerticalBorder
-                    showColumnVerticalBorder
-                    columnHeaderHeight={42}
-                    rowHeight={42}
-                    initialState={{
-                        columns: {
-                            columnVisibilityModel: {
-                                // Hide columns status and traderName, the other columns will remain visible
-                                playerId: false,
-                            },
-                        },
-                    }}
-                />
-            </Box>
+            <Image src={getImgurl(value?.image, value?.playerName)} alt="" />
+            <Link to={`../player/${value?.playerId}`}>{value?.playerName}</Link>
         </>
     );
 }
 
-export default PlayersTable;
+export default User;

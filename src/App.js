@@ -37,7 +37,7 @@ import TermsAndConditions from './components/termsAndConditions';
 import Test from './components/test';
 import TransactionTabs from './components/transaction';
 import PlayerDetail from './components/playerDetail';
-import SeriesDetails from './components/seriesDetails';
+import SeriesDetails from './components/seriesdetails';
 
 function App() {
   const dispatch = useDispatch();
