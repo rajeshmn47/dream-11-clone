@@ -12,6 +12,7 @@ import { URL } from '../constants/userConstants';
 import { FURL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
+import { useSelector } from 'react-redux';
 
 
 const Container = styled.div`
@@ -66,6 +67,26 @@ const Title = styled.h3`
   z-index:30;
 `;
 
+const AwayTitle = styled.h3`
+  position: absolute;
+  bottom: -10px;
+  background-color: var(--white);
+  color: #212121;
+  padding: 1px 5px;
+  border-radius: 5px;
+  font-weight:600;
+  min-width:52px;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  display: flex;
+  text-transform:capitalize;
+  align-items: center;
+  justify-content: center;
+  z-index:30;
+`;
+
 const Images = styled.div`
 display:flex;
 flex-direction:column;
@@ -105,6 +126,7 @@ height: 15px !important;
 
 export function SavedTeam() {
   const navigate = useNavigate();
+  const { match_details, matchlive } = useSelector((state) => state.match);
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const { id } = useParams();
@@ -115,10 +137,17 @@ export function SavedTeam() {
   useEffect(() => {
     async function getteam() {
       const data = await API.get(`${URL}/getteam/${id}`);
-      setPlayers(data.data.team.players);
+      function gethome(id) {
+        let isHome = !!match_details?.teamHomePlayers.find((h) =>  h.playerId==id);
+        console.log(isHome,'ishome')
+        return isHome;
+      }
+      gethome(data);
+      setPlayers([...data.data.team.players.map((p) => ({ ...p, isHome: gethome(p.playerId) }))]);
     }
     getteam();
-  }, [id]);
+  }, [id,match_details]);
+  console.log(match_details,'details')
 
   const handleCaptain = (i) => {
     const op = players.map((p) => {
@@ -180,8 +209,9 @@ export function SavedTeam() {
                       <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
-                    <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
-                  </PlayerP>
+                    {p.isHome ?
+                      <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                      : <AwayTitle>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</AwayTitle>}</PlayerP>
                 </Grid>
               ))}
             </Grid>
@@ -196,8 +226,9 @@ export function SavedTeam() {
                       <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
-                    <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
-                  </PlayerP>
+                    {p.isHome ?
+                      <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                      : <AwayTitle>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</AwayTitle>}</PlayerP>
                 </Grid>
               ))}
             </Grid>
@@ -212,7 +243,9 @@ export function SavedTeam() {
                       <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
-                    <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                    {p.isHome ?
+                      <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                      : <AwayTitle>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</AwayTitle>}
                   </PlayerP>
                 </Grid>
               ))}
@@ -228,7 +261,9 @@ export function SavedTeam() {
                       <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
-                    <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                    {p.isHome ?
+                      <Title>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</Title>
+                      : <AwayTitle>{p.playerName.split(' ')[1] ? p.playerName.split(' ')[1] : p.playerName.split(' ')[0]}</AwayTitle>}
                   </PlayerP>
                 </Grid>
               ))}
