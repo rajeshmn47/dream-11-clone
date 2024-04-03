@@ -389,7 +389,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -441,7 +441,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -501,7 +501,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -557,7 +557,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -615,7 +615,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -667,7 +667,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -725,7 +725,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -736,7 +736,10 @@ export default function LiveCategoryTabs({
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
+                            <Link to={`..
+                            
+                            
+                            /player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
@@ -777,7 +780,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (

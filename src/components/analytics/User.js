@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getImgurl } from "../../utils/img_url";
 import styled from "@emotion/styled";
+import { URL } from "../../constants/userConstants";
 
 const Image = styled.img`
 width: 30px;
@@ -177,7 +178,7 @@ export function User({ value }) {
     const [next, setNext] = useState(false);
     return (
         <>
-            <Image src={getImgurl(value?.image, value?.playerName)} alt="" />
+            <Image src={`${URL}/images/nobackground/${value?.playerId}.png`} alt="" />
             <Link to={`../player/${value?.playerId}`}>{value?.playerName}</Link>
         </>
     );

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { checkar, checkwk, getImgurl } from '../utils/img_url';
 import { showName } from '../utils/name';
+import { URL } from '../constants/userConstants';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -311,7 +312,7 @@ export function Team({
               </CaptainI>
 
               <img
-                src={getImgurl(captains[0].image, captains[0].playerName)}
+                src={`${URL}/images/nobackground/${captains[0]?.playerId}.png`}
                 alt=""
               />
 
@@ -322,11 +323,7 @@ export function Team({
             <CaptainsContainer>
               <VcaptainI>vc</VcaptainI>
               <img
-                src={
-                  getImgurl(captains[1]?.image, captains[1]?.playerName)
-                    ? getImgurl(captains[1]?.image, captains[1]?.playerName)
-                    : null
-                }
+                src={`${URL}/images/nobackground/${captains[1]?.playerId}.png`}
                 alt=""
               />
               <VCaptain>

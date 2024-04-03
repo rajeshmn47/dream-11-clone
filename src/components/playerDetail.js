@@ -13,6 +13,8 @@ import Loader from './loader';
 
 const Container = styled.div`
   position: relative;
+  max-width:100%;
+  overflow:hidden;
   .MuiBox-root {
     padding: 0 !important;
   }
@@ -134,7 +136,7 @@ export function PlayerDetail() {
         <Grid container spacing={2}>
           <Grid item md={6} lg={6} sm={4} xs={4}>
             <ImageContainer>
-              <img src={getImgurl(playerDetail?.image, playerDetail?.name)} alt="" />
+              <img src={`${URL}/images/nobackground/${playerDetail?.id}.png`} alt="" />
             </ImageContainer></Grid>
           <Grid item md={6} lg={6} sm={8} xs={8}>
             <Flags>
@@ -151,7 +153,7 @@ export function PlayerDetail() {
         <Grid container>
           <Grid item md={6} lg={6}>
             <Heading>Batting</Heading>
-            <Grid container position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
+            <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
@@ -173,7 +175,7 @@ export function PlayerDetail() {
           </Grid>
           <Grid item md={6} lg={6}>
             <Heading>Bowling</Heading>
-            <Grid container style={{width:'90%'}} position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
+            <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?

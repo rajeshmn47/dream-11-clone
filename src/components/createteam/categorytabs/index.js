@@ -367,7 +367,7 @@ export default function CategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -432,7 +432,7 @@ export default function CategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -495,7 +495,7 @@ export default function CategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {' '}
@@ -559,7 +559,7 @@ export default function CategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={getImgurl(p.image, p.playerName)}
+                              src={`${URL}/images/nobackground/${p.playerId}.png`}
                               alt=""
                             />
                             {p.isHome ? (

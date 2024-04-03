@@ -21,6 +21,9 @@ const Container = styled.div`
   a{
     text-decoration:none;
   }
+  a:hover{
+    text-decoration:underline;
+}
   @media only screen and (max-width: 576px) {
     padding:0 15px;
   }
@@ -62,6 +65,12 @@ justify-content:center;
 align-items:center;
 `;
 const KeyStat = styled(Grid)`
+a{
+    color:inherit;
+}
+a:hover{
+    text-decoration:underline;
+}
 `;
 const StatContainer = styled.div`
 border:1px solid rgba(224, 224, 224, 1);
@@ -192,7 +201,7 @@ export function SeriesDetails() {
                             Most Wickets
                         </Title>
                         <Player>
-                            <PlayerImage src={getImgurl(getPlayer('wickets')?.image, getPlayer('wickets')?.playerName)} alt="" />
+                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('wickets')?.playerId}.png`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('wickets')?.playerId}`}>
                                     <Name>{getPlayer('wickets')?.playerName}</Name>
