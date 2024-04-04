@@ -20,6 +20,7 @@ const columns = [
         width: 100,
         hide: true,
         editable: true,
+        type: "number"
     },
     {
         field: "totalWickets",
@@ -62,6 +63,7 @@ const columns = [
         width: 140,
         hide: true,
         editable: true,
+        type: "number"
     },
     {
         field: "strikeRate",
@@ -69,6 +71,7 @@ const columns = [
         width: 140,
         hide: true,
         editable: true,
+        type: "number"
     },
 ];
 

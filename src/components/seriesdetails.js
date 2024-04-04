@@ -184,7 +184,7 @@ export function SeriesDetails() {
                             Most Runs
                         </Title>
                         <Player>
-                            <PlayerImage src={getImgurl(getPlayer('runs')?.image, getPlayer('runs')?.playerName)} alt="" />
+                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('runs')?.playerId}.png`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('runs')?.playerId}`}>
                                     <Name>{getPlayer('runs')?.playerName}</Name>
@@ -219,7 +219,7 @@ export function SeriesDetails() {
                             Most Sixes
                         </Title>
                         <Player>
-                            <PlayerImage src={getImgurl(getPlayer('sixes')?.image, getPlayer('sixes')?.playerName)} alt="" />
+                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('sixes')?.playerId}.png`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('sixes')?.playerId}`}>
                                     <Name> {getPlayer('sixes')?.playerName}</Name >
@@ -236,7 +236,7 @@ export function SeriesDetails() {
                             Most Fours
                         </Title>
                         <Player>
-                            <PlayerImage src={getImgurl(getPlayer('fours')?.image, getPlayer('fours')?.playerName)} alt="" />
+                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('fours')?.playerId}.png`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('fours')?.playerId}`}>
                                     <Name>{getPlayer('fours')?.playerName}</Name>
