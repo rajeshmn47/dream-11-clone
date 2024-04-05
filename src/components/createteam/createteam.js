@@ -26,7 +26,6 @@ const PlayersIndicator = styled(Grid)`
   font-size: 12px;
   font-family: "Open Sans";
   font-weight: 500;
-  margin: 0 auto;
   color: #9c9898;
   p {
     font-weight: 700 !important;
@@ -46,13 +45,9 @@ const Player = styled.div`
 `;
 
 const NoPlayers = styled(Grid)`
-  width: 100%;
-  margin-left: 0;
-  margin: 0px 0px;
-  padding: 15px 0;
+  padding: 15px 10px;
   background-color: var(--black);
   height: 150px;
-  margin: 0 auto;
   color: #ffffff;
 `;
 const NoPlayer = styled.div`
@@ -168,6 +163,12 @@ const Code = styled.p`
   text-transform: uppercase;
   color: #9c9898 !important;
 `;
+const Info = styled.div`
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  align-items:center;`
+
 export function CreateTeam() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { state } = useLocation();
@@ -303,32 +304,40 @@ export function CreateTeam() {
       {!next ? (
         <>
           <NoPlayers container spacing={2}>
-            <PlayersIndicator container spacing={2}>
-              <Grid item xs={3} sm={3}>
-                Players
-                <p>
-                  {players.filter((p) => p.isSelected).length}
-                  /11
-                </p>
+            <PlayersIndicator container spacing={2} item lg={12} md={12} xs={12} sm={12} justifyContent="space-between">
+              <Grid item>
+                <Info>
+                  Players
+                  <p>
+                    {players.filter((p) => p.isSelected).length}
+                    /11
+                  </p>
+                </Info>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                <Code>{match?.teamAwayCode}</Code>
-                <p>1</p>
+              <Grid item justifyContent="center">
+                <Info>
+                  <Code>{match?.teamAwayCode}</Code>
+                  <p>1</p>
+                </Info>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                <Code>{match?.teamHomeCode}</Code>
-                <p>1</p>
+              <Grid item>
+                <Info>
+                  <Code>{match?.teamHomeCode}</Code>
+                  <p>1</p>
+                </Info>
               </Grid>
-              <Grid item xs={3} sm={3}>
-                Credits Left
-                <p>83.5</p>
+              <Grid item>
+                <Info>
+                  Credits Left
+                  <p>83.5</p>
+                </Info>
               </Grid>
             </PlayersIndicator>
             {players.filter((k) => k.isSelected === true).length <= 11
               && players
                 .filter((k) => k.isSelected === true)
                 .map((p, index) => (
-                  <Grid item lg={1} md={1} xs={1} sm={1}>
+                  <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
                     <NoPlayer />
                   </Grid>
                 ))}
@@ -339,7 +348,7 @@ export function CreateTeam() {
                   11 - players.filter((k) => k.isSelected === true).length,
                 )
                 .map((g) => (
-                  <Grid item lg={1} md={1} xs={1} sm={1}>
+                  <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
                     <BlankPlayer />
                   </Grid>
                 ))}
