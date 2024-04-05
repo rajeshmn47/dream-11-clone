@@ -389,7 +389,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -441,7 +441,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -501,7 +501,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -557,7 +557,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -615,7 +615,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -667,7 +667,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -725,7 +725,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (
@@ -780,7 +780,7 @@ export default function LiveCategoryTabs({
                         >
                           <ImgCtr>
                             <img
-                              src={`${URL}/images/nobackground/${p.playerId}.png`}
+                              src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
                             />
                             {p.isHome ? (

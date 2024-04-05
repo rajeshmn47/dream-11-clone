@@ -312,7 +312,7 @@ export function Team({
               </CaptainI>
 
               <img
-                src={`${URL}/images/nobackground/${captains[0]?.playerId}.png`}
+                src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${captains[0]?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                 alt=""
               />
 
@@ -323,7 +323,7 @@ export function Team({
             <CaptainsContainer>
               <VcaptainI>vc</VcaptainI>
               <img
-                src={`${URL}/images/nobackground/${captains[1]?.playerId}.png`}
+                src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${captains[1]?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                 alt=""
               />
               <VCaptain>

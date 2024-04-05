@@ -12,7 +12,8 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
-        renderCell: User
+        renderCell: User,
+        sortComparator: (v1, v2) => v1.playerName.localeCompare(v2.playerName)
     },
     {
         field: "totalScore",

@@ -246,7 +246,7 @@ export function Captain({ players, editMode, teamId }) {
             {selectedPlayers.map((p) => (
               <Player>
                 <Name>
-                  <img src={getImgurl(p.image, p.playerId)} alt="" />
+                  <img src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                   <Link to={`{/player/${p.playerId}`}>{p.playerName}</Link>
                 </Name>
                 <CaptainC

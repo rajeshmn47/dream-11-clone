@@ -206,7 +206,7 @@ export function SavedTeam() {
                 <Grid item xs={6} sm={6}>
                   <PlayerP>
                     <Images>
-                      <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
+                      <PImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
                     {p.isHome ?
@@ -223,7 +223,7 @@ export function SavedTeam() {
                 <Grid item xs={3} sm={3}>
                   <PlayerP>
                     <Images>
-                      <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
+                      <PImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
                     {p.isHome ?
@@ -240,7 +240,7 @@ export function SavedTeam() {
                 <Grid item xs={6} sm={6}>
                   <PlayerP>
                     <Images>
-                      <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
+                      <PImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
                     {p.isHome ?
@@ -258,7 +258,7 @@ export function SavedTeam() {
                 <Grid item xs={4} sm={4}>
                   <PlayerP>
                     <Images>
-                      <PImage src={`${URL}/images/nobackground/${p.playerId}.png`} alt="" />
+                      <PImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                       <Jersey src="https://cricketvectors.akamaized.net/jersey/limited/org/K.png?impolicy=default_web" alt="" />
                     </Images>
                     {p.isHome ?

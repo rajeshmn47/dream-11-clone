@@ -184,7 +184,7 @@ export function SeriesDetails() {
                             Most Runs
                         </Title>
                         <Player>
-                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('runs')?.playerId}.png`} alt="" />
+                            <PlayerImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${getPlayer('runs')?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('runs')?.playerId}`}>
                                     <Name>{getPlayer('runs')?.playerName}</Name>
@@ -201,7 +201,7 @@ export function SeriesDetails() {
                             Most Wickets
                         </Title>
                         <Player>
-                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('wickets')?.playerId}.png`} alt="" />
+                            <PlayerImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${getPlayer('runs')?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('wickets')?.playerId}`}>
                                     <Name>{getPlayer('wickets')?.playerName}</Name>
@@ -219,7 +219,7 @@ export function SeriesDetails() {
                             Most Sixes
                         </Title>
                         <Player>
-                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('sixes')?.playerId}.png`} alt="" />
+                            <PlayerImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${getPlayer('runs')?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('sixes')?.playerId}`}>
                                     <Name> {getPlayer('sixes')?.playerName}</Name >
@@ -236,7 +236,7 @@ export function SeriesDetails() {
                             Most Fours
                         </Title>
                         <Player>
-                            <PlayerImage src={`${URL}/images/nobackground/${getPlayer('fours')?.playerId}.png`} alt="" />
+                            <PlayerImage src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${getPlayer('runs')?.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
                             <NameContainer>
                                 <Link to={`../player/${getPlayer('fours')?.playerId}`}>
                                     <Name>{getPlayer('fours')?.playerName}</Name>

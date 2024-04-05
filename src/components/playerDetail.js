@@ -136,7 +136,7 @@ export function PlayerDetail() {
         <Grid container spacing={2}>
           <Grid item md={6} lg={6} sm={4} xs={4}>
             <ImageContainer>
-              <img src={`${URL}/images/nobackground/${playerDetail?.id}.png`} alt="" />
+              <img src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${playerDetail?.id}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
             </ImageContainer></Grid>
           <Grid item md={6} lg={6} sm={8} xs={8}>
             <Flags>
