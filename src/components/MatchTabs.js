@@ -343,7 +343,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleOpen = (i) => {
+  const handleOpen = (e,i) => {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
     if (
       !(matchlive?.result == 'In Progress' || matchlive?.result == 'Complete')
     ) {
@@ -410,7 +413,13 @@ export default function MatchTabs({ tabs, g, livescore }) {
             <ContestsContainer container spacing={2} justifyContent="center">
               {tabs
                 && tabs.map((tab) => (
-                  <Grid item md={4} lg={4} sm={12} xs={12} onClick={() => handleOpen(tab)}>
+                  <Grid item md={4} lg={4} sm={12} xs={12}
+                    onClick={() => navigate(`/contestdetail/${tab._id}`, {
+                      state: {
+                        match_details: matchlive,
+                      },
+                    })}
+                  >
                     <ContestContainer>
                       <Contest>
                         <First>
@@ -421,7 +430,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                           <h1>{tab.price}</h1>
                           <First>
                             <del>₹ 19</del>
-                            <FreeButton>
+                            <FreeButton onClick={(e) => handleOpen(e,tab)}>
                               ₹
                               {' '}
                               {Math.floor(tab.price / tab.totalSpots)}

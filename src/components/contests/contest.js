@@ -3,7 +3,7 @@ import '../create.css';
 
 import styled from '@emotion/styled';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import { Grid, Slider } from '@mui/material';
+import { Button, Grid, Slider } from '@mui/material';
 
 const Top = styled.div`
   background-color: var(--black);
@@ -100,6 +100,18 @@ const FreeButton = styled.button`
   border-radius: 5px;
 `;
 
+const JoinButton = styled.button`
+  background-color: var(--green);
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 10px 30px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  width: 100%;
+  margin-top:10px;
+`;
+
 const SliderContainer = styled.div``;
 const SpotsLeft = styled.div``;
 
@@ -115,58 +127,68 @@ const Last = styled.div`
 
 const tabs = [{ label: 'winnings' }, { label: 'leaderboard' }];
 
-export function ContestDetail({ contest }) {
+export function ContestDetail({ contest, handleClick }) {
+  console.log(contest,'contest')
   return (
     <ContestsContainer container>
       {contest && (
-      <ContestContainer>
-        <Contest>
-          <First>
-            <p>Prize Pool</p>
-            <p>Entry</p>
-          </First>
-          <First>
-            <h1>{contest.price}</h1>
+        <ContestContainer>
+          <Contest>
             <First>
-              <del>₹ 19</del>
-              <FreeButton>
+              <p>Prize Pool</p>
+              <p>Entry</p>
+            </First>
+            <First>
+              <h1>{contest.price}</h1>
+              <First>
+                <del>₹ 19</del>
+                <FreeButton>
+                  ₹
+                  {' '}
+                  {Math.floor(contest.price / contest.totalSpots)}
+                </FreeButton>
+              </First>
+            </First>
+            <SliderContainer>
+              <Slider
+                defaultValue={contest.totalSpots - contest.spotsLeft}
+                min={0}
+                max={contest.totalSpots}
+              />
+            </SliderContainer>
+            <First>
+              <SpotsLeft>
+                {contest.spotsLeft}
+                {' '}
+                spots left
+              </SpotsLeft>
+              <SpotsRight>
+                {contest.totalSpots}
+                {' '}
+                spots
+              </SpotsRight>
+            </First>
+            <First>
+              <JoinButton onClick={() => handleClick()}>
+                <del>₹ 190</del>
+                join
                 ₹
                 {' '}
                 {Math.floor(contest.price / contest.totalSpots)}
-              </FreeButton>
+              </JoinButton>
             </First>
-          </First>
-          <SliderContainer>
-            <Slider
-              defaultValue={contest.totalSpots - contest.spotsLeft}
-              min={0}
-              max={contest.totalSpots}
+          </Contest>
+          <Last>
+            ₹
+            {Math.floor(contest.price / contest.totalSpots)}
+            <EmojiEventsOutlinedIcon
+              style={{ margin: '0 15px', marginBottom: '3px' }}
             />
-          </SliderContainer>
-          <First>
-            <SpotsLeft>
-              {contest.spotsLeft}
-              {' '}
-              spots left
-            </SpotsLeft>
-            <SpotsRight>
-              {contest.totalSpots}
-              {' '}
-              spots
-            </SpotsRight>
-          </First>
-        </Contest>
-        <Last>
-          ₹
-          {Math.floor(contest.price / contest.totalSpots)}
-          <EmojiEventsOutlinedIcon
-            style={{ margin: '0 15px', marginBottom: '3px' }}
-          />
-          {Math.floor((contest.numWinners / contest.totalSpots) * 100)}
-          %
-          Single
-        </Last>
-      </ContestContainer>
+            {Math.floor((contest.numWinners / contest.totalSpots) * 100)}
+            %
+            Single
+          </Last>
+        </ContestContainer>
       )}
     </ContestsContainer>
   );

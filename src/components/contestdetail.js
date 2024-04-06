@@ -32,6 +32,38 @@ const Top = styled.div`
   left: 0;
 `;
 
+const Buttons = styled.div`
+position:fixed;
+bottom:0;
+background-color:#FFF;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:10px;
+`;
+
+const CreateButton = styled(Button)`
+text-align:center;
+width:45%;
+background-color:var(--red);
+color: #fff;
+:hover{
+  color:inherit;
+  background-color:inherit;
+}
+`;
+
+const JoinButton = styled(Button)`
+text-align:center;
+width:45%;
+background-color:var(--green);
+color: #fff;
+:hover{
+  color:inherit;
+  background-color:inherit;
+}
+`;
+
 const Bottom = styled.div``;
 const LeftSide = styled.div`
   width: 150px;
@@ -91,6 +123,7 @@ export function ContestDetail() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [switchTeam, setSwitchTeam] = useState(null);
+  const [joinTeam, setJoinTeam] = useState(null);
   const alert = useAlert();
   const [selectTeams, setSelectTeams] = useState({
     selected: false,
@@ -150,6 +183,19 @@ export function ContestDetail() {
       });
     }
   }, [switchTeam]);
+  useEffect(() => {
+    if (joinTeam) {
+      setSelectTeams({
+        selected: true,
+        team: null,
+      });
+    } else {
+      setSelectTeams({
+        selected: false,
+        team: null,
+      });
+    }
+  }, [joinTeam]);
 
   const handleSwap = (e, team) => {
     if (!e) var e = window.event;
@@ -157,6 +203,12 @@ export function ContestDetail() {
     if (e.stopPropagation) e.stopPropagation();
     setSwitchTeam(team);
   };
+
+  const handleClick = (e) => {
+    console.log('please join team');
+    setJoinTeam(true);
+  };
+
   const handleJoin = async (e) => {
     try {
       if (switchTeam?._id && selectedTeam?._id) {
@@ -171,6 +223,20 @@ export function ContestDetail() {
         setMatch(teamdata.data.match);
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
         setLeaderboard([...t]);
+      }
+      else if (joinTeam) {
+        const data = await API.get(
+          `${URL}/joincontest/${contest?._id}?teamid=${selectedTeam?._id}`,
+        );
+        setSelectedTeam(null);
+        setSwitchTeam(null);
+        const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
+        const contestdata = await API.get(`${URL}/getcontest/${id}`);
+        setContest(contestdata.data.contest);
+        setMatch(teamdata.data.match);
+        const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
+        setLeaderboard([...t]);
+        setJoinTeam(false);
       }
     } catch (error) {
       console.log(error.response);
@@ -211,7 +277,7 @@ export function ContestDetail() {
                 <NotificationAddOutlinedIcon />
               </RightSide>
             </Top>
-            <Contest contest={contest} />
+            <Contest contest={contest} handleClick={handleClick} />
           </ContestsContainer>
           <ContestTabs
             contest={contest}
@@ -229,6 +295,7 @@ export function ContestDetail() {
               teamIds={
                 contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']
               }
+              joinTeam={joinTeam}
               selectTeams={selectTeams}
               setSelectTeams={setSelectTeams}
               selectedTeam={selectedTeam}
@@ -237,10 +304,16 @@ export function ContestDetail() {
               matchdetails={match_details}
             />
           ))}
-          <Button>create team</Button>
-          <Button disabled={!selectTeams?.team} onClick={() => handleJoin()}>
-            Join Team
-          </Button>
+          <Buttons>
+            <CreateButton>create team</CreateButton>
+            {!selectTeams?.team ?
+              <Button style={{width:"50%"}} disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+                Join Team
+              </Button> :
+              <JoinButton disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+                Join Team
+              </JoinButton>}
+          </Buttons>
         </>
       )}
     </>
