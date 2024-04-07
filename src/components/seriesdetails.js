@@ -11,6 +11,7 @@ import { URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
 import PlayersTable from './analytics/playersTable';
+import PointsTable from './analytics/pointsTable';
 
 const Container = styled.div`
   position: relative;
@@ -42,6 +43,14 @@ const SeriesName = styled.h3`
   font-size:18px;
   text-align:center;
   margin: 20px 0;
+`
+
+const MainHeading = styled.h3`
+  font-weight:400;
+  font-size:18px;
+  text-align:left;
+  margin-top: 20px;
+  margin-bottom:10px;
 `
 
 const Title = styled.div`
@@ -103,7 +112,6 @@ text-align: right;
 `;
 
 const Table = styled.div`
-margin-top:30px;
 `;
 
 const ImageContainer = styled.div`
@@ -136,6 +144,7 @@ export function SeriesDetails() {
     const [seriesDetails, setSeriesDetails] = useState();
     const [matches, setMatches] = useState([]);
     const [players, setPlayers] = useState([]);
+    const [allteams,setAllteams] = useState([])
     const [seriesNames, setSeriesNames] = useState();
 
     useEffect(() => {
@@ -147,6 +156,10 @@ export function SeriesDetails() {
                 console.log(data.data.series, 'series');
                 setSeriesDetails(data.data.series);
                 setPlayers([...data.data.sortedplayers])
+                const teamdata = await API.get(
+                    `${URL}/pointsTable/${name}`,
+                );
+                setAllteams(teamdata.data.allteams);
             }
         }
         getplayers();
@@ -160,16 +173,20 @@ export function SeriesDetails() {
     function getPlayer(type) {
         if (players?.length > 0) {
             if (type == "sixes") {
-                return players.sort((a, b) => b?.totalSixes - a?.totalSixes)[0]
+                return [];
+               // return players.sort((a, b) => b?.totalSixes - a?.totalSixes)[0]
             }
             if (type == "fours") {
-                return players.sort((a, b) => b?.totalFours - a?.totalFours)[0]
+                return [];
+               // return players.sort((a, b) => b?.totalFours - a?.totalFours)[0]
             }
             if (type == "runs") {
-                return players.sort((a, b) => b?.totalScore - a?.totalScore)[0]
+                return [];
+                //return players.sort((a, b) => b?.totalScore - a?.totalScore)[0]
             }
             if (type == "wickets") {
-                return players.sort((a, b) => b?.totalWickets - a?.totalWickets)[0]
+                return [];
+                //return players.sort((a, b) => b?.totalWickets - a?.totalWickets)[0]
             }
         }
         return undefined;
@@ -177,6 +194,7 @@ export function SeriesDetails() {
     return (
         <Container>
             <SeriesName>{seriesDetails?.length > 0 && seriesDetails[0]?.matchTitle}</SeriesName>
+            <MainHeading>Key Stats</MainHeading>
             <KeyStats container spacing={2}>
                 <KeyStat item md={3} lg={3} xs={12} sm={12}>
                     <StatContainer>
@@ -248,8 +266,13 @@ export function SeriesDetails() {
                     </StatContainer>
                 </KeyStat >
             </KeyStats >
+            <MainHeading>Player Stats</MainHeading>
             <Table>
                 <PlayersTable players={players} />
+            </Table>
+            <MainHeading>Points Table</MainHeading>
+            <Table>
+                <PointsTable allteams={allteams} />
             </Table>
             <Series>
                 {Array.from(new Set(seriesDetails?.map((s) => s.teamHomeName))).map((t) =>
