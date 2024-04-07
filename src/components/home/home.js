@@ -363,7 +363,7 @@ export function Home() {
         )}
         <div className="upcomingmatches">
           <h3>Upcoming Matches</h3>
-          <AllMatches container spacing={2} justifyContent="center">
+          <AllMatches container rowSpacing={2} columnSpacing={4} justifyContent="center">
             {!loading ? (
               upcoming?.length > 0 ? (
                 <>

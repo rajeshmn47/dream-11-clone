@@ -32,6 +32,7 @@ const ContestContainer = styled.div`
   width: 100%;
   margin: 10px 0;
   cursor: pointer;
+  color:#5e5b5b;
 `;
 
 const ContestContainerJ = styled.div`
@@ -40,6 +41,7 @@ const ContestContainerJ = styled.div`
   margin: 10px 0;
   cursor: pointer;
   border-radius: 10px;
+  color:#5e5b5b;
 `;
 
 const Contest = styled.div`
@@ -343,7 +345,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleOpen = (e,i) => {
+  const handleOpen = (e, i) => {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
@@ -430,7 +432,7 @@ export default function MatchTabs({ tabs, g, livescore }) {
                           <h1>{tab.price}</h1>
                           <First>
                             <del>₹ 19</del>
-                            <FreeButton onClick={(e) => handleOpen(e,tab)}>
+                            <FreeButton onClick={(e) => handleOpen(e, tab)}>
                               ₹
                               {' '}
                               {Math.floor(tab.price / tab.totalSpots)}

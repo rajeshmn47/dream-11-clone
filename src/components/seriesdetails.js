@@ -144,7 +144,7 @@ export function SeriesDetails() {
     const [seriesDetails, setSeriesDetails] = useState();
     const [matches, setMatches] = useState([]);
     const [players, setPlayers] = useState([]);
-    const [allteams,setAllteams] = useState([])
+    const [allteams, setAllteams] = useState([])
     const [seriesNames, setSeriesNames] = useState();
 
     useEffect(() => {
@@ -172,21 +172,29 @@ export function SeriesDetails() {
     }, [matches])
     function getPlayer(type) {
         if (players?.length > 0) {
-            if (type == "sixes") {
-                return [];
-               // return players.sort((a, b) => b?.totalSixes - a?.totalSixes)[0]
+            if (type == "runs") {
+                // return [];
+                let sortArray = [...players];
+                let p = [...sortArray.sort((a, b) => b?.totalScore - a?.totalScore)][0]
+                return p;
             }
             if (type == "fours") {
-                return [];
-               // return players.sort((a, b) => b?.totalFours - a?.totalFours)[0]
+                //return [];
+                let sortArray = [...players];
+                let p = [...sortArray.sort((a, b) => b?.totalFours - a?.totalFours)][0]
+                return p;
             }
-            if (type == "runs") {
-                return [];
-                //return players.sort((a, b) => b?.totalScore - a?.totalScore)[0]
+            if (type == "sixes") {
+                //return [];
+                let sortArray = [...players];
+                let p = [...sortArray.sort((a, b) => b?.totalSixes - a?.totalSixes)][0];
+                return p;
             }
             if (type == "wickets") {
-                return [];
-                //return players.sort((a, b) => b?.totalWickets - a?.totalWickets)[0]
+                //return [];
+                let sortArray = [...players];
+                let p = [...sortArray.sort((a, b) => b?.totalWickets - a?.totalWickets)][0]
+                return p;
             }
         }
         return undefined;
