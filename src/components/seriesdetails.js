@@ -197,7 +197,6 @@ export function SeriesDetails() {
                 return p;
             }
         }
-        return undefined;
     }
     return (
         <Container>

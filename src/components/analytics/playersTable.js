@@ -12,7 +12,9 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
-        renderCell: User,
+        renderCell: function actions(params) {
+            return (<User value={params.row} />);
+        },
         sortComparator: (v1, v2) => v1.playerName.localeCompare(v2.playerName)
     },
     {

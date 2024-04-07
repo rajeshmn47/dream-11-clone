@@ -51,7 +51,7 @@ export function RecentForm({ value }) {
     console.log(value, 'recent form')
     return (
         <>
-            {value.split('').map((fo) => fo == "w" ? <W>{fo}</W> : <L>{fo}</L>)}
+            {value ? (value?.split('').map((fo) => fo == "w" ? <W>{fo}</W> : <L>{fo}</L>)) : ''}
         </>
     );
 }

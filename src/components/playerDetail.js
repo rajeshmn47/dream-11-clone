@@ -151,7 +151,7 @@ export function PlayerDetail() {
       </Player>
       <Details>
         <Grid container>
-          <Grid item md={6} lg={6}>
+          <Grid item md={6} lg={6} xs={12} sm={12}>
             <Heading>Batting</Heading>
             <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap">
               {matches?.length > 0 ? matches?.map((_doc) =>
@@ -173,7 +173,7 @@ export function PlayerDetail() {
               ) : <Loader />}
             </Grid>
           </Grid>
-          <Grid item md={6} lg={6}>
+          <Grid item md={6} lg={6} xs={12} sm={12}>
             <Heading>Bowling</Heading>
             <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>

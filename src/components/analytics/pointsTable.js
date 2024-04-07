@@ -48,7 +48,9 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
-        renderCell: RecentForm
+        renderCell: function actions(params) {
+            return (<RecentForm value={params.row.form} />);
+          }
     }
 ];
 
@@ -155,7 +157,6 @@ export function PointsTable({ allteams }) {
     const [loading, setLoading] = useState(false);
     const [dreamTeam, setDreamTeam] = useState([]);
     const [next, setNext] = useState(false);
-    console.log(allteams,'players')
     return (
         <>
             <Box sx={{ height: 500, width: "100%", boxSizing: "border-box", color: "#FFFFFF !important" }} className="container">
