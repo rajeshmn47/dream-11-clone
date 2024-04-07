@@ -45,7 +45,7 @@ padding:10px;
 const CreateButton = styled(Button)`
 text-align:center;
 width:45%;
-background-color:var(--red);
+background-color:var(--black);
 color: #fff;
 :hover{
   color:inherit;
@@ -219,6 +219,7 @@ export function ContestDetail() {
         setSwitchTeam(null);
         const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
         const contestdata = await API.get(`${URL}/getcontest/${id}`);
+        alert.success('contest swapped successfully');
         setContest(contestdata.data.contest);
         setMatch(teamdata.data.match);
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
@@ -232,6 +233,7 @@ export function ContestDetail() {
         setSwitchTeam(null);
         const teamdata = await API.get(`${URL}/getteamsofcontest/${id}`);
         const contestdata = await API.get(`${URL}/getcontest/${id}`);
+        alert.success('contest joined successfully');
         setContest(contestdata.data.contest);
         setMatch(teamdata.data.match);
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
@@ -305,9 +307,9 @@ export function ContestDetail() {
             />
           ))}
           <Buttons>
-            <CreateButton>create team</CreateButton>
+            <CreateButton onClick={() => history(`/createteam/${match_details?.matchId}`)}>create team</CreateButton>
             {!selectTeams?.team ?
-              <Button style={{width:"50%"}} disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+              <Button style={{ width: "50%" }} disabled={!selectTeams?.team} onClick={() => handleJoin()}>
                 Join Team
               </Button> :
               <JoinButton disabled={!selectTeams?.team} onClick={() => handleJoin()}>
