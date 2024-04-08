@@ -281,12 +281,6 @@ export function SeriesDetails() {
             <Table>
                 <PointsTable allteams={allteams} />
             </Table>
-            <Series>
-                {Array.from(new Set(seriesDetails?.map((s) => s.teamHomeName))).map((t) =>
-                    <div>
-                        <Link to={`../series/${t}`}>{t}</Link>
-                    </div>)}
-            </Series>
         </Container >
     );
 }

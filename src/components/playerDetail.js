@@ -10,6 +10,7 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
+import PlayerStatsTable from './analytics/playerStatsTable';
 
 const Container = styled.div`
   position: relative;
@@ -64,12 +65,10 @@ padding:15px 30px;
 `
 
 const Series = styled.div`
-padding:15px 30px;
 a{
   text-decoration:none;
 }
 @media only screen and (max-width: 576px) {
-   padding:15px 15px;
   }
 `
 
@@ -100,7 +99,53 @@ const Heading = styled.h3`
 margin: 0 auto;
 margin-bottom: 10px;
 margin-top:15px;
-`
+`;
+
+const SeriesHeading = styled.h3`
+margin: 0 auto;
+margin-bottom: 10px;
+margin-top:0px;
+`;
+
+const PlayerStats = styled.div`
+margin-top:25px;
+.selected{
+  background: rgba(67, 108, 171, 0.1);
+    border: 1px solid rgba(67, 108, 171, 0.2);
+    padding:15px 15px;
+}
+.notSelected{
+  background: #FFF;
+  padding:15px 15px;
+}
+`;
+
+const AllStats = styled.div`
+margin: 0 auto;
+margin-bottom: 10px;
+margin-top:15px;
+background: rgba(67, 108, 171, 0.1);
+    border: 1px solid rgba(67, 108, 171, 0.2);
+    padding: 15px 15px;
+    display:flex;
+    align-items:center;
+`;
+
+const Stat = styled.div`
+margin: 0 auto;
+margin-bottom: 10px;
+margin-top:15px;
+`;
+
+const Table = styled.div`
+padding:15px 0px;
+a{
+  text-decoration:none;
+}
+@media only screen and (max-width: 576px) {
+   padding:15px 0px;
+  }
+`;
 
 export function PlayerDetail() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -110,6 +155,9 @@ export function PlayerDetail() {
   const [playerDetail, setPlayerDetail] = useState();
   const [matches, setMatches] = useState([]);
   const [seriesNames, setSeriesNames] = useState();
+  const [seriesSelected, setSeriesSelected] = useState('Indian Premier League 2024');
+  const [seriesDetails, setSeriesDetails] = useState('Indian Premier League 2024')
+  const [mainInfo, setMainInfo] = useState('Indian Premier League 2024')
 
   useEffect(() => {
     async function getplayers() {
@@ -123,6 +171,19 @@ export function PlayerDetail() {
     }
     getplayers();
   }, [user, id]);
+
+  useEffect(() => {
+    async function getSeriesStats() {
+      if (user?._id) {
+        const data = await API.get(
+          `${URL}/playerSeriesDetails/${id}/${seriesSelected}`,
+        );
+        setSeriesDetails(data.data.player);
+        setMainInfo(data.data.maininfo)
+      }
+    }
+    getSeriesStats();
+  }, [user, seriesSelected]);
 
   useEffect(() => {
     let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
@@ -197,13 +258,29 @@ export function PlayerDetail() {
             </Grid>
           </Grid>
         </Grid>
+        <PlayerStats>
+          <Grid container spacing={2}>
+            <Grid item md={4} lg={4}>
+              <Series>
+                {seriesNames?.map((s) =>
+                  <div className={seriesSelected == s ? "selected" : "notSelected"}
+                    onClick={() => setSeriesSelected(s)}>
+                    <Link to={`../series/${s}`}>{s}</Link>
+                  </div>)}
+              </Series>
+            </Grid>
+            <Grid item lg={8} md={8}>
+              <SeriesHeading>T20</SeriesHeading>
+              <AllStats>
+                <Stat>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{mainInfo?.economy} Economy</Stat><Stat>{mainInfo?.innings} Strike rate</Stat>
+              </AllStats>
+              <Table>
+                <PlayerStatsTable matches={[seriesDetails]} />
+              </Table>
+            </Grid>
+          </Grid>
+        </PlayerStats>
       </Details>
-      <Series>
-        {seriesNames?.map((s) =>
-          <div>
-            <Link to={`../series/${s}`}>{s}</Link>
-          </div>)}
-      </Series>
     </Container>
   );
 }
