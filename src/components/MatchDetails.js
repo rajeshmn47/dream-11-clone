@@ -38,7 +38,7 @@ const TopContainer = styled.div`
     padding: 3px 0;
     color: #757272;
   }
-  padding: 10px 20px;
+  padding: 10px 10px;
   position: fixed;
   height: 160px;
   top: 0;
@@ -49,6 +49,7 @@ const TopContainer = styled.div`
 
   @media only screen and (min-width: 600px) {
    height:180px;
+   padding: 10px 20px;
   }
 `;
 
