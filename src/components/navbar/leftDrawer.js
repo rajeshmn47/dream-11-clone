@@ -112,6 +112,7 @@ const ListI = styled.div`
   display: flex;
   padding: 10px 0px;
   align-items: center;
+  border-bottom:1px solid #fafafa;
 `;
 
 const Account = styled.div`

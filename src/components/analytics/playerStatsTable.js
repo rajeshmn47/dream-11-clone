@@ -2,17 +2,21 @@ import { Box, Grid } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import User from "./User";
 import RecentForm from "./RecentForm";
+import GetDate from "./GetDate";
 
-const columns = [
+const batcolumns = [
     {
         field: "teamHomeName",
         headerName: "Match",
         width: 180,
         hide: true,
         editable: true,
+        renderCell: function actions(params) {
+            return (<Link to={`/matchanalysis/${params.row.matchId}`}>vs {params.row.oppTeam}</Link>);
+        }
     },
     {
         field: "date",
@@ -20,6 +24,52 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
+        renderCell: function actions(params) {
+            return (<GetDate value={params.row.date} />);
+        }
+    },
+    {
+        field: "runs",
+        headerName: "Runs",
+        width: 180,
+        hide: true,
+        editable: true,
+        renderCell: function actions(params) {
+            return (`${params.row.runs}(${params.row.balls})`);
+        }
+    },
+    {
+        field: "balls",
+        headerName: "Action",
+        width: 180,
+        hide: true,
+        editable: true,
+        renderCell: function actions(params) {
+            return ('action');
+        }
+    }
+];
+
+const bowcolumns = [
+    {
+        field: "oppTeam",
+        headerName: "Match",
+        width: 180,
+        hide: true,
+        editable: true,
+        renderCell: function actions(params) {
+            return (`vs ${params.row.oppTeam}`);
+        }
+    },
+    {
+        field: "date",
+        headerName: "Date",
+        width: 180,
+        hide: true,
+        editable: true,
+        renderCell: function actions(params) {
+            return (<GetDate value={params.row.date} />);
+        }
     },
     {
         field: "wickets",
@@ -27,6 +77,9 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
+        renderCell: function actions(params) {
+            return (`${params.row.wickets}-${params.row.runsConceded}`);
+        }
     },
     {
         field: "runsConceded",
@@ -34,6 +87,9 @@ const columns = [
         width: 180,
         hide: true,
         editable: true,
+        renderCell: function actions(params) {
+            return ('action');
+        }
     }
 ];
 
@@ -133,26 +189,37 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     },
 }));
 
-export function PlayerStatsTable({ matches }) {
+export function PlayerStatsTable({ matches, batting }) {
     const [match, setMatch] = useState(null);
     const { id } = useParams();
     const [allPlayers, setAllplayers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [dreamTeam, setDreamTeam] = useState([]);
     const [next, setNext] = useState(false);
+    console.log(matches, 'all matches');
     return (
         <>
-            <Box sx={{ height: 500, width: "100%", boxSizing: "border-box", color: "#FFFFFF !important" }} className="container">
+            {batting ? <Box sx={{ height: 500, width: "100%", boxSizing: "border-box", color: "#FFFFFF !important" }} className="container">
                 <DataGrid
                     loading={loading}
                     rows={matches}
-                    columns={columns}
+                    columns={batcolumns}
                     disableRowSelectionOnClick
                     getRowId={(row) => row?._id}
                     columnHeaderHeight={42}
                     rowHeight={42}
                 />
-            </Box>
+            </Box> : <Box sx={{ height: 500, width: "100%", boxSizing: "border-box", color: "#FFFFFF !important" }} className="container">
+                <DataGrid
+                    loading={loading}
+                    rows={matches}
+                    columns={bowcolumns}
+                    disableRowSelectionOnClick
+                    getRowId={(row) => row?._id}
+                    columnHeaderHeight={42}
+                    rowHeight={42}
+                />
+            </Box>}
         </>
     );
 }

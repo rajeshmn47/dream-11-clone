@@ -19,6 +19,21 @@ const Container = styled.div`
   .MuiBox-root {
     padding: 0 !important;
   }
+  ::-webkit-scrollbar{
+      width:5px;
+      background-color:#000;
+      }
+      .statSelected{
+  background: rgba(67, 108, 171, 0.1);
+    border: 1px solid rgba(67, 108, 171, 0.2);
+    padding:15px 15px;
+    color:#1860a6;
+}
+.statNotSelected{
+  background: #FFF;
+  padding:15px 15px;
+  color:#1860a6;
+}
 `;
 
 const Flags = styled.div`
@@ -65,6 +80,7 @@ padding:15px 30px;
 `
 
 const Series = styled.div`
+margin-top:10px;
 a{
   text-decoration:none;
 }
@@ -86,12 +102,12 @@ img{
 
 const Match = styled.div`
 border: 1px solid rgba(224, 224, 224, 1);
-padding: 15px 15px;
+padding: 15px 0;
 justify-content:center;
 display:flex;
 align-items:center;
 flex-direction:column;
-width: 100px;
+width: 120px;
 border-collapse:collapse;
 `;
 
@@ -112,11 +128,11 @@ margin-top:25px;
 .selected{
   background: rgba(67, 108, 171, 0.1);
     border: 1px solid rgba(67, 108, 171, 0.2);
-    padding:15px 15px;
+    padding:15px 0px;
 }
 .notSelected{
   background: #FFF;
-  padding:15px 15px;
+  padding:15px 0px;
 }
 `;
 
@@ -156,7 +172,8 @@ export function PlayerDetail() {
   const [matches, setMatches] = useState([]);
   const [seriesNames, setSeriesNames] = useState();
   const [seriesSelected, setSeriesSelected] = useState('Indian Premier League 2024');
-  const [seriesDetails, setSeriesDetails] = useState('Indian Premier League 2024')
+  const [seriesDetails, setSeriesDetails] = useState([]);
+  const [statType, setStatType] = useState('batting');
   const [mainInfo, setMainInfo] = useState('Indian Premier League 2024')
 
   useEffect(() => {
@@ -178,8 +195,8 @@ export function PlayerDetail() {
         const data = await API.get(
           `${URL}/playerSeriesDetails/${id}/${seriesSelected}`,
         );
-        setSeriesDetails(data.data.player);
-        setMainInfo(data.data.maininfo)
+        setSeriesDetails([...data.data.player]);
+        setMainInfo(data.data.maininfo);
       }
     }
     getSeriesStats();
@@ -189,8 +206,9 @@ export function PlayerDetail() {
     let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
     let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
     setSeriesNames([...unique])
+    setSeriesSelected(unique[0])
   }, [matches])
-
+  console.log(seriesDetails, 'series details');
   return (
     <Container>
       <Player>
@@ -214,7 +232,7 @@ export function PlayerDetail() {
         <Grid container>
           <Grid item md={6} lg={6} xs={12} sm={12}>
             <Heading>Batting</Heading>
-            <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap">
+            <Grid container style={{ width: '90%', overflowX: "scroll" }} position="relative" flexWrap="nowrap">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
@@ -236,7 +254,7 @@ export function PlayerDetail() {
           </Grid>
           <Grid item md={6} lg={6} xs={12} sm={12}>
             <Heading>Bowling</Heading>
-            <Grid container style={{ width: '90%' }} position="relative" overflow="scroll" flexWrap="nowrap" maxWidth="100%">
+            <Grid container style={{ width: '90%', overflowX: "scroll" }} position="relative" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
@@ -261,6 +279,21 @@ export function PlayerDetail() {
         <PlayerStats>
           <Grid container spacing={2}>
             <Grid item md={4} lg={4}>
+              <Grid container spacing={2} alignItems='center'>
+                <Grid item md={4} lg={4}>
+                  Matches
+                </Grid>
+                <Grid item md={4} lg={4}>
+                  <div className={statType == "batting" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("batting")}>
+                    Batting
+                  </div>
+                </Grid>
+                <Grid item md={4} lg={4}>
+                  <div className={statType == "bowling" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("bowling")}>
+                    Bowling
+                  </div>
+                </Grid>
+              </Grid>
               <Series>
                 {seriesNames?.map((s) =>
                   <div className={seriesSelected == s ? "selected" : "notSelected"}
@@ -271,11 +304,13 @@ export function PlayerDetail() {
             </Grid>
             <Grid item lg={8} md={8}>
               <SeriesHeading>T20</SeriesHeading>
-              <AllStats>
-                <Stat>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{mainInfo?.economy} Economy</Stat><Stat>{mainInfo?.innings} Strike rate</Stat>
-              </AllStats>
+              {statType == "batting" ? <AllStats>
+                <Stat>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+              </AllStats> : <AllStats>
+                <Stat>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.economy)} Economy</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+              </AllStats>}
               <Table>
-                <PlayerStatsTable matches={[seriesDetails]} />
+                {statType == "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
               </Table>
             </Grid>
           </Grid>

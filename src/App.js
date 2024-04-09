@@ -38,6 +38,7 @@ import Test from './components/test';
 import TransactionTabs from './components/transaction';
 import PlayerDetail from './components/playerDetail';
 import SeriesDetails from './components/seriesdetails';
+import MatchAnalysis from './components/analytics/matchAnalysis';
 
 function App() {
   const dispatch = useDispatch();
@@ -112,6 +113,7 @@ function App() {
           <Route path="/transaction" element={<TransactionTabs />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/matchanalysis/:id" element={<MatchAnalysis />} />
           <Route path="/termsAndConditions" element={<TermsAndConditions />} />
           <Route path="/refund" element={<Refund />} />
           <Route path="/helpAndSupport" element={<HelpAndSupport />} />
