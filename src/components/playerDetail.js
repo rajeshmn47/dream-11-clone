@@ -102,13 +102,18 @@ img{
 
 const Match = styled.div`
 border: 1px solid rgba(224, 224, 224, 1);
-padding: 15px 0;
+padding: 15px 5px;
 justify-content:center;
 display:flex;
 align-items:center;
 flex-direction:column;
 width: 120px;
 border-collapse:collapse;
+p{overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
 `;
 
 const Heading = styled.h3`
@@ -278,7 +283,7 @@ export function PlayerDetail() {
         </Grid>
         <PlayerStats>
           <Grid container spacing={2}>
-            <Grid item md={4} lg={4}>
+            <Grid item md={4} lg={4} sm={12} xs={12}>
               <Grid container spacing={2} alignItems='center'>
                 <Grid item md={4} lg={4}>
                   Matches
@@ -302,7 +307,7 @@ export function PlayerDetail() {
                   </div>)}
               </Series>
             </Grid>
-            <Grid item lg={8} md={8}>
+            <Grid item lg={8} md={8} sm={12} xs={12}>
               <SeriesHeading>T20</SeriesHeading>
               {statType == "batting" ? <AllStats>
                 <Stat>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
