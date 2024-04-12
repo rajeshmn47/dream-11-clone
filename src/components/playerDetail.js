@@ -196,7 +196,7 @@ export function PlayerDetail() {
 
   useEffect(() => {
     async function getSeriesStats() {
-      if (user?._id) {
+      if (user?._id && seriesSelected) {
         const data = await API.get(
           `${URL}/playerSeriesDetails/${id}/${seriesSelected}`,
         );
@@ -234,10 +234,10 @@ export function PlayerDetail() {
         </Grid>
       </Player>
       <Details>
-        <Grid container>
-          <Grid item md={6} lg={6} xs={12} sm={12}>
+        <Grid container spacing={2} justifyContent="space-between">
+          <Grid item md={5.5} lg={5.5} xs={12} sm={12}>
             <Heading>Batting</Heading>
-            <Grid container style={{ width: '90%', overflowX: "scroll" }} position="relative" flexWrap="nowrap">
+            <Grid container style={{ width: '100%', overflowX: "scroll" }} position="relative" flexWrap="nowrap">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
@@ -257,9 +257,9 @@ export function PlayerDetail() {
               ) : <Loader />}
             </Grid>
           </Grid>
-          <Grid item md={6} lg={6} xs={12} sm={12}>
+          <Grid item md={5.5} lg={5.5} xs={12} sm={12}>
             <Heading>Bowling</Heading>
-            <Grid container style={{ width: '90%', overflowX: "scroll" }} position="relative" flexWrap="nowrap" maxWidth="100%">
+            <Grid container style={{ width: '100%', overflowX: "scroll" }} position="relative" flexWrap="nowrap" maxWidth="100%">
               {matches?.length > 0 ? matches?.map((_doc) =>
                 <Grid item>
                   {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
