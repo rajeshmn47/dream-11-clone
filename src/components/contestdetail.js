@@ -252,7 +252,8 @@ export function ContestDetail() {
   );
   return (
     <>
-      {contest && !selectTeams?.selected ? (
+    {contest&&<>
+      {!selectTeams?.selected ? (
         <>
           <ContestsContainer container>
             <Top>
@@ -318,6 +319,7 @@ export function ContestDetail() {
           </Buttons>
         </>
       )}
+    </>}
     </>
   );
 }
