@@ -356,9 +356,13 @@ export function Home() {
         {live?.length > 0 && (
           <div className="matches">
             <h3>Live Matches</h3>
-            {live.map((u) => (
-              <Match u={u} live />
-            ))}
+            <AllMatches container rowSpacing={2} columnSpacing={4} justifyContent="center">
+              {live.map((u) => (
+                <Grid item sm={12} xs={12} lg={4} md={4}>
+                  <Match u={u} live />
+                </Grid>
+              ))}
+            </AllMatches>
           </div>
         )}
         <div className="upcomingmatches">
