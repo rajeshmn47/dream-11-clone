@@ -47,7 +47,7 @@
   box-sizing: border-box;
 }
 .logintopbar {
-  background-color: var(--red);
+  background-color: #960019;
   color: #ffffff;
   height: 10vh;
   padding: 2vh 3vw;
