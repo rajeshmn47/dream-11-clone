@@ -1,4 +1,8 @@
 https://buymeacoffee.com/rajeshmn47
+<h5 align="left">Support using this if u are from india:</h5>
+<p>- UPI ID: 7259293140@ybl</p>
+<p>- Scan the QR code below:</p>
+<img src="https://github.com/user-attachments/assets/43233828-791c-4bf0-a988-4ca28b28ed7d" width="250"   height="300" />
 This project is a clone of DREAM 11 It has various features like
 
 <p>1)email otp authentication</p>
