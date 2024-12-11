@@ -1,4 +1,4 @@
-https://buymeacoffee.com/rajeshmn475
+https://buymeacoffee.com/rajeshmn47
 This project is a clone of DREAM 11 It has various features like
 
 <p>1)email otp authentication</p>
