@@ -19,7 +19,7 @@ https://buymeacoffee.com/rajeshmn47
 <p>10)secure backend to prevent various bot attacks</p>
 <p>
 <img src="https://github.com/rajeshmn47/dream-11-clone-mern-stack/assets/24763499/2a8a4ee1-3fc3-4105-b3b4-f3c02ce50f7f" width="328"  height="600"  style="margin-right: 90px"/>
- <span style="display: inline-block; margin: 0 20px;"></span> 
+ <span style="display: inline-block; margin: 0 100px;"></span> 
 <img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="328"   height="600"  style="margin-right: 30px"/>
 </p>
 
