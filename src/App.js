@@ -39,6 +39,7 @@ import TransactionTabs from './components/transaction';
 import PlayerDetail from './components/playerDetail';
 import SeriesDetails from './components/seriesdetails';
 import MatchAnalysis from './components/analytics/matchAnalysis';
+import Bowler from './components/Bowler'
 
 function App() {
   const dispatch = useDispatch();
@@ -121,6 +122,7 @@ function App() {
           <Route path="/donate" element={<Donate />} />
           <Route path="/player/:id" element={<PlayerDetail/>} />
           <Route path="/series/:name" element={<SeriesDetails/>} />
+          <Route path="/bowler" element={<Bowler/>} />
         </Routes>
       </BrowserRouter>
       {confetti && (

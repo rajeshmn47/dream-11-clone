@@ -2,169 +2,194 @@ import './create.css';
 
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
 import PlayerStatsTable from './analytics/playerStatsTable';
+import PlayerCharts from './playerdetails/PlayerCharts';
+import PlayerStatsSection from './playerdetails/PlayerStatsSection';
 
 const Container = styled.div`
   position: relative;
-  max-width:100%;
-  overflow:hidden;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 20px;
+  background-color: #f5f5f5;
+
   .MuiBox-root {
     padding: 0 !important;
   }
-  ::-webkit-scrollbar{
-      width:5px;
-      background-color:#000;
-      }
-      .statSelected{
-  background: rgba(67, 108, 171, 0.1);
-    border: 1px solid rgba(67, 108, 171, 0.2);
-    padding:15px 15px;
-    color:#1860a6;
-}
-.statNotSelected{
-  background: #FFF;
-  padding:15px 15px;
-  color:#1860a6;
-}
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: #000;
+  }
+
+  @media only screen and (max-width: 600px) {
+    padding: 10px;
+  }
+
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    padding: 15px;
+  }
 `;
 
 const Flags = styled.div`
-display:flex;
-align-items:center;
-`
-
-const Flag = styled.img`
-width:80px;
-margin-right:10px;
-@media only screen and (max-width: 576px) {
-    width:40px;
-  }
-`
-
-const Name = styled.h1`
-font-size:50px;
-color: #fff;;
-font-weight:600;
-text-transform:capitalize;
-@media only screen and (max-width: 576px) {
-    font-size:16px;
-  }
-`
-
-const Player = styled.div`
-background:  rgb(67, 108, 171);
-height: 200px;
-display:flex;
-justify-content:center;
-align-items:flex-end;
-padding:15px 30px;
-@media only screen and (max-width: 576px) {
-   height:150px;
-   justify-content:space-between;
-   padding:15px 15px;
-  }
-`
-const Details = styled.div`
-padding:15px 30px;
-@media only screen and (max-width: 576px) {
-   padding:15px 15px;
-  }
-`
-
-const Series = styled.div`
-margin-top:10px;
-a{
-  text-decoration:none;
-}
-@media only screen and (max-width: 576px) {
-  }
-`
-
-const ImageContainer = styled.div`
-display:flex;
-justify-content:center;
-align-items:flex-end;
-img{
-  max-width:100%;
-  @media only screen and (max-width: 576px) {
-   width:100%;
-  }
-}
+  display: flex;
+  align-items: center;
 `;
 
-const Match = styled.div`
-border: 1px solid rgba(224, 224, 224, 1);
-padding: 15px 5px;
-justify-content:center;
-display:flex;
-align-items:center;
-flex-direction:column;
-width: 120px;
-border-collapse:collapse;
-p{overflow: hidden;
-    white-space: nowrap;
+const Flag = styled.img`
+  width: 80px;
+  margin-right: 10px;
+  @media only screen and (max-width: 576px) {
+    width: 40px;
+  }
+`;
+
+const Name = styled.h1`
+  font-size: 50px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: capitalize;
+  @media only screen and (max-width: 576px) {
+    font-size: 24px;
+  }
+`;
+
+const Player = styled.div`
+  background: rgb(67, 108, 171);
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 15px 30px;
+  @media only screen and (max-width: 576px) {
+    height: 150px;
+    justify-content: space-between;
+    padding: 15px 15px;
+  }
+`;
+
+const Details = styled.div`
+  padding: 15px 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  @media only screen and (max-width: 576px) {
+    padding: 15px 15px;
+  }
+`;
+
+const Series = styled.div`
+  margin-top: 10px;
+  a {
+    text-decoration: none;
+    color: #007bff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    margin-top: 5px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  img {
     max-width: 100%;
-    text-overflow: ellipsis;
-}
+    border-radius: 8px;
+    @media only screen and (max-width: 576px) {
+      width: 100%;
+    }
+  }
 `;
 
 const Heading = styled.h3`
-margin: 0 auto;
-margin-bottom: 10px;
-margin-top:15px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  font-size: 24px;
+  color: #333;
 `;
 
 const SeriesHeading = styled.h3`
-margin: 0 auto;
-margin-bottom: 10px;
-margin-top:0px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  font-size: 20px;
+  color: #555;
 `;
 
 const PlayerStats = styled.div`
-margin-top:25px;
-.selected{
-  background: rgba(67, 108, 171, 0.1);
+  margin-top: 25px;
+  .selected {
+    background: rgba(67, 108, 171, 0.1);
     border: 1px solid rgba(67, 108, 171, 0.2);
-    padding:15px 0px;
-}
-.notSelected{
-  background: #FFF;
-  padding:15px 0px;
-}
+    padding: 15px 0px;
+    cursor: pointer;
+  }
+  .notSelected {
+    background: #fff;
+    padding: 15px 0px;
+    cursor: pointer;
+  }
 `;
 
 const AllStats = styled.div`
-margin: 0 auto;
-margin-bottom: 10px;
-margin-top:15px;
-background: rgba(67, 108, 171, 0.1);
-    border: 1px solid rgba(67, 108, 171, 0.2);
-    padding: 15px 15px;
-    display:flex;
-    align-items:center;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  background: rgba(67, 108, 171, 0.1);
+  border: 1px solid rgba(67, 108, 171, 0.2);
+  padding: 15px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(67, 108, 171, 0.2);
+  }
 `;
 
 const Stat = styled.div`
-margin: 0 auto;
-margin-bottom: 10px;
-margin-top:15px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  background-color: ${(props) => (props.highlight ? '#436cab' : '#fff')};
+  color: ${(props) => (props.highlight ? '#fff' : '#333')};
+
+  &:hover {
+    background: rgba(67, 108, 171, 0.2);
+  }
 `;
 
 const Table = styled.div`
-padding:15px 0px;
-a{
-  text-decoration:none;
-}
-@media only screen and (max-width: 576px) {
-   padding:15px 0px;
+  padding: 15px 0px;
+  a {
+    text-decoration: none;
+    color: #007bff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    padding: 15px 0px;
   }
 `;
 
@@ -179,7 +204,7 @@ export function PlayerDetail() {
   const [seriesSelected, setSeriesSelected] = useState('Indian Premier League 2024');
   const [seriesDetails, setSeriesDetails] = useState([]);
   const [statType, setStatType] = useState('batting');
-  const [mainInfo, setMainInfo] = useState('Indian Premier League 2024')
+  const [mainInfo, setMainInfo] = useState('Indian Premier League 2024');
 
   useEffect(() => {
     async function getplayers() {
@@ -214,6 +239,7 @@ export function PlayerDetail() {
     setSeriesSelected(unique[0])
   }, [matches])
   console.log(seriesDetails, 'series details');
+
   return (
     <Container>
       <Player>
@@ -235,51 +261,8 @@ export function PlayerDetail() {
       </Player>
       <Details>
         <Grid container spacing={2} justifyContent="space-between">
-          <Grid item md={5.5} lg={5.5} xs={12} sm={12}>
-            <Heading>Batting</Heading>
-            <Grid container style={{ width: '100%', overflowX: "scroll" }} position="relative" flexWrap="nowrap">
-              {matches?.length > 0 ? matches?.map((_doc) =>
-                <Grid item>
-                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
-                    <Match><p>
-                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
-                      ({_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
-                    </p>
-                      <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                    </Match> :
-                    <Match>
-                      <p>
-                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runs}
-                        ({_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.balls})
-                      </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                    </Match>}
-                </Grid>
-              ) : <Loader />}
-            </Grid>
-          </Grid>
-          <Grid item md={5.5} lg={5.5} xs={12} sm={12}>
-            <Heading>Bowling</Heading>
-            <Grid container style={{ width: '100%', overflowX: "scroll" }} position="relative" flexWrap="nowrap" maxWidth="100%">
-              {matches?.length > 0 ? matches?.map((_doc) =>
-                <Grid item>
-                  {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id) ?
-                    <Match><p>
-                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}
-                      {"-"}
-                      {_doc?.teamHomePlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded}
-                    </p>
-                      <p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                    </Match> :
-                    <Match>
-                      <p>
-                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.wickets}{"-"}
-                        {_doc?.teamAwayPlayers?.find((p) => p?.playerId == playerDetail?.id)?.runsConceded}
-                      </p><p>{_doc?.matchdetails[0]?.teamHomeCode?.toUpperCase()} vs {_doc?.matchdetails[0]?.teamAwayCode?.toUpperCase()}</p>
-                    </Match>}
-                </Grid>
-              ) : <Loader />}
-            </Grid>
-          </Grid>
+          <PlayerStatsSection title="Batting" matches={matches} playerDetail={playerDetail} statType="batting" />
+          <PlayerStatsSection title="Bowling" matches={matches} playerDetail={playerDetail} statType="bowling" />
         </Grid>
         <PlayerStats>
           <Grid container spacing={2}>
@@ -310,13 +293,14 @@ export function PlayerDetail() {
             <Grid item lg={8} md={8} sm={12} xs={12}>
               <SeriesHeading>T20</SeriesHeading>
               {statType == "batting" ? <AllStats>
-                <Stat>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+                <Stat highlight>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
               </AllStats> : <AllStats>
-                <Stat>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.economy)} Economy</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+                <Stat highlight>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.economy)} Economy</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
               </AllStats>}
               <Table>
                 {statType == "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
               </Table>
+               {seriesDetails&&<PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id}/>}
             </Grid>
           </Grid>
         </PlayerStats>

@@ -147,6 +147,7 @@ export function Captain({ players, editMode, teamId }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [save, setSave] = useState(false);
+
   useEffect(() => {
     const pl = players.map((obj) => ({
       ...obj,
@@ -155,7 +156,7 @@ export function Captain({ players, editMode, teamId }) {
     }));
     setSelectedPlayers([...pl]);
   }, [players]);
-  console.log(selectedPlayers, 'select');
+
   const handleCaptain = (i) => {
     const op = players.map((p) => {
       p.isCaptain = false;
@@ -168,7 +169,7 @@ export function Captain({ players, editMode, teamId }) {
       }
       return p;
     });
-    console.log('clicked', po);
+
     setSelectedPlayers([...po]);
   };
 
@@ -186,6 +187,7 @@ export function Captain({ players, editMode, teamId }) {
     });
     setSelectedPlayers([...po]);
   };
+
   const handleSave = async () => {
     try {
       setLoading(true);
@@ -210,7 +212,6 @@ export function Captain({ players, editMode, teamId }) {
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      console.log('clicked next');
       const data = await API.put(`${URL}/updateTeam/${teamId}`, {
         players: selectedPlayers,
         matchId: id,
@@ -233,6 +234,7 @@ export function Captain({ players, editMode, teamId }) {
     const b = se.find((s) => s.isViceCaptain === true);
     return a && b;
   }
+  
   return (
     <>
       {!save ? (

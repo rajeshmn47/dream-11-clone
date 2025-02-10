@@ -175,12 +175,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 export function PlayersTable({ players }) {
-    const [match, setMatch] = useState(null);
-    const { id } = useParams();
-    const [allPlayers, setAllplayers] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [dreamTeam, setDreamTeam] = useState([]);
-    const [next, setNext] = useState(false);
     return (
         <>
             <Box sx={{ marginTop: '15px', height: 500, width: "100%", boxSizing: "border-box", color: "#FFFFFF !important" }} className="container">

@@ -16,13 +16,11 @@ import {
     Legend,
     Filler,
 } from "chart.js";
-import { faker } from '@faker-js/faker';
 import { URL } from '../../constants/userConstants';
 import { useEffect, useState } from 'react';
 import { API } from '../../actions/userAction';
 import "chartjs-plugin-datalabels";
 import { Bar } from "react-chartjs-2";
-import { Button } from '@mui/material';
 
 const Container = styled.div`
 

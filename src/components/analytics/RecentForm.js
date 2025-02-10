@@ -42,12 +42,6 @@ border:1px solid red;
 `
 
 export function RecentForm({ value }) {
-    const [match, setMatch] = useState(null);
-    const { id } = useParams();
-    const [allPlayers, setAllplayers] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [dreamTeam, setDreamTeam] = useState([]);
-    const [next, setNext] = useState(false);
     console.log(value, 'recent form')
     return (
         <>

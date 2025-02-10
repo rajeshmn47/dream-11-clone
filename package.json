@@ -27,6 +27,7 @@
     "classnames": "2.3.2",
     "country-flags-svg": "^1.1.6",
     "country-state-city": "^3.2.1",
+    "date-fns": "^4.1.0",
     "dompurify": "^3.0.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.4",

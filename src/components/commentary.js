@@ -98,27 +98,22 @@ export function Commentary({ matchdata }) {
   const [commentary, setCommentary] = useState([]);
   const scrollit = useRef();
   const dispatch = useDispatch();
-  const [launched, setLaunched] = useState(true);
-  const [lastPong, setLastPong] = useState(null);
   const [confetti, setConfetti] = useState(false);
+
   useEffect(() => {
     async function getdata(m) {
       if (matchdata.matchId) {
         const docRef = doc(db, 'commentary', matchdata.matchId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          console.log('Document data:');
         } else {
           // docSnap.data() will be undefined in this case
-          console.log('No such document!');
         }
         const unsub = onSnapshot(
           doc(db, 'commentary', matchdata?.matchId),
           (doc) => {
-            console.log('Current data: ');
             if (doc.data()) {
               setCommentary([...doc.data().commentary.reverse()]);
-              console.log('0');
             }
           },
         );
@@ -130,6 +125,7 @@ export function Commentary({ matchdata }) {
     // console.log(snapshot, "snaps");
     // });
   }, [matchdata]);
+
   useEffect(() => {
     if (commentary[0]?.event == 'SIX') {
       dispatch(addconfetti());

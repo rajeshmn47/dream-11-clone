@@ -257,7 +257,7 @@ export function Match({ u, live }) {
                 fontWeight: '200',
               }}
             >
-              ₹59 crores
+              ₹58 crores
             </h5>
           </div>
         </div>
