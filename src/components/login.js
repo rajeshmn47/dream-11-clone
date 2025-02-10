@@ -1,5 +1,4 @@
-import './register.css';
-
+import './login.css';
 import styled from '@emotion/styled';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import Button from '@mui/material/Button';
@@ -9,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { login } from '../actions/userAction';
 
 const Err = styled.p`
@@ -17,11 +15,7 @@ const Err = styled.p`
 `;
 
 export function Login() {
-  const {
-    user, isAuthenticated, loading, error,
-  } = useSelector(
-    (state) => state.user,
-  );
+  const { user, isAuthenticated, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -42,86 +36,73 @@ export function Login() {
     const formdata = { email, password };
     dispatch(login(formdata));
   };
+
   return (
     <>
+      {/* Header */}
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
-        Dream 11
+        <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Dream 11</span>
       </div>
 
+      {/* Login Form Section */}
       <div className="register">
-        <Paper style={{ padding: '2vh 2vw' }}>
-          <h5 style={{ marginBottom: '10px' }}>LOG IN & PLAY</h5>
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'space-evenly',
-            }}
-          >
+        <Paper className="login-container">
+          <h5 className="login-title">LOG IN & PLAY</h5>
+
+          {/* Social Login Buttons */}
+          <div className="social-login">
             <Button
               variant="contained"
-              style={{
-                backgroundColor: '#FFFFFF',
-                color: 'black',
-                width: '50%',
-                marginRight: '1vw',
-                height: '30px',
-              }}
-              onClick={() => alert('not working yet,only google login is working')}
+              className="social-btn github"
+              onClick={() => alert('Not working yet, only Google login is available')}
             >
-              <img src="./github.svg" alt="" />
+              <img src="./github.svg" alt="Github" className="social-icon" />
               Github
             </Button>
             <Button
               variant="contained"
-              elevation="2"
-              style={{
-                backgroundColor: '#FFFFFF',
-                color: 'black',
-                width: '50%',
-                height: '30px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
+              className="social-btn google"
               onClick={() => navigate('/googlelogin')}
             >
-              <img src="./google.svg" alt="" style={{ marginRight: '5px' }} />
+              <img src="./google.svg" alt="Google" className="social-icon" />
               Google
             </Button>
           </div>
-          <form onSubmit={handlesubmit} className="loginform">
+
+          {/* Login Form */}
+          <form onSubmit={handlesubmit} className="login-form">
             <TextField
-              id="fullWidth"
-              defaultValue="Hello World"
-              variant="standard"
+              fullWidth
+              variant="outlined"
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              className="input-field"
             />
 
             <TextField
-              id="fullWidth"
-              defaultValue="Hello World"
-              variant="standard"
+              fullWidth
+              variant="outlined"
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="input-field"
             />
-            <Button
-              type="submit"
-              className="itseveryday"
-              variant="contained"
-              disableElevation
-              style={{ backgroundColor: '#03d47c' }}
-            >
-              Log in
+
+            {/* Login Button */}
+            <Button type="submit" className="login-btn" variant="contained" disableElevation>
+              {loading ? 'Logging in...' : 'Log in'}
             </Button>
           </form>
-          <Link to="/forgot-password">forgot password</Link>
-          <Link to="/register">Dont have a account?Sign up</Link>
+
+          {/* Links */}
+          <div className="login-links">
+            <Link to="/forgot-password" className="link">Forgot password?</Link>
+            <Link to="/register" className="link">Don't have an account? Sign up</Link>
+          </div>
         </Paper>
       </div>
     </>
