@@ -19,20 +19,27 @@ import * as Yup from 'yup';
 import { LOGIN_SUCCESS, URL } from '../constants/userConstants';
 import Otp from './otp';
 
-const PHONE_REGEX = new RegExp(
-  /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim,
-);
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing:border-box;
 
-const Err = styled.p`
-  color: red;
+  .MuiPaper-root {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export function Register() {
-  const {
-    user, isAuthenticated, loading, error,
-  } = useSelector(
-    (state) => state.user,
-  );
+  const { user, isAuthenticated, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const alert = useAlert();
   const [err, setErr] = useState();
@@ -40,168 +47,134 @@ export function Register() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
+
   const validationSchema = Yup.object().shape({
     username: Yup.string()
       .required('Username is required')
-      .min(6, 'Username must be at least 6 characters')
-      .max(20, 'Username must not exceed 20 characters'),
-    email: Yup.string().required('Email is required').email('Email is invalid'),
+      .min(6, 'Must be at least 6 characters')
+      .max(20, 'Must not exceed 20 characters'),
+    email: Yup.string().required('Email is required').email('Invalid email'),
     password: Yup.string()
       .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(40, 'Password must not exceed 40 characters'),
-    phoneInput: Yup.string(),
+      .min(6, 'Must be at least 6 characters')
+      .max(40, 'Must not exceed 40 characters'),
     phoneNumber: Yup.string()
       .required('Phone Number is required')
-      .matches(/^[0-9+-]+$/, 'It must be in numbers')
-      .min(10, 'Phone Number must be at least 10 characters')
-      .max(10, 'Phone Number must not exceed 10 characters'),
-    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required'),
+      .matches(/^[0-9+-]+$/, 'Only numbers allowed')
+      .min(10, 'Must be 10 characters')
+      .max(10, 'Must not exceed 10 characters'),
   });
+
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+  } = useForm({ resolver: yupResolver(validationSchema) });
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
-    }
-    if (error) {
-      alert.error(error);
-    }
+    if (isAuthenticated) navigate('/');
+    if (error) alert.error(error);
   }, [user, isAuthenticated, error]);
 
-  console.log(errors, 'errors');
   const onSubmit = async (formData) => {
-    console.log(JSON.stringify(formData, null, 2));
-    // e.preventDefault();
     setEmail(formData.email);
-    const data = await axios.post(`${URL}/auth/register`, {
-      ...formData,
-    });
-    console.log(data);
-    if (data.data.success) {
-      setErr(data.data.message);
-      alert.success(data.data.message);
-      setOpen(true);
-    } else {
-      alert.error(data.data.message);
-      setErr(data.data.message);
+    try {
+      const data = await axios.post(`${URL}/auth/register`, formData);
+      if (data.data.success) {
+        setErr(data.data.message);
+        alert.success(data.data.message);
+        setOpen(true);
+      } else {
+        alert.error(data.data.message);
+        setErr(data.data.message);
+      }
+    } catch (e) {
+      alert.error('Something went wrong!');
     }
   };
 
-  const handleotp = async () => {
+  const handleOtp = async () => {
     try {
-      const data = await axios.post(`${URL}/auth/otp`, {
-        email,
-        otp,
-      });
+      const data = await axios.post(`${URL}/auth/otp`, { email, otp });
       setErr(data.data.message);
       localStorage.setItem('token', data.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: data.data.user });
       alert.success(data.data.message);
     } catch (e) {
-      alert.error(e);
+      alert.error('Invalid OTP!');
     }
   };
 
   return (
-    <>
+    <Container>
       <div className="registertopbar">
-        <ArrowBackIcon
-          style={{ marginRight: '20px' }}
-          onClick={() => navigate(-1)}
-        />
-        register & play
+        <ArrowBackIcon style={{ marginRight: '15px', cursor: 'pointer' }} onClick={() => navigate(-1)} />
+        Register & Play
       </div>
 
-      <div className="register">
-        <Paper style={{ padding: '5px 5px' }}>
-          <form onSubmit={handleSubmit(onSubmit)} className="registerform">
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
-              variant="standard"
-              fullWidth
-              margin="dense"
-              {...register('email')}
-              error={!!errors.email}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.email?.message}
-            </Typography>
-            <TextField
-              required
-              id="username"
-              name="username"
-              label="Name"
-              variant="standard"
-              fullWidth
-              margin="dense"
-              {...register('username')}
-              error={!!errors.username}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.username?.message}
-            </Typography>
-            <TextField
-              required
-              id="phoneNumber"
-              name="phoneNumber"
-              label="Phone Number"
-              variant="standard"
-              fullWidth
-              margin="dense"
-              {...register('phoneNumber')}
-              error={!!errors.phoneNumber}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.phoneNumber?.message}
-            </Typography>
-            <TextField
-              required
-              id="password"
-              name="password"
-              label="Password"
-              variant="standard"
-              fullWidth
-              margin="dense"
-              {...register('password')}
-              error={!!errors.password}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.password?.message}
-            </Typography>
-            <Button
-              variant="contained"
-              type="submit"
-              disableElevation
-              style={{ backgroundColor: '#03d47c' }}
-            >
-              Register
-            </Button>
-          </form>
-          <Link to="/forgot-password">forgot password</Link>
-        </Paper>
-        <Link to="/login">Aleady a user?Log in</Link>
-      </div>
-      <Otp
-        open={open}
-        setOpen={setOpen}
-        otp={otp}
-        setOtp={setOtp}
-        handleotp={handleotp}
-        err={err}
-      />
-    </>
+      <Paper className="MuiPaper-root">
+        <form onSubmit={handleSubmit(onSubmit)} className="registerform">
+          <TextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('email')}
+            error={!!errors.email}
+          />
+          <Typography variant="inherit">{errors.email?.message}</Typography>
+
+          <TextField
+            id="username"
+            label="Name"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('username')}
+            error={!!errors.username}
+          />
+          <Typography variant="inherit">{errors.username?.message}</Typography>
+
+          <TextField
+            id="phoneNumber"
+            label="Phone Number"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('phoneNumber')}
+            error={!!errors.phoneNumber}
+          />
+          <Typography variant="inherit">{errors.phoneNumber?.message}</Typography>
+
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('password')}
+            error={!!errors.password}
+          />
+          <Typography variant="inherit">{errors.password?.message}</Typography>
+
+          <Button className="register-btn" variant="contained" type="submit">
+            Register
+          </Button>
+        </form>
+
+        <div className="register-links">
+          <Link to="/forgot-password">Forgot password?</Link>
+          <br />
+          <Link to="/login">Already a user? Log in</Link>
+        </div>
+      </Paper>
+
+      <Otp open={open} setOpen={setOpen} otp={otp} setOtp={setOtp} handleOtp={handleOtp} err={err} />
+    </Container>
   );
 }
 
 export default Register;
+

@@ -177,11 +177,11 @@ export function Home() {
       <div className="homecontainer">
         <CricketBg id="section1">
           <TopDiv>
-            <h3 style={{ color: '#FFFFFF', position: 'relative' }}>
+            <h3 style={{ color: '#FFFFFF', position: 'relative',whiteSpace:'nowrap' }}>
               My Matches
             </h3>
             <ViewAll
-              style={{ display: 'flex', alignItems: 'center' }}
+              style={{ display: 'flex', alignItems: 'center',width:'max-content' }}
               onClick={() => navigate(`/completed/${user?._id}`)}
             >
               View All

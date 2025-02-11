@@ -76,8 +76,8 @@ export function ForgotPassword() {
         Dream 11
       </div>
       {!open ? (
-        <div className="register">
-          <Paper style={{ padding: '2vh 2vw' }}>
+        <div className="login">
+          <Paper style={{ padding: '2vh 2vw', height: '320px' }}>
             <h5 style={{ marginBottom: '10px' }}>LOG IN & PLAY</h5>
             <div
               style={{
@@ -124,14 +124,16 @@ export function ForgotPassword() {
                 className="itseveryday"
                 variant="contained"
                 disableElevation
-                style={{ backgroundColor: '#24B937' }}
+                style={{ backgroundColor: '#03d47c',marginTop:'10px' }}
               >
                 send otp
               </Button>
               {error && <Err>{error}</Err>}
             </form>
-            <Link to="/forgot-password">forgot password</Link>
-            <Link to="/register">Dont have a account?Sign up</Link>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Link to="/forgot-password">forgot password</Link>
+              <Link to="/register">Dont have a account?Sign up</Link>
+            </div>
           </Paper>
         </div>
       ) : !cp ? (

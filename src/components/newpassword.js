@@ -64,7 +64,7 @@ export function NewPassword({
             variant="contained"
             type="submit"
             disableElevation
-            style={{ backgroundColor: '#24B937' }}
+            style={{ backgroundColor: '#03d47c' }}
             onClick={() => handlenewPassword()}
           >
             submit

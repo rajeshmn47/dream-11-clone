@@ -1,69 +1,66 @@
 .register {
-  background-color: #fafafa;
-  padding: 2vh 2vw;
-  box-sizing: border-box;
-  text-align: center;
-  height: 360px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-.registerform {
-  padding: 2vh 2vw;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Full screen height */
+  padding: 20px;
+  background-color: #f9f9f9;
   box-sizing: border-box;
-  text-align: center;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
-.loginform {
-  padding: 2vh 2vw;
-  box-sizing: border-box;
-  text-align: center;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.forgotform {
-  padding: 2vh 2vw;
-  box-sizing: border-box;
-  text-align: center;
-  height: 110px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+
 .registertopbar {
-  background-color: var(--red);
-  color: #ffffff;
-  height: 10vh;
-  padding: 2vh 2vw;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
-.logintopbar {
+  font-size: 1.2rem;
+  padding: 10px 15px;
   background-color: #03d47c;
-  color: #ffffff;
-  height: 10vh;
-  padding: 2vh 3vw;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
+  color: white;
+  width: 100%;
   box-sizing: border-box;
-  justify-content: space-between;
+  margin-bottom: 10px;
 }
-.MuiPaper-root {
+
+.registerform {
   display: flex;
   flex-direction: column;
-  height: 360px;
-  justify-content: space-between;
-  padding: 0;
+  gap: 15px;
+  width: 100%;
+}
+
+.register form {
+  width: 100%;
+  max-width: 400px; /* Prevents it from being too wide */
+}
+
+.MuiPaper-root {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
   box-sizing: border-box;
   text-align: center;
-  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* Make it responsive */
+@media (max-width: 600px) {
+  .MuiPaper-root {
+    max-width: 90%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .registertopbar {
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  button {
+    font-size: 14px;
+  }
 }

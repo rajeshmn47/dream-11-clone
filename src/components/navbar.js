@@ -1,5 +1,5 @@
 import './home.css';
-
+import './navbar/navbar.css'
 import styled from '@emotion/styled';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -121,7 +121,7 @@ export function Navbar({ home }) {
         open={open}
         setOpen={setOpen}
       />
-      <div className="logintopbar">
+      <div className="navtopbar">
         <Account
           onClick={() => handleLeftClick()}
           style={{ cursor: 'pointer' }}

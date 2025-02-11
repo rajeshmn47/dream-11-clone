@@ -1,0 +1,9 @@
+.navtopbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #03d47c;
+    color: #FFF;
+    padding: 3px 6px;
+    text-transform: capitalize;
+}

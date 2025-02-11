@@ -46,7 +46,7 @@ export function Login() {
       </div>
 
       {/* Login Form Section */}
-      <div className="register">
+      <div className="login">
         <Paper className="login-container">
           <h5 className="login-title">LOG IN & PLAY</h5>
 
@@ -54,6 +54,7 @@ export function Login() {
           <div className="social-login">
             <Button
               variant="contained"
+              disabled={true}
               className="social-btn github"
               onClick={() => alert('Not working yet, only Google login is available')}
             >
@@ -62,6 +63,7 @@ export function Login() {
             </Button>
             <Button
               variant="contained"
+              disabled={true}
               className="social-btn google"
               onClick={() => navigate('/googlelogin')}
             >

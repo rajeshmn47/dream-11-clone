@@ -1,15 +1,28 @@
+.logintopbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: #03d47c;
+    /* Dream11 Red */
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Center the form properly and allow scrolling if needed */
-.register {
+.login {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;  /* Ensures it fills the full viewport */
+    /* Ensures it fills the full viewport */
     padding: 20px;
-    overflow: auto;  /* Allows scrolling if content overflows */
-  }
-  
-  /* Login container */
-  .login-container {
+    overflow: auto;
+    /* Allows scrolling if content overflows */
+}
+
+/* Login container */
+.login-container {
     padding: 3vh 2vw;
     max-width: 400px;
     width: 100%;
@@ -17,24 +30,25 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background: white;
-    overflow: hidden; /* Prevents content from going outside */
-  }
-  
-  /* Title */
-  .login-title {
+    overflow: hidden;
+    /* Prevents content from going outside */
+}
+
+/* Title */
+.login-title {
     margin-bottom: 15px;
     font-size: 1.2rem;
     font-weight: 600;
-  }
-  
-  /* Social login buttons */
-  .social-login {
+}
+
+/* Social login buttons */
+.social-login {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-  }
-  
-  .social-btn {
+}
+
+.social-btn {
     width: 48%;
     height: 40px;
     display: flex;
@@ -43,21 +57,21 @@
     border: 1px solid #ddd;
     font-size: 0.9rem;
     font-weight: bold;
-  }
-  
-  .social-icon {
+}
+
+.social-icon {
     width: 20px;
     margin-right: 8px;
-  }
-  
-  /* Input fields */
-  .input-field {
+}
+
+/* Input fields */
+.input-field {
     margin-bottom: 15px !important;
     border-radius: 8px;
-  }
-  
-  /* Login button */
-  .login-btn {
+}
+
+/* Login button */
+.login-btn {
     background-color: #03d47c !important;
     color: #fff !important;
     font-size: 1rem !important;
@@ -65,61 +79,73 @@
     padding: 12px 0 !important;
     border-radius: 8px !important;
     width: 100%;
-  }
-  
-  /* Links */
-  .login-links {
+}
+
+/* Links */
+.login-links {
     margin-top: 15px;
-  }
-  
-  .link {
+}
+
+.link {
     font-size: 0.9rem;
     color: #007bff;
     display: block;
     margin-top: 5px;
-  }
-  
-  /* Ensure scrolling for smaller screens */
-  @media screen and (max-width: 768px) {
-    .register {
-      padding: 10px; /* Reduce padding */
+}
+
+.github,
+.google {
+    cursor: not-allowed !important;
+}
+
+/* Ensure scrolling for smaller screens */
+@media screen and (max-width: 768px) {
+    .login {
+        /* Reduce padding */
+        margin-top: 15px;
+        padding: 0;
     }
-  
+
     .login-container {
-      max-width: 90%; /* Take most of the screen width */
-      padding: 4vh 5vw;
-      overflow: auto;
+        max-width: 90%;
+        /* Take most of the screen width */
+        padding: 4vh 5vw;
+        overflow: auto;
     }
-  
+
     .social-login {
-      flex-direction: column;
+        flex-direction: column;
+        height: 90px
     }
-  
+
     .social-btn {
-      width: 100%;
-      margin-bottom: 10px;
+        width: 100%;
+        margin-bottom: 10px;
     }
-  }
-  
-  @media screen and (max-width: 480px) {
+}
+
+@media screen and (max-width: 480px) {
+    .login {
+        padding: 10px 0;
+    }
+
     .login-container {
-      padding: 3vh 4vw;
+        padding: 3vh 4vw;
     }
-  
+
     .login-title {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  
+
     .input-field {
-      font-size: 0.9rem;
+        font-size: 0.9rem;
     }
-  
+
     .login-btn {
-      font-size: 0.9rem;
+        font-size: 0.9rem;
     }
-  
+
     .link {
-      font-size: 0.85rem;
+        font-size: 0.85rem;
     }
-  }
-  
+}
