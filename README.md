@@ -44,6 +44,36 @@ https://buymeacoffee.com/rajeshmn47
 <img src="https://user-images.githubusercontent.com/24763499/210806961-5d84176a-8738-46f4-ae70-f80d771f6401.png"  width="328"  height="500"/>
 </>
 
+# ⚡ Support Our Backend Infrastructure
+
+## 🚀 Why We Need Your Support  
+We are dedicated to building and maintaining a **robust backend infrastructure** to support our platform, ensuring **real-time updates, smooth performance, and seamless user experience**. However, hosting servers, maintaining databases, and ensuring uptime come with **significant costs**.  
+
+Your support will **help us keep the system running**, improve performance, and scale the platform for a better user experience.  
+
+## 🏗️ What Your Support Helps With  
+
+- 🔹 **Server Hosting** – Ensuring backend stability and uptime  
+- 🔹 **Database Management** – Storing and retrieving critical match data  
+- 🔹 **API Costs** – Handling real-time updates efficiently  
+- 🔹 **Infrastructure Scaling** – Supporting more users and features  
+- 🔹 **Security & Maintenance** – Keeping everything safe and reliable  
+
+## 💙 How You Can Support  
+
+If you find our platform valuable, consider supporting us through **Google Pay (GPay):**  
+
+📌 **GPay UPI ID:** `7259293140@ybl` 
+
+Even a **small contribution** makes a big difference! Every bit of support helps us maintain and improve the platform.  
+
+## 🙌 Thank You!  
+
+Your support means the world to us. With your help, we can continue delivering the best experience without compromising performance.  
+
+📧 **For any queries, feel free to contact us.**  
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
