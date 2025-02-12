@@ -1,146 +1,120 @@
-https://buymeacoffee.com/rajeshmn47
-<h5 align="left">Support using this if u are from india:</h5>
-<p>- UPI ID: 7259293140@ybl</p>
-<p>- Scan the QR code below:</p>
-<img src="https://github.com/user-attachments/assets/43233828-791c-4bf0-a988-4ca28b28ed7d" width="250"   height="300" />
-
-<h5>This project is a clone of DREAM 11 It has various features like</h5>
-
-<p>1)email otp authentication</p>
-<p>2)forgot password</p>
-<p>3)showing list of matches upcoming</p>
-<p>3)create teams,edit teams,remove teams</p>
-<p>4)join specific contests</p>
-<p>5)live commentary using firebase realtime database</p>
-<p>6)live scores</p>
-<p>7)leaderboard</p>
-<p>8)winning the prize money of the joined contest based on the position in leaderboard</p>
-<p>9)constant updating of the players points</p>
-<p>10)secure backend to prevent various bot attacks</p>
-<p>
-<img src="https://github.com/rajeshmn47/dream-11-clone-mern-stack/assets/24763499/2a8a4ee1-3fc3-4105-b3b4-f3c02ce50f7f" width="328"  height="600"  style="margin-right: 90px"/>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="328"   height="600"  style="margin-right: 30px"/>
-</p>
-
-<p>
-<img src="https://user-images.githubusercontent.com/24763499/231621706-ea780be6-bc6f-4dc6-9dd8-577d7c49f9c7.png" width="328"   height="600" style="margin-right: 90px"/>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://user-images.githubusercontent.com/24763499/212312487-4f49ee29-d0ec-422b-9dc2-8bb918dc6614.png" width="328"  height="500"/>
-</p>
-
-<p>
-<img src="https://user-images.githubusercontent.com/24763499/231621529-85eda44e-cdf7-428d-a565-741ce34d9425.png" width="328"   height="500"/>
- &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://user-images.githubusercontent.com/24763499/212457726-7fe157ba-01b6-4669-acca-8413c2194cc0.png" width="328"   height="500"/>
-</p>
-
-<p>
-<img src="https://user-images.githubusercontent.com/24763499/212457733-cd239d1a-fd45-4189-aac4-bc8d28e73a62.png"  width="328"  height="500"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://user-images.githubusercontent.com/24763499/210806922-a0b21cdc-c444-4e27-ab84-e1e7ebbfc3ca.png"  width="328"  height="500"/>
-</p>
-
-<img src="https://user-images.githubusercontent.com/24763499/210806961-5d84176a-8738-46f4-ae70-f80d771f6401.png"  width="328"  height="500"/>
-</>
-
 # ⚡ Support Our Backend Infrastructure
 
 ## 🚀 Why We Need Your Support  
-We are dedicated to building and maintaining a **robust backend infrastructure** to support our platform, ensuring **real-time updates, smooth performance, and seamless user experience**. However, hosting servers, maintaining databases, and ensuring uptime come with **significant costs**.  
+We are committed to delivering a **robust and high-performing platform** that provides **real-time updates, smooth performance, and a seamless user experience**. However, maintaining backend servers, ensuring uptime, and handling live data processing comes with significant operational costs.
 
-Your support will **help us keep the system running**, improve performance, and scale the platform for a better user experience.  
+Your generous support will help us **sustain, improve, and scale** our infrastructure, ensuring uninterrupted service for all users.
 
-## 🏗️ What Your Support Helps With  
+## 🏗️ How Your Support Helps  
+Your contributions will directly support:
 
-- 🔹 **Server Hosting** – Ensuring backend stability and uptime  
-- 🔹 **Database Management** – Storing and retrieving critical match data  
-- 🔹 **API Costs** – Handling real-time updates efficiently  
-- 🔹 **Infrastructure Scaling** – Supporting more users and features  
-- 🔹 **Security & Maintenance** – Keeping everything safe and reliable  
+- 🔹 **Server Hosting** – Keeping the backend stable and always online  
+- 🔹 **Database Management** – Storing and retrieving crucial match data efficiently  
+- 🔹 **API Costs** – Handling real-time updates without delays  
+- 🔹 **Infrastructure Scaling** – Expanding to support more users and new features  
+- 🔹 **Security & Maintenance** – Protecting the platform from potential threats  
 
 ## 💙 How You Can Support  
+If you find value in our platform, please consider supporting us through **Google Pay (GPay) or Buy Me a Coffee:**
 
-If you find our platform valuable, consider supporting us through **Google Pay (GPay):**  
+📌 **GPay UPI ID:** `7259293140@ybl`  
+📌 **Buy Me a Coffee:** [Click here to support](https://buymeacoffee.com/rajeshmn47)
 
-📌 **GPay UPI ID:** `7259293140@ybl` 
+📌 **Scan the QR code below to contribute via UPI:**
 
-Even a **small contribution** makes a big difference! Every bit of support helps us maintain and improve the platform.  
+<img src="https://github.com/user-attachments/assets/43233828-791c-4bf0-a988-4ca28b28ed7d" width="250" height="300" />
+
+Even a **small contribution** makes a huge difference! Every bit of support helps us keep the platform running smoothly.
 
 ## 🙌 Thank You!  
+Your support means the world to us. With your help, we can continue providing the best experience possible.  
+📧 **For any queries, feel free to reach out!**
 
-Your support means the world to us. With your help, we can continue delivering the best experience without compromising performance.  
+---
 
-📧 **For any queries, feel free to contact us.**  
+# 🏆 About This Project
 
+This project is a **fully functional Dream11 clone**, packed with exciting features:
 
-# Getting Started with Create React App
+- ✅ **Email OTP Authentication**  
+- ✅ **Forgot Password Functionality**  
+- ✅ **Upcoming Match Listings**  
+- ✅ **Team Management (Create, Edit, Remove Teams)**  
+- ✅ **Join Specific Contests**  
+- ✅ **Live Commentary (Powered by Firebase Realtime Database)**  
+- ✅ **Live Scores & Leaderboards**  
+- ✅ **Prize Distribution Based on Leaderboard Rankings**  
+- ✅ **Continuous Player Points Updates**  
+- ✅ **Secure Backend to Prevent Bot Attacks**  
+
+### 📸 Screenshots
+
+<p>
+<img src="https://github.com/rajeshmn47/dream-11-clone-mern-stack/assets/24763499/2a8a4ee1-3fc3-4105-b3b4-f3c02ce50f7f" width="328" height="600" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://user-images.githubusercontent.com/24763499/231622101-c53fa343-ddcd-4485-8e46-3ca6b1032f8d.png" width="328" height="600" />
+</p>
+
+<p>
+<img src="https://user-images.githubusercontent.com/24763499/231621706-ea780be6-bc6f-4dc6-9dd8-577d7c49f9c7.png" width="328" height="600" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://user-images.githubusercontent.com/24763499/212312487-4f49ee29-d0ec-422b-9dc2-8bb918dc6614.png" width="328" height="500" />
+</p>
+
+<p>
+<img src="https://user-images.githubusercontent.com/24763499/231621529-85eda44e-cdf7-428d-a565-741ce34d9425.png" width="328" height="500" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://user-images.githubusercontent.com/24763499/212457726-7fe157ba-01b6-4669-acca-8413c2194cc0.png" width="328" height="500" />
+</p>
+
+<p>
+<img src="https://user-images.githubusercontent.com/24763499/212457733-cd239d1a-fd45-4189-aac4-bc8d28e73a62.png" width="328" height="500" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://user-images.githubusercontent.com/24763499/210806922-a0b21cdc-c444-4e27-ab84-e1e7ebbfc3ca.png" width="328" height="500" />
+</p>
+
+<img src="https://user-images.githubusercontent.com/24763499/210806961-5d84176a-8738-46f4-ae70-f80d771f6401.png" width="328" height="500" />
+
+---
+
+# 🚀 Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 📜 Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode. See more about [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder, optimizing performance.
 
 ### `npm run eject`
+This permanently removes the single build dependency and allows full customization of configurations.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📚 Learn More
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React Documentation](https://reactjs.org/)
+- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🔍 `npm run build` fails to minify?
+See [troubleshooting guide](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🚀 Stay Connected
+- 🌐 **Website:** [Your Website Link]  
+- 📧 **Contact:** [Your Email]  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Your support helps keep this project running. **Thank you!** 🙌
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
