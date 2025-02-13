@@ -345,6 +345,7 @@ export default function LiveCategoryTabs({
             aria-label="basic tabs example"
             variant='scrollable'
             scrollButtons="auto"
+            allowScrollButtonsMobile
           >
             <Tab
               label={`WKa(${players.filter((p) => checkwk(p.position) && p.isSelected)

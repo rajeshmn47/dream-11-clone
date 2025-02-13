@@ -330,6 +330,7 @@ export default function CategoryTabs({
             aria-label="basic tabs example"
             variant='scrollable'
             scrollButtons='auto'
+            allowScrollButtonsMobile
           >
             <Tab
               label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
