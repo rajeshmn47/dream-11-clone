@@ -114,7 +114,12 @@ const Spanner = styled.div`
   width: 20px;
   height: 5px;
 `;
+
 const AllMatches = styled(Grid)`
+  padding: 5px 65px;
+  @media (max-width: 600px) {  /* xs and sm breakpoints */
+    padding: 0px;  /* Adjust padding for mobile */
+  }
 `;
 
 export function Home() {
@@ -177,11 +182,11 @@ export function Home() {
       <div className="homecontainer">
         <CricketBg id="section1">
           <TopDiv>
-            <h3 style={{ color: '#FFFFFF', position: 'relative',whiteSpace:'nowrap' }}>
+            <h3 style={{ color: '#FFFFFF', position: 'relative', whiteSpace: 'nowrap' }}>
               My Matches
             </h3>
             <ViewAll
-              style={{ display: 'flex', alignItems: 'center',width:'max-content' }}
+              style={{ display: 'flex', alignItems: 'center', width: 'max-content' }}
               onClick={() => navigate(`/completed/${user?._id}`)}
             >
               View All
@@ -197,155 +202,154 @@ export function Home() {
           ) : past?.length > 0 ? (
             past.map(
               (u) => u && (
-                <div style={{
-                  postion: 'absolute !important',
-                  position: 'absolute',
-                  left: '10px',
-                  right: '10px'
-                }}>
-                  <div
-                    className="matchcontainere"
-                    onClick={() => navigate(`/contests/${u.id}`)}
-                    style={{
-                      postion: 'absolute !important',
-                      backgroundColor: '#000',
-                    }}
-                  >
-                    <Top>
-                      <h5
+                <div className='pastMatchContainer'>
+                  <Grid container rowSpacing={2} columnSpacing={4} justifyContent="center">
+                    <Grid item sm={12} xs={12} md={6} lg={6}>
+                      <div
+                        className="matchcontainere"
+                        onClick={() => navigate(`/contests/${u.id}`)}
                         style={{
-                          color: '#595959',
-                          fontSize: '12px',
-                          fontWeight: '200',
-                          display: 'flex',
-                          alignItems: 'center',
+                          postion: 'absolute !important',
+                          backgroundColor: '#000',
                         }}
                       >
-                        <span style={{ marginRight: '5px' }}>
-                          {u?.away.code}
-                        </span>
-                        {' '}
-                        vs
-                        <span style={{ marginLeft: '5px' }}>
-                          {u?.home.code}
-                        </span>
-                      </h5>
-                      <NotificationAddOutlinedIcon
-                        style={{ fontSize: '18px' }}
-                      />
-                    </Top>
-                    <div className="match">
-                      <div className="matchcenter">
-                        <div className="matchlefts">
-                          <img src={u?.teamAwayFlagUrl} alt="" width="40" />
-                          <h5>{u?.away?.code}</h5>
+                        <Top>
+                          <h5
+                            style={{
+                              color: '#595959',
+                              fontSize: '12px',
+                              fontWeight: '200',
+                              display: 'flex',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <span style={{ marginRight: '5px' }}>
+                              {u?.away.code}
+                            </span>
+                            {' '}
+                            vs
+                            <span style={{ marginLeft: '5px' }}>
+                              {u?.home.code}
+                            </span>
+                          </h5>
+                          <NotificationAddOutlinedIcon
+                            style={{ fontSize: '18px' }}
+                          />
+                        </Top>
+                        <div className="match">
+                          <div className="matchcenter">
+                            <div className="matchlefts">
+                              <img src={u?.teamAwayFlagUrl} alt="" width="40" />
+                              <h5>{u?.away?.code}</h5>
+                            </div>
+                            <div
+                              className={u?.result == 'Yes' ? 'completed' : 'time'}
+                            >
+                              {u?.result === 'Yes' && (
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      textTransform: 'uppercase',
+                                    }}
+                                  >
+                                    <Dot />
+                                    <h5 style={{ fontWeight: '200' }}>Completed</h5>
+                                  </div>
+                                  <p
+                                    style={{
+                                      color: '#5e5b5b',
+                                      textTransform: 'auto',
+                                      fontSize: '10px',
+                                      marginTop: '2px',
+                                      fontWeight: '200',
+                                    }}
+                                  >
+                                    {getDisplayDate(u.date, 'i')}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                            <div className="matchrights">
+                              <h5>
+                                {' '}
+                                {u.home.code}
+                              </h5>
+                              <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                            </div>
+                          </div>
                         </div>
                         <div
-                          className={u?.result == 'Yes' ? 'completed' : 'time'}
+                          className="bottom"
+                          style={{
+                            position: 'relative',
+                            padding: '6px 15px',
+                            fontSize: '12px',
+                          }}
                         >
-                          {u?.result === 'Yes' && (
-                            <div
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexDirection: 'column',
-                              }}
-                            >
-                              <div
+                          <div
+                            style={{
+                              display: 'flex',
+                              width: '150px',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}
+                          >
+                            {u.teams.length > 0 && (
+                              <h5
+                                className=""
                                 style={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
-                                <Dot />
-                                <h5 style={{ fontWeight: '200' }}>Completed</h5>
-                              </div>
-                              <p
-                                style={{
-                                  color: '#5e5b5b',
-                                  textTransform: 'auto',
-                                  fontSize: '10px',
-                                  marginTop: '2px',
+                                  textTransform: 'capitalize',
+                                  fontSize: '12px',
                                   fontWeight: '200',
                                 }}
                               >
-                                {getDisplayDate(u.date, 'i')}
-                              </p>
+                                {u.teams.length}
+                                {' '}
+                                teams
+                              </h5>
+                            )}
+                            <div className="meg">
+                              {u.contests.length > 0 && (
+                                <h5
+                                  style={{
+                                    textTransform: 'capitalize',
+                                    fontSize: '12px',
+                                    fontWeight: '200',
+                                  }}
+                                >
+                                  {u.contests.length}
+                                  {' '}
+                                  contests
+                                </h5>
+                              )}
                             </div>
-                          )}
-                        </div>
-                        <div className="matchrights">
-                          <h5>
-                            {' '}
-                            {u.home.code}
-                          </h5>
-                          <img src={u.teamHomeFlagUrl} alt="" width="40" />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="bottom"
-                      style={{
-                        position: 'relative',
-                        padding: '6px 15px',
-                        fontSize: '12px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'flex',
-                          width: '150px',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                        }}
-                      >
-                        {u.teams.length > 0 && (
-                          <h5
-                            className=""
-                            style={{
-                              textTransform: 'capitalize',
-                              fontSize: '12px',
-                              fontWeight: '200',
-                            }}
-                          >
-                            {u.teams.length}
-                            {' '}
-                            teams
-                          </h5>
-                        )}
-                        <div className="meg">
-                          {u.contests.length > 0 && (
-                            <h5
+                          </div>
+                          <div className="icon">
+                            <GrMultimedia
+                              className="reacticon"
+                              style={{ fontSize: '16px', fontWeight: '200' }}
+                            />
+                            <SportsCricketOutlined
                               style={{
-                                textTransform: 'capitalize',
-                                fontSize: '12px',
+                                fontSize: '20px',
+                                marginLeft: '5.1px',
                                 fontWeight: '200',
                               }}
-                            >
-                              {u.contests.length}
-                              {' '}
-                              contests
-                            </h5>
-                          )}
+                            />
+                          </div>
                         </div>
                       </div>
-                      <div className="icon">
-                        <GrMultimedia
-                          className="reacticon"
-                          style={{ fontSize: '16px', fontWeight: '200' }}
-                        />
-                        <SportsCricketOutlined
-                          style={{
-                            fontSize: '20px',
-                            marginLeft: '5.1px',
-                            fontWeight: '200',
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                    </Grid>
+                  </Grid>
                 </div>
               ),
             )
@@ -358,7 +362,7 @@ export function Home() {
             <h3>Live Matches</h3>
             <AllMatches container rowSpacing={2} columnSpacing={4} justifyContent="center">
               {live.map((u) => (
-                <Grid item sm={12} xs={12} lg={4} md={4}>
+                <Grid item sm={12} xs={12} lg={6} md={6}>
                   <Match u={u} live />
                 </Grid>
               ))}
@@ -372,7 +376,7 @@ export function Home() {
               upcoming?.length > 0 ? (
                 <>
                   {upcoming.map((u) => (
-                    <Grid item sm={12} xs={12} lg={4} md={4}>
+                    <Grid item sm={12} xs={12} lg={6} md={6}>
                       <Match u={u} />
                     </Grid>
                   ))}
@@ -383,7 +387,7 @@ export function Home() {
             )}
           </AllMatches>
         </div>
-      </div>
+      </div >
       <Bottomnav />
     </>
   );

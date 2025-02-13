@@ -93,8 +93,7 @@
   border-radius: 5px;
   overflow: hidden;
   background-color: transparent !important;
-  margin: 10px auto;
-  max-width: 560px;
+  margin: 10px 0;
 }
 
 #section1::before {
@@ -250,4 +249,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pastMatchContainer{
+  padding: 0 65px;
+}
+
+@media screen and (max-width: 600px) {
+  .matchcontainere {
+    padding: 0px 0px;
+  }
+  .pastMatchContainer{
+    padding: 0 0px;
+  }
 }
