@@ -133,6 +133,7 @@ const AddButton = styled.button`
   outline: none;
   margin-right: 15px;
   cursor: pointer;
+  width: 60px;
 `;
 
 const RemoveButton = styled.button`
@@ -142,6 +143,7 @@ const RemoveButton = styled.button`
   outline: none;
   margin-right: 15px;
   cursor: pointer;
+  width: 60px;
 `;
 
 const NoLineups = styled.h3`
@@ -348,26 +350,26 @@ export default function LiveCategoryTabs({
             allowScrollButtonsMobile
           >
             <Tab
-              label={`WKa(${players.filter((p) => checkwk(p.position) && p.isSelected)
-                  .length
+              label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
+                .length
                 })`}
               {...a11yProps(0)}
             />
             <Tab
               label={`BAT(${players.filter((p) => p.position === 'batsman' && p.isSelected)
-                  .length
+                .length
                 })`}
               {...a11yProps(1)}
             />
             <Tab
               label={`AR(${players.filter((p) => checkar(p.position) && p.isSelected)
-                  .length
+                .length
                 })`}
               {...a11yProps(2)}
             />
             <Tab
               label={`BOW(${players.filter((p) => p.position === 'bowler' && p.isSelected)
-                  .length
+                .length
                 })`}
               {...a11yProps(3)}
             />
@@ -392,14 +394,14 @@ export default function LiveCategoryTabs({
                               alt=""
                             />
                             {p.isHome ? (
-                              <Home>{p.code}a</Home>
+                              <Home>{p.code}</Home>
                             ) : (
-                              <Away>{p.code}b</Away>
+                              <Away>{p.code}</Away>
                             )}
                           </ImgCtr>
                           <Center>
                             <BlueDot />
-                            <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
+                            <Link to={`../player/${p.playerId}`} style={{ whiteSpace: 'nowrap' }}>{p.playerName}</Link>
                           </Center>
                           <Points>9.0</Points>
                           {p.isSelected ? (
