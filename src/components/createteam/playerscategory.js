@@ -343,33 +343,31 @@ export default function LiveCategoryTabs({
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            variant='scrollable'
+            scrollButtons="auto"
           >
             <Tab
-              label={`WK(${
-                players.filter((p) => checkwk(p.position) && p.isSelected)
+              label={`WKa(${players.filter((p) => checkwk(p.position) && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(0)}
             />
             <Tab
-              label={`BAT(${
-                players.filter((p) => p.position === 'batsman' && p.isSelected)
+              label={`BAT(${players.filter((p) => p.position === 'batsman' && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(1)}
             />
             <Tab
-              label={`AR(${
-                players.filter((p) => checkar(p.position) && p.isSelected)
+              label={`AR(${players.filter((p) => checkar(p.position) && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(2)}
             />
             <Tab
-              label={`BOW(${
-                players.filter((p) => p.position === 'bowler' && p.isSelected)
+              label={`BOW(${players.filter((p) => p.position === 'bowler' && p.isSelected)
                   .length
-              })`}
+                })`}
               {...a11yProps(3)}
             />
           </Tabs>
@@ -393,9 +391,9 @@ export default function LiveCategoryTabs({
                               alt=""
                             />
                             {p.isHome ? (
-                              <Home>{p.code}</Home>
+                              <Home>{p.code}a</Home>
                             ) : (
-                              <Away>{p.code}</Away>
+                              <Away>{p.code}b</Away>
                             )}
                           </ImgCtr>
                           <Center>

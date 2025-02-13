@@ -133,6 +133,7 @@ const AddButton = styled.button`
   outline: none;
   margin-right: 15px;
   cursor: pointer;
+  max-width:60px;
 `;
 
 const RemoveButton = styled.button`
@@ -142,6 +143,7 @@ const RemoveButton = styled.button`
   outline: none;
   margin-right: 15px;
   cursor: pointer;
+  max-width:60px;
 `;
 
 const NoLineups = styled.h3`
@@ -326,12 +328,15 @@ export default function CategoryTabs({
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            variant='scrollable'
+            scrollButtons='auto'
           >
             <Tab
               label={`WK(${players.filter((p) => checkwk(p.position) && p.isSelected)
                 .length
                 })`}
               {...a11yProps(0)}
+              style={{ minWidth: 100 }}
             />
             <Tab
               label={`BAT(${players.filter((p) => p.position === 'batsman' && p.isSelected)
@@ -379,10 +384,10 @@ export default function CategoryTabs({
                           <Center>
                             <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                             {playedlm(lmPlayers, p) ? (
-                              <p>
+                              <p style={{ whiteSpace: 'nowrap' }}>
                                 {' '}
                                 <BlueDot />
-                                played last matche
+                                played last match
                               </p>
                             ) : null}
                           </Center>
