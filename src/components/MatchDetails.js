@@ -264,15 +264,15 @@ export function MatchDetails({ players }) {
                   >
                     {matchlive.titleFI}
                   </p>
-                  <p>
+                  {livescore.matchScoreDetails.inningsScoreList[1]?.overs&&<p>
                     {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[1]?.wickets
-                      || 0}
+                      || ''}
                     (
                     {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
                     )
-                  </p>
+                  </p>}
                 </Grid>
                 <Grid
                   item
@@ -300,16 +300,16 @@ export function MatchDetails({ players }) {
                         {' '}
                         {matchlive.titleSI}
                       </p>
-                      <p>
+                      {livescore.matchScoreDetails.inningsScoreList[0]?.overs&&<p>
                         {' '}
                         {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                         /
                         {livescore.matchScoreDetails.inningsScoreList[0]
-                          ?.wickets || 0}
+                          ?.wickets || ''}
                         (
                         {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
                         )
-                      </p>
+                      </p>}
                     </>
                   )}
                 </Grid>
