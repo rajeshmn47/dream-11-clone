@@ -10,7 +10,7 @@ const Err = styled.p`
 `;
 
 export function Otp({
-  open, setOpen, otp, setOtp, handleotp, err,
+  open, setOpen, otp, setOtp, handleOtp, err,
 }) {
   const toggleDrawer = () => {
     console.log('rajesh');
@@ -52,7 +52,7 @@ export function Otp({
             type="submit"
             disableElevation
             style={{ backgroundColor: '#03d47c' }}
-            onClick={() => handleotp()}
+            onClick={() => handleOtp()}
           >
             Confirm otp
           </Button>
