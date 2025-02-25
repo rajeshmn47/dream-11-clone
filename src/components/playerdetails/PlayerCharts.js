@@ -49,34 +49,36 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
 
   useEffect(() => {
     const filterMatchesByTimeFrame = (matches, timeFrame) => {
-      const now = new Date();
-      let startDate;
+      if (allMatches?.length) {
+        const now = new Date();
+        let startDate;
 
-      switch (timeFrame) {
-        case 'weekly':
-          startDate = new Date(now);
-          startDate.setDate(now.getDate() - 7);
-          break;
-        case 'monthly':
-          startDate = new Date(now);
-          startDate.setMonth(now.getMonth() - 1);
-          break;
-        case 'yearly':
-        default:
-          startDate = new Date(now);
-          startDate.setFullYear(now.getFullYear() - 1);
-          break;
-      }
+        switch (timeFrame) {
+          case 'weekly':
+            startDate = new Date(now);
+            startDate.setDate(now.getDate() - 7);
+            break;
+          case 'monthly':
+            startDate = new Date(now);
+            startDate.setMonth(now.getMonth() - 1);
+            break;
+          case 'yearly':
+          default:
+            startDate = new Date(now);
+            startDate.setFullYear(now.getFullYear() - 1);
+            break;
+        }
 
-      return matches.filter(match => new Date(match.date) >= startDate);
-    };
+        return matches.filter(match => new Date(match.date) >= startDate);
+      };
 
-    const playerMatches = filterMatchesByTimeFrame(allMatches.filter(match =>
-      match.teamHomePlayers.some(player => player.playerId === playerId) ||
-      match.teamAwayPlayers.some(player => player.playerId === playerId)
-    ), timeFrame);
+      const playerMatches = filterMatchesByTimeFrame(allMatches?.filter(match =>
+        match.teamHomePlayers.some(player => player.playerId === playerId) ||
+        match.teamAwayPlayers.some(player => player.playerId === playerId)
+      ), timeFrame);
 
-    setFilteredMatches(playerMatches);
+      setFilteredMatches(playerMatches);
+    }
   }, [allMatches, timeFrame, playerId]);
 
   const recentMatches = filteredMatches.map(match => {

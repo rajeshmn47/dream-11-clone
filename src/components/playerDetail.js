@@ -225,18 +225,22 @@ export function PlayerDetail() {
         const data = await API.get(
           `${URL}/playerSeriesDetails/${id}/${seriesSelected}`,
         );
-        setSeriesDetails([...data.data.player]);
-        setMainInfo(data.data.maininfo);
+        if (data.data.player.length > 0) {
+          setSeriesDetails([...data.data.player]);
+          setMainInfo(data.data.maininfo);
+        }
       }
     }
     getSeriesStats();
   }, [user, seriesSelected]);
 
   useEffect(() => {
-    let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
-    let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
-    setSeriesNames([...unique])
-    setSeriesSelected(unique[0])
+    if (matches?.length > 0) {
+      let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
+      let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
+      setSeriesNames([...unique])
+      setSeriesSelected(unique[0])
+    }
   }, [matches])
   console.log(seriesDetails, 'series details');
 
@@ -300,7 +304,7 @@ export function PlayerDetail() {
               <Table>
                 {statType == "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
               </Table>
-               {seriesDetails&&<PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id}/>}
+              {seriesDetails && <PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id} />}
             </Grid>
           </Grid>
         </PlayerStats>

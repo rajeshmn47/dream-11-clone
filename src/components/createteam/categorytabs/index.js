@@ -319,6 +319,7 @@ export default function CategoryTabs({
     });
     setPlayers([...po]);
   };
+  console.log(lmPlayers, 'lmplayers');
 
   return (
     <Contest>

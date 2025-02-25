@@ -11,7 +11,6 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { API } from '../../actions/userAction';
 import { URL } from '../../constants/userConstants';
 import {
@@ -167,6 +166,11 @@ const Center = styled.div`
   h1 {
     text-align: left;
     font-size: 14px !important;
+  }
+  a{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
   }
 `;
 
@@ -511,7 +515,7 @@ export default function LiveCategoryTabs({
                               <Away>{p.code}</Away>
                             )}
                           </ImgCtr>
-                          <Center>
+                          <Center className='playerNameContainer'>
                             <BlueDot />
                             <Link to={`../player/${p.playerId}`}>{p.playerName}</Link>
                           </Center>

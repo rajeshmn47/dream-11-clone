@@ -238,22 +238,23 @@ export function CreateTeam() {
         setMatch(data.data.matchdetails);
         const k = homePlayers;
         const l = awayPlayers;
+        console.log(data.data.matchdetails.teamHomePlayers,data.data.matchdetails.teamAwayPlayers,'awaylastmatchplayers')
         const nonp = k
-          .splice(k.length - 11, k.length)
-          .concat(l.splice(l.length - 11, l.length))
+          .slice(11, k.length)
+          .concat(l.slice(11, l.length))
           .map((obj) => ({
             ...obj,
             isSelected: false,
           }));
         setNonPlayers([...nonp]);
         const lm = k
-          .splice(k.length - 5, k.length)
-          .concat(l.splice(l.length - 8, l.length))
+          .slice(0, 11)
+          .concat(l.slice(0, 11))
           .map((obj) => ({
             ...obj,
             isSelected: false,
           }));
-        setLmplayers([...lm]);
+        //setLmplayers([...lm]);
       }
       setLoading(false);
     }
@@ -261,14 +262,11 @@ export function CreateTeam() {
   }, [id, state]);
   useEffect(() => {
     async function getplayers() {
-      if (user?._id && match) {
+      if (user?._id && match?.teamHomeId) {
         const data = await API.get(
-          `${URL}/getteam/${match?.titleFI}/${match.titleSI}`,
+          `${URL}/getteam/${match?.teamHomeId}/${match.teamAwayId}`,
         );
-        const moredata = await API.get(
-          `${URL}/getteam/${match?.titleSI}/${match?.titleFI}`,
-        );
-        console.log(data.data.lmplayers, moredata.data.lmplayers, 'lmplayers');
+        console.log(data.data.lmplayers, 'lmplayers');
         setLmplayers([...data.data.lmplayers]);
       }
     }
