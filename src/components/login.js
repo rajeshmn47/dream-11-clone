@@ -54,7 +54,7 @@ export function Login() {
           <div className="social-login">
             <Button
               variant="contained"
-              disabled={true}
+              //disabled={true}
               className="social-btn github"
               onClick={() => alert('Not working yet, only Google login is available')}
             >
@@ -63,8 +63,8 @@ export function Login() {
             </Button>
             <Button
               variant="contained"
-              disabled={true}
-              className="social-btn google"
+              //disabled={true}
+              className="social-btn"
               onClick={() => navigate('/googlelogin')}
             >
               <img src="./google.svg" alt="Google" className="social-icon" />

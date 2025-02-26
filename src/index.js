@@ -9,17 +9,19 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
+import zIndex from '@mui/material/styles/zIndex';
 
 const options = {
   timeout: 5000,
   position: positions.MIDDLE_LEFT,
   transition: transitions.SCALE,
+  zIndex: 10000
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <AlertProvider template={AlertTemplate} {...options}>
+    <AlertProvider template={AlertTemplate} {...options} >
       <React.StrictMode>
         <App />
       </React.StrictMode>

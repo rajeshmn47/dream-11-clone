@@ -43,6 +43,7 @@ export function Register() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const [err, setErr] = useState();
+  const [success, setSuccess] = useState();
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -81,7 +82,7 @@ export function Register() {
     try {
       const data = await axios.post(`${URL}/auth/register`, formData);
       if (data.data.success) {
-        setErr(data.data.message);
+        setSuccess(data.data.message);
         alert.success(data.data.message);
         setOpen(true);
       } else {
@@ -102,6 +103,8 @@ export function Register() {
       alert.success(data.data.message);
     } catch (e) {
       alert.error('Invalid OTP!');
+      console.log(e.response.data.message,'e')
+      setErr(e.response.data.message)
     }
   };
 
