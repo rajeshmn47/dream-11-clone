@@ -113,8 +113,8 @@ See [troubleshooting guide](https://facebook.github.io/create-react-app/docs/tro
 ---
 
 ## 🚀 Stay Connected
-- 🌐 **Website:** [Your Website Link]  
-- 📧 **Contact:** [Your Email]  
+- 🌐 **Website:** githb.com/rajeshmn47 
+- 📧 **Contact:** https://rajeshmn47@gmail.com  
 
 Your support helps keep this project running. **Thank you!** 🙌
 
