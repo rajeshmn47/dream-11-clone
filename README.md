@@ -114,7 +114,7 @@ See [troubleshooting guide](https://facebook.github.io/create-react-app/docs/tro
 
 ## 🚀 Stay Connected
 - 🌐 **Website:** githb.com/rajeshmn47 
-- 📧 **Contact:** https://rajeshmn47@gmail.com  
+- 📧 **Contact:** rajeshmn47@gmail.com  
 
 Your support helps keep this project running. **Thank you!** 🙌
 
