@@ -198,6 +198,7 @@ export function PlayerDetail() {
   const { state } = useLocation();
   const [match, setMatch] = useState(null);
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
   const [playerDetail, setPlayerDetail] = useState();
   const [matches, setMatches] = useState([]);
   const [seriesNames, setSeriesNames] = useState();
@@ -222,9 +223,11 @@ export function PlayerDetail() {
   useEffect(() => {
     async function getSeriesStats() {
       if (user?._id && seriesSelected) {
+        setLoading(true)
         const data = await API.get(
           `${URL}/playerSeriesDetails/${id}/${seriesSelected}`,
         );
+        setLoading(false)
         if (data.data.player.length > 0) {
           setSeriesDetails([...data.data.player]);
           setMainInfo(data.data.maininfo);
@@ -250,12 +253,13 @@ export function PlayerDetail() {
         <Grid container spacing={2}>
           <Grid item md={6} lg={6} sm={4} xs={4}>
             <ImageContainer>
-              <img src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${playerDetail?.id}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
-            </ImageContainer></Grid>
+              <img src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${playerDetail?.id}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt={playerDetail?.name} />
+            </ImageContainer>
+          </Grid>
           <Grid item md={6} lg={6} sm={8} xs={8}>
             <Flags>
               {playerDetail?.flagUrls?.length > 0 &&
-                playerDetail?.flagUrls?.map((flag) => <Flag src={flag} alt="" />)}
+                playerDetail?.flagUrls?.map((flag, index) => <Flag key={index} src={flag} alt={`Flag ${index + 1}`} />)}
             </Flags>
             <Name>
               {playerDetail?.name}
@@ -276,19 +280,19 @@ export function PlayerDetail() {
                   Matches
                 </Grid>
                 <Grid item md={4} lg={4}>
-                  <div className={statType == "batting" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("batting")}>
+                  <div className={statType === "batting" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("batting")}>
                     Batting
                   </div>
                 </Grid>
                 <Grid item md={4} lg={4}>
-                  <div className={statType == "bowling" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("bowling")}>
+                  <div className={statType === "bowling" ? 'statSelected' : 'statNotSelected'} onClick={() => setStatType("bowling")}>
                     Bowling
                   </div>
                 </Grid>
               </Grid>
               <Series>
-                {seriesNames?.map((s) =>
-                  <div className={seriesSelected == s ? "selected" : "notSelected"}
+                {seriesNames?.map((s, index) =>
+                  <div key={index} className={seriesSelected === s ? "selected" : "notSelected"}
                     onClick={() => setSeriesSelected(s)}>
                     <Link to={`../series/${s}`}>{s}</Link>
                   </div>)}
@@ -296,14 +300,17 @@ export function PlayerDetail() {
             </Grid>
             <Grid item lg={8} md={8} sm={12} xs={12}>
               <SeriesHeading>T20</SeriesHeading>
-              {statType == "batting" ? <AllStats>
-                <Stat highlight>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
-              </AllStats> : <AllStats>
-                <Stat highlight>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.economy)} Economy</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
-              </AllStats>}
-              <Table>
-                {statType == "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
-              </Table>
+              {loading ? <div style={{ minHeight: "200px" }}>
+                <Loader /> </div> :
+                <div style={{ minHeight: "200px !important" }}>
+                  {statType === "batting" ? <AllStats>
+                    <Stat highlight>{mainInfo?.runs} Runs</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.average)} Average</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+                  </AllStats> : <AllStats>
+                    <Stat highlight>{mainInfo?.wickets} Wkts</Stat><Stat>{mainInfo?.innings} Inns</Stat><Stat>{Math.floor(mainInfo?.economy)} Economy</Stat><Stat>{mainInfo?.strikeRate} Strike rate</Stat>
+                  </AllStats>}
+                  <Table>
+                    {statType === "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
+                  </Table></div>}
               {seriesDetails && <PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id} />}
             </Grid>
           </Grid>
