@@ -34,9 +34,9 @@ export function getDisplayDate(date, sc, d) {
     today.getDate() - current.getDate() < 7
     && today.getMonth() == current.getMonth()
   ) {
-    return moment(date).format('DD MMM, HH:MM a'); // or format it what ever way you want
+    return moment(date).format('DD MMM, HH:mm a'); // or format it what ever way you want
   }
-  return moment(date).format('DD MMM, HH:MM a');
+  return moment(date).format('DD MMM, HH:mm a');
 }
 
 export function sameDayorNot(a, b) {
