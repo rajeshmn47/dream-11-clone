@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./scorecard.css"
 
 const Container = styled.div`
   .MuiPaper-root {
@@ -59,6 +60,7 @@ const Td = styled.td`
   text-align: left !important;
   width: 120px;
 `;
+
 const Name = styled(Link)`
   text-align: left !important;
   text-overflow: ellipsis;
@@ -72,12 +74,22 @@ const Name = styled(Link)`
   font-size: 14px;
 `;
 
+const HowOut = styled.div`
+  display: none;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
 const MatchData = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 `;
+
 const Code = styled.div`
   font-weight: 600;
   text-transform: uppercase;
@@ -97,12 +109,14 @@ const Scores = styled.div`
   align-items: center;
   font-size: 14px;
 `;
+
 const S = styled.div`
-  width: 35px;
+  width: 100%;
   text-overflow: ellipsis;
+  text-align:center;
 `;
 
-export function ScoreTable({ rows, batsmen, bowlers }) {
+export function ScoreTable({ rows, batsmen, bowlers, wicketsData }) {
   return (
     <>
       {bowlers ? (
@@ -117,11 +131,11 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               <th>Eco</th>
             </tr>
           </thead>
-          {rows?.length > 0
-            && rows
+          {rows?.length > 0 &&
+            rows
               .filter((k) => k.overs > 0)
               .map((t) => (
-                <tr>
+                <tr key={t.playerId}>
                   <Td style={{ textTransform: 'capitalize' }}>
                     <Name to={`../player/${t.playerId}`}>{t.playerName}</Name>
                   </Td>
@@ -141,6 +155,7 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
           <thead>
             <tr>
               <Th>Batter</Th>
+              <th className="desktop-only">How Out</th>
               <th>R</th>
               <th>B</th>
               <th>4s</th>
@@ -148,14 +163,16 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               <th>S/R</th>
             </tr>
           </thead>
-          {rows?.length > 0
-            && rows
+          {rows?.length > 0 &&
+            rows
               .filter((k) => k.balls > 0)
               .map((t) => (
-                <tr>
+                <tr key={t.playerId}>
                   <Td style={{ textTransform: 'capitalize' }}>
                     <Name to={`../player/${t.playerId}`}>{t.playerName}</Name>
+                    <HowOut className="mobile-only">{t.howOut}</HowOut>
                   </Td>
+                  <td className="desktop-only">{t.howOut}</td>
                   <td>{t.runs}</td>
                   <td>{t.balls}</td>
                   <td>{t.fours}</td>
@@ -167,7 +184,28 @@ export function ScoreTable({ rows, batsmen, bowlers }) {
               ))}
         </Table>
       ) : null}
+      {wicketsData ? (
+        <Table>
+          <thead>
+            <tr>
+              <Th>Fall of Wickets</Th>
+              <th>Score</th>
+              <th>Over</th>
+            </tr>
+          </thead>
+          <tbody>
+            {wicketsData?.map((wicket, index) => (
+              <tr key={index}>
+                <Td>{wicket.batName}</Td>
+                <td>{wicket.wktRuns}</td>
+                <td>{wicket.wktOver}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : null}
     </>
   );
 }
+
 export default ScoreTable;
