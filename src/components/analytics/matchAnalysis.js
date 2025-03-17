@@ -53,7 +53,7 @@ export function MatchAnalysis() {
     const [secondTeam, setSecondTeam] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState('')
     function customRadius(context) {
-        console.log(context.dataset, Array.prototype, 'context');
+        //console.log(context.dataset, Array.prototype, 'context');
         let index = context.dataIndex;
         if (context.dataset.label == firstTeam) {
             return fwickets[index] == "w" ?
@@ -127,29 +127,30 @@ export function MatchAnalysis() {
             },
         ],
     };
+
     const dataBar = {
         labels: labels,
         datasets: [
             {
                 label: firstTeam,
-                backgroundColor: "#EC932F",
-                borderColor: "rgba(255,99,132,1)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
-                hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                hoverBorderColor: "rgba(255,99,132,1)",
-                data: (bfovers.map((f) => f.runs)),
+                hoverBackgroundColor: "rgba(255, 99, 132, 0.4)",
+                hoverBorderColor: "rgba(255, 99, 132, 1)",
+                data: bfovers.map((f) => f.runs),
             },
             {
                 label: secondTeam,
-                backgroundColor: "#EC932F",
-                borderColor: "rgba(255,99,132,1)",
+                backgroundColor: "rgba(53, 162, 235, 0.5)",
+                borderColor: "rgba(53, 162, 235, 1)",
                 borderWidth: 1,
-                hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                hoverBorderColor: "rgba(255,99,132,1)",
-                data: (bsovers.map((f) => f.runs)),
+                hoverBackgroundColor: "rgba(53, 162, 235, 0.4)",
+                hoverBorderColor: "rgba(53, 162, 235, 1)",
+                data: bsovers.map((f) => f.runs),
             }
         ]
-    };
+    }
 
     useEffect(() => {
         async function getplayers() {
@@ -213,8 +214,12 @@ export function MatchAnalysis() {
                 setFOvers([...fov]);
                 setBSOvers([...bsov]);
                 setBFOvers([...bfov]);
-                setFirstTeam(da.data.match.firstTeam);
-                setSecondTeam(da.data.match.secondTeam);
+
+                let first_team = da.data.match.firstTeam ? da.data.match.firstTeam : 'first team'
+                let second_team = da.data.match.secondTeam ? da.data.match.secondTeam : 'second team'
+                setFirstTeam(first_team);
+                setSecondTeam(second_team);
+
             }
         }
         getplayers();
@@ -224,13 +229,16 @@ export function MatchAnalysis() {
             setSelectedTeam(firstTeam)
         }
     }, [firstTeam])
-    console.log(labels, fwickets, 'wickets')
-    return <>
-        {labels.length > 0 && <Line options={options} data={data} />}
-        <div>
-            <Bar data={dataBar} options={options} width={100} height={50} />
-        </div></>;
+    console.log(firstTeam, secondTeam, 'wickets')
+    return (
+        <Container>
+            <h1>Match Analysis</h1>
+            {labels.length > 0 && firstTeam && secondTeam && <Line options={options} data={data} />}
+            <div>
+                {firstTeam && secondTeam && <Bar data={dataBar} options={options} width={100} height={50} />}
+            </div>
+        </Container>
+    );
 }
-
 
 export default MatchAnalysis;
