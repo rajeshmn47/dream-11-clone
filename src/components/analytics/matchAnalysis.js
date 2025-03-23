@@ -2,28 +2,29 @@ import './../home.css';
 import './../create.css';
 
 import styled from '@emotion/styled';
-import { Line } from "react-chartjs-2";
-import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { Line, Bar } from "react-chartjs-2";
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
-    Filler,
 } from "chart.js";
 import { URL } from '../../constants/userConstants';
 import { useEffect, useState } from 'react';
 import { API } from '../../actions/userAction';
-import "chartjs-plugin-datalabels";
-import { Bar } from "react-chartjs-2";
+import ScoreTable from '../scorecard/scoretable'; // Import the ScoreTable component
+import ScoreCard from '../scorecard/scorecard';
+import { getmatch } from '../../actions/matchAction';
 
 const Container = styled.div`
-
+padding:20px 40px;
 `;
 
 ChartJS.register(
@@ -31,16 +32,17 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
 );
 
-//const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-
 export function MatchAnalysis() {
     const { id } = useParams();
     const { user } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { match_details, matchlive } = useSelector((state) => state.match); ``
     const [labels, setFLabels] = useState([]);
     const [sLabels, setSLabels] = useState([]);
     const [fovers, setFOvers] = useState([]);
@@ -51,19 +53,15 @@ export function MatchAnalysis() {
     const [swickets, setSWickets] = useState([]);
     const [firstTeam, setFirstTeam] = useState([]);
     const [secondTeam, setSecondTeam] = useState([]);
-    const [selectedTeam, setSelectedTeam] = useState('')
+    const [selectedTeam, setSelectedTeam] = useState('');
+    const [teamData, setTeamData] = useState([]); // State to store team data for the ScoreTable
+
     function customRadius(context) {
-        //console.log(context.dataset, Array.prototype, 'context');
         let index = context.dataIndex;
         if (context.dataset.label == firstTeam) {
-            return fwickets[index] == "w" ?
-                10 :
-                2;
-        }
-        else {
-            return swickets[index] == "w" ?
-                10 :
-                2;
+            return fwickets[index] == "w" ? 10 : 2;
+        } else {
+            return swickets[index] == "w" ? 10 : 2;
         }
     }
 
@@ -98,18 +96,6 @@ export function MatchAnalysis() {
         },
     };
 
-    {/*const data = {
-        fLabels,
-        datasets: [
-            {
-                label: 'Dataset 2',
-                data: [2, 5, 6],
-                borderColor: 'lightblue',
-                backgroundColor: 'lightblue',
-                yAxisID: 'y',
-            },
-        ],
-    };*/}
     const data = {
         labels,
         datasets: [
@@ -150,15 +136,17 @@ export function MatchAnalysis() {
                 data: bsovers.map((f) => f.runs),
             }
         ]
-    }
+    };
 
     useEffect(() => {
         async function getplayers() {
             if (id) {
-                let da = await API.get(
-                    `${URL}/match-details/${id}`,
-                );
-                console.log(da, 'da')
+                let da = await API.get(`${URL}/match-details/${id}`);
+                console.log(da, 'da');
+                let firstTeamPlayers = da.data.match.firstInningsPlayers || [];
+                let secondTeamPlayers = da.data.match.secondInningsPlayers || [];
+                setTeamData([...firstTeamPlayers, ...secondTeamPlayers]);
+
                 let k = [];
                 let l = [];
                 let fov = [];
@@ -169,45 +157,41 @@ export function MatchAnalysis() {
                 let sw = [];
                 for (let i = 0; i < da.data.match?.secondInningsBalls?.length; i++) {
                     if (((i + 1) % 6 == 0) && i > 0) {
-                        k.push(((i + 1) / 6).toString())
+                        k.push(((i + 1) / 6).toString());
                         let ru = [...da.data.match.secondInningsBalls.sort((a, b) => a.ballNbr - b.ballNbr)];
                         let totalRuns = ru.slice(0, i).reduce((accumulator, currentValue) => accumulator + currentValue.runs, 0);
                         let runs = ru.slice((i - 6), i).reduce((accumulator, currentValue) => accumulator + currentValue.runs, 0);
-                        //fov.push({ overNumber: ((i + 1) / 6), runs: runs })
                         sov.push({ overNumber: ((i + 1) / 6), totalRuns: totalRuns });
                         bsov.push({ overNumber: ((i + 1) / 6), runs: runs });
-                        let w = ru.slice(i - 5, i + 1).find((r) => r.event == "w")
+                        let w = ru.slice(i - 5, i + 1).find((r) => r.event == "w");
                         if (w) {
-                            sw.push('w')
-                        }
-                        else {
-                            sw.push(0)
+                            sw.push('w');
+                        } else {
+                            sw.push(0);
                         }
                     }
                 }
-                setSWickets([...sw])
+                setSWickets([...sw]);
                 for (let i = 0; i < da.data.match.firstInningsBalls.length; i++) {
                     if (((i + 1) % 6 == 0) && i > 0) {
-                        l.push(((i + 1) / 6).toString())
+                        l.push(((i + 1) / 6).toString());
                         let ru = [...da.data.match.firstInningsBalls.sort((a, b) => a.ballNbr - b.ballNbr)];
                         let totalRuns = ru.slice(0, i).reduce((accumulator, currentValue) => accumulator + currentValue.runs, 0);
                         let runs = ru.slice((i - 6), i).reduce((accumulator, currentValue) => accumulator + currentValue.runs, 0);
                         fov.push({ overNumber: ((i + 1) / 6), totalRuns: totalRuns });
                         bfov.push({ overNumber: ((i + 1) / 6), runs: runs });
-                        let w = ru.slice(i - 5, i + 1).find((r) => r.event == "w")
+                        let w = ru.slice(i - 5, i + 1).find((r) => r.event == "w");
                         if (w) {
-                            fw.push('w')
-                        }
-                        else {
-                            fw.push(0)
+                            fw.push('w');
+                        } else {
+                            fw.push(0);
                         }
                     }
                 }
-                setFWickets([...fw])
+                setFWickets([...fw]);
                 if (l > k) {
                     setFLabels([...l]);
-                }
-                else {
+                } else {
                     setFLabels([...k]);
                 }
                 setSOvers([...sov]);
@@ -215,23 +199,38 @@ export function MatchAnalysis() {
                 setBSOvers([...bsov]);
                 setBFOvers([...bfov]);
 
-                let first_team = da.data.match.firstTeam ? da.data.match.firstTeam : 'first team'
-                let second_team = da.data.match.secondTeam ? da.data.match.secondTeam : 'second team'
+                let first_team = da.data.match.firstTeam ? da.data.match.firstTeam : 'first team';
+                let second_team = da.data.match.secondTeam ? da.data.match.secondTeam : 'second team';
                 setFirstTeam(first_team);
                 setSecondTeam(second_team);
-
             }
         }
         getplayers();
     }, [user, id]);
+
     useEffect(() => {
         if (firstTeam) {
-            setSelectedTeam(firstTeam)
+            setSelectedTeam(firstTeam);
         }
-    }, [firstTeam])
-    console.log(firstTeam, secondTeam, 'wickets')
+    }, [firstTeam]);
+
+    useEffect(() => {
+        async function getupcoming() {
+            if (id?.length > 3) {
+                dispatch(getmatch(id));
+            }
+        }
+        getupcoming();
+    }, [id]);
+
+    console.log(firstTeam, secondTeam, 'wickets');
+
     return (
         <Container>
+            <div>
+                <h2>Scores Table</h2>
+                <ScoreCard data={matchlive} />
+            </div>
             <h1>Match Analysis</h1>
             {labels.length > 0 && firstTeam && secondTeam && <Line options={options} data={data} />}
             <div>

@@ -243,7 +243,7 @@ export function MatchDetails({ players }) {
               <NotificationAddOutlinedIcon />
             </RightSide>
           </Top>
-          {matchlive?.runFI && livescore?.matchScoreDetails && (
+          {livescore?.matchScoreDetails && (
             <>
               <Grid
                 container
@@ -288,7 +288,7 @@ export function MatchDetails({ players }) {
                   {matchlive.result == 'Complete' ? 'completed' : 'In Play'}
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'right' }}>
-                  {matchlive?.runSI && livescore?.matchScoreDetails && (
+                  {livescore?.matchScoreDetails && (
                     <>
                       <p
                         style={{
