@@ -84,13 +84,15 @@ export function Register() {
       if (data.data.success) {
         setSuccess(data.data.message);
         alert.success(data.data.message);
-        setOpen(true);
+        //setOpen(true);
+        navigate('/login')
       } else {
-        alert.error(data.data.message);
+        alert.error(e.response.data.message);
         setErr(data.data.message);
       }
     } catch (e) {
-      alert.error('Something went wrong!');
+      console.log(e, 'e')
+      alert.error(e.response.data.message);
     }
   };
 
@@ -103,7 +105,7 @@ export function Register() {
       alert.success(data.data.message);
     } catch (e) {
       alert.error('Invalid OTP!');
-      console.log(e.response.data.message,'e')
+      console.log(e.response.data.message, 'e')
       setErr(e.response.data.message)
     }
   };
@@ -121,6 +123,7 @@ export function Register() {
             id="email"
             label="Email"
             variant="outlined"
+            type="email"
             fullWidth
             margin="dense"
             {...register('email')}
@@ -134,6 +137,7 @@ export function Register() {
             variant="outlined"
             fullWidth
             margin="dense"
+            type="text"
             {...register('username')}
             error={!!errors.username}
           />

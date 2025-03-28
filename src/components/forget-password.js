@@ -73,7 +73,7 @@ export function ForgotPassword() {
     <>
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
-        Dream 11
+        FC4U
       </div>
       {!open ? (
         <div className="login">
@@ -86,28 +86,7 @@ export function ForgotPassword() {
                 justifyContent: 'space-evenly',
               }}
             >
-              <Button
-                variant="contained"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  color: 'black',
-                  width: '50%',
-                  marginRight: '1vw',
-                }}
-              >
-                Facebook
-              </Button>
-              <Button
-                variant="contained"
-                elevation="2"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  color: 'black',
-                  width: '50%',
-                }}
-              >
-                Google
-              </Button>
+              
             </div>
             <form onSubmit={handlesubmit} className="forgotform">
               <TextField

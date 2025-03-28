@@ -42,7 +42,7 @@ export function Login() {
       {/* Header */}
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
-        <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Dream 11</span>
+        <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>FC4U</span>
       </div>
 
       {/* Login Form Section */}
@@ -50,7 +50,7 @@ export function Login() {
         <Paper className="login-container">
           <h5 className="login-title">LOG IN & PLAY</h5>
 
-          {/* Social Login Buttons */}
+          {/* Social Login Buttons 
           <div className="social-login">
             <Button
               variant="contained"
@@ -71,7 +71,7 @@ export function Login() {
               Google
             </Button>
           </div>
-
+*/}
           {/* Login Form */}
           <form onSubmit={handlesubmit} className="login-form">
             <TextField
