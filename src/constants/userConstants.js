@@ -71,7 +71,8 @@ function geturl() {
   // return "http://54.172.255.164";
   // return 'https://apk.thepowerplay.co';
   // return 'http://localhost:8000';
-  return 'http://46.28.44.4:8000';
+  //return 'http://46.28.44.4:8000';
+  return "https://fantasycricket4u.com";
 }
 
 function getfrontendurl() {
