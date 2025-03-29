@@ -73,8 +73,8 @@ function geturl() {
   // return 'https://apk.thepowerplay.co';
   // return 'http://localhost:8000';
   //return 'http://46.28.44.4:8000';
-  //return "https://fantasycricket4u.com";
-  return "https://dreamelevenclonebackend-g4iw.onrender.com"
+  return "https://fantasycricket4u.com";
+  //return "https://dreamelevenclonebackend-g4iw.onrender.com"
 }
 
 function getfrontendurl() {
