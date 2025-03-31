@@ -47,16 +47,18 @@ export function NewPassword({
           alignItems: 'center',
         }}
       >
-        <Paper style={{ padding: '5vh 2vw', width: '90%', height: '30%' }}>
+        <Paper style={{ padding: '5vh 2vw', width: '90%', height:'30%',display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'center' }}>
           <TextField
             placeholder="enter password"
             variant="standard"
+            fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <TextField
             placeholder="confirm your password"
             variant="standard"
+            fullWidth
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />

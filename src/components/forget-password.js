@@ -121,7 +121,7 @@ export function ForgotPassword() {
           setOpen={setOpen}
           otp={otp}
           setOtp={setOtp}
-          handleotp={handleotp}
+          handleOtp={handleotp}
           err={err}
         />
       ) : (
