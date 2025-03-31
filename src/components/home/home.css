@@ -252,7 +252,7 @@
 }
 
 .pastMatchContainer{
-  padding: 0 65px;
+  padding: 0 90px !important;
 }
 
 @media screen and (max-width: 600px) {
