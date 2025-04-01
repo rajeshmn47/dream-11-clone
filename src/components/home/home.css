@@ -260,6 +260,15 @@
     padding: 0px 0px;
   }
   .pastMatchContainer{
-    padding: 0 0px;
+    padding: 0 0px !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .matchcontainere {
+    padding: 0px 0px;
+  }
+  .pastMatchContainer{
+    padding: 0 0px !important;
   }
 }
