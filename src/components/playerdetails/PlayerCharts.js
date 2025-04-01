@@ -56,32 +56,30 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
         switch (timeFrame) {
           case 'weekly':
             startDate = new Date(now);
-            startDate.setDate(now.getDate() - 7);
+            startDate.setDate(now.getDate() - 120);
             break;
           case 'monthly':
             startDate = new Date(now);
-            startDate.setMonth(now.getMonth() - 1);
+            startDate.setMonth(now.getMonth() - 12);
             break;
           case 'yearly':
           default:
             startDate = new Date(now);
-            startDate.setFullYear(now.getFullYear() - 1);
+            startDate.setFullYear(now.getFullYear() - 10);
             break;
         }
-
         return matches.filter(match => new Date(match.date) >= startDate);
       };
-
-      const playerMatches = filterMatchesByTimeFrame(allMatches?.filter(match =>
-        match.teamHomePlayers.some(player => player.playerId === playerId) ||
-        match.teamAwayPlayers.some(player => player.playerId === playerId)
-      ), timeFrame);
-
-      setFilteredMatches(playerMatches);
     }
+    const playerMatches = filterMatchesByTimeFrame(allMatches?.filter(match =>
+      match.teamHomePlayers.some(player => player.playerId === playerId) ||
+      match.teamAwayPlayers.some(player => player.playerId === playerId)
+    ), timeFrame);
+    console.log(playerMatches, 'player mtches')
+    setFilteredMatches(playerMatches);
   }, [allMatches, timeFrame, playerId]);
 
-  const recentMatches = filteredMatches.map(match => {
+  const recentMatches = filteredMatches?.map(match => {
     const isHome = match.teamHomePlayers.some(player => player.playerId === playerId);
     const playerStats = isHome
       ? match.teamHomePlayers.find(player => player.playerId === playerId)
@@ -96,7 +94,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
     };
   });
 
-  const averageStats = recentMatches.reduce((acc, match) => {
+  const averageStats = recentMatches?.reduce((acc, match) => {
     acc.runs += match.runs;
     acc.balls += match.balls;
     acc.wickets += match.wickets;
@@ -104,18 +102,18 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
     return acc;
   }, { runs: 0, balls: 0, wickets: 0, economy: 0 });
 
-  const numMatches = recentMatches.length;
+  const numMatches = recentMatches?.length;
   const averages = {
-    runs: numMatches ? (averageStats.runs / numMatches).toFixed(2) : 0,
-    strikeRate: averageStats.balls ? ((averageStats.wickets / averageStats.balls) * 100).toFixed(2) : 0,
-    economy: numMatches ? (averageStats.economy / numMatches).toFixed(2) : 0,
+    runs: numMatches ? (averageStats?.runs / numMatches).toFixed(2) : 0,
+    strikeRate: averageStats?.balls ? ((averageStats.wickets / averageStats.balls) * 100).toFixed(2) : 0,
+    economy: numMatches ? (averageStats?.economy / numMatches).toFixed(2) : 0,
   };
 
-  console.log('Filtered Matches:', filteredMatches);
+  console.log('Filtered Matches:', allMatches);
   console.log('Recent Matches:', recentMatches);
   console.log('Averages:', averages);
 
-  const chartLabels = recentMatches.map(match => {
+  const chartLabels = recentMatches?.map(match => {
     if (timeFrame === 'weekly') {
       return `Week ${getWeek(parseISO(match.date))}`;
     } else if (timeFrame === 'monthly') {
@@ -130,7 +128,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
     datasets: [
       {
         label: 'Runs',
-        data: recentMatches.map(match => match.runs),
+        data: recentMatches?.map(match => match.runs),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
@@ -144,7 +142,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
     datasets: [
       {
         label: 'Wickets',
-        data: recentMatches.map(match => match.wickets),
+        data: recentMatches?.map(match => match.wickets),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
@@ -152,7 +150,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
       },
       {
         label: 'Economy',
-        data: recentMatches.map(match => match.economy),
+        data: recentMatches?.map(match => match.economy),
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         borderColor: 'rgba(153, 102, 255, 1)',
         borderWidth: 1,

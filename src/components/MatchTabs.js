@@ -25,6 +25,7 @@ import ScoreCard from './scorecard/scorecard';
 import SelectTeam from './selectteam';
 import Stats from './stats';
 import { TeamShort } from './TeamShort';
+import ReactPullToRefresh from 'react-pull-to-refresh';
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -285,7 +286,7 @@ function a11yProps(index) {
   };
 }
 
-export default function MatchTabs({ tabs, g, livescore }) {
+export default function MatchTabs({ tabs, g, livescore, getdata }) {
   const [value, setValue] = React.useState(0);
   const {
     user, isAuthenticated, loading, error,
@@ -308,26 +309,10 @@ export default function MatchTabs({ tabs, g, livescore }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getplayers() {
-      if (user?._id && id) {
-        const data = await API.get(`${URL}/getteam/?matchId=${id}`);
-        const joinedC = await API.get(`${URL}/getjoinedcontest/${id}`);
-        leaderboardChanges(joinedC.data.contests);
-        setContest([...joinedC.data.contests]);
-        setTeam([...data.data.team]);
-      }
-    }
     getplayers();
   }, [user, id]);
+
   useEffect(() => {
-    async function getteams() {
-      if (contest[0]?._id) {
-        const teamdata = await API.get(
-          `${URL}/getteamsofcontest/${contest[0]?._id}`,
-        );
-        setLeaderboard(teamdata.data.teams);
-      }
-    }
     getteams();
   }, [contest]);
 
@@ -336,15 +321,18 @@ export default function MatchTabs({ tabs, g, livescore }) {
       setOpen(true);
     }
   }, [selectTeams]);
+  
   useEffect(() => {
     setSelectTeams({
       open: false,
       team: selectedTeam,
     });
   }, [selectedTeam]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const handleOpen = (e, i) => {
     if (!e) var e = window.event;
     e.cancelBubble = true;
@@ -361,9 +349,29 @@ export default function MatchTabs({ tabs, g, livescore }) {
       }
     }
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  async function getteams() {
+    if (contest[0]?._id) {
+      const teamdata = await API.get(
+        `${URL}/getteamsofcontest/${contest[0]?._id}`,
+      );
+      setLeaderboard(teamdata.data.teams);
+    }
+  }
+
+  async function getplayers() {
+    if (user?._id && id) {
+      const data = await API.get(`${URL}/getteam/?matchId=${id}`);
+      const joinedC = await API.get(`${URL}/getjoinedcontest/${id}`);
+      leaderboardChanges(joinedC.data.contests);
+      setContest([...joinedC.data.contests]);
+      setTeam([...data.data.team]);
+    }
+  }
 
   const handlejoin = async (t) => {
     console.log('join contest');
@@ -381,329 +389,359 @@ export default function MatchTabs({ tabs, g, livescore }) {
     leaderboardChanges(joinedC.data.contests);
     setSelectTeams({ selected: false, team: t });
   };
+
+  const refreshData = async () => {
+    getdata();
+    getteams();
+    getplayers();
+  };
+
   console.log(contest, matchlive, 'match_details');
-  return (
-    <div style={{ zIndex: '1' }}>
-      {!selectTeams.selected ? (
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              variant="scrollable"
-              scrollButtons
-              allowScrollButtonsMobile
-              aria-label="scrollable force tabs example"
-            >
-              <Tab label="Contests" {...a11yProps(0)} />
-              <Tab
-                label={`My Contests(${contest && contest.length})`}
-                {...a11yProps(1)}
-              />
-              <Tab
-                label={`My Teams(${team && team.length})`}
-                {...a11yProps(2)}
-              />
-              <Tab label="Commentary" {...a11yProps(3)} />
-              <Tab label="Scorecard" {...a11yProps(4)} />
-              <Tab label="Stats" {...a11yProps(5)} />
-              <Tab label="Live" {...a11yProps(6)} />
-            </Tabs>
-          </Box>
 
-          <TabPanel value={value} index={0}>
-            <ContestsContainer container spacing={2} justifyContent="center">
-              {tabs
-                && tabs.map((tab) => (
-                  <Grid item md={4} lg={4} sm={12} xs={12}
-                    onClick={() => navigate(`/contestdetail/${tab._id}`, {
-                      state: {
-                        match_details: matchlive,
-                      },
-                    })}
-                  >
-                    <ContestContainer>
-                      <Contest>
-                        <First>
-                          <p>Prize Pool</p>
-                          <p>Entry</p>
-                        </First>
-                        <First>
-                          <h1>{tab.price}</h1>
-                          <First>
-                            <del>₹ 19</del>
-                            <FreeButton onClick={(e) => handleOpen(e, tab)}>
-                              ₹
-                              {' '}
-                              {Math.floor(tab.price / tab.totalSpots)}
-                            </FreeButton>
-                          </First>
-                        </First>
-                        <SliderContainer>
-                          <Slider
-                            defaultValue={tab.totalSpots - tab.spotsLeft}
-                            min={0}
-                            max={tab.totalSpots}
-                            disabled
-                          />
-                        </SliderContainer>
-                        <First>
-                          <SpotsLeft>
-                            {tab.spotsLeft}
-                            {' '}
-                            spots left
-                          </SpotsLeft>
-                          <SpotsRight>
-                            {tab.totalSpots}
-                            {' '}
-                            spots
-                          </SpotsRight>
-                        </First>
-                      </Contest>
-                      <Last>
-                        ₹
-                        {Math.floor(tab.price / tab.totalSpots)}
-                        <EmojiEventsOutlinedIcon
-                          style={{ margin: '0 15px', marginBottom: '3px' }}
-                        />
-                        {Math.floor((tab.numWinners / tab.totalSpots) * 100)}
-                        %
-                        Single
-                      </Last>
-                    </ContestContainer>
-                  </Grid>
-                ))}
-              <ConfirmModal
-                open={open}
-                setOpen={setOpen}
-                handleclose={handleClose}
-                modal={modal}
-                teamid={selectedTeam?._id}
-                id={id}
-                loadjoined={loadjoined}
-                setSelectedTeam={setSelectedTeam}
-              />
-            </ContestsContainer>
-          </TabPanel>
-
-          <TabPanel value={value} index={1}>
-            <ContestsContainer container spacing={2} justifyContent="center">
-              {contest.length > 0 ? (
-                contest.map((tab) => (
-                  <Grid item md={4} lg={4} sm={12} xs={12}
-                    onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
-                      state: {
-                        match_details: matchlive,
-                      },
-                    })}
-                  >
-                    <ContestContainerJ item md={6} lg={6} sm={12} xs={12}
-                      onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
-                        state: {
-                          match_details: matchlive,
-                        },
-                      })}
-                    >
-                      <ContestJ>
-                        <First>
-                          <div>
-                            <p>Prize Pool</p>
-                            ₹
-                            {tab?.contest?.price}
-                          </div>
-                          <div>
-                            <p>spots</p>
-                            <p>{Math.floor(tab?.contest?.totalSpots)}</p>
-                          </div>
-                          <div>
-                            <p>Entry</p>
-                            <p>
-                              ₹
-                              {Math.floor(
-                                tab?.contest?.price / tab?.contest?.totalSpots,
-                              )}
-                            </p>
-                          </div>
-                          {matchlive?.result == 'Complet' && (
-                            <h5
-                              style={{
-                                color: 'var(--green)',
-                                fontFamily: 'OpenSans',
-                              }}
-                            >
-                              u won
-                              {' '}
-                              {tab?.team?.won}
-                              rs!
-                            </h5>
-                          )}
-                        </First>
-                      </ContestJ>
-                      <LastJ>
-                        <div>
-                          <p style={{ display: 'flex', alignItems: 'center' }}>
-                            <F>1st</F>
-                            {' '}
-                            {tab.contest.prizeDetails[0].prize}
-                          </p>
-                        </div>
-                        <First>
-                          <EmojiEventsOutlinedIcon />
+  const tabConfig = [
+    {
+      label: "Contests",
+      condition: !(matchlive?.result === "In Progress" || matchlive?.result === "Complete"),
+      content: (
+        <ContestsContainer container spacing={2} justifyContent="center">
+          {tabs
+            && tabs.map((tab) => (
+              <Grid item md={4} lg={4} sm={12} xs={12}
+                onClick={() => navigate(`/contestdetail/${tab._id}`, {
+                  state: {
+                    match_details: matchlive,
+                  },
+                })}
+              >
+                <ContestContainer>
+                  <Contest>
+                    <First>
+                      <p>Prize Pool</p>
+                      <p>Entry</p>
+                    </First>
+                    <First>
+                      <h1>{tab.price}</h1>
+                      <First>
+                        <del>₹ 19</del>
+                        <FreeButton onClick={(e) => handleOpen(e, tab)}>
+                          ₹
                           {' '}
-                          {Math.floor((5 / tab.contest.totalSpots) * 100)}
-                          %
-                        </First>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <M>m</M>
-                          <C>c</C>
-                        </div>
-                      </LastJ>
-                      {tab.teams.map((t) => (
-                        <StatusC>
-                          <SpotsLeft>
-                            {t?.username}
-                            {matchlive?.result == 'Complete' ? (
-                              <p
-                                style={{
-                                  color: 'var(--green)',
-                                  fontSize: '12px',
-                                }}
-                              >
-                                you won ₹
-                                {t.won}
-                              </p>
-                            ) : (
-                              <p
-                                style={{
-                                  color: 'var(--green)',
-                                  fontSize: '12px',
-                                }}
-                              >
-                                IN WINNING ZONE
-                              </p>
-                            )}
-                          </SpotsLeft>
-                          <SpotsLeft>
-                            T
-                            {t?.teamId}
-                          </SpotsLeft>
-                          <SpotsLeft>{t?.points}</SpotsLeft>
-                          <SpotsRight
-                            style={{ display: 'flex', alignItems: 'center' }}
+                          {Math.floor(tab.price / tab.totalSpots)}
+                        </FreeButton>
+                      </First>
+                    </First>
+                    <SliderContainer>
+                      <Slider
+                        defaultValue={tab.totalSpots - tab.spotsLeft}
+                        min={0}
+                        max={tab.totalSpots}
+                        disabled
+                      />
+                    </SliderContainer>
+                    <First>
+                      <SpotsLeft>
+                        {tab.spotsLeft}
+                        {' '}
+                        spots left
+                      </SpotsLeft>
+                      <SpotsRight>
+                        {tab.totalSpots}
+                        {' '}
+                        spots
+                      </SpotsRight>
+                    </First>
+                  </Contest>
+                  <Last>
+                    ₹
+                    {Math.floor(tab.price / tab.totalSpots)}
+                    <EmojiEventsOutlinedIcon
+                      style={{ margin: '0 15px', marginBottom: '3px' }}
+                    />
+                    {Math.floor((tab.numWinners / tab.totalSpots) * 100)}
+                    %
+                    Single
+                  </Last>
+                </ContestContainer>
+              </Grid>
+            ))}
+          <ConfirmModal
+            open={open}
+            setOpen={setOpen}
+            handleclose={handleClose}
+            modal={modal}
+            teamid={selectedTeam?._id}
+            id={id}
+            loadjoined={loadjoined}
+            setSelectedTeam={setSelectedTeam}
+          />
+        </ContestsContainer>
+      ),
+    },
+    {
+      label: `My Contests (${contest.length})`,
+      condition: contest.length > 0,
+      content: (
+        <ContestsContainer container spacing={2} justifyContent="center">
+          {contest.length > 0 ? (
+            contest.map((tab) => (
+              <Grid item md={4} lg={4} sm={12} xs={12}
+                onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
+                  state: {
+                    match_details: matchlive,
+                  },
+                })}
+              >
+                <ContestContainerJ item md={6} lg={6} sm={12} xs={12}
+                  onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
+                    state: {
+                      match_details: matchlive,
+                    },
+                  })}
+                >
+                  <ContestJ>
+                    <First>
+                      <div>
+                        <p>Prize Pool</p>
+                        ₹
+                        {tab?.contest?.price}
+                      </div>
+                      <div>
+                        <p>spots</p>
+                        <p>{Math.floor(tab?.contest?.totalSpots)}</p>
+                      </div>
+                      <div>
+                        <p>Entry</p>
+                        <p>
+                          ₹
+                          {Math.floor(
+                            tab?.contest?.price / tab?.contest?.totalSpots,
+                          )}
+                        </p>
+                      </div>
+                      {matchlive?.result == 'Complet' && (
+                        <h5
+                          style={{
+                            color: 'var(--green)',
+                            fontFamily: 'OpenSans',
+                          }}
+                        >
+                          u won
+                          {' '}
+                          {tab?.team?.won}
+                          rs!
+                        </h5>
+                      )}
+                    </First>
+                  </ContestJ>
+                  <LastJ>
+                    <div>
+                      <p style={{ display: 'flex', alignItems: 'center' }}>
+                        <F>1st</F>
+                        {' '}
+                        {tab.contest.prizeDetails[0].prize}
+                      </p>
+                    </div>
+                    <First>
+                      <EmojiEventsOutlinedIcon />
+                      {' '}
+                      {Math.floor((5 / tab.contest.totalSpots) * 100)}
+                      %
+                    </First>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <M>m</M>
+                      <C>c</C>
+                    </div>
+                  </LastJ>
+                  {tab.teams.map((t) => (
+                    <StatusC>
+                      <SpotsLeft>
+                        {t?.username}
+                        {matchlive?.result == 'Complete' ? (
+                          <p
+                            style={{
+                              color: 'var(--green)',
+                              fontSize: '12px',
+                            }}
                           >
-                            #
-                            {t?.rank}
-                            {t?.rank < tab?.contest?.prizeDetails?.length ? (
-                              <ArrowUpwardIcon
-                                style={{
-                                  color: 'var(--green)',
-                                  fontSize: '18px',
-                                  marginLeft: '5px',
-                                }}
-                              />
-                            ) : (
-                              <SouthIcon
-                                style={{
-                                  color: 'red',
-                                  fontSize: '18px',
-                                  marginLeft: '5px',
-                                }}
-                              />
-                            )}
-                          </SpotsRight>
-                        </StatusC>
-                      ))}
-                    </ContestContainerJ>
-                  </Grid>
-                ))
-              ) : (
-                <NoContests>
-                  <p> you have not joined a contest yet!</p>
-                  <img src={`${FURL}/contest.png`} alt="" />
-                  <p>What are you waiting for?</p>
-                  <JoincontestBtn onClick={() => setValue(0)}>
-                    join a contest
-                  </JoincontestBtn>
-                </NoContests>
-              )}
-            </ContestsContainer>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Grid container spacing={2} justifyContent="center">
-              {team?.length > 0
-                && team.map((t) => (
-                  <TeamShort
-                    match={matchlive || match_details}
-                    match_info={match_details}
-                    players={t.players}
-                    plo={t}
-                    id={id}
-                  />
-                ))}
-              {!(
-                matchlive?.result == 'In Progress'
-                || matchlive?.result == 'Complete'
-              ) && (
-                  <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
-                    <AddCircleOutlineRoundedIcon />
-                    <p style={{ textTransform: 'uppercase' }}>create team</p>
-                  </CreateTeam>
-                )}
-            </Grid>
-          </TabPanel>
-          <TabP value={value} index={3}>
-            <Commentary matchdata={match_details} />
-          </TabP>
-          <TabP value={value} index={4}>
-            <ScoreCard data={matchlive} g={g} livescore={livescore} />
-          </TabP>
-          <TabP value={value} index={5}>
-            <Stats matchdata={matchlive || match_details} team={team} />
-          </TabP>
-          <TabP value={value} index={6}>
-            <video
-              id="videoPlayer"
-              width="100%"
-              controls
-              autoPlay
-              muted={false}
-            >
-              <source src={`${URL}/video`} type="video/mp4" />
-            </video>
-          </TabP>
-        </Box>
-      ) : (
-        team?.length > 0 && (
-          <>
-            <Heading>Please select team by clicking button in the side</Heading>
-            {team.map((t) => (
-              <SelectTeam
+                            you won ₹
+                            {t.won}
+                          </p>
+                        ) : (
+                          <p
+                            style={{
+                              color: 'var(--green)',
+                              fontSize: '12px',
+                            }}
+                          >
+                            IN WINNING ZONE
+                          </p>
+                        )}
+                      </SpotsLeft>
+                      <SpotsLeft>
+                        T
+                        {t?.teamId}
+                      </SpotsLeft>
+                      <SpotsLeft>{t?.points}</SpotsLeft>
+                      <SpotsRight
+                        style={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        #
+                        {t?.rank}
+                        {t?.rank < tab?.contest?.prizeDetails?.length ? (
+                          <ArrowUpwardIcon
+                            style={{
+                              color: 'var(--green)',
+                              fontSize: '18px',
+                              marginLeft: '5px',
+                            }}
+                          />
+                        ) : (
+                          <SouthIcon
+                            style={{
+                              color: 'red',
+                              fontSize: '18px',
+                              marginLeft: '5px',
+                            }}
+                          />
+                        )}
+                      </SpotsRight>
+                    </StatusC>
+                  ))}
+                </ContestContainerJ>
+              </Grid>
+            ))
+          ) : (
+            <NoContests>
+              <p> you have not joined a contest yet!</p>
+              <img src={`${FURL}/contest.png`} alt="" />
+              <p>What are you waiting for?</p>
+              <JoincontestBtn onClick={() => setValue(0)}>
+                join a contest
+              </JoincontestBtn>
+            </NoContests>
+          )}
+        </ContestsContainer>
+      ),
+    },
+    {
+      label: `My Teams (${team?.length})`,
+      condition: match_details,
+      content: (
+        <Grid container spacing={2} justifyContent="center">
+          {team?.length > 0
+            && team.map((t) => (
+              <TeamShort
+                match={matchlive || match_details}
+                match_info={match_details}
                 players={t.players}
                 plo={t}
                 id={id}
-                teamIds={
-                  contest
-                    .find((c) => c?.contest?._id == modal?._id)
-                    ?.teams?.map((t) => t?._id).length > 0
-                    && contest?.length > 0
-                    ? [
-                      ...contest
-                        .find((c) => c?.contest?._id == modal?._id)
-                        ?.teams?.map((t) => t?._id),
-                    ]
-                    : ['id']
-                }
-                selectTeams={selectTeams}
-                setSelectTeams={setSelectTeams}
-                selectedTeam={selectedTeam}
-                setSelectedTeam={setSelectedTeam}
-                match={matchlive || match_details}
-                matchdetails={match_details}
               />
             ))}
-          </>
-        )
-      )}
-    </div>
+          {!(
+            matchlive?.result == 'In Progress'
+            || matchlive?.result == 'Complete'
+          ) && (
+              <CreateTeam onClick={() => navigate(`/createteam/${id}`)}>
+                <AddCircleOutlineRoundedIcon />
+                <p style={{ textTransform: 'uppercase' }}>create team</p>
+              </CreateTeam>
+            )}
+        </Grid>
+      ),
+    },
+    {
+      label: "Commentary",
+      condition: !!matchlive,
+      content: <Commentary matchdata={match_details} />,
+    },
+    {
+      label: "Scorecard",
+      condition: !!matchlive,
+      content: <ScoreCard data={matchlive} g={g} livescore={livescore} />,
+    },
+    {
+      label: "Stats",
+      condition: match_details,
+      content: <Stats matchdata={matchlive || match_details} team={team} />,
+    },
+    {
+      label: "Live",
+      condition: matchlive,
+      content: (
+        <video id="videoPlayer" width="100%" controls autoPlay muted={false}>
+          <source src={`${URL}/video`} type="video/mp4" />
+        </video>
+      ),
+    },
+  ];
+
+  return (
+    <ReactPullToRefresh onRefresh={refreshData}>
+      <div style={{ zIndex: '1' }}>
+        {!selectTeams.selected ? (
+          <Box sx={{ width: '100%' }}>
+            <div style={{ zIndex: "1" }}>
+              <Box sx={{ width: "100%" }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    variant="scrollable"
+                    scrollButtons
+                    allowScrollButtonsMobile
+                    aria-label="scrollable force tabs example"
+                  >
+                    {tabConfig
+                      .filter((tab) => tab.condition) // Only render tabs that meet the condition
+                      .map((tab, index) => (
+                        <Tab key={index} label={tab.label} {...a11yProps(index)} />
+                      ))}
+                  </Tabs>
+                </Box>
+                {tabConfig
+                  .filter((tab) => tab.condition) // Only render TabPanels that meet the condition
+                  .map((tab, index) => (
+                    <TabPanel key={index} value={value} index={index}>
+                      {tab.content}
+                    </TabPanel>
+                  ))}
+              </Box>
+            </div>
+          </Box>
+        ) : (
+          team?.length > 0 && (
+            <>
+              <Heading>Please select team by clicking button in the side</Heading>
+              {team.map((t) => (
+                <SelectTeam
+                  players={t.players}
+                  plo={t}
+                  id={id}
+                  teamIds={
+                    contest
+                      .find((c) => c?.contest?._id == modal?._id)
+                      ?.teams?.map((t) => t?._id).length > 0
+                      && contest?.length > 0
+                      ? [
+                        ...contest
+                          .find((c) => c?.contest?._id == modal?._id)
+                          ?.teams?.map((t) => t?._id),
+                      ]
+                      : ['id']
+                  }
+                  selectTeams={selectTeams}
+                  setSelectTeams={setSelectTeams}
+                  selectedTeam={selectedTeam}
+                  setSelectedTeam={setSelectedTeam}
+                  match={matchlive || match_details}
+                  matchdetails={match_details}
+                />
+              ))}
+            </>
+          )
+        )}
+      </div>
+    </ReactPullToRefresh>
   );
 }

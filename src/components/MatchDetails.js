@@ -160,6 +160,9 @@ export function MatchDetails({ players }) {
   const dispatch = useDispatch();
   const [commentary, setCommentary] = useState([]);
   const [livescore, setLivescore] = useState();
+  const { search } = useLocation();
+  const history = useNavigate();
+  const { id } = useParams();
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -171,25 +174,6 @@ export function MatchDetails({ players }) {
     });
   };
   useEffect(() => {
-    async function getdata(m) {
-      if (match_details?.matchId) {
-        const docRef = doc(db, 'commentary', match_details.matchId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-        } else {
-          // docSnap.data() will be undefined in this case
-        }
-        const unsub = onSnapshot(
-          doc(db, 'commentary', match_details?.matchId),
-          (doc) => {
-            if (doc.data()) {
-              setCommentary([...doc.data().commentary]);
-              setLivescore({ ...doc.data().miniscore });
-            }
-          },
-        );
-      }
-    }
     getdata(match_details);
     // onSnapshot((docRef, "cities"), (snapshot) => {
     // let array = []; // Get users all recent talks and render that in leftColumn content
@@ -203,20 +187,39 @@ export function MatchDetails({ players }) {
       window.removeEventListener('resize', showAnimation);
     };
   }, [dimensions]);
-  const { search } = useLocation();
-  const history = useNavigate();
 
-  const { id } = useParams();
   useEffect(() => {
-    async function getupcoming() {
-      if (id?.length > 3) {
-        dispatch(getmatch(id));
-        const data = await API.get(`${URL}/getcontests/${id}`);
-        setContests(data.data.contests);
-      }
-    }
     getupcoming();
   }, [id]);
+
+  async function getupcoming() {
+    if (id?.length > 3) {
+      dispatch(getmatch(id));
+      const data = await API.get(`${URL}/getcontests/${id}`);
+      setContests(data.data.contests);
+    }
+  }
+
+  async function getdata(m) {
+    if (match_details?.matchId) {
+      const docRef = doc(db, 'commentary', match_details.matchId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+      } else {
+        // docSnap.data() will be undefined in this case
+      }
+      const unsub = onSnapshot(
+        doc(db, 'commentary', match_details?.matchId),
+        (doc) => {
+          if (doc.data()) {
+            setCommentary([...doc.data().commentary]);
+            setLivescore({ ...doc.data().miniscore });
+          }
+        },
+      );
+    }
+  }
+
   return (
     <Container>
       <>
@@ -262,9 +265,9 @@ export function MatchDetails({ players }) {
                       overflow: 'hidden',
                     }}
                   >
-                    {matchlive.titleFI}
+                    {matchlive?.titleFI}
                   </p>
-                  {livescore.matchScoreDetails.inningsScoreList[1]?.overs&&<p>
+                  {livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
                     {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[1]?.wickets
@@ -300,7 +303,7 @@ export function MatchDetails({ players }) {
                         {' '}
                         {matchlive.titleSI}
                       </p>
-                      {livescore.matchScoreDetails.inningsScoreList[0]?.overs&&<p>
+                      {livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
                         {' '}
                         {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                         /
@@ -371,6 +374,7 @@ export function MatchDetails({ players }) {
             id={id}
             g={match_details}
             livescore={livescore}
+            getdata={getupcoming}
           />
         </Bottom>
       </>
