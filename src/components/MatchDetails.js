@@ -305,7 +305,7 @@ export function MatchDetails({ players }) {
                         }}
                       >
                         {' '}
-                        {matchlive.titleSI}
+                        {matchlive?.titleSI}
                       </p>
                       {livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
                         {' '}
