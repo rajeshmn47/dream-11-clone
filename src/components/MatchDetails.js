@@ -292,7 +292,7 @@ export function MatchDetails({ players }) {
                   }}
                 >
                   <GreenMark />
-                  {matchlive.result == 'Complete' ? 'completed' : 'In Play'}
+                  {matchlive?.result == 'Complete' ? 'completed' : 'In Play'}
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'right' }}>
                   {livescore?.matchScoreDetails && (
