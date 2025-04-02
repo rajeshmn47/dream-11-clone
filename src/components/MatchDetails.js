@@ -27,6 +27,7 @@ import db from '../firebase';
 import { showName } from '../utils/name';
 import MatchTabs from './MatchTabs';
 import ShowOver from './showover';
+import Loader from './loader';
 
 const TopContainer = styled.div`
   background-color: var(--black);
@@ -155,11 +156,12 @@ const BottomT = styled.div`
   justify-content: space-between;
 `;
 export function MatchDetails({ players }) {
-  const { match_details, matchlive } = useSelector((state) => state.match);
+  const { match_details, matchlive, loading } = useSelector((state) => state.match);
   const [contests, setContests] = useState([]);
   const dispatch = useDispatch();
   const [commentary, setCommentary] = useState([]);
   const [livescore, setLivescore] = useState();
+  //const [loading, setLoading] = useState(true);
   const { search } = useLocation();
   const history = useNavigate();
   const { id } = useParams();
@@ -167,6 +169,7 @@ export function MatchDetails({ players }) {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
   const showAnimation = () => {
     setDimensions({
       width: window.innerWidth,
@@ -223,6 +226,7 @@ export function MatchDetails({ players }) {
   return (
     <Container>
       <>
+        {loading && <Loader />}
         <TopContainer>
           <Top>
             <LeftSide>

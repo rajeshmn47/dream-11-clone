@@ -6,6 +6,7 @@ const Container = styled.div`
   left: 47%;
   top: 47%;
   display: flex;
+  z-index:10000000000000000;
   align-items: center;
   justify-content: center;
   .MuiCircularProgress-root {
