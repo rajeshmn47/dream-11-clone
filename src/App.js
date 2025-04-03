@@ -1,5 +1,6 @@
 import './App.css';
 import 'react-whatsapp-widget/dist/index.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useEffect, useState } from 'react';
 import ReactCanvasConfetti from 'react-confetti';
@@ -7,8 +8,10 @@ import ReactGA from 'react-ga';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { WhatsAppWidget } from 'react-whatsapp-widget';
+import { ToastContainer, toast } from 'react-toastify';
 
-import { loadUser } from './actions/userAction';
+import { API, loadUser } from './actions/userAction';
+import { requestNotificationPermission, onMessageListener } from './firebase';
 import Admin from './components/admin/Admin';
 import Completed from './components/completed';
 import ContestDetail from './components/contestdetail';
@@ -39,11 +42,15 @@ import TransactionTabs from './components/transaction';
 import PlayerDetail from './components/playerDetail';
 import SeriesDetails from './components/seriesdetails';
 import MatchAnalysis from './components/analytics/matchAnalysis';
-import Bowler from './components/Bowler'
+import Bowler from './components/Bowler';
+import { URL } from './constants/userConstants';
 
 function App() {
   const dispatch = useDispatch();
   const { confetti } = useSelector((state) => state.user);
+  const { user, isAuthenticated, loading, error, } = useSelector(
+    (state) => state.user,
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [dimensions, setDimensions] = useState({
@@ -57,6 +64,7 @@ function App() {
       height: window.innerHeight,
     });
   };
+
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
@@ -67,19 +75,18 @@ function App() {
       window.removeEventListener('resize', showAnimation);
     };
   }, [dimensions]);
+
   const TRACKING_ID = 'G-YWB7BCRZML';
   ReactGA.initialize(TRACKING_ID);
-  const {
-    user, isAuthenticated, loading, error,
-  } = useSelector(
-    (state) => state.user,
-  );
+
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
+
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
+
   const checkUserToken = () => {
     const userToken = localStorage.getItem('user-token');
     if (!userToken || userToken === 'undefined') {
@@ -87,6 +94,32 @@ function App() {
     }
     setIsLoggedIn(true);
   };
+
+  useEffect(() => {
+    // Request notification permission on app load
+    const getTokenAndSave = async () => {
+      const token = await requestNotificationPermission();
+      if (token && user?._id) {
+        console.log('FCM Token:', token);
+        // Save the token to your backend
+        await API.post(`${URL}/auth/save-token`,
+          {
+            userId: user?._id, // Replace with actual user ID
+            token,
+          },
+        );
+      }
+    }
+    getTokenAndSave();
+    // Listen for foreground messages
+    onMessageListener()
+      .then((payload) => {
+        console.log('Message received: ', payload);
+        toast.info(`Notification: ${payload.notification.title}`);
+      })
+      .catch((err) => console.error('Failed to receive message: ', err));
+  }, [user]);
+
   return (
     <>
       <BrowserRouter>
@@ -120,9 +153,9 @@ function App() {
           <Route path="/helpAndSupport" element={<HelpAndSupport />} />
           <Route path="/more" element={<More />} />
           <Route path="/donate" element={<Donate />} />
-          <Route path="/player/:id" element={<PlayerDetail/>} />
-          <Route path="/series/:name" element={<SeriesDetails/>} />
-          <Route path="/bowler" element={<Bowler/>} />
+          <Route path="/player/:id" element={<PlayerDetail />} />
+          <Route path="/series/:name" element={<SeriesDetails />} />
+          <Route path="/bowler" element={<Bowler />} />
         </Routes>
       </BrowserRouter>
       {confetti && (
@@ -135,6 +168,7 @@ function App() {
       <div className="whatsappwidget">
         <WhatsAppWidget phoneNumber="7259293140" />
       </div>
+      <ToastContainer />
     </>
   );
 }
