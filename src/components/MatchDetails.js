@@ -23,7 +23,7 @@ import {
 import { getmatch } from '../actions/matchAction';
 import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
-import db from '../firebase';
+import { db } from '../firebase';
 import { showName } from '../utils/name';
 import MatchTabs from './MatchTabs';
 import ShowOver from './showover';

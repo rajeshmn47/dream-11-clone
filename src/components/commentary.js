@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { addconfetti, removeconfetti } from '../actions/userAction';
-import db from '../firebase';
+import { db } from "../firebase"
 import Animate from './animate';
 
 const CommentaryContainer = styled.div`
@@ -99,7 +99,7 @@ export function Commentary({ matchdata }) {
   const scrollit = useRef();
   const dispatch = useDispatch();
   const [confetti, setConfetti] = useState(false);
-  const [eventType,setEventType]=useState("");
+  const [eventType, setEventType] = useState("");
 
   useEffect(() => {
     async function getdata() {
