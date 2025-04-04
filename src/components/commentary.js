@@ -99,9 +99,10 @@ export function Commentary({ matchdata }) {
   const scrollit = useRef();
   const dispatch = useDispatch();
   const [confetti, setConfetti] = useState(false);
+  const [eventType,setEventType]=useState("");
 
   useEffect(() => {
-    async function getdata(m) {
+    async function getdata() {
       if (matchdata.matchId) {
         const docRef = doc(db, 'commentary', matchdata.matchId);
         const docSnap = await getDoc(docRef);
@@ -119,7 +120,7 @@ export function Commentary({ matchdata }) {
         );
       }
     }
-    getdata(matchdata);
+    getdata();
     // onSnapshot((docRef, "cities"), (snapshot) => {
     // let array = []; // Get users all recent talks and render that in leftColumn content
     // console.log(snapshot, "snaps");
@@ -133,6 +134,7 @@ export function Commentary({ matchdata }) {
         dispatch(removeconfetti());
       }, 4000);
     } else if (commentary[0]?.event == 'FOUR') {
+      setEventType("four");
       dispatch(addconfetti());
       setTimeout(() => {
         dispatch(removeconfetti());
@@ -215,6 +217,9 @@ export function Commentary({ matchdata }) {
         </>
       ))}
       <Animate confetti={confetti} setConfetti={setConfetti} />
+      {eventType === "four" && <img src="/four.gif" alt="Four" className="event-gif" />}
+      {eventType === "six" && <img src="/six.gif" alt="Six" className="event-gif" />}
+      {eventType === "wicket" && <img src="/wicket.gif" alt="Wicket" className="event-gif" />}
     </CommentaryContainer>
   );
 }
