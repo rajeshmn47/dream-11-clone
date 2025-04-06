@@ -30,6 +30,9 @@ const Container = styled.div`
   a {
     text-decoration: none;
   }
+  .MuiCollapse-root{
+    overflow: scroll !important;
+  }
 `;
 
 const Table = styled.table`
@@ -130,6 +133,7 @@ export function ScoreCard({ data, g, livescore }) {
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
+              style={{ overflow: 'scroll !important' }}
             >
               <MatchData>
                 <Code>{data?.titleFI}</Code>

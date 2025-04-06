@@ -130,22 +130,27 @@ export function Commentary({ matchdata }) {
   useEffect(() => {
     if (commentary[0]?.event == 'SIX') {
       dispatch(addconfetti());
+      setEventType("six");
       setTimeout(() => {
         dispatch(removeconfetti());
+        setEventType("");
       }, 4000);
     } else if (commentary[0]?.event == 'FOUR') {
       setEventType("four");
       dispatch(addconfetti());
       setTimeout(() => {
         dispatch(removeconfetti());
+        setEventType("");
       }, 4000);
     } else if (
       commentary[0]?.event == 'WICKET'
       || commentary[0]?.event == 'over-break,WICKET'
     ) {
       dispatch(addconfetti());
+      setEventType("wicket");
       setTimeout(() => {
         dispatch(removeconfetti());
+        setEventType("");
       }, 4000);
     }
   }, [commentary]);
