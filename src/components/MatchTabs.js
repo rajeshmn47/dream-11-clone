@@ -25,7 +25,9 @@ import ScoreCard from './scorecard/scorecard';
 import SelectTeam from './selectteam';
 import Stats from './stats';
 import { TeamShort } from './TeamShort';
-import ReactPullToRefresh from 'react-pull-to-refresh';
+//import ReactPullToRefresh from 'react-pull-to-refresh';
+import PullToRefresh from 'react-simple-pull-to-refresh';
+ // Import the CSS
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -677,7 +679,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
   ];
 
   return (
-    <ReactPullToRefresh onRefresh={refreshData}>
+    <PullToRefresh onRefresh={getdata}>
       <div style={{ zIndex: '1' }}>
         {!selectTeams.selected ? (
           <Box sx={{ width: '100%' }}>
@@ -742,6 +744,6 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
           )
         )}
       </div>
-    </ReactPullToRefresh>
+    </PullToRefresh>
   );
 }
