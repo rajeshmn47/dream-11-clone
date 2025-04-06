@@ -261,6 +261,9 @@ export default function ContestTabs({ contest, leaderboard, handleSwap }) {
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
+        variant="scrollable"
+        scrollButtons
+        allowScrollButtonsMobile
       >
         <Tab label="Winnings" {...a11yProps(0)} />
         <Tab label="Leaderboard" {...a11yProps(1)} />
