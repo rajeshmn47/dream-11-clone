@@ -27,7 +27,7 @@ import Stats from './stats';
 import { TeamShort } from './TeamShort';
 //import ReactPullToRefresh from 'react-pull-to-refresh';
 import PullToRefresh from 'react-simple-pull-to-refresh';
- // Import the CSS
+// Import the CSS
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -323,7 +323,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
       setOpen(true);
     }
   }, [selectTeams]);
-  
+
   useEffect(() => {
     setSelectTeams({
       open: false,
@@ -703,11 +703,18 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
                 </Box>
                 {tabConfig
                   .filter((tab) => tab.condition) // Only render TabPanels that meet the condition
-                  .map((tab, index) => (
-                    <TabP key={index} value={value} index={index}>
-                      {tab.content}
-                    </TabP>
-                  ))}
+                  .map((tab, index) => {
+                    return (
+                      tab?.label == "Commentary" ?
+                        <TabP key={index} value={value} index={index}>
+                          {tab.content}
+                        </TabP>
+                        :
+                        <TabPanel key={index} value={value} index={index}>
+                          {tab.content}
+                        </TabPanel>
+                    )
+                  })}
               </Box>
             </div>
           </Box>
