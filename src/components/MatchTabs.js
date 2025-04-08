@@ -704,9 +704,9 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
                 {tabConfig
                   .filter((tab) => tab.condition) // Only render TabPanels that meet the condition
                   .map((tab, index) => (
-                    <TabPanel key={index} value={value} index={index}>
+                    <TabP key={index} value={value} index={index}>
                       {tab.content}
-                    </TabPanel>
+                    </TabP>
                   ))}
               </Box>
             </div>

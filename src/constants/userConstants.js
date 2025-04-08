@@ -59,7 +59,7 @@ function geturl() {
     // return "http://dream-env.eba-6d6ds7up.us-east-1.elasticbeanstalk.com";
     // return "https://backendforpuand-dream11.onrender.com";
     // return 'https://apk.thepowerplay.co';
-    return 'http://localhost:8000';
+     return 'http://localhost:8000';
     // return 'http://192.168.237.175:8000';
     // return 'http://46.28.44.4:8000';
     // return "https://dreamelevenclonebackend-g4iw.onrender.com";
@@ -86,7 +86,7 @@ function getfrontendurl() {
   if (current == 'local') {
     return 'http://localhost:3000';
   }
-  return 'https://dream-11-clone-mern-stack.vercel.app';
+  return 'https://dream-11-clone-nu.vercel.app';
 }
 
 export const URL = geturl();
