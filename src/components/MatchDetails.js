@@ -259,7 +259,8 @@ export function MatchDetails({ players }) {
                 spacing={1}
               >
                 <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'left' }}>
-                  <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" />
+                  {matchlive?.isHomeFirst ? <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" /> :
+                    <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" />}
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'left' }}>
                   <p
@@ -275,7 +276,7 @@ export function MatchDetails({ players }) {
                     {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[1]?.wickets
-                      || ''}
+                      || '0'}
                     (
                     {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
                     )
@@ -312,7 +313,7 @@ export function MatchDetails({ players }) {
                         {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                         /
                         {livescore.matchScoreDetails.inningsScoreList[0]
-                          ?.wickets || ''}
+                          ?.wickets || '0'}
                         (
                         {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
                         )
@@ -321,7 +322,8 @@ export function MatchDetails({ players }) {
                   )}
                 </Grid>
                 <Grid item sm={1} xs={1} md={1} lg={1} style={{ textAlign: 'right' }}>
-                  <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" />
+                  {!matchlive?.isHomeFirst ? <img src={match_details?.teamHomeFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" /> :
+                    <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" />}
                 </Grid>
               </Grid>
               <p
