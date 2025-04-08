@@ -15,7 +15,15 @@ const CommentaryContainer = styled.div`
   padding: 15px 0;
   height: 100%;
   overflow-y: scroll;
+  .event-gif {
+    z-index : 10000;
+  }
 `;
+const EventGif = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+`
 const Left = styled.div`
   font-size: 14px;
   display: flex;
@@ -99,7 +107,7 @@ export function Commentary({ matchdata }) {
   const scrollit = useRef();
   const dispatch = useDispatch();
   const [confetti, setConfetti] = useState(false);
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState("four");
 
   useEffect(() => {
     async function getdata() {
@@ -157,6 +165,11 @@ export function Commentary({ matchdata }) {
 
   return (
     <CommentaryContainer container>
+      <EventGif>
+        {eventType === "four" && <img src="/four.gif" alt="Four" className="event-gif" />}
+        {eventType === "six" && <img src="/six.gif" alt="Six" className="event-gif" />}
+        {eventType === "wicket" && <img src="/wicket.gif" alt="Wicket" className="event-gif" />}
+      </EventGif>
       {commentary?.map((p) => (
         <>
           {p?.event == 'over-break' ? (
@@ -222,9 +235,6 @@ export function Commentary({ matchdata }) {
         </>
       ))}
       <Animate confetti={confetti} setConfetti={setConfetti} />
-      {eventType === "four" && <img src="/four.gif" alt="Four" className="event-gif" />}
-      {eventType === "six" && <img src="/six.gif" alt="Six" className="event-gif" />}
-      {eventType === "wicket" && <img src="/wicket.gif" alt="Wicket" className="event-gif" />}
     </CommentaryContainer>
   );
 }
