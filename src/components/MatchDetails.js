@@ -272,13 +272,22 @@ export function MatchDetails({ players }) {
                   >
                     {matchlive?.titleFI}
                   </p>
-                  {livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
+                  {matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
                     {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[1]?.wickets
                       || '0'}
                     (
                     {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
+                    )
+                  </p>}
+                  {!matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.score}
+                    /
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.wickets
+                      || '0'}
+                    (
+                    {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
                     )
                   </p>}
                 </Grid>
@@ -306,9 +315,9 @@ export function MatchDetails({ players }) {
                         }}
                       >
                         {' '}
-                        {matchlive?.titleSI}
+                        {matchlive?.titleSI || !matchlive?.isHomeFirst ? match_details?.teamHomeName : match_details?.teamAwayName}
                       </p>
-                      {livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
+                      {matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
                         {' '}
                         {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                         /
@@ -316,6 +325,16 @@ export function MatchDetails({ players }) {
                           ?.wickets || '0'}
                         (
                         {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
+                        )
+                      </p>}
+                      {!matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
+                        {' '}
+                        {livescore.matchScoreDetails.inningsScoreList[1]?.score}
+                        /
+                        {livescore.matchScoreDetails.inningsScoreList[1]
+                          ?.wickets || '0'}
+                        (
+                        {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
                         )
                       </p>}
                     </>
