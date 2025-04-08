@@ -107,7 +107,7 @@ export function Commentary({ matchdata }) {
   const scrollit = useRef();
   const dispatch = useDispatch();
   const [confetti, setConfetti] = useState(false);
-  const [eventType, setEventType] = useState("four");
+  const [eventType, setEventType] = useState("");
 
   useEffect(() => {
     async function getdata() {
