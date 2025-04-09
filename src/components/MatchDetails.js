@@ -315,7 +315,7 @@ export function MatchDetails({ players }) {
                         }}
                       >
                         {' '}
-                        {matchlive?.titleSI || !matchlive?.isHomeFirst ? match_details?.teamHomeName : match_details?.teamAwayName}
+                        {matchlive?.titleSI || (!matchlive?.isHomeFirst ? match_details?.teamHomeName : match_details?.teamAwayName)}
                       </p>
                       {matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
                         {' '}
