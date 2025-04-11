@@ -44,10 +44,12 @@ import SeriesDetails from './components/seriesdetails';
 import MatchAnalysis from './components/analytics/matchAnalysis';
 import Bowler from './components/Bowler';
 import { URL } from './constants/userConstants';
+import { getConfig } from './actions/configAction';
 
 function App() {
   const dispatch = useDispatch();
   const { confetti } = useSelector((state) => state.user);
+  const { config } = useSelector((state) => state.config);
   const { user, isAuthenticated, loading, error, } = useSelector(
     (state) => state.user,
   );
@@ -70,6 +72,19 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
+    const setConfig = async () => {
+      try {
+        const title = config?.[0]?.name
+        document.title = title;
+      } catch (error) {
+        console.error("Failed to load config title", error);
+      }
+    };
+
+    setConfig();
+  }, [config]);
+
+  useEffect(() => {
     window.addEventListener('resize', showAnimation);
     return () => {
       window.removeEventListener('resize', showAnimation);
@@ -81,6 +96,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadUser());
+    dispatch(getConfig())
   }, [dispatch]);
 
   useEffect(() => {

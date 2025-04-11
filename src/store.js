@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 import { matchReducer } from './reducers/matchReducer';
 import { userReducer } from './reducers/userReducer';
+import { configReducer } from './reducers/configReducer';
 
 const options = {
   timeout: 5000,
@@ -15,6 +16,7 @@ const options = {
 const reducer = combineReducers({
   user: userReducer,
   match: matchReducer,
+  config: configReducer
 });
 
 const middleware = [thunk];
