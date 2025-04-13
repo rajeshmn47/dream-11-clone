@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { addconfetti, removeconfetti } from '../actions/userAction';
 import { db } from "../firebase"
 import Animate from './animate';
+import { URL } from '../constants/userConstants';
 
 const CommentaryContainer = styled.div`
   padding: 15px 0;
@@ -163,6 +164,8 @@ export function Commentary({ matchdata }) {
     }
   }, [commentary]);
 
+  console.log(commentary, 'commentary')
+
   return (
     <CommentaryContainer container>
       <EventGif>
@@ -214,23 +217,39 @@ export function Commentary({ matchdata }) {
                 </Left>
                 <Des>{p?.commText?.replace('$', '')}</Des>
               </Comment>
+              {p.videoLink &&
+                <>
+                  <video id="videoPlayer" width="100%" style={{maxHeight:'60px'}} controls autoPlay muted={false}>
+                    <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  </video>
+                  <source src={`${URL}/mockvideos/${p.videoLink}`} alt='' />
+                </>}
             </>
           ) : (
-            <Comment ref={scrollit}>
-              <Left>
-                <Event>
-                  {p?.event == 'WICKET' ? (
-                    <Wicket>w</Wicket>
-                  ) : p?.event == 'FOUR' ? (
-                    <Four>4</Four>
-                  ) : p?.event == 'SIX' ? (
-                    <Four>6</Four>
-                  ) : null}
-                </Event>
-                {p?.overNumber}
-              </Left>
-              <Des>{p?.commText?.replace('$', '').replace('B0', '')}</Des>
-            </Comment>
+            <>
+              <Comment ref={scrollit}>
+                <Left>
+                  <Event>
+                    {p?.event == 'WICKET' ? (
+                      <Wicket>w</Wicket>
+                    ) : p?.event == 'FOUR' ? (
+                      <Four>4</Four>
+                    ) : p?.event == 'SIX' ? (
+                      <Four>6</Four>
+                    ) : null}
+                  </Event>
+                  {p?.overNumber}
+                </Left>
+                <Des>{p?.commText?.replace('$', '').replace('B0', '')}</Des>
+              </Comment>
+              {p.videoLink &&
+                <>
+                  <video id="videoPlayer" width="100%" controls autoPlay muted={false} style={{maxHeight:'200px'}}>
+                    <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  </video>
+                  <source src={`${URL}/mockvideos/${p.videoLink}`} alt='' />
+                </>}
+            </>
           )}
         </>
       ))}
