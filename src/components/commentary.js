@@ -219,7 +219,7 @@ export function Commentary({ matchdata }) {
               </Comment>
               {p.videoLink &&
                 <>
-                  <video id="videoPlayer" width="100%" style={{maxHeight:'60px'}} controls autoPlay muted={false}>
+                  <video id="videoPlayer" width="100%" style={{maxHeight:'60px'}} controls autoPlay muted={true}>
                     <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
                   </video>
                   <source src={`${URL}/mockvideos/${p.videoLink}`} alt='' />
@@ -244,7 +244,7 @@ export function Commentary({ matchdata }) {
               </Comment>
               {p.videoLink &&
                 <>
-                  <video id="videoPlayer" width="100%" controls autoPlay muted={false} style={{maxHeight:'200px'}}>
+                  <video id="videoPlayer" width="100%" controls autoPlay muted={true} style={{maxHeight:'200px'}}>
                     <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
                   </video>
                   <source src={`${URL}/mockvideos/${p.videoLink}`} alt='' />
