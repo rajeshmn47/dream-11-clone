@@ -149,7 +149,7 @@ export function SeriesDetails() {
 
     useEffect(() => {
         async function getplayers() {
-            if (user?._id) {
+            if (name) {
                 const data = await API.get(
                     `${URL}/seriesDetails/${name}`,
                 );
@@ -163,7 +163,7 @@ export function SeriesDetails() {
             }
         }
         getplayers();
-    }, [user, name]);
+    }, [name]);
 
     useEffect(() => {
         let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
