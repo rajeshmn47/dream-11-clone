@@ -243,10 +243,9 @@ export function Commentary({ matchdata }) {
               </Comment>
               {p.videoLink &&
                 <>
-                  <video id="videoPlayer" width="100%" controls autoPlay muted={true} style={{maxHeight:'200px'}}>
+                  <video id="videoPlayer" width="100%" controls muted={true} style={{maxHeight:'200px'}}>
                     <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
                   </video>
-                  <source src={`${URL}/mockvideos/${p.videoLink}`} alt='' />
                 </>}
             </>
           )}
