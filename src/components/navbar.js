@@ -97,7 +97,7 @@ const DeatilTop = styled.div`
 export function Navbar({ home }) {
   const { user } = useSelector((state) => state.user);
   const { config } = useSelector((state) => state.config);
-  console.log(config,'configs')
+  console.log(config, 'configs')
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
@@ -133,7 +133,8 @@ export function Navbar({ home }) {
         </Account>
         <Center>
           <EmojiIcon />
-          {config?.[0]?.name}
+          {/*{config?.[0]?.name}*/}
+          FC4U
         </Center>
         <RightSide>
           <NotificationAddOutlinedIcon
