@@ -74,8 +74,8 @@ function App() {
   useEffect(() => {
     const setConfig = async () => {
       try {
-        const title = config?.[0]?.name
-        document.title = title;
+        //const title = config?.[0]?.name
+
       } catch (error) {
         console.error("Failed to load config title", error);
       }
