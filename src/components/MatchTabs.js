@@ -343,7 +343,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
       !(matchlive?.result == 'In Progress' || matchlive?.result == 'Complete')
     ) {
       if (!team?.length > 0) {
-        setValue(2);
+        setValue(1);
         alert.info('create a team before joining contest!');
       } else {
         setModal(i);
