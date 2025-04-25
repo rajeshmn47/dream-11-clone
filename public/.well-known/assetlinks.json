@@ -1,0 +1,13 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.dream_11_clone_nu.twa",
+        "sha256_cert_fingerprints": [
+          "79:DA:83:30:37:C8:65:65:0B:E4:DD:E1:14:22:2B:93:7A:F6:CC:F1:FB:E0:62:EF:79:C3:F5:11:75:0E:C1:84"  
+        ]
+      }
+    }
+  ]
+  
