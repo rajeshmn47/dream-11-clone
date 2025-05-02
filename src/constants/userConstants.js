@@ -78,7 +78,8 @@ function geturl() {
   // return 'http://46.28.44.4:8000';
   // return "https://fantasycricket4u.com";
   // return "https://dreamelevenclonebackend-g4iw.onrender.com"
-  return "https://backend.dreambet11.io";
+  // return "https://backend.dreambet11.io";
+  return "https://gamizo.duckdns.org";
 }
 
 function getfrontendurl() {
