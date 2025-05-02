@@ -75,7 +75,7 @@ const WithdrawCashPage = () => {
       </section>
 
       <p className="support-note">
-        For more queries, please contact our support at <a href="mailto:help@fantasycricket4u">help@fantasycricket4u</a>
+        For more queries, please contact our support at <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
       </p>
     </div>
   );
