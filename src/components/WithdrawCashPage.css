@@ -1,0 +1,48 @@
+.withdraw-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff;
+    color: #333;
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .withdraw-page h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .withdraw-page h2 {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1a202c;
+  }
+  
+  .withdraw-page h3 {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #2d3748;
+  }
+  
+  .withdraw-page p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+  
+  .withdraw-page ul {
+    margin: 0.5rem 0 1rem 1.2rem;
+  }
+  
+  .withdraw-page ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .support-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
