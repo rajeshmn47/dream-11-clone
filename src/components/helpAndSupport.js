@@ -13,7 +13,7 @@ const helpAndSupport = () => (
         <p>
           <strong>Merchant Legal entity name:</strong>
           {' '}
-          MEFIGURE CELEB PRIVATE
+          FANTASYCRICKET4U CELEB PRIVATE
           LIMITED
         </p>
       </li>
@@ -37,7 +37,7 @@ const helpAndSupport = () => (
         <p>
           <strong>Email ID:</strong>
           {' '}
-          <a href="mailto:mefigure11@gmail.com">mefigure11@gmail.com</a>
+          <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
         </p>
       </li>
     </ul>

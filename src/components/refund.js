@@ -4,10 +4,10 @@ import React from 'react';
 
 const refund = () => (
   <div className="refund-policy">
-    <h1>Mefigure11 Refund Policy</h1>
+    <h1>Fantasycricket4u Refund Policy</h1>
 
     <p>
-      Welcome to www.mefigure11.com! Our Refund Policy outlines the terms
+      Welcome to www.fantasycricket4u.com! Our Refund Policy outlines the terms
       and conditions regarding refunds for any transactions made on our
       platform. By using our services, you agree to abide by this policy.
     </p>
@@ -39,7 +39,7 @@ const refund = () => (
           2.1 Contest Cancellation: In the event that a contest is canceled
           or postponed, we will refund the entry fees for affected
           participants. The refund may be provided in the form of virtual
-          currency or another method determined by [www.mefigure11.com].
+          currency or another method determined by [www.fantasycricket4u.com].
         </p>
         <p>
           2.2 Participant Withdrawal: Participants who voluntarily withdraw
@@ -61,7 +61,7 @@ const refund = () => (
         </p>
         <p>
           3.2 Determination of Issues: The determination of whether
-          technical issues warrant refunds will be made by [mefigure11.com]
+          technical issues warrant refunds will be made by fantasycricket4u.com
           based on the severity and impact on user experience.
         </p>
       </li>
@@ -75,12 +75,12 @@ const refund = () => (
           have questions about our Refund Policy, please contact our
           customer support at
           {' '}
-          <a href="mailto:mefigure11@gmail.com">mefigure11@gmail.com</a>
+          <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
           .
         </p>
         <p>
           4.2 Dispute Resolution: In the event of a dispute regarding
-          refunds, [www.mefigure.com] will make reasonable efforts to
+          refunds, [www.fantasycricket4u.com] will make reasonable efforts to
           resolve the issue in a fair and timely manner.
         </p>
       </li>
@@ -102,7 +102,7 @@ const refund = () => (
           <strong>Acceptance of Refund Policy</strong>
         </p>
         <p>
-          6. By using www.mefigure11.com, you acknowledge that you have
+          6. By using www.fantasycricket4u.com, you acknowledge that you have
           read, understood, and agreed to the terms of this Refund Policy.
         </p>
       </li>

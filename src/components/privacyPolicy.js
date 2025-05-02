@@ -5,10 +5,10 @@ import React from 'react';
 function PrivacyPolicy() {
   return (
     <div className="privacy-policy-container">
-      <h1>Mefigure11 Privacy Policy</h1>
+      <h1>Fantasycricket4u Privacy Policy</h1>
 
       <p>
-        Welcome to the world of fantasy! At www.mefigure11.com, we are
+        Welcome to the world of fantasy! At www.fantasycricket4u.com, we are
         committed to ensuring the privacy and security of your personal
         information. This Privacy Policy explains how we collect, use,
         disclose, and protect your information when you use our fantasy
@@ -134,7 +134,7 @@ function PrivacyPolicy() {
             If you have any questions, concerns, or requests regarding this
             Privacy Policy, please contact us at
             {' '}
-            <a href="mailto:mefigure11@gmail.com">mefigure11@gmail.com</a>
+            <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
             .
           </p>
         </li>

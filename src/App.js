@@ -45,6 +45,7 @@ import MatchAnalysis from './components/analytics/matchAnalysis';
 import Bowler from './components/Bowler';
 import { URL } from './constants/userConstants';
 import { getConfig } from './actions/configAction';
+import WithdrawCashPage from './components/withdrawPolicy';
 
 function App() {
   const dispatch = useDispatch();
@@ -163,6 +164,7 @@ function App() {
           <Route path="/transaction" element={<TransactionTabs />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/withdrawPolicy" element={<WithdrawCashPage />} />
           <Route path="/matchanalysis/:id" element={<MatchAnalysis />} />
           <Route path="/termsAndConditions" element={<TermsAndConditions />} />
           <Route path="/refund" element={<Refund />} />
