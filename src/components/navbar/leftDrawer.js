@@ -222,7 +222,7 @@ export default function LeftDrawer({
             Terms & Conditions
           </ListI>
           <ListI onClick={() => navigate('/withdrawpolicy')}>
-            <TopicOutlinedIcon style={{ width: '60px' }} />
+            <PaidOutlinedIcon style={{ width: '60px' }} />
             Withdrawal Policy
           </ListI>
           <ListI onClick={() => navigate('/privacyPolicy')}>
