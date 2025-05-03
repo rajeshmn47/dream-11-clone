@@ -21,16 +21,14 @@ const helpAndSupport = () => (
         <p>
           <strong>Registered Address:</strong>
           {' '}
-          32B Grahi Nova bad,
-          Muzaffarnagar, Uttar Pradesh, PIN: 251309
+          universal trade tower, sector 49, gurgaon, PIN: 122018
         </p>
       </li>
       <li>
         <p>
           <strong>Operational Address:</strong>
           {' '}
-          32B Grahi Nova bad,
-          Muzaffarnagar, Uttar Pradesh, PIN: 251309
+          universal trade tower, sector 49, gurgaon, PIN: 122018
         </p>
       </li>
       <li>
