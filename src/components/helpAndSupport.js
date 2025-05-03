@@ -13,7 +13,7 @@ const helpAndSupport = () => (
         <p>
           <strong>Merchant Legal entity name:</strong>
           {' '}
-          FANTASYCRICKET4U CELEB PRIVATE
+          KARTAMI FINTECH PRIVATE
           LIMITED
         </p>
       </li>
@@ -43,6 +43,12 @@ const helpAndSupport = () => (
     </ul>
 
     <p>Thank you for reaching out to us!</p>
+    <p>
+          <strong>Designed and Developed by:</strong>
+          {' '}
+          KARTAMI FINTECH PRIVATE
+          LIMITED
+        </p>
   </div>
 );
 
