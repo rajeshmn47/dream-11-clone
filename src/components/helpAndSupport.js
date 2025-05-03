@@ -43,7 +43,7 @@ const helpAndSupport = () => (
     </ul>
 
     <p>Thank you for reaching out to us!</p>
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',justifyContent: 'center' }}>
       <p>
         <strong>Designed and Developed by:</strong>
         {' '}
