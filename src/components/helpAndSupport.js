@@ -43,12 +43,16 @@ const helpAndSupport = () => (
     </ul>
 
     <p>Thank you for reaching out to us!</p>
-    <p>
-          <strong>Designed and Developed by:</strong>
-          {' '}
-          KARTAMI FINTECH PRIVATE
-          LIMITED
-        </p>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <p>
+        <strong>Designed and Developed by:</strong>
+        {' '}
+      </p>
+      <p>
+        KARTAMI FINTECH PRIVATE
+        LIMITED
+      </p>
+    </div>
   </div>
 );
 
