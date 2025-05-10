@@ -184,7 +184,7 @@ export function CreateTeam() {
     async function getupcoming() {
       if (id) {
         setLoading(true);
-        const data = await API.get(`${URL}/getplayers/${id}`);
+        const data = await API.get(`${URL}/getplayers_new/${id}`);
         console.log(data, 'testdata');
         setLive(data.data.live);
         const awayPlayers = data.data.matchdetails.teamAwayPlayers.map((obj) => ({
