@@ -28,8 +28,9 @@ import { showName } from '../utils/name';
 import MatchTabs from './MatchTabs';
 import ShowOver from './showover';
 import Loader from './loader';
+import { getJustDate } from '../utils/dateformat';
 
-const TopContainer = styled.div`
+const TopContainere = styled.div`
   background-color: var(--black);
   color: #ffffff;
   p {
@@ -51,6 +52,37 @@ const TopContainer = styled.div`
   @media only screen and (min-width: 600px) {
    height:180px;
    padding: 10px 20px;
+  }
+`;
+
+const TopContainer = styled.div`
+  background-color: var(--black);
+  color: #ffffff;
+  padding: 10px 10px;
+  position: fixed;
+  height: 160px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+
+  p {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #ccc;
+    line-height: 1.4;
+    text-transform: capitalize;
+  }
+
+  @media only screen and (min-width: 600px) {
+    height: 180px;
+    padding: 10px 20px;
+    p {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -79,7 +111,7 @@ const Bottom = styled.div`
   }
 `;
 const LeftSide = styled.div`
-  width: 170px;
+  max-width: 170px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -155,8 +187,84 @@ const BottomT = styled.div`
   margin-top: 3px;
   justify-content: space-between;
 `;
+
+const MatchInfo = styled.div`
+  display: flex;
+  margin-top: 3px;
+  margin-left:5px;
+  flex-direction:column;
+  justify-content: space-between;
+  align-items:center;
+`;
+
+const WalletBox = styled.div`
+  background-color: #fcecec; // light red shade
+  color: #d32f2f;
+  padding: 4px 6px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:10px;
+`;
+
+const PlusButton = styled.button`
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  padding: 8px !important;
+  font-size: 10px;
+  line-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: #b71c1c;
+  }
+`;
+
+const StatusText = styled.p`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${props => (props.completed ? '#4caf50' : '#ffeb3b')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-transform: uppercase;
+`;
+
+const TeamName = styled.p`
+  font-size: 12px;
+  font-weight: 700;
+  color: #f1f1f1;
+  text-transform: uppercase;
+`;
+
+const ScoreText = styled.p`
+  font-size: 13px;
+  font-weight: 600;
+  color: #00e676;
+`;
+
 export function MatchDetails({ players }) {
   const { match_details, matchlive, loading } = useSelector((state) => state.match);
+  const { user } = useSelector((state) => state.user);
   const [contests, setContests] = useState([]);
   const dispatch = useDispatch();
   const [commentary, setCommentary] = useState([]);
@@ -234,19 +342,27 @@ export function MatchDetails({ players }) {
                 onClick={() => history(-1)}
                 style={{ cursor: 'pointer' }}
               />
-              {match_details && (
-                <h1>
-                  {match_details.teamAwayCode}
-                  {' '}
-                  Vs
-                  {' '}
-                  {match_details.teamHomeCode}
-                </h1>
-              )}
+              <MatchInfo>
+                {match_details && (
+                  <h1>
+                    {match_details.teamAwayCode}
+                    {' '}
+                    Vs
+                    {' '}
+                    {match_details.teamHomeCode}
+                  </h1>
+                )}
+                {!matchlive && !loading && getJustDate(match_details?.date, 'i')}
+              </MatchInfo>
             </LeftSide>
             <RightSide>
-              <Brightness1Icon />
-              <AccountBalanceWalletOutlinedIcon />
+              <WalletBox>
+                <IconWrapper>
+                  <AccountBalanceWalletOutlinedIcon style={{ fontSize: "16px" }} />
+                </IconWrapper>
+                ₹{user?.wallet}
+                <PlusButton>+</PlusButton>
+              </WalletBox>
               <NotificationAddOutlinedIcon />
             </RightSide>
           </Top>
@@ -263,16 +379,16 @@ export function MatchDetails({ players }) {
                     <img src={match_details?.teamAwayFlagUrl} style={{ width: "100%", maxWidth: "50px" }} alt="" />}
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'left' }}>
-                  <p
+                  <TeamName
                     style={{
-                      height: '15px',
+                      height: '16px',
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
                     }}
                   >
                     {matchlive?.titleFI}
-                  </p>
-                  {matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
+                  </TeamName>
+                  {matchlive?.titleSI && livescore.matchScoreDetails.inningsScoreList[1]?.overs && <ScoreText>
                     {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[1]?.wickets
@@ -280,8 +396,8 @@ export function MatchDetails({ players }) {
                     (
                     {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
                     )
-                  </p>}
-                  {!matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
+                  </ScoreText>}
+                  {!matchlive?.titleSI && livescore.matchScoreDetails.inningsScoreList[0]?.overs && <ScoreText>
                     {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                     /
                     {livescore.matchScoreDetails.inningsScoreList[0]?.wickets
@@ -289,7 +405,7 @@ export function MatchDetails({ players }) {
                     (
                     {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
                     )
-                  </p>}
+                  </ScoreText>}
                 </Grid>
                 <Grid
                   item
@@ -301,23 +417,25 @@ export function MatchDetails({ players }) {
                     justifyContent: 'center',
                   }}
                 >
-                  <GreenMark />
-                  {matchlive?.result == 'Complete' ? 'completed' : 'In Play'}
+                  <StatusText completed={matchlive?.result === 'Complete'}>
+                    <GreenMark />
+                    {matchlive?.result === 'Complete' ? 'Completed' : 'In Play'}
+                  </StatusText>
                 </Grid>
                 <Grid item sm={3.5} xs={3.5} style={{ textAlign: 'right' }}>
                   {livescore?.matchScoreDetails && (
                     <>
-                      <p
+                      <TeamName
                         style={{
-                          height: '15px',
+                          height: '17px',
                           textOverflow: 'ellipsis',
                           overflow: 'hidden',
                         }}
                       >
                         {' '}
                         {matchlive?.titleSI || (!matchlive?.isHomeFirst ? match_details?.teamHomeName : match_details?.teamAwayName)}
-                      </p>
-                      {matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[0]?.overs && <p>
+                      </TeamName>
+                      {matchlive?.titleSI && livescore.matchScoreDetails.inningsScoreList[0]?.overs && <ScoreText>
                         {' '}
                         {livescore.matchScoreDetails.inningsScoreList[0]?.score}
                         /
@@ -326,8 +444,8 @@ export function MatchDetails({ players }) {
                         (
                         {livescore.matchScoreDetails.inningsScoreList[0]?.overs}
                         )
-                      </p>}
-                      {!matchlive?.titleSI&&livescore.matchScoreDetails.inningsScoreList[1]?.overs && <p>
+                      </ScoreText>}
+                      {!matchlive?.titleSI && livescore.matchScoreDetails.inningsScoreList[1]?.overs && <ScoreText>
                         {' '}
                         {livescore.matchScoreDetails.inningsScoreList[1]?.score}
                         /
@@ -336,7 +454,7 @@ export function MatchDetails({ players }) {
                         (
                         {livescore.matchScoreDetails.inningsScoreList[1]?.overs}
                         )
-                      </p>}
+                      </ScoreText>}
                     </>
                   )}
                 </Grid>
@@ -359,31 +477,36 @@ export function MatchDetails({ players }) {
                 <Batsman>
                   <BowlTop>
                     <Name>{showName(livescore?.batsmanStriker?.batName)}</Name>
+                    <ScoreText>
                     {livescore?.batsmanStriker?.batRuns}
                     (
                     {livescore?.batsmanStriker?.batBalls}
                     )
+                    </ScoreText>
                   </BowlTop>
                   <BowlTop>
                     <Name>
                       {showName(livescore?.batsmanNonStriker?.batName)}
-                      ()
                     </Name>
+                    <ScoreText>
                     {livescore?.batsmanNonStriker?.batRuns}
                     (
                     {livescore?.batsmanNonStriker?.batBalls}
                     )
+                    </ScoreText>
                   </BowlTop>
                 </Batsman>
                 <Bowler>
                   <BowlTop>
                     <Name>{showName(livescore?.bowlerStriker?.bowlName)}</Name>
+                    <ScoreText>
                     {livescore?.bowlerStriker?.bowlWkts}
                     /
                     {livescore?.bowlerStriker?.bowlRuns}
                     (
                     {livescore?.bowlerStriker?.bowlOvs}
                     )
+                    </ScoreText>
                   </BowlTop>
                   <BowlTop>
                     <ShowOver arr={livescore?.recentOvsStats} />
