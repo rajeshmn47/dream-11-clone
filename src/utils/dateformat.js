@@ -39,6 +39,78 @@ export function getDisplayDate(date, sc, d) {
   return moment(date).format('DD MMM, HH:mm a');
 }
 
+export function getJustDate(date, sc, d) {
+  const today = new Date(d);
+  const current = new Date(date);
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  current.setHours(0);
+  current.setMinutes(0);
+  current.setSeconds(0);
+  current.setMilliseconds(0); // month - 1 because January == 0
+  const diff = current.getTime() - today.getTime(); // get the difference between today(at 00:00:00) and the date
+  if (current.getTime() == today.getTime()) {
+    if (sc) {
+      const a = moment(date).format('HH:mm a');
+      return `Today, ${a}`;
+    }
+    return 'Today';
+  }
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff > 0) {
+    const a = moment(date).format('HH:mm a');
+    return `Tommorrow, ${a}`;
+  }
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff < 0) {
+    const a = moment(date).format('HH:mm a');
+    return `Yesterday, ${a}`;
+  }
+  if (
+    today.getDate() - current.getDate() < 7
+    && today.getMonth() == current.getMonth()
+  ) {
+    return moment(date).format('DD MMM'); // or format it what ever way you want
+  }
+  return moment(date).format('DD MMM');
+}
+
+export function getJustHours(date, sc, d) {
+  const today = new Date(d);
+  const current = new Date(date);
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  current.setHours(0);
+  current.setMinutes(0);
+  current.setSeconds(0);
+  current.setMilliseconds(0); // month - 1 because January == 0
+  const diff = current.getTime() - today.getTime(); // get the difference between today(at 00:00:00) and the date
+  if (current.getTime() == today.getTime()) {
+    if (sc) {
+      const a = moment(date).format('HH:mm a');
+      return `Today, ${a}`;
+    }
+    return 'Today';
+  }
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff > 0) {
+    const a = moment(date).format('HH:mm a');
+    return `Tommorrow, ${a}`;
+  }
+  if (Math.abs(diff) < 24 * 60 * 60 * 1000 * 2 && diff < 0) {
+    const a = moment(date).format('HH:mm a');
+    return `Yesterday, ${a}`;
+  }
+  if (
+    today.getDate() - current.getDate() < 7
+    && today.getMonth() == current.getMonth()
+  ) {
+    return moment(date).format('HH:mm a'); // or format it what ever way you want
+  }
+  return moment(date).format('HH:mm a');
+}
+
 export function sameDayorNot(a, b) {
   const first = new Date(a);
   const second = new Date(b);
