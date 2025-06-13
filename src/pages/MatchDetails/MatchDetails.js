@@ -20,15 +20,15 @@ import {
   useParams,
 } from 'react-router-dom';
 
-import { getmatch } from '../actions/matchAction';
-import { API } from '../actions/userAction';
-import { URL } from '../constants/userConstants';
-import { db } from '../firebase';
-import { showName } from '../utils/name';
-import MatchTabs from './MatchTabs';
-import ShowOver from './showover';
-import Loader from './loader';
-import { getJustDate } from '../utils/dateformat';
+import { getmatch } from '../../actions/matchAction';
+import { API } from '../../actions/userAction';
+import { URL } from '../../constants/userConstants';
+import { db } from '../../firebase';
+import { showName } from '../../utils/name';
+import MatchTabs from '../../components/MatchTabs';
+import ShowOver from '../../components/showover';
+import Loader from '../../components/loader';
+import { getJustDate } from '../../utils/dateformat';
 
 const TopContainere = styled.div`
   background-color: var(--black);

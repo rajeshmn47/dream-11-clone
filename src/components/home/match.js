@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   getDisplayDate,
+  getJustDate,
+  getJustHours,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
@@ -83,7 +85,7 @@ const Top = styled.div`
   color: #595959;
   align-items: center;
   border-bottom: 1px solid rgba(196, 195, 195, 0.15);
-  padding: 5px 15px;
+  padding: 5px 5px;
   background-color: #ffffff;
 `;
 
@@ -115,17 +117,17 @@ export function Match({ u, live }) {
   const { user, isAuthenticated, error } = useSelector((state) => state.user);
   const [upcoming, setUpcoming] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(new Date());
   const [past, setPast] = useState([]);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const i = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(i);
-    };
+    //const i = setInterval(() => {
+    //  setDate(new Date());
+    //}, 1000);
+    //return () => {
+    //  clearInterval(i);
+    //};
   }, []);
   useEffect(() => {
     const servertoken = localStorage.getItem('token') && localStorage.getItem('token');
@@ -156,7 +158,7 @@ export function Match({ u, live }) {
               marginRight: '5px',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
-              width: '180px',
+              width: '100%',
               overflow: 'hidden',
               fontWeight: '200',
             }}
@@ -175,105 +177,200 @@ export function Match({ u, live }) {
         >
           {live || u.lineups}
         </h5>
-        <NotificationAddOutlinedIcon style={{ fontSize: '20px' }} />
       </Top>
       <div className="match">
         <div className="matchcenter">
-          <div className="matchlefts">
-            <img src={u.teamAwayFlagUrl} alt="" width="40" />
-            <h5 style={{ color: '#212121' }}>{u.away.code}</h5>
-          </div>
-          {live ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              padding: "8px 0"
+            }}
+          >
+            {/* Left: Teams stacked, with maxWidth */}
             <div
               style={{
-                width: '40px',
-                textAlign: 'center',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                maxWidth: 220, // adjust as needed
+                flex: "1 1 220px",
+                minWidth: 0
               }}
             >
-              <h5
+              <div className="matchlefts" style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+                <img
+                  src={u.teamAwayFlagUrl}
+                  alt={u.away.name}
+                  width="30"
+                  height="30"
+                  style={{
+                    borderRadius: "50%",
+                    border: "1.5px solid #e0e0e0",
+                    background: "#fafafa",
+                    objectFit: "cover"
+                  }}
+                />
+                <h5
+                  style={{
+                    color: "#212121",
+                    marginLeft: "12px",
+                    textTransform: "capitalize",
+                    whiteSpace: "nowrap",
+                    fontWeight: 700,
+                    fontSize: 15,
+                    marginBottom: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                  }}
+                >
+                  {u.away.name}
+                </h5>
+              </div>
+              <div className="matchrights" style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={u.teamHomeFlagUrl}
+                  alt={u.home.name}
+                  width="30"
+                  height="30"
+                  style={{
+                    borderRadius: "50%",
+                    border: "1.5px solid #e0e0e0",
+                    background: "#fafafa",
+                    objectFit: "cover"
+                  }}
+                />
+                <h5
+                  style={{
+                    color: "#212121",
+                    marginLeft: "12px",
+                    textTransform: "capitalize",
+                    whiteSpace: "nowrap",
+                    fontWeight: 700,
+                    fontSize: 15,
+                    marginBottom: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                  }}
+                >
+                  {u.home.name}
+                </h5>
+              </div>
+            </div>
+            {/* Right: Time/Status */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                minWidth: 90,
+                background: "#f8fafc",
+                borderRadius: 10,
+                boxShadow: "0 2px 8px rgba(44,62,80,0.07)",
+                padding: "8px 14px",
+                marginLeft: 12
+              }}
+            >
+              {/* Hours (always on top) */}
+              <span
                 style={{
-                  color: 'var(--green)',
-                  marginBottom: '3px',
-                  fontWeight: '200',
+                  fontWeight: 800,
+                  fontSize: 17,
+                  color: "#1976d2",
+                  letterSpacing: 0.5,
+                  marginBottom: 4,
+                  fontFamily: "Montserrat, Arial, sans-serif"
                 }}
               >
-                live
-              </h5>
-              <LinearProgress color="success" />
-            </div>
-          ) : (
-            <h5 className={u.result == 'Yes' ? 'completed' : 'time'}>
-              {!(u.result == 'Yes') ? (
-                sameDayorNot(new Date(), new Date(u.date))
-                || isTommorrow(new Date(), new Date(u.date)) ? (
-                  <div>
-                    <p>{hoursRemaining(u.date, 'k', date)}</p>
-                    <p
-                      style={{
-                        color: '#5e5b5b',
-                        textTransform: 'auto',
-                        fontSize: '10px',
-                        marginTop: '2px',
-                        fontWeight: '200',
-                      }}
-                    >
-                      {getDisplayDate(u.date, 'i', date)
-                        && getDisplayDate(u.date, 'i', date)}
-                    </p>
-                  </div>
-                  ) : (
-                    <p
-                      style={{
-                        color: '#e10000',
-                        textTransform: 'auto',
-                        fontWeight: '200',
-                      }}
-                    >
-                      {getDisplayDate(u.date, 'i') && getDisplayDate(u.date, 'i')}
-                    </p>
-                  )
+                {getJustHours(u.date, 'i')}
+              </span>
+              {/* Status/Date (below) */}
+              {live ? (
+                <span
+                  style={{
+                    background: "var(--green)",
+                    color: "#fff",
+                    borderRadius: 6,
+                    padding: "3px 14px",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    letterSpacing: 1,
+                    marginBottom: 0,
+                    boxShadow: "0 1px 4px rgba(31,169,81,0.08)"
+                  }}
+                >
+                  LIVE
+                </span>
+              ) : u.result === 'Yes' ? (
+                <span
+                  style={{
+                    background: "#e0e0e0",
+                    color: "#888",
+                    borderRadius: 6,
+                    padding: "3px 14px",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    marginBottom: 0
+                  }}
+                >
+                  COMPLETED
+                </span>
               ) : (
-                'Completed'
+                <span
+                  style={{
+                    background: "#e3f2fd",
+                    color: "#1976d2",
+                    borderRadius: 6,
+                    padding: "3px 14px",
+                    fontWeight: 700,
+                    fontSize: 13,
+                    marginBottom: 0
+                  }}
+                >
+                  {sameDayorNot(new Date(), new Date(u.date))
+                    ? hoursRemaining(u.date, 'k', date)
+                    : isTommorrow(new Date(), new Date(u.date))
+                      ? "Tomorrow"
+                      : getJustDate(u.date, 'i')}
+                </span>
               )}
-            </h5>
-          )}
-          <div className="matchrights">
-            <h5 style={{ color: '#212121' }}>
-              {' '}
-              {u.home.code}
-            </h5>
-            <img src={u.teamHomeFlagUrl} alt="" width="40" />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="bottom">
-        <div className="meta">
-          <div className="mega">Mega</div>
-          <div className="meg">
-            <h5
-              style={{
-                fontSize: '10px',
-                textTransform: 'capitalize',
-                fontWeight: '200',
-              }}
-            >
-              ₹58 crores
-            </h5>
+        <div className="bottom" style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "4px 10px 4px 10px",
+          borderTop: "1px solid #f2f2f2"
+        }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img src='./m.png' alt="" width="22" style={{ marginRight: 6 }} />
+            <span style={{ fontWeight: 700, color: "#222", fontSize: 13 }}>₹58 crores</span>
+            <span style={{
+              marginLeft: 8,
+              background: "#eaffea",
+              color: "var(--green)",
+              borderRadius: 6,
+              padding: "2px 8px",
+              fontSize: 12,
+              fontWeight: 600
+            }}>
+              Mega
+            </span>
           </div>
-        </div>
-        <div className="icon">
-          <GrMultimedia
-            className="reacticon"
-            style={{ fontSize: '16px', fontWeight: '200' }}
-          />
-          <SportsCricketOutlinedIcon
-            style={{
-              color: '#595959',
-              fontSize: '20px',
-              marginLeft: '5px',
-              fontWeight: '200',
-            }}
-          />
+          <div className="icon" style={{
+            background: "#f6f6f6",
+            borderRadius: "50%",
+            padding: 6,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}>
+            <NotificationAddOutlinedIcon style={{ fontSize: '22px', color: "#888" }} />
+          </div>
         </div>
       </div>
     </div>

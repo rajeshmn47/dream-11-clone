@@ -11,7 +11,7 @@
 }
 
 .register-btn {
-  background-color: #03d47c !important;
+  background-color: var(--red) !important;
 }
 
 .registertopbar {
@@ -19,7 +19,7 @@
   align-items: center;
   font-size: 1.2rem;
   padding: 10px 15px;
-  background-color: #03d47c;
+  background-color: var(--red);
   color: white;
   width: 100%;
   box-sizing: border-box;

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
@@ -15,6 +16,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { logout } from '../actions/userAction';
 import LeftDrawer from './navbar/leftDrawer';
+import { NotificationsNone } from '@mui/icons-material';
+import { FURL } from '../constants/userConstants';
+
+const LeftSide = styled.div`
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 600px) {
+    width: auto;
+    justify-content: flex-start;
+  }
+`;
 
 const RightSide = styled.div`
   width: 90px;
@@ -37,6 +51,7 @@ const Account = styled.h3`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 `;
 const Center = styled.div`
   display: flex;
@@ -63,7 +78,7 @@ const EmojiIcon = styled(EmojiEventsOutlinedIcon)`
 const WithdrawContainer = styled(Grid)``;
 
 const AddButton = styled(Button)`
-  background-color: var(--green);
+  background-color: var(--red);
   color: #ffffff;
   width: 160px;
   margin: 0 auto;
@@ -93,6 +108,19 @@ const DeatilTop = styled.div`
     text-transform: uppercase;
   }
 `;
+
+const IconContainer = styled.div`
+background-color: #ffffff;
+padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px !important;
+  border-radius: 50%;
+  color:black;
+  @media (max-width: 600px) {
+    margin-right: 10px;
+  }`
 
 export function Navbar({ home }) {
   const { user } = useSelector((state) => state.user);
@@ -124,37 +152,42 @@ export function Navbar({ home }) {
         setOpen={setOpen}
       />
       <div className="navtopbar">
-        <Account
-          onClick={() => handleLeftClick()}
-          style={{ cursor: 'pointer' }}
-          className="name"
-        >
-          {user?.username && user?.username.charAt(0)}
-        </Account>
+        <LeftSide>
+          <Account
+            onClick={() => handleLeftClick()}
+            style={{ cursor: 'pointer' }}
+            className="name"
+          >
+            {user?.username && user?.username.charAt(0)}
+          </Account>
+          <img src={`${FURL}/gamizologo.png`} alt='logo' className="logo" style={{ height: "20px" }} />
+        </LeftSide>
         <Center>
-          <EmojiIcon />
-          {/*{config?.[0]?.name}*/}
-          FC4U
+
         </Center>
         <RightSide>
-          <NotificationAddOutlinedIcon
-            style={{
-              marginRight: '10px',
-              cursor: 'pointer',
-              fontSize: '20px',
-              stroke: 'white',
-              strokeWidth: '1.5',
-            }}
-          />
-          <AccountBalanceWalletOutlinedIcon
-            onClick={() => handleClick()}
-            style={{
-              cursor: 'pointer',
-              fontSize: '20px',
-              stroke: 'white',
-              strokeWidth: '1.5',
-            }}
-          />
+          <IconContainer>
+            <NotificationsNoneIcon
+              style={{
+                marginRight: '0px',
+                cursor: 'pointer',
+                fontSize: '20px',
+            
+                strokeWidth: '1.5',
+              }}
+            />
+          </IconContainer>
+          <IconContainer>
+            <AccountBalanceWalletOutlinedIcon
+              onClick={() => handleClick()}
+              style={{
+                cursor: 'pointer',
+                fontSize: '20px',
+                
+                strokeWidth: '1.5',
+              }}
+            />
+          </IconContainer>
         </RightSide>
       </div>
       <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
@@ -208,8 +241,8 @@ export function Navbar({ home }) {
           <h5>₹ 0</h5>
         </Deatil>
       </Drawer>
-      {home && (
-        <div className="hometop">
+      {/*home && (
+        {/*<div className="hometop">
           <div
             onClick={() => navigate('/')}
             className={
@@ -252,8 +285,8 @@ export function Navbar({ home }) {
             <SportsHockeyIcon style={{ fontSize: '20px', fontWeight: '400' }} />
             <h5>Hockey</h5>
           </div>
-        </div>
-      )}
+        </div>}
+      )*/}
     </>
   );
 }

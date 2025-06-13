@@ -119,7 +119,7 @@ const Contest = styled.div`
     border-radius: inherit;
   }
   .MuiSlider-root {
-    color: var(--lightgreen) !important;
+    color: var(--lightred) !important;
   }
 `;
 

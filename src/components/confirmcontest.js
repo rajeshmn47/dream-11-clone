@@ -21,14 +21,15 @@ const style = {
   p: 4,
 };
 const Main = styled.div`
-  width: 260px;
-  height: 400px;
-  padding: 0 5px;
-  background-color: #ffffff;
-  overflow: hidden;
+  width: 320px;
+  min-height: 420px;
+  padding: 24px 20px 20px 20px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.1);
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
+  gap: 18px;
 `;
 
 const FlexBox = styled.div`
@@ -36,25 +37,40 @@ const FlexBox = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin: 0 0 6px 0;
+`;
+
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #f0f0f0;
+  margin: 8px 0;
 `;
 
 const JoinButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--green);
-  color: #ffffff;
+  width: 100%;
+  background: linear-gradient(90deg, #1fa951 60%, #1fa9a5 100%);
+  color: #fff;
   border: none;
-  padding: 8px 15px;
-  margin: 0 auto;
-  text-transform: uppercase;
-  border-radius: 5px;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
   cursor: pointer;
+  margin-top: 8px;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  &:hover {
+    background: linear-gradient(90deg, #1fa951 40%, #1fa9a5 100%);
+  }
 `;
 
 const Para = styled.p`
   text-align: center;
-  font-size: 10px;
+  font-size: 11px;
+  color: #888;
+  margin: 10px 0 0 0;
+  line-height: 1.5;
 `;
 export default function ConfirmModal({
   open,
@@ -94,43 +110,69 @@ export default function ConfirmModal({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      style={{ height: '400px' }}
+      PaperProps={{
+        style: {
+          background: 'rgba(0,0,0,0.08)',
+          boxShadow: 'none',
+        },
+      }}
     >
       {modal && (
         <Main>
           <FlexBox>
-            <h5>Confirmation</h5>
-            <h5>
-              <CloseRoundedIcon
-                onClick={() => handleClose()}
-                style={{ cursor: 'pointer' }}
-              />
-            </h5>
+            <h4
+              style={{
+                margin: 0,
+                fontWeight: 700,
+                fontSize: 18,
+                color: '#222',
+              }}
+            >
+              Confirm Entry
+            </h4>
+            <CloseRoundedIcon
+              onClick={handleClose}
+              style={{
+                cursor: 'pointer',
+                color: '#888',
+                fontSize: 24,
+              }}
+              aria-label="Close"
+              tabIndex={0}
+              role="button"
+            />
+          </FlexBox>
+          <Divider />
+          <FlexBox>
+            <span style={{ color: '#555' }}>Entry</span>
+            <span style={{ fontWeight: 600, color: '#1976d2' }}>
+              {modal.price / modal.totalSpots}
+            </span>
           </FlexBox>
           <FlexBox>
-            <h6>Entry</h6>
-            <h6>{modal.price / modal.totalSpots}</h6>
+            <span style={{ color: '#555' }}>Apply 25 coupon</span>
+            <span style={{ color: '#1976d2' }}>25%</span>
           </FlexBox>
           <FlexBox>
-            <h6>Apply 25 coupon</h6>
-            <h6>25%</h6>
+            <span style={{ color: '#555' }}>Usable cash bonus</span>
+            <span style={{ color: '#1976d2' }}>0</span>
           </FlexBox>
+          <Divider />
           <FlexBox>
-            <h6>usable cash bonus</h6>
-            <h6>0</h6>
+            <span style={{ fontWeight: 700, fontSize: 17, color: '#1fa951' }}>
+              To Pay
+            </span>
+            <span style={{ fontWeight: 700, fontSize: 17, color: '#1fa951' }}>
+              {modal.price / modal.totalSpots}
+            </span>
           </FlexBox>
-          <FlexBox>
-            <h3>To Pay</h3>
-            <h3>{modal.price / modal.totalSpots}</h3>
-          </FlexBox>
-
           <Para>
             By joining this contest, you accept Dream11 T&C's and confirm that
             you are not resident of Andhra Pradesh, Assam, Nagaland, Odisha,
             Sikkim or Telangana. I also agree to be contacted by Dream11 and
             their partners.
           </Para>
-          <JoinButton onClick={() => join()}>join contest</JoinButton>
+          <JoinButton onClick={join}>Join Contest</JoinButton>
         </Main>
       )}
     </Dialog>

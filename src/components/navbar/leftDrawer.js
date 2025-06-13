@@ -113,11 +113,18 @@ const ListI = styled.div`
   padding: 10px 0px;
   align-items: center;
   border-bottom:1px solid #fafafa;
+  background-color: #ffffff;
+  box-shadow:0 0 4px #e0e0e0;
+  margin:10px 10px;
+  border-radius: 15px;
+svg{
+  color:#5a5a5a;
+}
 `;
 
 const Account = styled.div`
   height: 60px;
-  background-color: var(--black);
+  background-color: #c00;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +172,7 @@ export default function LeftDrawer({
   function ListA(anchor) {
     return (
       <Box
-        sx={{ width: 250, cursor: 'pointer' }}
+        sx={{ width: 250, cursor: 'pointer', backgroundColor: '#fafafa' }}
         role="presentation"
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}

@@ -228,8 +228,6 @@ export function Home() {
                                                     backgroundColor: '#000',
                                                 }}
                                             >
-
-
                                                 <Top>
                                                     <h5
                                                         style={{
@@ -249,136 +247,47 @@ export function Home() {
                                                             {u?.home.code}
                                                         </span>
                                                     </h5>
+                                                    <NotificationAddOutlinedIcon
+                                                        style={{ fontSize: '18px' }}
+                                                    />
                                                 </Top>
-                                                {/* Inside your .pastMatchContainer, replace the teams/time/status section with: */}
-                                                <div style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    padding: "0px 10px",
-                                                    backgroundColor: "#FFF"
-                                                }}>
-                                                    {/* Left: Teams stacked */}
-                                                    <div
-                                                        style={{
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            alignItems: "flex-start",
-                                                            maxWidth: 220,
-                                                            flex: "1 1 220px",
-                                                            minWidth: 0
-                                                        }}
-                                                    >
-                                                        <div className="matchlefts" style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
-                                                            <img
-                                                                src={u.teamAwayFlagUrl}
-                                                                alt={u.away.name}
-                                                                width="30"
-                                                                height="30"
+                                                <div className="match">
+                                                    <div className="matchcenter">
+                                                        <div>
+                                                            <div className="matchlefts">
+                                                                <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                                                                <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>{u.away.name}</h5>
+                                                            </div>
+                                                            <div className="matchrights">
+                                                                <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                                                                <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
+                                                                    {' '}
+                                                                    {u.home.name}
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div style={{
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                textTransform: 'uppercase',
+                                                            }}>
+                                                                <Dot />
+                                                                  <h5 style={{ fontWeight: '200' }}>Completed</h5>
+                                                            </div>
+                                                            <p
                                                                 style={{
-                                                                    borderRadius: "50%",
-                                                                    border: "1.5px solid #e0e0e0",
-                                                                    background: "#fafafa",
-                                                                    objectFit: "cover"
-                                                                }}
-                                                            />
-                                                            <h5
-                                                                style={{
-                                                                    color: "#212121",
-                                                                    marginLeft: "12px",
-                                                                    textTransform: "capitalize",
-                                                                    whiteSpace: "nowrap",
-                                                                    fontWeight: 700,
-                                                                    fontSize: 15,
-                                                                    marginBottom: 0,
-                                                                    overflow: "hidden",
-                                                                    textOverflow: "ellipsis"
+                                                                    color: '#e10000',
+                                                                    textTransform: 'auto',
+                                                                    fontWeight: '200',
+                                                                    fontSize: '10px'
                                                                 }}
                                                             >
-                                                                {u.away.name}
-                                                            </h5>
+                                                                {getDisplayDate(u.date, 'i') && getJustDate(u.date, 'i')}
+                                                            </p>
+
                                                         </div>
-                                                        <div className="matchrights" style={{ display: "flex", alignItems: "center" }}>
-                                                            <img
-                                                                src={u.teamHomeFlagUrl}
-                                                                alt={u.home.name}
-                                                                width="30"
-                                                                height="30"
-                                                                style={{
-                                                                    borderRadius: "50%",
-                                                                    border: "1.5px solid #e0e0e0",
-                                                                    background: "#fafafa",
-                                                                    objectFit: "cover"
-                                                                }}
-                                                            />
-                                                            <h5
-                                                                style={{
-                                                                    color: "#212121",
-                                                                    marginLeft: "12px",
-                                                                    textTransform: "capitalize",
-                                                                    whiteSpace: "nowrap",
-                                                                    fontWeight: 700,
-                                                                    fontSize: 15,
-                                                                    marginBottom: 0,
-                                                                    overflow: "hidden",
-                                                                    textOverflow: "ellipsis"
-                                                                }}
-                                                            >
-                                                                {u.home.name}
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    {/* Right: Time/Status */}
-                                                    <div
-                                                        style={{
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            alignItems: "center",
-                                                            minWidth: 90,
-                                                            background: "#f8fafc",
-                                                            borderRadius: 10,
-                                                            boxShadow: "0 2px 8px rgba(44,62,80,0.07)",
-                                                            padding: "8px 14px",
-                                                            marginLeft: 12
-                                                        }}
-                                                    >
-                                                        {/* Hours (always on top) */}
-                                                        <span
-                                                            style={{
-                                                                fontWeight: 800,
-                                                                fontSize: 17,
-                                                                color: "#1976d2",
-                                                                letterSpacing: 0.5,
-                                                                marginBottom: 4,
-                                                                fontFamily: "Montserrat, Arial, sans-serif"
-                                                            }}
-                                                        >
-                                                            {getJustHours(u.date, 'i')}
-                                                        </span>
-                                                        {/* Status/Date (below) */}
-                                                        <span
-                                                            style={{
-                                                                background: "#e0e0e0",
-                                                                color: "#888",
-                                                                borderRadius: 6,
-                                                                padding: "3px 14px",
-                                                                fontWeight: 700,
-                                                                fontSize: 13,
-                                                                marginBottom: 0
-                                                            }}
-                                                        >
-                                                            COMPLETED
-                                                        </span>
-                                                        <span
-                                                            style={{
-                                                                color: "#e10000",
-                                                                fontWeight: 400,
-                                                                fontSize: 12,
-                                                                marginTop: 2
-                                                            }}
-                                                        >
-                                                            {getJustDate(u.date, 'i')}
-                                                        </span>
+
                                                     </div>
                                                 </div>
                                                 <div
@@ -386,6 +295,7 @@ export function Home() {
                                                     style={{
                                                         position: 'relative',
                                                         padding: '6px 15px',
+                                                        fontSize: '12px',
                                                     }}
                                                 >
                                                     <div
@@ -426,19 +336,19 @@ export function Home() {
                                                             )}
                                                         </div>
                                                     </div>
-                                                    {u?.won && <div className="icon">
-                                                        <h5
+                                                    <div className="icon">
+                                                        <GrMultimedia
+                                                            className="reacticon"
+                                                            style={{ fontSize: '16px', fontWeight: '200' }}
+                                                        />
+                                                        <SportsCricketOutlined
                                                             style={{
-                                                                marginRight: '10px',
-                                                                color: 'var(--red)',
+                                                                fontSize: '20px',
+                                                                marginLeft: '5.1px',
                                                                 fontWeight: '200',
-                                                                textTransform: 'uppercase',
                                                             }}
-                                                        >
-                                                            YOU Won ₹
-                                                            {u.won}
-                                                        </h5>
-                                                    </div>}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Grid>

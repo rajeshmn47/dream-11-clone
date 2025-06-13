@@ -127,7 +127,7 @@ export function CreateTeam() {
   const [next, setNext] = useState(false);
   useEffect(() => {
     async function getupcoming() {
-      const data = await API.get(`${URL}/getplayers/${id}`);
+       const data = await API.get(`${URL}/getplayers_new/${id}`);
       console.log(data);
 
       const players = data.data.players.teamAwayPlayers

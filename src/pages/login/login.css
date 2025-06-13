@@ -3,7 +3,7 @@
     align-items: center;
     gap: 10px;
     padding: 12px 20px;
-    background-color: #03d47c;
+    background-color: var(--red);
     /* Dream11 Red */
     color: white;
     font-weight: bold;
@@ -72,7 +72,7 @@
 
 /* Login button */
 .login-btn {
-    background-color: #03d47c !important;
+    background-color: var(--red) !important;
     color: #fff !important;
     font-size: 1rem !important;
     font-weight: bold !important;

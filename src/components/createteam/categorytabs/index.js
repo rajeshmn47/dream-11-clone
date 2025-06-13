@@ -108,42 +108,51 @@ const PlayersList = styled.div`
 `;
 
 const EachPlayer = styled.div`
-  img {
-    width: 60px !important;
-  }
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+  margin: 10px 0;
+  padding: 12px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  h1 {
-    font-size: 18px;
-    font-family: "Open Sans";
-    font-weight: bold;
-    text-transform: capitalize;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 0 4px 16px rgba(44,62,80,0.14);
+    background: #f9f9f9;
   }
-  border-bottom: 1px solid #e7e7e7;
-  border-left: none;
-  border-right: none;
-  padding: 0px 0;
+  &.selected {
+    border: 2px solid var(--green);
+    background: #eaffea;
+  }
+  &.notselected {
+    border: 1px solid #eee;
+  }
 `;
 
 const AddButton = styled.button`
-  color: var(--green);
-  background-color: #fff;
+  color: #fff;
+  background: var(--green);
   border: none;
-  outline: none;
-  margin-right: 15px;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-right: 10px;
   cursor: pointer;
-  max-width:60px;
+  box-shadow: 0 2px 6px rgba(44,62,80,0.10);
+  transition: background 0.2s;
+  &:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+  }
 `;
 
-const RemoveButton = styled.button`
-  color: #df5f1f;
-  background-color: var(--lightgreen);
-  border: none;
-  outline: none;
-  margin-right: 15px;
-  cursor: pointer;
-  max-width:60px;
+const RemoveButton = styled(AddButton)`
+  background: var(--red);
 `;
 
 const NoLineups = styled.h3`
@@ -180,9 +189,24 @@ const BlueDot = styled.span`
   display: inline-block;
 `;
 
-const Points = styled.h5`
+const Points = styled.span`
+  background: #f6f6f6;
+  color: #222;
+  border-radius: 8px;
+  padding: 4px 10px;
   font-size: 14px;
   font-weight: 600;
+  margin: 0 12px;
+`;
+
+const LastMatchBadge = styled.span`
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  margin-left: 8px;
+  display: inline-block;
 `;
 
 const ImgContainer = styled.div`
@@ -194,10 +218,13 @@ const ImgContainer = styled.div`
 
 const ImgCtr = styled.div`
   position: relative;
-  text-transform: uppercase;
-  padding-top: 10px;
   img {
-    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eee;
+    background: #fafafa;
   }
 `;
 const Home = styled.div`

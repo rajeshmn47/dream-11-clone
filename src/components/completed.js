@@ -17,6 +17,8 @@ import { API } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import {
   getDisplayDate,
+  getJustDate,
+  getJustHours,
   hoursRemaining,
   isTommorrow,
   sameDayorNot,
@@ -232,103 +234,41 @@ export function Completed() {
                           </Top>
                           <div className="match">
                             <div className="matchcenter">
-                              <div className="matchlefts">
-                                <img
-                                  src={u.teamAwayFlagUrl}
-                                  alt=""
-                                  width="40"
-                                />
-                                <h5>{u.away.code}</h5>
+                              <div>
+                                <div className="matchlefts">
+                                  <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                                  <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>{u.away.name}</h5>
+                                </div>
+                                <div className="matchrights">
+                                  <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                                  <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
+                                    {' '}
+                                    {u.home.name}
+                                  </h5>
+                                </div>
                               </div>
-                              <div
-                                className={
-                                  u.result == 'Yes' ? 'completed' : 'time'
-                                }
-                              >
-                                {u.result != 'Yes' && (
-                                  <div
-                                    style={{
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      flexDirection: 'column',
-                                    }}
-                                  >
-                                    <p
-                                      style={{
-                                        color: '#5e5b5b',
-                                        textTransform: 'auto',
-                                        fontSize: '10px',
-                                        marginTop: '2px',
-                                        fontWeight: '200',
-                                      }}
-                                    >
-                                      {!(u.result == 'Yes') ? (
-                                        sameDayorNot(
-                                          new Date(),
-                                          new Date(u.date),
-                                        )
-                                        || isTommorrow(
-                                          new Date(),
-                                          new Date(u.date),
-                                        ) ? (
-                                          <div>
-                                            <p>
-                                              {hoursRemaining(
-                                                u.date,
-                                                'k',
-                                                date,
-                                              )}
-                                            </p>
-                                            <p
-                                              style={{
-                                                color: '#5e5b5b',
-                                                textTransform: 'auto',
-                                                fontSize: '10px',
-                                                marginTop: '2px',
-                                              }}
-                                            >
-                                              {getDisplayDate(
-                                                u.date,
-                                                'i',
-                                                date,
-                                              )
-                                                && getDisplayDate(
-                                                  u.date,
-                                                  'i',
-                                                  date,
-                                                )}
-                                            </p>
-                                          </div>
-                                          ) : (
-                                            <p
-                                              style={{
-                                                color: '#e10000',
-                                                textTransform: 'auto',
-                                              }}
-                                            >
-                                              {getDisplayDate(u.date, 'i')
-                                              && getDisplayDate(u.date, 'i')}
-                                            </p>
-                                          )
-                                      ) : (
-                                        'Completed'
-                                      )}
-                                    </p>
-                                  </div>
-                                )}
+                              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  textTransform: 'uppercase',
+                                }}>
+                                  <Dot />
+                                  <h5 style={{ fontWeight: '200', color: '#5a5a5a', fontSize: '10px' }}>{getJustHours(u?.date)}</h5>
+                                </div>
+                                <p
+                                  style={{
+                                    color: '#e10000',
+                                    textTransform: 'auto',
+                                    fontWeight: '200',
+                                    fontSize: '10px'
+                                  }}
+                                >
+                                  {getDisplayDate(u.date, 'i') && getJustDate(u.date, 'i')}
+                                </p>
+
                               </div>
-                              <div className="matchrights">
-                                <h5>
-                                  {' '}
-                                  {u.home.code}
-                                </h5>
-                                <img
-                                  src={u.teamHomeFlagUrl}
-                                  alt=""
-                                  width="40"
-                                />
-                              </div>
+
                             </div>
                           </div>
                           <div
@@ -428,71 +368,45 @@ export function Completed() {
                                 {u.home.code}
                               </span>
                             </h5>
-                            <NotificationAddOutlinedIcon
-                              style={{ fontSize: '18px' }}
-                            />
+
                           </Top>
                           <div className="match">
                             <div className="matchcenter">
-                              <div className="matchlefts">
-                                <img
-                                  src={u.teamAwayFlagUrl}
-                                  alt=""
-                                  width="40"
-                                />
-                                <h5>{u.away.code}</h5>
+                              <div>
+                                <div className="matchlefts">
+                                  <img src={u.teamAwayFlagUrl} alt="" width="40" />
+                                  <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>{u.away.name}</h5>
+                                </div>
+                                <div className="matchrights">
+                                  <img src={u.teamHomeFlagUrl} alt="" width="40" />
+                                  <h5 style={{ color: '#212121', marginLeft: '20px', textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
+                                    {' '}
+                                    {u.home.name}
+                                  </h5>
+                                </div>
                               </div>
-                              <div
-                                className={
-                                  u.result == 'Yes' ? 'completed' : 'time'
-                                }
-                              >
-                                {u.result === 'Yes' && (
-                                  <div
-                                    style={{
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      flexDirection: 'column',
-                                    }}
-                                  >
-                                    <div
-                                      style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        textTransform: 'uppercase',
-                                      }}
-                                    >
-                                      <Dot />
-                                      <h5 style={{ fontWeight: '200' }}>
-                                        Completed
-                                      </h5>
-                                    </div>
-                                    <p
-                                      style={{
-                                        color: '#5e5b5b',
-                                        textTransform: 'auto',
-                                        fontSize: '10px',
-                                        marginTop: '2px',
-                                        fontWeight: '200',
-                                      }}
-                                    >
-                                      {getDisplayDate(u.date, 'i', date)}
-                                    </p>
-                                  </div>
-                                )}
+                              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  textTransform: 'uppercase',
+                                }}>
+                                  <Dot />
+                                  <h5 style={{ fontWeight: '200', color: '#5a5a5a', fontSize: '10px' }}>Completed</h5>
+                                </div>
+                                <p
+                                  style={{
+                                    color: '#e10000',
+                                    textTransform: 'auto',
+                                    fontWeight: '200',
+                                    fontSize: '10px'
+                                  }}
+                                >
+                                  {getDisplayDate(u.date, 'i') && getJustDate(u.date, 'i')}
+                                </p>
+
                               </div>
-                              <div className="matchrights">
-                                <h5>
-                                  {' '}
-                                  {u.home.code}
-                                </h5>
-                                <img
-                                  src={u.teamHomeFlagUrl}
-                                  alt=""
-                                  width="40"
-                                />
-                              </div>
+
                             </div>
                           </div>
                           <div
@@ -544,7 +458,7 @@ export function Completed() {
                               <h5
                                 style={{
                                   marginRight: '10px',
-                                  color: 'var(--red)',
+                                  color: 'var(--brightgreen)',
                                   fontWeight: '200',
                                   textTransform: 'uppercase',
                                 }}
@@ -552,9 +466,7 @@ export function Completed() {
                                 YOU Won ₹
                                 {u.won}
                               </h5>
-                              <SportsCricketOutlined
-                                style={{ color: '#595959', fontSize: '18px' }}
-                              />
+
                             </div>
                           </div>
                         </div>

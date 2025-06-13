@@ -1,0 +1,42 @@
+{
+  "packageId": "app.vercel.dream_11_clone_nu.twa",
+  "host": "dream-11-clone-nu.vercel.app",
+  "name": "FC4U",
+  "launcherName": "FC4U",
+  "display": "standalone",
+  "themeColor": "#1A1A1A",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://dream-11-clone-nu.vercel.app/abd.jpeg",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/home/user/dream11/dream-11-clone/android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "3",
+  "appVersionCode": 3,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://dream-11-clone-nu.vercel.app/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://dream-11-clone-nu.vercel.app/",
+  "minSdkVersion": 21,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "3"
+}

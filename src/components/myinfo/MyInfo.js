@@ -1,4 +1,3 @@
-import '../register.css';
 import './myInfo.css';
 import 'react-phone-number-input/style.css';
 

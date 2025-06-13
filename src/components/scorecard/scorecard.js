@@ -9,29 +9,37 @@ import { setshow } from '../../utils/dateformat';
 import ScoreTable from './scoretable';
 
 const Container = styled.div`
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(44,62,80,0.08);
+  padding: 18px 0 10px 0;
+  margin: 0 0 24px 0;
   .MuiPaper-root {
-    height: auto !important;
-  }
-  .MuiPaper-root ::after {
-    height: auto !important;
-  }
-  .MuiBox-root {
-    padding: 0 0 !important;
-  }
-  .expanded {
-    background-color: #ffffff;
-  }
-  .not {
-    background-color: #ceffce !important;
+    background: transparent;
+    box-shadow: none;
   }
   .MuiAccordion-root {
-    margin: 0 0 !important;
+    margin: 0 0 12px 0;
+    border-radius: 12px !important;
+    overflow: hidden;
+    border: 1.5px solid var(--lightred);
+    transition: box-shadow 0.2s, border 0.2s;
+    background: var(--lightred);
   }
-  a {
-    text-decoration: none;
+  .MuiAccordion-root.expanded {
+    background: var(--white);
+    border: 2px solid var(--green);
+    box-shadow: 0 4px 16px rgba(26,61,50,0.09);
   }
-  .MuiCollapse-root{
-    overflow: scroll !important;
+  .MuiAccordionSummary-root {
+    transition: background 0.2s;
+    cursor: pointer;
+    &:hover {
+      background: var(--lightred);
+    }
+  }
+  .MuiCollapse-root {
+    overflow: auto !important;
   }
 `;
 
@@ -83,34 +91,58 @@ const MatchData = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  white-space: nowrap;
+  gap: 18px;
+  min-width: 0;
+  overflow: hidden;
 `;
 
 const Code = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 15px;
+  color: var(--green);
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120px;         // Fixed width for alignment
 `;
 
 const Overs = styled.span`
-  font-size: 12px !important;
-  font-weight: 400;
-  margin-right: 5px;
-  line-height: 1;
+  font-size: 13px !important;
+  font-weight: 500;
+  margin-right: 8px;
+  color: var(--paragraph-color);
 `;
 
 const Scores = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 15px;
+  color: var(--heading-color);
+  background: var(--lightred);
+  border-radius: 8px;
+  padding: 4px 12px;
+  box-shadow: 0 1px 4px rgba(255,75,0,0.06);
+  flex-shrink: 0;
+  white-space: nowrap;
+  width: 90px;          // Fixed width for alignment
+  justify-content: flex-end;
 `;
 
 const NotStarted = styled.h3`
   color: var(--red);
-  padding: 0 10px;
+  background: #fff3f3;
+  padding: 24px 10px;
   text-align: center;
-  height: 100px;
-  margin-top: 15px;
+  border-radius: 12px;
+  margin: 24px 0 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: 1.5px solid var(--lightred);
 `;
 
 export function ScoreCard({ data, g, livescore }) {
@@ -127,13 +159,12 @@ export function ScoreCard({ data, g, livescore }) {
           <Accordion
             expanded={expanded === 'panel1'}
             onChange={handleChange('panel1')}
-            className={expanded === 'panel1' ? 'expanded' : 'not'}
+            className={expanded === 'panel1' ? 'expanded' : ''}
           >
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon style={{ color: "var(--green)" }} />}
               aria-controls="panel1bh-content"
               id="panel1bh-header"
-              style={{ overflow: 'scroll !important' }}
             >
               <MatchData>
                 <Code>{data?.titleFI}</Code>
@@ -161,10 +192,10 @@ export function ScoreCard({ data, g, livescore }) {
           <Accordion
             expanded={expanded === 'panel2'}
             onChange={handleChange('panel2')}
-            className={expanded === 'panel2' ? 'expanded' : 'not'}
+            className={expanded === 'panel2' ? 'expanded' : ''}
           >
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon style={{ color: "var(--green)" }} />}
               aria-controls="panel2bh-content"
               id="panel2bh-header"
             >

@@ -1,4 +1,3 @@
-import './register.css';
 import 'react-phone-number-input/style.css';
 
 import styled from '@emotion/styled';

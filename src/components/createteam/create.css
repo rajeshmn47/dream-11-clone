@@ -4,7 +4,7 @@
 }
 
 .selected {
-  background-color: var(--lightgreen);
+  background-color: var(--lightred);
   border-bottom: 1px solid #d7d6d4;
 }
 

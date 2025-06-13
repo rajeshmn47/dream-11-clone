@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { LOGIN_SUCCESS, URL } from '../constants/userConstants';
-import Otp from './otp';
+import { LOGIN_SUCCESS, URL } from '../../constants/userConstants';
+import Otp from './../../components/otp'
 
 const Container = styled.div`
   display: flex;
@@ -28,14 +28,54 @@ const Container = styled.div`
   width: 100%;
   padding: 20px;
   box-sizing:border-box;
-
-  .MuiPaper-root {
+  background-color: #f7f7f7;
+   .MuiPaper-root {
     width: 100%;
     max-width: 400px;
     padding: 20px;
     text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
+`;
+
+const TopBar = styled.div`
+   display:flex;
+   align-items:center;
+   margin-bottom:10px;
+`;
+
+const Title = styled.h3`
+   font-size: 32px;
+   color: var(--heading-color);
+   margin: 5px 0;
+`;
+
+const SubTitle = styled.p`
+   color: var(--paragraph-color);
+   margin-bottom: 20px;
+`;
+
+const Info = styled.p`
+   color: var(--paragraph-color);
+`;
+
+const ChangedTextField = styled(TextField)`
+border-radius: 5px;
+.MuiInputBase-root{
+  border-radius: 50px !important;
+}
+`
+
+const ChangedButton = styled(Button)`
+border-radius: 50px;
+padding: 15px 0px;
+.MuiButtonBase-root{
+  border-radius: 50px !important;
+}
+`;
+
+const RegisterLinks = styled.div`
+margin:15px 0;
 `;
 
 export function Register() {
@@ -112,71 +152,69 @@ export function Register() {
 
   return (
     <Container>
-      <div className="registertopbar">
+      <TopBar>
         <ArrowBackIcon style={{ marginRight: '15px', cursor: 'pointer' }} onClick={() => navigate(-1)} />
-        Register & Play
-      </div>
+        <Title>Create an Account</Title>
+      </TopBar>
+      <SubTitle>Let’s us know what your name, email, and your password</SubTitle>
+      <form onSubmit={handleSubmit(onSubmit)} className="registerform">
+        <ChangedTextField
+          id="email"
+          label="Email"
+          variant="outlined"
+          type="email"
+          fullWidth
+          margin="dense"
+          {...register('email')}
+          error={!!errors.email}
+        />
+        <Typography variant="inherit">{errors.email?.message}</Typography>
 
-      <Paper className="MuiPaper-root">
-        <form onSubmit={handleSubmit(onSubmit)} className="registerform">
-          <TextField
-            id="email"
-            label="Email"
-            variant="outlined"
-            type="email"
-            fullWidth
-            margin="dense"
-            {...register('email')}
-            error={!!errors.email}
-          />
-          <Typography variant="inherit">{errors.email?.message}</Typography>
+        <ChangedTextField
+          id="username"
+          label="Name"
+          variant="outlined"
+          fullWidth
+          margin="dense"
+          type="text"
+          {...register('username')}
+          error={!!errors.username}
+        />
+        <Typography variant="inherit">{errors.username?.message}</Typography>
 
-          <TextField
-            id="username"
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="dense"
-            type="text"
-            {...register('username')}
-            error={!!errors.username}
-          />
-          <Typography variant="inherit">{errors.username?.message}</Typography>
+        <ChangedTextField
+          id="phoneNumber"
+          label="Phone Number"
+          variant="outlined"
+          fullWidth
+          margin="dense"
+          {...register('phoneNumber')}
+          error={!!errors.phoneNumber}
+        />
+        <Typography variant="inherit">{errors.phoneNumber?.message}</Typography>
 
-          <TextField
-            id="phoneNumber"
-            label="Phone Number"
-            variant="outlined"
-            fullWidth
-            margin="dense"
-            {...register('phoneNumber')}
-            error={!!errors.phoneNumber}
-          />
-          <Typography variant="inherit">{errors.phoneNumber?.message}</Typography>
+        <ChangedTextField
+          id="password"
+          label="Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="dense"
+          {...register('password')}
+          error={!!errors.password}
+        />
+        <Typography variant="inherit">{errors.password?.message}</Typography>
 
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            variant="outlined"
-            fullWidth
-            margin="dense"
-            {...register('password')}
-            error={!!errors.password}
-          />
-          <Typography variant="inherit">{errors.password?.message}</Typography>
+        <ChangedButton className="register-btn" variant="contained" type="submit">
+          Register
+        </ChangedButton>
+      </form>
 
-          <Button className="register-btn" variant="contained" type="submit">
-            Register
-          </Button>
-        </form>
-
-        <div className="register-links">
-          <Link to="/forgot-password">Forgot password?</Link>
-          <br />
-          <Link to="/login">Already a user? Log in</Link>
-        </div>
-      </Paper>
+      <RegisterLinks>
+        <Link to="/forgot-password">Forgot password?</Link>
+        <br />
+        <Info>Already a user? <Link to="/login">Log in</Link></Info>
+      </RegisterLinks>
 
       <Otp open={open} setOpen={setOpen} otp={otp} setOtp={setOtp} handleOtp={handleOtp} err={err} />
     </Container>

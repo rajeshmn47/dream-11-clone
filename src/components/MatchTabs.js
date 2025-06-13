@@ -28,6 +28,83 @@ import { TeamShort } from './TeamShort';
 //import ReactPullToRefresh from 'react-pull-to-refresh';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 // Import the CSS
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import ContestContainerN from './ContestContainer';
+import MyContestsTab from './MyContestsTab';
+
+const ContestCardStyled = styled.div`
+  border-radius: 16px;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 0 8px 24px rgba(44, 62, 80, 0.18);
+    transform: translateY(-2px) scale(1.01);
+  }
+`;
+
+const PrizeText = styled.h1`
+  font-size: 2rem;
+  color: var(--red);
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const EntryFee = styled.span`
+  font-size: 1.1rem;
+  color: #444;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 4px 12px;
+  margin-left: 8px;
+  font-weight: 600;
+`;
+
+const SpotsBar = styled(Slider)`
+  && {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .MuiSlider-track {
+      background-color: var(--green);
+    }
+    .MuiSlider-rail {
+      background-color: #eee;
+    }
+  }
+`;
+
+const SpotsInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 0 0;
+`;
+
+const SpotsLeft = styled.span`
+  color: ${props => props.low ? 'var(--red)' : '#444'};
+  font-weight: 600;
+`;
+
+const JoinBtnStyled = styled(Button)`
+  && {
+    background-color: var(--red);
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(255,0,0,0.08);
+    transition: background 0.2s;
+    &:hover {
+      background-color: #b71c1c;
+    }
+  }
+`;
 
 const ContestsContainer = styled(Grid)``;
 const ContestContainer = styled.div`
@@ -62,7 +139,7 @@ const Contest = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-    background-color: #2bfd00 !important;
+    background-color: var(--lightred) !important;
   }
 `;
 
@@ -81,7 +158,7 @@ const ContestJ = styled.div`
     color: #f25640;
   }
   .MuiSlider-rail {
-    background-color: #2bfd00 !important;
+    background-color: var(--lightred) !important;
   }
 `;
 
@@ -99,7 +176,7 @@ const First = styled.div`
 `;
 
 const FreeButton = styled.button`
-  background-color: var(--green);
+  background-color: var(--red);
   text-transform: uppercase;
   color: #ffffff;
   padding: 10px 30px;
@@ -109,7 +186,6 @@ const FreeButton = styled.button`
 `;
 
 const SliderContainer = styled.div``;
-const SpotsLeft = styled.div``;
 
 const SpotsRight = styled.div``;
 
@@ -205,7 +281,7 @@ const StatusC = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  background-color: #ceffce;
+  background-color:var(--lightred);
   border-bottom: 1px solid;
   border-bottom-color: currentcolor;
   border-color: rgba(106, 106, 106, 0.12);
@@ -415,7 +491,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
                   },
                 })}
               >
-                <ContestContainer>
+                {/*<ContestContainer>
                   <Contest>
                     <First>
                       <p>Prize Pool</p>
@@ -463,7 +539,17 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
                     %
                     Single
                   </Last>
-                </ContestContainer>
+                </ContestContainer>*/}
+                <ContestContainerN
+                  price={tab.price}
+                  entryFee={Math.floor(tab.price / tab.totalSpots)}
+                  totalSpots={tab.totalSpots}
+                  spotsLeft={tab.spotsLeft}
+                  numWinners={tab.numWinners}
+                  isAlmostFull={tab.spotsLeft <= 10}
+                  onJoin={e => handleOpen(e, tab)}
+                  onClick={() => navigate(`/contestdetail/${tab._id}`, { state: { match_details: matchlive } })}
+                />
               </Grid>
             ))}
           <ConfirmModal
@@ -483,146 +569,12 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
       label: `My Contests (${contest.length})`,
       condition: contest.length > 0,
       content: (
-        <ContestsContainer container spacing={2} justifyContent="center">
-          {contest.length > 0 ? (
-            contest.map((tab) => (
-              <Grid item md={4} lg={4} sm={12} xs={12}
-                onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
-                  state: {
-                    match_details: matchlive,
-                  },
-                })}
-              >
-                <ContestContainerJ item md={6} lg={6} sm={12} xs={12}
-                  onClick={() => navigate(`/contestdetail/${tab.contest._id}`, {
-                    state: {
-                      match_details: matchlive,
-                    },
-                  })}
-                >
-                  <ContestJ>
-                    <First>
-                      <div>
-                        <p>Prize Pool</p>
-                        ₹
-                        {tab?.contest?.price}
-                      </div>
-                      <div>
-                        <p>spots</p>
-                        <p>{Math.floor(tab?.contest?.totalSpots)}</p>
-                      </div>
-                      <div>
-                        <p>Entry</p>
-                        <p>
-                          ₹
-                          {Math.floor(
-                            tab?.contest?.price / tab?.contest?.totalSpots,
-                          )}
-                        </p>
-                      </div>
-                      {matchlive?.result == 'Complet' && (
-                        <h5
-                          style={{
-                            color: 'var(--green)',
-                            fontFamily: 'OpenSans',
-                          }}
-                        >
-                          u won
-                          {' '}
-                          {tab?.team?.won}
-                          rs!
-                        </h5>
-                      )}
-                    </First>
-                  </ContestJ>
-                  <LastJ>
-                    <div>
-                      <p style={{ display: 'flex', alignItems: 'center' }}>
-                        <F>1st</F>
-                        {' '}
-                        {tab.contest.prizeDetails[0].prize}
-                      </p>
-                    </div>
-                    <First>
-                      <EmojiEventsOutlinedIcon />
-                      {' '}
-                      {Math.floor((5 / tab.contest.totalSpots) * 100)}
-                      %
-                    </First>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <M>m</M>
-                      <C>c</C>
-                    </div>
-                  </LastJ>
-                  {tab.teams.map((t) => (
-                    <StatusC>
-                      <SpotsLeft>
-                        {t?.username}
-                        {matchlive?.result == 'Complete' ? (
-                          <p
-                            style={{
-                              color: 'var(--green)',
-                              fontSize: '12px',
-                            }}
-                          >
-                            you won ₹
-                            {t.won}
-                          </p>
-                        ) : (
-                          <p
-                            style={{
-                              color: 'var(--green)',
-                              fontSize: '12px',
-                            }}
-                          >
-                            IN WINNING ZONE
-                          </p>
-                        )}
-                      </SpotsLeft>
-                      <SpotsLeft>
-                        T
-                        {t?.teamId}
-                      </SpotsLeft>
-                      <SpotsLeft>{t?.points}</SpotsLeft>
-                      <SpotsRight
-                        style={{ display: 'flex', alignItems: 'center' }}
-                      >
-                        #
-                        {t?.rank}
-                        {t?.rank < tab?.contest?.prizeDetails?.length ? (
-                          <ArrowUpwardIcon
-                            style={{
-                              color: 'var(--green)',
-                              fontSize: '18px',
-                              marginLeft: '5px',
-                            }}
-                          />
-                        ) : (
-                          <SouthIcon
-                            style={{
-                              color: 'red',
-                              fontSize: '18px',
-                              marginLeft: '5px',
-                            }}
-                          />
-                        )}
-                      </SpotsRight>
-                    </StatusC>
-                  ))}
-                </ContestContainerJ>
-              </Grid>
-            ))
-          ) : (
-            <NoContests>
-              <p> you have not joined a contest yet!</p>
-              <img src={`${FURL}/contest.png`} alt="" />
-              <p>What are you waiting for?</p>
-              <JoincontestBtn onClick={() => setValue(0)}>
-                join a contest
-              </JoincontestBtn>
-            </NoContests>
-          )}
-        </ContestsContainer>
+        <MyContestsTab
+          contest={contest}
+          matchlive={matchlive}
+          navigate={navigate}
+          setValue={setValue}
+        />
       ),
     },
     {
@@ -672,7 +624,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
       condition: matchlive,
       content: (
         <video id="videoPlayer" width="100%" controls autoPlay muted={false}>
-          <source src={`${URL}/video`} type="video/mp4" />
+          <source src={`${URL}/highlights/final_${match_details?.matchId}.mp4`} type="video/mp4" />
         </video>
       ),
     },

@@ -108,6 +108,19 @@ a {
 }
 
 :root {
+  --red: #FF4B00;
+  --redd: #e11803;
+  --lightred: #ffcd94;
+  --lightgreen: #a9e0c9;
+  --paragraph-color: #5a5a5a;
+  --heading-color: #1a1a1a;
+  --brightgreen: #03d47c;
+  --green: #1a3d32;
+  --black: #1a1a1a;
+  --white: #ffffff;
+}
+
+:roote {
   --red: #03d47c;
   --lightgreen: #a9e0c9;
   --green: #1a3d32;

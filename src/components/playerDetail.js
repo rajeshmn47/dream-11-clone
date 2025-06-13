@@ -134,7 +134,7 @@ const SeriesHeading = styled.h3`
 const PlayerStats = styled.div`
   margin-top: 25px;
   .selected {
-    background: rgba(67, 108, 171, 0.1);
+    background: var(--lightred);
     border: 1px solid rgba(67, 108, 171, 0.2);
     padding: 15px 0px;
     cursor: pointer;

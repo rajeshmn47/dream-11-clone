@@ -25,8 +25,8 @@ import Logingoogle from './components/googlesignin';
 import HelpAndSupport from './components/helpAndSupport';
 import Home from './components/home/home';
 import JoinedContests from './components/joinedcontests';
-import Login from './components/login';
-import Contests from './components/MatchDetails';
+import Login from './pages/login'
+import Contests from './pages/MatchDetails/MatchDetails';
 import More from './components/more';
 import MyInfo from './components/myinfo/MyInfo';
 import NewUsers from './components/newUsers';
@@ -34,7 +34,7 @@ import Payment from './components/payment';
 import Players from './components/players';
 import PrivacyPolicy from './components/privacyPolicy';
 import Refund from './components/refund';
-import Register from './components/register';
+import Register from './pages/register';
 import SavedTeam from './components/savedteam';
 import TermsAndConditions from './components/termsAndConditions';
 import Test from './components/test';
@@ -46,6 +46,9 @@ import Bowler from './components/Bowler';
 import { URL } from './constants/userConstants';
 import { getConfig } from './actions/configAction';
 import WithdrawCashPage from './components/withdrawPolicy';
+import GamizoCoins from './pages/GamizoCoins';
+import ReferWin from './pages/ReferWin';
+import Games from './pages/Games';
 
 function App() {
   const dispatch = useDispatch();
@@ -174,6 +177,9 @@ function App() {
           <Route path="/player/:id" element={<PlayerDetail />} />
           <Route path="/series/:name" element={<SeriesDetails />} />
           <Route path="/bowler" element={<Bowler />} />
+          <Route path="/gamizocoins" element={<GamizoCoins />} />
+          <Route path="/referwin" element={<ReferWin />} />
+          <Route path="/games" element={<Games />} />
         </Routes>
       </BrowserRouter>
       {confetti && (

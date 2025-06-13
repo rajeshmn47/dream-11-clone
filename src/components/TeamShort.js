@@ -12,57 +12,73 @@ const Player = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 10px 0;
+  margin: 14px 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+  padding: 10px 0;
   h1 {
     font-size: 16px;
-    font-family: "Open Sans";
+    font-family: "Montserrat", "Open Sans", Arial, sans-serif;
     width: 100px;
     text-transform: capitalize;
+    color: var(--heading-color);
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
 `;
 
 const CaptainC = styled.button`
-  border: 2px solid #cccccc;
+  border: 2px solid var(--green);
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: var(--lightgreen);
   font-weight: 700;
-  color: #cccccc;
-  width: 30px;
-  font-size: 16px;
-  height: 30px;
+  color: var(--green);
+  width: 32px;
+  font-size: 15px;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(26,61,50,0.10);
 `;
 
 const ViceCaptain = styled.button`
-  border: 2px solid #cccccc;
+  border: 2px solid var(--red);
   border-radius: 50%;
-  background-color: #ffffff;
-  color: #cccccc;
+  background-color: var(--lightred);
+  color: var(--red);
   font-weight: 700;
-  font-size: 16px;
-  width: 30px;
-  height: 30px;
+  font-size: 15px;
+  width: 32px;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  box-shadow: 0 1px 4px rgba(255,75,0,0.10);
 `;
 const Name = styled.div`
   display: flex;
   width: 200px;
   align-items: center;
+  font-family: "Montserrat", "Open Sans", Arial, sans-serif;
   img {
     width: 50px !important;
     height: 50px !important;
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
+    border: 2px solid var(--lightgreen);
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
   }
   h1 {
     white-space: nowrap;
+    color: var(--heading-color);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
   }
 `;
 
@@ -175,11 +191,13 @@ const Title = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Montserrat", "Open Sans", Arial, sans-serif;
 `;
 
 const Bottom = styled(Grid)`
   background-color: #ffffff;
   padding: 10px 10px;
+  border-radius: 0 0 12px 12px;
 `;
 
 const Each = styled(Grid)`
@@ -193,33 +211,37 @@ const Each = styled(Grid)`
 `;
 
 const EachTeam = styled.div`
-  box-shadow: 5px 5px 4px 2px #cecccc;
-  border-radius: 5px;
+  box-shadow: 0 4px 24px rgba(44,62,80,0.13);
+  border-radius: 12px;
   overflow: hidden;
-  margin: 15px 0;
+  margin: 18px 0;
+  background: linear-gradient(120deg, var(--lightgreen) 0%, #fff 100%);
+  border: 1.5px solid #e0e0e0;
 `;
 const Captain = styled.div`
   font-size: 12px;
   text-transform: capitalize;
-  background-color: #ffffff;
-  color: var(--black);
+  background-color: var(--lightgreen);
+  color: var(--green);
   border-radius: 5px;
-  padding: 0 4px;
+  padding: 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
 `;
 
 const VCaptain = styled.div`
   font-size: 12px;
   text-transform: capitalize;
-  background-color: var(--black);
-  color: #ffffff;
+  background-color: var(--lightred);
+  color: var(--red);
   border-radius: 5px;
-  padding: 0 4px;
+  padding: 0 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
 `;
 
 const CaptainsContainer = styled.div`

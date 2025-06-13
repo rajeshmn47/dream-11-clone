@@ -30,17 +30,30 @@ export function Bottomnav() {
         <EmojiEventsOutlinedIcon style={{ fontSize: '20px' }} />
         My Matches
       </div>
-      <div>
+      <div
+        onClick={() => navigate('/gamizocoins')}
+        className={
+          location.pathname === '/gamizocoins' ? 'selectedrt' : 'notselectedrt'
+        }
+      >
         <FeedOutlinedIcon style={{ fontSize: '20px' }} />
-        Feed
+        GamizoCoins
       </div>
-      <div>
+      <div
+        onClick={() => navigate('/referwin')}
+        className={
+          location.pathname === '/referwin' ? 'selectedrt' : 'notselectedrt'
+        }
+      >
         <GroupsOutlinedIcon style={{ fontSize: '20px' }} />
-        Groups
+        Refer & Win
       </div>
-      <div>
+      <div
+        onClick={() => navigate('/games')}
+        className={location.pathname === '/games' ? 'selectedrt' : 'notselectedrt'}
+      >
         <MoreHorizOutlinedIcon style={{ fontSize: '20px' }} />
-        More
+        Games
       </div>
     </div>
   );
