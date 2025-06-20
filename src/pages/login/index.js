@@ -163,7 +163,7 @@ export function Login() {
       <RegisterLinks>
         <Link to="/forgot-password">Forgot password?</Link>
         <br />
-        <Info>Don't have an account? <Link to="/login">Sign up</Link></Info>
+        <Info>Don't have an account? <Link to="/register">Sign up</Link></Info>
       </RegisterLinks>
     </Container>
   );
