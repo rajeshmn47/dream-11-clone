@@ -264,7 +264,7 @@ export function Match({ u, live }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "flex-end",
+                alignItems: "center",
                 minWidth: 90,
                 background: "#f8fafc",
                 borderRadius: 10,
