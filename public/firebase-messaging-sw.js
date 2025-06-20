@@ -24,8 +24,11 @@ messaging.onBackgroundMessage((payload) => {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: './logo192.png', // Replace with your app's icon
-    sound: './ipl.mp3'
+    icon: './abd.jpeg', // Replace with your app's icon
+    sound: './ipl.mp3',
+    data: {
+      url: "https://dream-11-clone-nu.vercel.app"
+    }
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
