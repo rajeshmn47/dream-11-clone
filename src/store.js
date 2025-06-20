@@ -9,7 +9,7 @@ import { configReducer } from './reducers/configReducer';
 
 const options = {
   timeout: 5000,
-  position: positions.BOTTOM_CENTER,
+  position: positions.BOTTOM,
   transition: transitions.SCALE,
 };
 

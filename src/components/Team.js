@@ -306,6 +306,10 @@ const AvatarWrapper = styled.div`
     height: 20px;
   }
 `;
+
+const EditIconContainer = styled.div`
+`;
+
 export function Team({
   matchinfo,
   captains,
@@ -323,16 +327,16 @@ export function Team({
             matchlive?.result == 'In Progress'
             || matchlive?.result == 'Complete'
           ) && (
-            <EditIconContainer
-              onClick={() => navigate(`/createTeam/${matchId}`, {
-                state: {
-                  selectedPlayers,
-                  editMode: true,
-                  teamId,
-                },
-              })}
-            />
-          )}
+              <EditIconContainer
+                onClick={() => navigate(`/createTeam/${matchId}`, {
+                  state: {
+                    selectedPlayers,
+                    editMode: true,
+                    teamId,
+                  },
+                })}
+              />
+            )}
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
             <div>
               <h3>{matchinfo[0]?.awayCode}</h3>
@@ -364,7 +368,7 @@ export function Team({
               </AvatarWrapper>
               <VCaptain>
                 <p>
-                  {captains[1]?.playerName && showName(captains[1]?.playerName)||"vice captain"}
+                  {captains[1]?.playerName && showName(captains[1]?.playerName) || "vice captain"}
                 </p>
               </VCaptain>
             </CaptainsContainer>

@@ -21,7 +21,6 @@ const style = {
   p: 4,
 };
 const Main = styled.div`
-  width: 320px;
   min-height: 420px;
   padding: 24px 20px 20px 20px;
   background: #fff;
