@@ -33,3 +33,22 @@ messaging.onBackgroundMessage((payload) => {
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+// ✅ Handle notification clicks — MUST be outside `onBackgroundMessage`
+self.addEventListener('notificationclick', function (event) {
+  const urlToOpen = event.notification.data?.url || "https://dream-11-clone-nu.vercel.app";
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+      for (let client of windowClients) {
+        if (client.url === urlToOpen && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
+  );
+});

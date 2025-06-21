@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { API } from '../actions/userAction';
-import { URL } from '../constants/userConstants';
+import { FURL, URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
 import SavedTeam from './savedteam';
@@ -234,7 +234,7 @@ export function Captain({ players, editMode, teamId }) {
     const b = se.find((s) => s.isViceCaptain === true);
     return a && b;
   }
-  
+
   return (
     <>
       {!save ? (
@@ -248,7 +248,14 @@ export function Captain({ players, editMode, teamId }) {
             {selectedPlayers.map((p) => (
               <Player>
                 <Name>
-                  <img src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`} alt="" />
+                  <img
+                    src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
+                    alt=""
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `${FURL}/player_logo.jpeg`; // fallback image in your public folder
+                    }}
+                  />
                   <Link to={`{/player/${p.playerId}`}>{p.playerName}</Link>
                 </Name>
                 <CaptainC

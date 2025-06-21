@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { API } from '../../../actions/userAction';
-import { URL } from '../../../constants/userConstants';
+import { FURL, URL } from '../../../constants/userConstants';
 import { playedlm } from '../../../utils/createteams';
 import {
   checkar,
@@ -115,6 +115,7 @@ const EachPlayer = styled.div`
   padding: 12px 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   transition: box-shadow 0.2s;
   &:hover {
     box-shadow: 0 4px 16px rgba(44,62,80,0.14);
@@ -403,6 +404,10 @@ export default function CategoryTabs({
                             <img
                               src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `${FURL}/player_logo.jpeg`; // fallback image in your public folder
+                              }}
                             />
                             {p.isHome ? (
                               <Home>{p.code}</Home>
@@ -467,7 +472,11 @@ export default function CategoryTabs({
                           <ImgCtr>
                             <img
                               src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
-                              alt=""
+                              //alt={`${p.playerName?.charAt(0)}`}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `${FURL}/player_logo.jpeg`; // fallback image in your public folder
+                              }}
                             />
                             {p.isHome ? (
                               <Home>{p.code}</Home>
@@ -531,6 +540,10 @@ export default function CategoryTabs({
                             <img
                               src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `${FURL}/player_logo.jpeg`; // fallback image in your public folder
+                              }}
                             />
                             {' '}
                             {p.isHome ? (
@@ -595,6 +608,10 @@ export default function CategoryTabs({
                             <img
                               src={`https://firebasestorage.googleapis.com/v0/b/dreamelevenclone.appspot.com/o/images%2F${p.playerId}.png?alt=media&token=4644f151-3dfd-4883-9398-4191bed34854`}
                               alt=""
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `${FURL}/player_logo.jpeg`; // fallback image in your public folder
+                              }}
                             />
                             {p.isHome ? (
                               <Home>{p.code}</Home>
