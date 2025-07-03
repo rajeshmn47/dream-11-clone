@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { addconfetti, removeconfetti } from '../actions/userAction';
 import { db } from "../firebase"
 import Animate from './animate';
-import { URL } from '../constants/userConstants';
+import { URL, VIDEO_URL } from '../constants/userConstants';
 
 const CommentaryContainer = styled.div`
   padding: 18px 0;
@@ -251,7 +251,7 @@ export function Commentary({ matchdata }) {
               </CommentCard>
               {p.videoLink && (
                 <VideoThumb controls muted>
-                  <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
                 </VideoThumb>
               )}
             </>
@@ -275,7 +275,7 @@ export function Commentary({ matchdata }) {
               </CommentCard>
               {p.videoLink && (
                 <VideoThumb controls muted>
-                  <source src={`${URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
                 </VideoThumb>
               )}
             </>
