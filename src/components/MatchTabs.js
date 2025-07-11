@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { API } from '../actions/userAction';
-import { FURL, URL } from '../constants/userConstants';
+import { FURL, URL, VIDEO_URL } from '../constants/userConstants';
 import { leaderboardChanges } from '../utils/leaderboardchanges';
 import Commentary from './commentary';
 import ConfirmModal from './confirmcontest';
@@ -624,7 +624,7 @@ export default function MatchTabs({ tabs, g, livescore, getdata }) {
       condition: matchlive,
       content: (
         <video id="videoPlayer" width="100%" controls autoPlay muted={false}>
-          <source src={`${URL}/highlights/final_${match_details?.matchId}.mp4`} type="video/mp4" />
+          <source src={`${VIDEO_URL}/highlights/final_${match_details?.matchId}.mp4`} type="video/mp4" />
         </video>
       ),
     },
