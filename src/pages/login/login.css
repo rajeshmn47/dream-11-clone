@@ -98,6 +98,27 @@
     cursor: not-allowed !important;
 }
 
+
+/* App Title Section */
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.app-name {
+  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
+  color: #1877f2; /* FB blue style */
+  margin-left:20px;
+}
+
+.logo-icon {
+  color: #1877f2;
+  font-size: 2.5rem;
+}
+
 /* Ensure scrolling for smaller screens */
 @media screen and (max-width: 768px) {
     .login {

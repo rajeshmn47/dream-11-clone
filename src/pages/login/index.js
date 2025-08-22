@@ -9,6 +9,8 @@ import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../actions/userAction';
+import { Avatar, Typography } from '@mui/material';
+import { LockOutlined } from '@mui/icons-material';
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +29,11 @@ const Container = styled.div`
     text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
+    @media screen and (max-width: 600px) {
+       .MuiPaper-root {
+          max-width:290px;
+       }
+    }
 `;
 
 const TopBar = styled.div`
@@ -102,14 +109,17 @@ export function Login() {
 
   return (
     <Container>
-      <TopBar>
-        <Title>Let’s login.</Title>
-      </TopBar>
-      <SubTitle>Let’s us know what your email, and your password</SubTitle>
-      {/* Header */}
+      <div className="app-title">
+        <img src='./gamizologo.png' alt='' width='220' height='auto' />
+      </div>
+      <Paper>
+        <TopBar>
+          <Title>Let’s login.</Title>
+        </TopBar>
+        {/* Header */}
 
-      {/* Login Form Section */}
-      {/* Social Login Buttons 
+        {/* Login Form Section */}
+        {/* Social Login Buttons 
           <div className="social-login">
             <Button
               variant="contained"
@@ -131,40 +141,41 @@ export function Login() {
             </Button>
           </div>
 */}
-      {/* Login Form */}
-      <form onSubmit={handlesubmit} className="login-form">
-        <ChangedTextField
-          fullWidth
-          variant="outlined"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          className="input-field"
-        />
+        {/* Login Form */}
+        <form onSubmit={handlesubmit} className="login-form">
+          <ChangedTextField
+            fullWidth
+            variant="outlined"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            className="input-field"
+          />
 
-        <ChangedTextField
-          fullWidth
-          variant="outlined"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="input-field"
-        />
+          <ChangedTextField
+            fullWidth
+            variant="outlined"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input-field"
+          />
 
-        {/* Login Button */}
-        <ChangedButton type="submit" className="" variant="contained" disableElevation>
-          {loading ? 'Logging in...' : 'Log in'}
-        </ChangedButton>
-      </form>
+          {/* Login Button */}
+          <ChangedButton type="submit" className="" variant="contained" disableElevation>
+            {loading ? 'Logging in...' : 'Log in'}
+          </ChangedButton>
+        </form>
 
-      {/* Links */}
-      <RegisterLinks>
-        <Link to="/forgot-password">Forgot password?</Link>
-        <br />
-        <Info>Don't have an account? <Link to="/register">Sign up</Link></Info>
-      </RegisterLinks>
+        {/* Links */}
+        <RegisterLinks>
+          <Link to="/forgot-password">Forgot password?</Link>
+          <br />
+          <Info>Don't have an account? <Link to="/register">Sign up</Link></Info>
+        </RegisterLinks>
+      </Paper>
     </Container>
   );
 }

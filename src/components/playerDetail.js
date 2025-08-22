@@ -239,7 +239,7 @@ export function PlayerDetail() {
 
   useEffect(() => {
     if (matches?.length > 0) {
-      let AllSeriesNames = matches.map((match) => match.matchdetails[0].matchTitle);
+      let AllSeriesNames = matches.map((match) => match.matchdetails[0].seriesId);
       let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
       setSeriesNames([...unique])
       setSeriesSelected(unique[0])

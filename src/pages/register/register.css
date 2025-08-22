@@ -29,7 +29,7 @@
 .registerform {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 7px;
   width: 100%;
 }
 

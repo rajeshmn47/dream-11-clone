@@ -36,11 +36,17 @@ const Container = styled.div`
     text-align: center;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
+  @media screen and (max-width: 600px) {
+       .MuiPaper-root {
+          max-width:290px;
+       }
+  }
 `;
 
 const TopBar = styled.div`
    display:flex;
    align-items:center;
+   justify-content:flex-start;
    margin-bottom:10px;
 `;
 
@@ -64,7 +70,7 @@ border-radius: 5px;
 .MuiInputBase-root{
   border-radius: 50px !important;
 }
-`
+`;
 
 const ChangedButton = styled(Button)`
 border-radius: 50px;
@@ -152,71 +158,74 @@ export function Register() {
 
   return (
     <Container>
-      <TopBar>
-        <ArrowBackIcon style={{ marginRight: '15px', cursor: 'pointer' }} onClick={() => navigate(-1)} />
-        <Title>Create an Account</Title>
-      </TopBar>
-      <SubTitle>Let’s us know what your name, email, and your password</SubTitle>
-      <form onSubmit={handleSubmit(onSubmit)} className="registerform">
-        <ChangedTextField
-          id="email"
-          label="Email"
-          variant="outlined"
-          type="email"
-          fullWidth
-          margin="dense"
-          {...register('email')}
-          error={!!errors.email}
-        />
-        <Typography variant="inherit">{errors.email?.message}</Typography>
+      <div className="app-title">
+        <img src='./gamizologo.png' alt='' width='220' height='auto' />
+      </div>
+      <Paper>
+        <TopBar>
+          <Title>Create an Account</Title>
+        </TopBar>
+        <form onSubmit={handleSubmit(onSubmit)} className="registerform">
+          <ChangedTextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            type="email"
+            fullWidth
+            margin="dense"
+            {...register('email')}
+            error={!!errors.email}
+          />
+          <Typography variant="inherit">{errors.email?.message}</Typography>
 
-        <ChangedTextField
-          id="username"
-          label="Name"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          type="text"
-          {...register('username')}
-          error={!!errors.username}
-        />
-        <Typography variant="inherit">{errors.username?.message}</Typography>
+          <ChangedTextField
+            id="username"
+            label="Name"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            type="text"
+            {...register('username')}
+            error={!!errors.username}
+          />
+          <Typography variant="inherit">{errors.username?.message}</Typography>
 
-        <ChangedTextField
-          id="phoneNumber"
-          label="Phone Number"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          {...register('phoneNumber')}
-          error={!!errors.phoneNumber}
-        />
-        <Typography variant="inherit">{errors.phoneNumber?.message}</Typography>
+          <ChangedTextField
+            id="phoneNumber"
+            label="Phone Number"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('phoneNumber')}
+            error={!!errors.phoneNumber}
+          />
+          <Typography variant="inherit">{errors.phoneNumber?.message}</Typography>
 
-        <ChangedTextField
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          {...register('password')}
-          error={!!errors.password}
-        />
-        <Typography variant="inherit">{errors.password?.message}</Typography>
+          <ChangedTextField
+            id="password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="dense"
+            {...register('password')}
+            error={!!errors.password}
+          />
+          <Typography variant="inherit">{errors.password?.message}</Typography>
 
-        <ChangedButton className="register-btn" variant="contained" type="submit">
-          Register
-        </ChangedButton>
-      </form>
+          <ChangedButton className="register-btn" variant="contained" type="submit">
+            Register
+          </ChangedButton>
+        </form>
 
-      <RegisterLinks>
-        <Link to="/forgot-password">Forgot password?</Link>
-        <br />
-        <Info>Already a user? <Link to="/login">Log in</Link></Info>
-      </RegisterLinks>
+        <RegisterLinks>
+          <Link to="/forgot-password">Forgot password?</Link>
+          <br />
+          <Info>Already a user? <Link to="/login">Log in</Link></Info>
+        </RegisterLinks>
 
-      <Otp open={open} setOpen={setOpen} otp={otp} setOtp={setOtp} handleOtp={handleOtp} err={err} />
+        <Otp open={open} setOpen={setOpen} otp={otp} setOtp={setOtp} handleOtp={handleOtp} err={err} />
+      </Paper>
     </Container>
   );
 }
