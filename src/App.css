@@ -173,6 +173,7 @@ a {
 #__react-alert__ {
   button {
     width: 28px !important;
+    margin-right: 5px !important;
     /* Reduce button width */
   }
 }
