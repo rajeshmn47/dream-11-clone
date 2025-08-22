@@ -128,6 +128,51 @@ a {
   --white: #ffffff;
 }
 
+.react-alert {
+  min-width: 350px;
+  /* or your preferred width */
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.react-alert__message {
+  display: block;
+  width: 100%;
+  text-align: left;
+  /* optional: for better readability */
+  word-break: break-word;
+}
+
+.react-alert__close {
+  font-size: 18px !important;
+  /* Reduce icon size */
+  width: 28px !important;
+  /* Reduce button width */
+  height: 28px !important;
+  /* Reduce button height */
+  padding: 0 !important;
+  /* Remove extra padding */
+  margin-left: 8px !important;
+  /* Optional: less space from text */
+  line-height: 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    width: 28px !important;
+    /* Reduce button width */
+    height: 28px !important;
+  }
+}
+
 .react-alert-container {
   z-index: 1500 !important;
+}
+
+#__react-alert__ {
+  button {
+    width: 28px !important;
+    /* Reduce button width */
+  }
 }
