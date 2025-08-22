@@ -126,23 +126,29 @@ const EachPlayer = styled.div`
 `;
 
 const AddButton = styled.button`
-  color: var(--green);
-  background-color: #fff;
+  color: #fff;
+  background: var(--green);
   border: none;
-  outline: none;
-  margin-right: 15px;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-right: 10px;
   cursor: pointer;
-  width: 60px;
+  box-shadow: 0 2px 6px rgba(44,62,80,0.10);
+  transition: background 0.2s;
+  &:disabled {
+    background: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+  }
 `;
 
-const RemoveButton = styled.button`
-  color: #df5f1f;
-  background-color: var(--lightgreen);
-  border: none;
-  outline: none;
-  margin-right: 15px;
-  cursor: pointer;
-  width: 60px;
+const RemoveButton = styled(AddButton)`
+  background: var(--red);
 `;
 
 const NoLineups = styled.h3`

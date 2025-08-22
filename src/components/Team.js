@@ -307,7 +307,9 @@ const AvatarWrapper = styled.div`
   }
 `;
 
-const EditIconContainer = styled.div`
+const EditIconContainer = styled(EditIcon)`
+float: right;
+padding: 5px;
 `;
 
 export function Team({
@@ -389,7 +391,7 @@ export function Team({
           <span>
             {
               selectedPlayers.filter(
-                (f) => f.position == 'batsmen' || f.position == 'batsman',
+                (f) => f.position == 'batsmen' || f.position == 'batsman' || f.position == 'batter',
               ).length
             }
             {' '}
