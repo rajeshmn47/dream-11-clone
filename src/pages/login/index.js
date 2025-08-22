@@ -32,7 +32,10 @@ const Container = styled.div`
     @media screen and (max-width: 600px) {
        .MuiPaper-root {
           max-width:290px;
+          box-shadow: 0px 4px 6px #f7f7f7;
+          background-color: transparent;
        }
+          justify-content: flex-start;
     }
 `;
 
