@@ -13,7 +13,7 @@ import zIndex from '@mui/material/styles/zIndex';
 
 const options = {
   timeout: 5000,
-  position: positions.MIDDLE_LEFT,
+  position: positions.BOTTOM_CENTER,
   transition: transitions.SCALE,
   zIndex: 10000
 };

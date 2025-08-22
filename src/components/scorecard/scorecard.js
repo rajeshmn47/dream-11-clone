@@ -34,6 +34,7 @@ const Container = styled.div`
   .MuiAccordionSummary-root {
     transition: background 0.2s;
     cursor: pointer;
+    background: var(--lightred);
     &:hover {
       background: var(--lightred);
     }
