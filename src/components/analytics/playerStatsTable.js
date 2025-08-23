@@ -58,7 +58,7 @@ const bowcolumns = [
         hide: true,
         editable: true,
         renderCell: function actions(params) {
-            return (`vs ${params.row.oppTeam}`);
+            return (<Link to={`/matchanalysis/${params.row.matchId}`}>vs {params.row.oppTeam}</Link>);
         }
     },
     {

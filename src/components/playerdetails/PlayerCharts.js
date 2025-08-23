@@ -183,7 +183,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
       <p>Strike Rate: {averages.strikeRate}</p>
       <p>Average Economy: {averages.economy}</p>
       <Heading>{viewType.charAt(0).toUpperCase() + viewType.slice(1)} Performance</Heading>
-      <div style={{ height: '300px' }}>
+      <div style={{ height: '500px' }}>
         {viewType === 'batting' && <Bar data={battingChartData} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Batting Performance' } } }} />}
         {viewType === 'bowling' && <Bar data={bowlingChartData} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Bowling Performance' } } }} />}
       </div>

@@ -7,6 +7,7 @@ const ScrollContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  padding: 0 20px;
 `;
 
 const ScrollContent = styled.div`
@@ -25,7 +26,8 @@ const ScrollButton = styled.button`
   background: none;
   border: none;
   color: #007bff;
-  font-size: 24px;
+  font-size: 16px;
+  max-width: 30px;
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -38,11 +40,11 @@ const ScrollButton = styled.button`
 `;
 
 const PrevButton = styled(ScrollButton)`
-  left: 0;
+  left: -10px;
 `;
 
 const NextButton = styled(ScrollButton)`
-  right: 0;
+  right: -10px;
 `;
 
 const Match = styled.div`
@@ -114,7 +116,7 @@ const PlayerStatsSection = ({ title, matches, playerDetail, statType }) => {
   };
 
   return (
-    <div>
+    <div style={{ padding: '5px', overflow: 'hidden' }}>
       <Heading>{title}</Heading>
       <ScrollContainer>
         <PrevButton onClick={() => scroll('left')} disabled={isPrevDisabled}><FaChevronLeft /></PrevButton>

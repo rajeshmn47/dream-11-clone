@@ -202,6 +202,8 @@ export function PlayerDetail() {
   const [playerDetail, setPlayerDetail] = useState();
   const [matches, setMatches] = useState([]);
   const [seriesNames, setSeriesNames] = useState();
+  const [series, setSeries] = useState([]);
+  const [allSeries, setAllSeries] = useState([]);
   const [seriesSelected, setSeriesSelected] = useState('Indian Premier League 2024');
   const [seriesDetails, setSeriesDetails] = useState([]);
   const [statType, setStatType] = useState('batting');
@@ -238,14 +240,36 @@ export function PlayerDetail() {
   }, [user, seriesSelected]);
 
   useEffect(() => {
-    if (matches?.length > 0) {
+    async function getSeries() {
+      if (user?._id) {
+        setLoading(true)
+        const data = await API.get(
+          `${URL}/series/all`,
+        );
+        setLoading(false)
+        if (data.data?.length > 0) {
+          setAllSeries([...data.data]);
+          //setMainInfo(data.data.maininfo);
+        }
+      }
+    }
+    getSeries();
+  }, [user]);
+
+  useEffect(() => {
+    if (matches?.length > 0 && allSeries?.length > 0) {
       let AllSeriesNames = matches.map((match) => match.matchdetails[0].seriesId);
       let unique = AllSeriesNames.filter((item, i, ar) => ar.indexOf(item) === i);
-      setSeriesNames([...unique])
+      //setSeriesNames([...unique])
+      console.log(unique, allSeries, 'unique series')
+      let a = allSeries.filter((series) => unique.includes(series.seriesId.toString()));
+      console.log(a, 'all series details')
+      setSeries([...a])
       setSeriesSelected(unique[0])
     }
-  }, [matches])
-  console.log(seriesDetails, 'series details');
+  }, [matches, allSeries])
+
+  //console.log(allSeries, 'series details');
 
   return (
     <Container>
@@ -291,10 +315,10 @@ export function PlayerDetail() {
                 </Grid>
               </Grid>
               <Series>
-                {seriesNames?.map((s, index) =>
+                {series?.map((s, index) =>
                   <div key={index} className={seriesSelected === s ? "selected" : "notSelected"}
-                    onClick={() => setSeriesSelected(s)}>
-                    <Link to={`../series/${s}`}>{s}</Link>
+                    onClick={() => setSeriesSelected(s.seriesId)}>
+                    <Link to={`../series/${s.seriesId}`}>{s.name}</Link>
                   </div>)}
               </Series>
             </Grid>
@@ -311,7 +335,7 @@ export function PlayerDetail() {
                   <Table>
                     {statType === "batting" ? <PlayerStatsTable matches={seriesDetails} batting /> : <PlayerStatsTable matches={seriesDetails} bowling />}
                   </Table></div>}
-              {seriesDetails && <PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id} />}
+              {seriesDetails && series?.length > 0 && <PlayerCharts allMatches={matches} seriesDetails={seriesDetails} playerId={id} />}
             </Grid>
           </Grid>
         </PlayerStats>
