@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { format, getWeek, parseISO } from 'date-fns';
+import { groupBy } from 'lodash';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement);
 
@@ -113,7 +114,7 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
   console.log('Recent Matches:', recentMatches);
   console.log('Averages:', averages);
 
-  const chartLabels = recentMatches?.map(match => {
+  const chartLabelss = recentMatches?.map(match => {
     if (timeFrame === 'weekly') {
       return `Week ${getWeek(parseISO(match.date))}`;
     } else if (timeFrame === 'monthly') {
@@ -123,12 +124,29 @@ const PlayerCharts = ({ allMatches, seriesDetails, playerId }) => {
     }
   });
 
+
+  const grouped = groupBy(recentMatches, match =>
+    timeFrame === 'weekly'
+      ? `Week ${getWeek(parseISO(match.date))}`
+      : timeFrame === 'monthly'
+        ? format(parseISO(match.date), 'MMM yyyy')
+        : format(parseISO(match.date), 'yyyy')
+  );
+
+  const chartLabels = Object.keys(grouped);
+
   const battingChartData = {
     labels: chartLabels,
     datasets: [
       {
         label: 'Runs',
-        data: recentMatches?.map(match => match.runs),
+        //data: recentMatches?.map(match => match.runs),
+        data: chartLabels.map(label => {
+          const group = grouped[label];
+          const totalRuns = group.reduce((sum, m) => sum + m.runs, 0); // or average
+          const avgRuns = totalRuns / group.length; // divide by number of matches
+          return +avgRuns.toFixed(2); // roun
+        }),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
