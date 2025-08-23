@@ -41,6 +41,7 @@
     "faker": "^6.6.6",
     "firebase": "^9.21.0",
     "google-login": "^2.1.7",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "perfect-scrollbar": "1.5.5",
     "prettier": "^2.8.1",
