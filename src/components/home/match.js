@@ -20,10 +20,10 @@ import {
 } from '../../utils/dateformat';
 
 const RightSide = styled.div`
-  width: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 120px;
+    @media (max-width: 600px) {
+    width:90px;
+  }
 `;
 
 const Account = styled.h3`
@@ -260,15 +260,15 @@ export function Match({ u, live }) {
               </div>
             </div>
             {/* Right: Time/Status */}
-            <div
+            <RightSide
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                minWidth: 90,
-                background: "#f8fafc",
-                borderRadius: 10,
-                boxShadow: "0 2px 8px rgba(44,62,80,0.07)",
+                borderLeft: "1px solid #9e9e9e",
+                //  background: "#f8fafc",
+                //  borderRadius: 10,
+                //  boxShadow: "0 2px 8px rgba(44,62,80,0.07)",
                 padding: "8px 14px",
                 marginLeft: 12
               }}
@@ -277,8 +277,8 @@ export function Match({ u, live }) {
               <span
                 style={{
                   fontWeight: 800,
-                  fontSize: 17,
-                  color: "#1976d2",
+                  fontSize: 12,
+                  color: "#595959",
                   letterSpacing: 0.5,
                   marginBottom: 4,
                   fontFamily: "Montserrat, Arial, sans-serif"
@@ -306,8 +306,8 @@ export function Match({ u, live }) {
               ) : u.result === 'Yes' ? (
                 <span
                   style={{
-                    background: "#e0e0e0",
-                    color: "#888",
+                    //background: "#",
+                    color: "#9e9e9e",
                     borderRadius: 6,
                     padding: "3px 14px",
                     fontWeight: 700,
@@ -320,12 +320,12 @@ export function Match({ u, live }) {
               ) : (
                 <span
                   style={{
-                    background: "#e3f2fd",
-                    color: "#1976d2",
+                    //background: "#e3f2fd",
+                    color: "#595959",
                     borderRadius: 6,
                     padding: "3px 14px",
                     fontWeight: 700,
-                    fontSize: 13,
+                    fontSize: 12,
                     marginBottom: 0
                   }}
                 >
@@ -336,7 +336,7 @@ export function Match({ u, live }) {
                       : getJustDate(u.date, 'i')}
                 </span>
               )}
-            </div>
+            </RightSide>
           </div>
         </div>
         <div className="bottom" style={{

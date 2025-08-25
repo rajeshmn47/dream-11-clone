@@ -25,10 +25,10 @@ import Match from './match';
 import { onMessageListener } from '../../firebase';
 
 const RightSide = styled.div`
-  width: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 120px;
+   @media (max-width: 600px) {
+    width:80px;
+  }
 `;
 
 const Account = styled.h3`
@@ -255,7 +255,7 @@ export function Home() {
                                                     display: "flex",
                                                     justifyContent: "space-between",
                                                     alignItems: "center",
-                                                    padding: "0px 10px",
+                                                    padding: "5px 10px",
                                                     backgroundColor: "#FFF"
                                                 }}>
                                                     {/* Left: Teams stacked */}
@@ -329,27 +329,28 @@ export function Home() {
                                                         </div>
                                                     </div>
                                                     {/* Right: Time/Status */}
-                                                    <div
+                                                    <RightSide
                                                         style={{
+                                                            //
+                                                            //  background: "#f8fafc",
+                                                            //  borderRadius: 10,                                                            
+                                                            marginLeft: 12,
                                                             display: "flex",
+                                                            borderLeft: "1px solid #9e9e9e",
                                                             flexDirection: "column",
-                                                            alignItems: "center",
-                                                            minWidth: 90,
-                                                            background: "#f8fafc",
-                                                            borderRadius: 10,
-                                                            boxShadow: "0 2px 8px rgba(44,62,80,0.07)",
                                                             padding: "8px 14px",
-                                                            marginLeft: 12
+                                                            alignItems: "center",
                                                         }}
                                                     >
+
                                                         {/* Hours (always on top) */}
                                                         <span
                                                             style={{
                                                                 fontWeight: 800,
-                                                                fontSize: 17,
-                                                                color: "#1976d2",
+                                                                fontSize: 12,
+                                                                color: "#212121",
                                                                 letterSpacing: 0.5,
-                                                                marginBottom: 4,
+                                                                //marginBottom: 4,
                                                                 fontFamily: "Montserrat, Arial, sans-serif"
                                                             }}
                                                         >
@@ -358,12 +359,11 @@ export function Home() {
                                                         {/* Status/Date (below) */}
                                                         <span
                                                             style={{
-                                                                background: "#e0e0e0",
-                                                                color: "#888",
+                                                                color: `var(--red)`,
                                                                 borderRadius: 6,
                                                                 padding: "3px 14px",
                                                                 fontWeight: 700,
-                                                                fontSize: 13,
+                                                                fontSize: 12,
                                                                 marginBottom: 0
                                                             }}
                                                         >
@@ -374,12 +374,12 @@ export function Home() {
                                                                 color: "#e10000",
                                                                 fontWeight: 400,
                                                                 fontSize: 12,
-                                                                marginTop: 2
+                                                                //marginTop:2 
                                                             }}
                                                         >
                                                             {getJustDate(u.date, 'i')}
                                                         </span>
-                                                    </div>
+                                                    </RightSide>
                                                 </div>
                                                 <div
                                                     className="bottom"
