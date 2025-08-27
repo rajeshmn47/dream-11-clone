@@ -104,6 +104,8 @@ const CreateTeam = styled.div`
 
 const PlayersList = styled.div`
   padding: 0 0;
+  height: 400px;
+  overflow-y: auto;
 `;
 
 const EachPlayer = styled.div`
@@ -366,7 +368,7 @@ export default function LiveCategoryTabs({
               {...a11yProps(0)}
             />
             <Tab
-              label={`BAT(${players.filter((p) => (p.position === 'batsman' || p.position === 'batter') && p.isSelected)
+              label={`BAT(${players.filter((p) => (p.position === 'batting' || p.position === 'batsman' || p.position === 'batter') && p.isSelected)
                 .length
                 })`}
               {...a11yProps(1)}
