@@ -9,14 +9,14 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import { Button, Drawer, Grid } from '@mui/material';
+import { Button, Drawer, Grid, IconButton } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { logout } from '../actions/userAction';
 import LeftDrawer from './navbar/leftDrawer';
-import { NotificationsNone } from '@mui/icons-material';
+import { Close, NotificationsNone } from '@mui/icons-material';
 import { FURL } from '../constants/userConstants';
 
 const LeftSide = styled.div`
@@ -129,6 +129,12 @@ export function Navbar({ home }) {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, text: "Welcome to Gamizo!", time: "2 min ago" },
+    { id: 2, text: "You won ₹500 in Mega Contest", time: "10 min ago" },
+    { id: 3, text: "Deposit bonus: Add ₹100 and get ₹50 bonus", time: "1 hr ago" },
+  ]);
   const dispatch = useDispatch;
   const navigate = useNavigate();
 
@@ -168,22 +174,23 @@ export function Navbar({ home }) {
         <RightSide>
           <IconContainer>
             <NotificationsNoneIcon
+              onClick={() => setNotifOpen(true)}
               style={{
                 marginRight: '0px',
                 cursor: 'pointer',
                 fontSize: '20px',
-            
                 strokeWidth: '1.5',
               }}
             />
           </IconContainer>
+
           <IconContainer>
             <AccountBalanceWalletOutlinedIcon
               onClick={() => handleClick()}
               style={{
                 cursor: 'pointer',
                 fontSize: '20px',
-                
+
                 strokeWidth: '1.5',
               }}
             />
@@ -241,6 +248,30 @@ export function Navbar({ home }) {
           <h5>₹ 0</h5>
         </Deatil>
       </Drawer>
+      <Drawer anchor="right" open={notifOpen} onClose={() => setNotifOpen(false)}>
+        <div style={{ width: 300, padding: 15 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h3 style={{ marginBottom: "10px" }}>Notifications</h3>
+            <IconButton onClick={() => setNotifOpen(false)}>
+              <Close />
+            </IconButton>
+          </div>
+          {notifications.length === 0 ? (
+            <p>No new notifications</p>
+          ) : (
+            notifications.map((n) => (
+              <div key={n.id} style={{
+                padding: "10px",
+                borderBottom: "1px solid #ddd"
+              }}>
+                <p style={{ margin: 0 }}>{n.text}</p>
+                <small style={{ color: "gray" }}>{n.time}</small>
+              </div>
+            ))
+          )}
+        </div>
+      </Drawer>
+
       {/*home && (
         {/*<div className="hometop">
           <div

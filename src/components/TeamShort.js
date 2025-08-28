@@ -6,6 +6,8 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import Team from './Team';
+import { URL } from '../constants/userConstants';
+import { API } from '../actions/userAction';
 
 const CaptainSelector = styled.div``;
 const Player = styled.div`
@@ -286,6 +288,8 @@ export function TeamShort({
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [captains, setCaptains] = useState([]);
   const [matchinfo, setMatchinfo] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     async function filterDifferent() {
       const h = match.teamHomePlayers.filter((f) => selectedPlayers.some((s) => f.playerId == s.playerId)).length;
@@ -294,30 +298,58 @@ export function TeamShort({
         { awayCode: match_info.teamAwayCode, number: o },
         { homeCode: match_info.teamHomeCode, number: h },
       ];
-      setMatchinfo([...a]);
+      //setMatchinfo([...a]);
     }
     filterDifferent();
   }, [id, selectedPlayers, plo]);
 
   useEffect(() => {
     async function filterDifferent() {
-      const cap = match.teamAwayPlayers
+      const cap = players
         .concat(match.teamHomePlayers)
         .filter((f) => f.playerId == plo.captainId);
-      const vcap = match.teamAwayPlayers
-        .concat(match.teamHomePlayers)
+      const vcap = players
         .filter((f) => f.playerId == plo.viceCaptainId);
 
       setCaptains([...cap, ...vcap]);
     }
     filterDifferent();
-  }, [plo, match]);
+  }, [plo, match, players]);
+
   useEffect(() => {
-    const pl = players.map((obj) => ({
-      ...obj,
-    }));
-    setSelectedPlayers([...pl]);
-  }, [id]);
+    async function getupcoming() {
+      if (id) {
+        setLoading(true);
+        const data = await API.get(`${URL}/getplayers_new/${id}`);
+        console.log(data, 'testdata');
+        const awayPlayers = data.data.matchdetails.teamAwayPlayers.map((obj) => ({
+          ...obj,
+          isHome: false,
+          code: data.data.matchdetails.teamAwayCode,
+        }));
+        const homePlayers = data.data.matchdetails.teamHomePlayers.map((obj) => ({
+          ...obj,
+          isHome: true,
+          code: data.data.matchdetails.teamHomeCode,
+        }));
+        const allPlayers = [...awayPlayers, ...homePlayers];
+        console.log(selectedPlayers, 'selectedPlayers');
+        const h = homePlayers.filter((f) => selectedPlayers.some((s) => f.playerId == s.playerId)).length;
+        const o = awayPlayers.filter((f) => selectedPlayers.some((s) => f.playerId == s.playerId)).length;
+        const a = [
+          { awayCode: match_info.teamAwayCode, number: o },
+          { homeCode: match_info.teamHomeCode, number: h },
+        ];
+        setMatchinfo([...a]);
+        setLoading(false);
+      }
+    }
+    getupcoming();
+  }, [id, selectedPlayers]);
+
+  useEffect(() => {
+    setSelectedPlayers([...players]);
+  }, [players]);
 
   return (
     <Grid item md={4} lg={4} xs={12} sm={12}>
@@ -327,6 +359,7 @@ export function TeamShort({
           captains={captains}
           selectedPlayers={selectedPlayers}
           matchId={id}
+          team={plo}
           teamId={plo._id}
         />
       ) : (

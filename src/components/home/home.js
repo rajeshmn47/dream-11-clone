@@ -371,8 +371,8 @@ export function Home() {
                                                         </span>
                                                         <span
                                                             style={{
-                                                                color: "#e10000",
-                                                                fontWeight: 400,
+                                                                color: "#212121",
+                                                                fontWeight: 600,
                                                                 fontSize: 12,
                                                                 //marginTop:2 
                                                             }}

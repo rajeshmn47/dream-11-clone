@@ -25,6 +25,13 @@ const Player = styled.div`
   }
 `;
 
+const TopLayer = styled.div`
+display: flex;
+justify-content: space-between; 
+align-items: center;
+padding: 5px 10px;
+`;
+
 const CaptainC = styled.button`
   border: 2px solid #cccccc;
   border-radius: 50%;
@@ -317,6 +324,7 @@ export function Team({
   captains,
   selectedPlayers,
   teamId,
+  team,
   matchId,
 }) {
   const navigate = useNavigate();
@@ -325,20 +333,25 @@ export function Team({
     <EachTeam>
       {matchinfo.length > 0 && captains.length > 0 && (
         <>
-          {!(
-            matchlive?.result == 'In Progress'
-            || matchlive?.result == 'Complete'
-          ) && (
-              <EditIconContainer
-                onClick={() => navigate(`/createTeam/${matchId}`, {
-                  state: {
-                    selectedPlayers,
-                    editMode: true,
-                    teamId,
-                  },
-                })}
-              />
-            )}
+          <TopLayer>
+            <div>
+              Team({team?.teamId})
+            </div>
+            {!(
+              matchlive?.result == 'In Progress'
+              || matchlive?.result == 'Complete'
+            ) && (
+                <EditIconContainer
+                  onClick={() => navigate(`/createTeam/${matchId}`, {
+                    state: {
+                      selectedPlayers,
+                      editMode: true,
+                      teamId,
+                    },
+                  })}
+                />
+              )}
+          </TopLayer>
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
             <div>
               <h3>{matchinfo[0]?.awayCode}</h3>
@@ -391,7 +404,7 @@ export function Team({
           <span>
             {
               selectedPlayers.filter(
-                (f) => f.position == 'batsmen' || f.position == 'batsman' || f.position == 'batter',
+                (f) => f.position == 'batsmen' || f.position == 'batsman' || f.position == 'batter' || f.position == 'batting',
               ).length
             }
             {' '}

@@ -6,7 +6,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import Brightness1Icon from '@mui/icons-material/Brightness1';
 import NotificationAddOutlinedIcon from '@mui/icons-material/NotificationAddOutlined';
 import WestIcon from '@mui/icons-material/West';
-import { Grid } from '@mui/material';
+import { Button, Drawer, Grid } from '@mui/material';
 import {
   doc,
   getDoc,
@@ -262,11 +262,47 @@ const ScoreText = styled.p`
   color: #00e676;
 `;
 
+const WithdrawContainer = styled(Grid)``;
+
+const AddButton = styled(Button)`
+  background-color: var(--red);
+  color: #ffffff;
+  width: 160px;
+  margin: 0 auto;
+  &:hover {
+    background-color: var(--green);
+    color: #ffffff;
+  }
+`;
+
+const Deatil = styled.div`
+  border-top: 1px solid #dddddd;
+  margin-top: 10px;
+  text-align: left;
+  padding: 10px 5px;
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+  }
+`;
+
+const DeatilTop = styled.div`
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px 0;
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+  }
+`;
+
 export function MatchDetails({ players }) {
   const { match_details, matchlive, loading } = useSelector((state) => state.match);
   const { user } = useSelector((state) => state.user);
   const [contests, setContests] = useState([]);
+  const [walletOpen, setWalletOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [commentary, setCommentary] = useState([]);
   const [livescore, setLivescore] = useState();
   //const [loading, setLoading] = useState(true);
@@ -304,7 +340,7 @@ export function MatchDetails({ players }) {
   }, [id]);
 
   async function getupcoming() {
-    if (id?.length > 3) {
+    if (id?.length > 0) {
       dispatch(getmatch(id));
       const data = await API.get(`${URL}/getcontests/${id}`);
       setContests(data.data.contests);
@@ -356,7 +392,7 @@ export function MatchDetails({ players }) {
               </MatchInfo>
             </LeftSide>
             <RightSide>
-              <WalletBox>
+              <WalletBox onClick={() => setWalletOpen(true)}>
                 <IconWrapper>
                   <AccountBalanceWalletOutlinedIcon style={{ fontSize: "16px" }} />
                 </IconWrapper>
@@ -478,10 +514,10 @@ export function MatchDetails({ players }) {
                   <BowlTop>
                     <Name>{showName(livescore?.batsmanStriker?.batName)}</Name>
                     <ScoreText>
-                    {livescore?.batsmanStriker?.batRuns}
-                    (
-                    {livescore?.batsmanStriker?.batBalls}
-                    )
+                      {livescore?.batsmanStriker?.batRuns}
+                      (
+                      {livescore?.batsmanStriker?.batBalls}
+                      )
                     </ScoreText>
                   </BowlTop>
                   <BowlTop>
@@ -489,10 +525,10 @@ export function MatchDetails({ players }) {
                       {showName(livescore?.batsmanNonStriker?.batName)}
                     </Name>
                     <ScoreText>
-                    {livescore?.batsmanNonStriker?.batRuns}
-                    (
-                    {livescore?.batsmanNonStriker?.batBalls}
-                    )
+                      {livescore?.batsmanNonStriker?.batRuns}
+                      (
+                      {livescore?.batsmanNonStriker?.batBalls}
+                      )
                     </ScoreText>
                   </BowlTop>
                 </Batsman>
@@ -500,12 +536,12 @@ export function MatchDetails({ players }) {
                   <BowlTop>
                     <Name>{showName(livescore?.bowlerStriker?.bowlName)}</Name>
                     <ScoreText>
-                    {livescore?.bowlerStriker?.bowlWkts}
-                    /
-                    {livescore?.bowlerStriker?.bowlRuns}
-                    (
-                    {livescore?.bowlerStriker?.bowlOvs}
-                    )
+                      {livescore?.bowlerStriker?.bowlWkts}
+                      /
+                      {livescore?.bowlerStriker?.bowlRuns}
+                      (
+                      {livescore?.bowlerStriker?.bowlOvs}
+                      )
                     </ScoreText>
                   </BowlTop>
                   <BowlTop>
@@ -526,6 +562,57 @@ export function MatchDetails({ players }) {
           />
         </Bottom>
       </>
+      <Drawer anchor="top" open={walletOpen} onClose={() => setWalletOpen(false)}>
+        <DeatilTop>
+          <p>total balance</p>
+          <h5>
+            ₹
+            {user && user.wallet}
+          </h5>
+        </DeatilTop>
+        <AddButton
+          onClick={() => navigate('/payment', {
+            state: {
+              tab: 'deposit',
+            },
+          })}
+        >
+          add cash
+        </AddButton>
+        <Deatil>
+          <p>Amount added</p>
+          <h5>
+            ₹
+            {user?.totalAmountAdded}
+          </h5>
+        </Deatil>
+        <Deatil>
+          <WithdrawContainer container>
+            <Grid item sm={7} xs={7}>
+              <p>winnings</p>
+              <h5>
+                ₹
+                {user?.totalAmountWon}
+              </h5>
+            </Grid>
+            <Grid item sm={5} xx={5}>
+              <Button
+                onClick={() => navigate('/transaction', {
+                  state: {
+                    tab: 'withdrawal',
+                  },
+                })}
+              >
+                Withdraw
+              </Button>
+            </Grid>
+          </WithdrawContainer>
+        </Deatil>
+        <Deatil>
+          <p>cash bonus</p>
+          <h5>₹ 0</h5>
+        </Deatil>
+      </Drawer>
     </Container>
   );
 }
