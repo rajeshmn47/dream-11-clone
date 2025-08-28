@@ -412,6 +412,7 @@ export function SelectTeam({
                 captains={captains}
                 selectedPlayers={selectedPlayers}
                 id={plo._id}
+                team={plo}
               />
             </Grid>
             <Grid item sm={2} xs={2}>
