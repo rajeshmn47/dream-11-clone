@@ -403,6 +403,7 @@ export function Home() {
                                                                     textTransform: 'capitalize',
                                                                     fontSize: '12px',
                                                                     fontWeight: '200',
+                                                                    whiteSpace: 'no-wrap'
                                                                 }}
                                                             >
                                                                 {u.teams.length}
@@ -417,6 +418,7 @@ export function Home() {
                                                                         textTransform: 'capitalize',
                                                                         fontSize: '12px',
                                                                         fontWeight: '200',
+                                                                        whiteSpace: 'no-wrap'
                                                                     }}
                                                                 >
                                                                     {u.contests.length}
