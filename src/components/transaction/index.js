@@ -52,11 +52,6 @@ const Container = styled.div`
 `;
 
 const TabContainer = styled.div`
- @media(max-width: 600px) {
-       .MuiBox-root {
-         padding: 0 0 !important;
-       }
-     }
        `;
 
 const Title = styled.h1`

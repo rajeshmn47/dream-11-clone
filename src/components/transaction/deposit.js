@@ -25,9 +25,6 @@ import { storage } from '../../firebase';
 
 const PanelBox = styled(Box)`
  @media(max-width: 600px) {
-       .MuiBox-root {
-         padding: 0 0 !important;
-       }
      }
        `
 
@@ -267,7 +264,7 @@ export default function Deposit({ tabs, g, livescore }) {
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
-      sx={{ backgroundColor: "#f9fafb", minHeight: "100vh", py: 4 }}
+      sx={{ backgroundColor: "#f9fafb", height: "1000px", py: 4, px:2}}
     >
       <Card sx={{ width: "100%", maxWidth: 480, borderRadius: 3, boxShadow: 5 }}>
         <CardContent>

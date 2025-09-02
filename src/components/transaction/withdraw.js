@@ -222,7 +222,7 @@ export default function Withdraw({ tabs, g, livescore }) {
   console.log(contest, matchlive, 'match_details');
   return (
     <PageWrapper>
-      <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 3, boxShadow: 5 }}>
+      <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 3, boxShadow: 5, px: 2 }}>
         <CardContent>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
             Withdraw
