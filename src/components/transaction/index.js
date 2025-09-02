@@ -51,6 +51,14 @@ const Container = styled.div`
   }
 `;
 
+const TabContainer = styled.div`
+ @media(max-width: 600px) {
+       .MuiBox-root {
+         padding: 0 0 !important;
+       }
+     }
+       `;
+
 const Title = styled.h1`
   font-size: 18px;
   margin: 0 0 20px;
@@ -221,7 +229,7 @@ function TabPanel(props) {
   } = props;
 
   return (
-    <div
+    <TabContainer
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -229,11 +237,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </TabContainer>
   );
 }
 

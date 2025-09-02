@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import { Alert, Button, Card, CardContent, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -22,6 +22,14 @@ import * as Yup from 'yup';
 
 import { URL } from '../../constants/userConstants';
 import { storage } from '../../firebase';
+
+const PanelBox = styled(Box)`
+ @media(max-width: 600px) {
+       .MuiBox-root {
+         padding: 0 0 !important;
+       }
+     }
+       `
 
 const Container = styled.div`
   padding: 15px 15px;
@@ -72,6 +80,17 @@ const TabP = styled(TabPanel)`
   .MuiBox-root {
     padding: 0 0 !important;
   }
+`;
+
+const InfoBox = styled(Box)`
+  background-color: #f4f6f8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+`;
+
+const UploadInput = styled.input`
+  display: none;
 `;
 
 function TabPanel(props) {
@@ -244,78 +263,127 @@ export default function Deposit({ tabs, g, livescore }) {
 
   console.log(contest, matchlive, 'match_details');
   return (
-    <Container>
-      <Heading>deposit</Heading>
-      <SubContainer>
-        <Row>
-          <Label>UPI :</Label>
-          <Sub>7259293140@ybl</Sub>
-          <Sub />
-        </Row>
-        <Row>
-          <Label>Account Holder :</Label>
-          <Sub>Rajesh M N</Sub>
-          <Sub />
-        </Row>
-        <Row>
-          <Label>Need Help? :</Label>
-          <Sub />
-          <Sub />
-        </Row>
-        <Image src="./phonepe.png" alt="" />
-      </SubContainer>
-      <form onSubmit={handleSubmit(onSubmit)} className="depositForm">
-        <TextField
-          required
-          id="amount"
-          name="amount"
-          label="Amount"
-          variant="standard"
-          fullWidth
-          margin="dense"
-          {...register('amount')}
-          error={!!errors.amount}
-        />
-        <Typography variant="inherit" color="textSecondary">
-          {errors.amount?.message}
-        </Typography>
-        <TextField
-          required
-          id="utr"
-          name="utr"
-          label="Unique Transaction Reference"
-          variant="standard"
-          fullWidth
-          margin="dense"
-          {...register('utr')}
-          error={!!errors.utr}
-        />
-        <Typography variant="inherit" color="textSecondary">
-          {errors.utr?.message}
-        </Typography>
-        <label htmlFor="file-upload" className="custom-file-upload">
-          upload picture
-        </label>
-        <input
-          id="file-upload"
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <Note>
-          IMPORTANT : After completing the Transaction Please backfill the UTR
-          No (and Upload screenshot). If you don't backfill it, the deposit
-          Transaction will not Complete. Please be sure to backfill UTR (and
-          Upload proof)
-        </Note>
-        <Button
-          variant="contained"
-          type="submit"
-          disableElevation
-          style={{ backgroundColor: '#24B937' }}
-        >
-          Deposit
-        </Button>
-      </form>
-    </Container>
+    <PanelBox
+      display="flex"
+      justifyContent="center"
+      alignItems="flex-start"
+      sx={{ backgroundColor: "#f9fafb", minHeight: "100vh", py: 4 }}
+    >
+      <Card sx={{ width: "100%", maxWidth: 480, borderRadius: 3, boxShadow: 5 }}>
+        <CardContent>
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            Deposit
+          </Typography>
+
+          {/* UPI Info Section */}
+          <InfoBox>
+            <Grid container spacing={1}>
+              <Grid item xs={5}>
+                <Typography variant="body2" fontWeight="bold">
+                  UPI ID:
+                </Typography>
+              </Grid>
+              <Grid item xs={7}>
+                <Typography variant="body2">7259293140@ybl</Typography>
+              </Grid>
+
+              <Grid item xs={5}>
+                <Typography variant="body2" fontWeight="bold">
+                  Account Holder:
+                </Typography>
+              </Grid>
+              <Grid item xs={7}>
+                <Typography variant="body2">Rajesh M N</Typography>
+              </Grid>
+
+              <Grid item xs={5}>
+                <Typography variant="body2" fontWeight="bold">
+                  Need Help?:
+                </Typography>
+              </Grid>
+              <Grid item xs={7}>
+                <Typography variant="body2" color="primary">
+                  Contact Support
+                </Typography>
+              </Grid>
+            </Grid>
+          </InfoBox>
+
+          <Box display="flex" justifyContent="center" mb={2}>
+            <img src="./phonepe.png" alt="PhonePe" style={{ width: 160 }} />
+          </Box>
+
+          {/* Deposit Form */}
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <TextField
+              fullWidth
+              label="Amount"
+              placeholder="Enter deposit amount"
+              variant="outlined"
+              margin="normal"
+              {...register("amount")}
+              error={!!errors.amount}
+              helperText={errors.amount?.message}
+            />
+
+            <TextField
+              fullWidth
+              label="Unique Transaction Reference (UTR)"
+              placeholder="Enter UTR number"
+              variant="outlined"
+              margin="normal"
+              {...register("utr")}
+              error={!!errors.utr}
+              helperText={errors.utr?.message}
+            />
+
+            {/* File Upload */}
+            <Box mt={2} mb={2}>
+              <label htmlFor="file-upload">
+                <UploadInput
+                  id="file-upload"
+                  type="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+                <Button
+                  variant="outlined"
+                  component="span"
+                  fullWidth
+                  sx={{ py: 1.2, borderRadius: 2 }}
+                >
+                  Upload Screenshot
+                </Button>
+              </label>
+            </Box>
+
+            {/* Warning Note */}
+            <Alert severity="warning" sx={{ fontSize: 13, mb: 2 }}>
+              IMPORTANT: After completing the transaction, please enter the UTR
+              number and upload the screenshot. If you don’t, your deposit will
+              not be processed.
+            </Alert>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="large"
+              style={{
+                marginTop: 18,
+                fontSize: 16,
+                borderRadius: 8,
+                fontWeight: 700,
+                width: "100%",
+                background: "var(--red)",
+                color: "#fff"
+              }}
+            >
+              Deposit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </PanelBox>
   );
 }

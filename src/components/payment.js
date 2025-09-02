@@ -1,90 +1,45 @@
-import styled from '@emotion/styled';
-import { TextField } from '@mui/material';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import Confirmation from "./Confirmation";
-import { useNavigate } from 'react-router-dom';
+import styled from "@emotion/styled";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { API } from "../actions/userAction";
+import { URL } from "../constants/userConstants";
+import Navbar from "./navbar";
+import Bottomnav from "./navbar/bottomnavbar";
 
-import { API } from '../actions/userAction';
-import { URL } from '../constants/userConstants';
-
-const Wrapper = styled.div`
-  font-family: system-ui !important;
-  line-height: 1.2;
-  background: #fff;
-  margin-bottom: 20px;
-  padding-top: 35px;
-  padding-bottom: 39px;
-  div {
-    // border: 1px solid red;
-  }
-`;
-
-const Logo = styled.div`
-  left: -35px;
-  width: 0px;
-  height: 0px;
-  background-color: #282c3f;
-  box-shadow: 0 3px 5px 0 rgba(40, 44, 63, 0.4);
-  top: -10px;
-  padding: 0px !important;
-`;
-
-const Title = styled.p`
-  font-size: 20px;
-  font-weight: 600;
-  color: #282c3f;
-  text-align: center;
-  margin-bottom: 5px;
-`;
-
-const Wallet = styled.img`
-  height: 50px;
-  width: 50px;
-  vertical-align: inherit;
-  box-shadow: 0 3px 5px 0 rgba(40, 44, 63, 0.4);
-`;
-
-const WarningText = styled.p`
-  font-size: 13px;
-  color: #93959f;
-  margin-bottom: 8px;
-  font-weight: 300;
-  line-height: 16px;
-  overflow: hidden;
-  border: 1px dashed #60b246;
-  padding-right: 0px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
-
-const Container = styled.div`
+const PageWrapper = styled(Box)`
   display: flex;
-  flex-direction: column;
-  padding: 10px 10px;
-  margin-top: 50px;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 20px;
 `;
 
 function Payment() {
-  const { user, isAuthenticated, error } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [amount, setAmount] = useState();
-  const Total = 0;
-  const cartItems = [];
+  const [amount, setAmount] = useState("");
+
   async function handlePayment(e) {
-    // console.log(Total);
     e.preventDefault();
     const API_URL = `${URL}/payment/createpayment/${amount}`;
-    const orderUrl = `${API_URL}order/${Total}`;
     const response = await API.get(API_URL);
     const { data } = response;
-    console.log('rajesh');
-    console.log(response);
+
     const options = {
-      key: 'rzp_test_3FLuLisPuowtZP',
-      name: 'RazorPay',
-      description: 'Integration of Razorpay',
+      key: "rzp_test_3FLuLisPuowtZP",
+      name: "RazorPay",
+      description: "Secure Payment Gateway",
       order_id: data.id,
       handler: async (response) => {
         try {
@@ -92,61 +47,87 @@ function Payment() {
           const url = `${URL}/payment/capture/${paymentId}/${amount}`;
           const captureResponse = await API.post(url, {});
           const successObj = JSON.parse(captureResponse.data);
-          const { captured } = successObj;
-          if (captured) {
-            console.log('success');
+          if (successObj.captured) {
+            console.log("Payment success ✅");
           }
         } catch (err) {
-          console.log(err);
+          console.error(err);
         } finally {
           handleData();
-          navigate('/');
+          navigate("/");
         }
       },
-      theme: {
-        color: '#e46d47',
-      },
+      theme: { color: "#24b937" },
     };
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   }
-  const data = {
-    id: user._id,
-    amount,
-  };
+
+  const data = { id: user._id, amount };
+
   const handleData = () => {
     const config = {
-      method: 'patch',
+      method: "patch",
       url: `${URL}/payment/addamount/`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { "Content-Type": "application/json" },
       data: JSON.stringify(data),
     };
-
-    API(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+    API(config).catch((error) => console.error(error.response?.data));
   };
 
   return (
-    <Container>
-      <Title>Add Amount</Title>
-      <TextField
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="amount to be added"
-        size="small"
-      />
-      <button className="paybtn" onClick={handlePayment}>
-        Pay
-      </button>
-    </Container>
+    <div>
+      <Navbar />
+      <PageWrapper>
+        <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 3, boxShadow: 5 }}>
+          <CardContent>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Add Amount
+            </Typography>
+            <Typography variant="body2" color="text.secondary" mb={3}>
+              Enter the amount you want to add to your wallet and proceed securely
+              via Razorpay.
+            </Typography>
+
+            <form onSubmit={handlePayment}>
+              <TextField
+                fullWidth
+                label="Amount"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="Enter amount"
+                margin="normal"
+                required
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="success"
+                size="large"
+                sx={{ mt: 2, borderRadius: 2, py: 1.5 }}
+                style={{
+                  marginTop: 18,
+                  fontSize: 16,
+                  borderRadius: 8,
+                  fontWeight: 700,
+                  width: "100%",
+                  background: "var(--red)",
+                  color: "#fff"
+                }}
+              >
+                Pay Now
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </PageWrapper>
+      <Bottomnav />
+    </div>
   );
 }
 
 export default Payment;
+

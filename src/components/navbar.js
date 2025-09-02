@@ -180,6 +180,7 @@ export function Navbar({ home }) {
                 cursor: 'pointer',
                 fontSize: '20px',
                 strokeWidth: '1.5',
+                color: '#5e5b5b'
               }}
             />
           </IconContainer>
@@ -190,7 +191,7 @@ export function Navbar({ home }) {
               style={{
                 cursor: 'pointer',
                 fontSize: '20px',
-
+                color: '#5e5b5b',
                 strokeWidth: '1.5',
               }}
             />

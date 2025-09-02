@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import { Button, Card, CardContent } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -15,6 +15,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { URL } from '../../constants/userConstants';
+import { API } from '../../actions/userAction';
+
+
+const PageWrapper = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 20px;
+`;
 
 const Container = styled.div`
   padding: 15px 15px;
@@ -199,7 +210,7 @@ export default function Withdraw({ tabs, g, livescore }) {
     console.log(JSON.stringify(formData, null, 2));
     /** @type {any} */
 
-    axios
+    API
       .post(`${URL}/payment/withdraw`, { ...formData, userId: user._id })
       .then((l) => {
         console.log('added to database', l);
@@ -210,46 +221,60 @@ export default function Withdraw({ tabs, g, livescore }) {
 
   console.log(contest, matchlive, 'match_details');
   return (
-    <Container>
-      <Heading> Withdraw</Heading>
-      <form onSubmit={handleSubmit(onSubmit)} className="withdrawForm">
-        <TextField
-          required
-          id="amount"
-          name="amount"
-          label="Amount"
-          variant="standard"
-          fullWidth
-          margin="dense"
-          {...register('amount')}
-          error={!!errors.amount}
-        />
-        <Typography variant="inherit" color="textSecondary">
-          {errors.amount?.message}
-        </Typography>
-        <TextField
-          required
-          id="upiId"
-          name="upiId"
-          label="UPI ID"
-          variant="standard"
-          fullWidth
-          margin="dense"
-          {...register('upiId')}
-          error={!!errors.utr}
-        />
-        <Typography variant="inherit" color="textSecondary">
-          {errors.upiId?.message}
-        </Typography>
-        <Button
-          variant="contained"
-          type="submit"
-          disableElevation
-          style={{ backgroundColor: '#24B937' }}
-        >
-          Withdraw
-        </Button>
-      </form>
-    </Container>
+    <PageWrapper>
+      <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 3, boxShadow: 5 }}>
+        <CardContent>
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            Withdraw
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            Enter the amount and your UPI ID to request a withdrawal.
+          </Typography>
+
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <TextField
+              fullWidth
+              label="Amount"
+              placeholder="Enter withdrawal amount"
+              variant="outlined"
+              margin="normal"
+              {...register("amount")}
+              error={!!errors.amount}
+              helperText={errors.amount?.message}
+            />
+
+            <TextField
+              fullWidth
+              label="UPI ID"
+              placeholder="e.g., yourname@upi"
+              variant="outlined"
+              margin="normal"
+              {...register("upiId")}
+              error={!!errors.upiId}
+              helperText={errors.upiId?.message}
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              size="large"
+              style={{
+                marginTop: 18,
+                fontSize: 16,
+                borderRadius: 8,
+                fontWeight: 700,
+                width: "100%",
+                background: "var(--red)",
+                color: "#fff"
+              }}
+            >
+              Withdraw
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </PageWrapper>
   );
 }
