@@ -1,3 +1,13 @@
+.infoContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.infoBody {
+  @media (max-width: 600px) {}
+}
+
 .myInfoTop {
   background-color: var(--red);
   color: #ffffff;
@@ -14,12 +24,13 @@
   padding: 0 2vw;
   box-sizing: border-box;
   text-align: center;
-  height: 70%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: scroll;
 }
+
 .myInfo {
   background-color: #fafafa;
   box-sizing: border-box;
@@ -27,15 +38,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 80%;
+
+  @media (min-width: 600px) {
+    padding: 0 160px;
+    font-size: 14px;
+    min-width: 400px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
 }
+
 .MuiStack-root {
   overflow: unset !important;
 }
+
 .selectContainer {
   margin-top: 15px;
   position: relative;
 }
+
 .selectLabel {
   color: rgba(0, 0, 0, 0.6);
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;

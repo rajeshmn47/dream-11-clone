@@ -343,7 +343,7 @@ export function Match({ u, live }) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "4px 10px 4px 10px",
+          padding: "2px 10px 2px 10px",
           borderTop: "1px solid #f2f2f2"
         }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -364,12 +364,12 @@ export function Match({ u, live }) {
           <div className="icon" style={{
             background: "#f6f6f6",
             borderRadius: "50%",
-            padding: 6,
+            padding: 3,
             display: "flex",
             alignItems: "center",
             justifyContent: "center"
           }}>
-            <NotificationAddOutlinedIcon style={{ fontSize: '22px', color: "#888" }} />
+            <NotificationAddOutlinedIcon style={{ fontSize: '18px', color: "#888" }} />
           </div>
         </div>
       </div>
