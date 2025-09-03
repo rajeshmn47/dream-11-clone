@@ -348,7 +348,7 @@ export function Home() {
                                                             style={{
                                                                 fontWeight: 800,
                                                                 fontSize: 12,
-                                                                color: "#212121",
+                                                                color: "#595959",
                                                                 letterSpacing: 0.5,
                                                                 //marginBottom: 4,
                                                                 fontFamily: "Montserrat, Arial, sans-serif"
@@ -371,7 +371,7 @@ export function Home() {
                                                         </span>
                                                         <span
                                                             style={{
-                                                                color: "#212121",
+                                                                color: "#595959",
                                                                 fontWeight: 600,
                                                                 fontSize: 12,
                                                                 //marginTop:2 
