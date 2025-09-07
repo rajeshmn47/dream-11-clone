@@ -22,6 +22,7 @@ import * as Yup from 'yup';
 
 import { URL } from '../../constants/userConstants';
 import { storage } from '../../firebase';
+import { API } from '../../actions/userAction';
 
 const PanelBox = styled(Box)`
  @media(max-width: 600px) {
@@ -244,8 +245,8 @@ export default function Deposit({ tabs, g, livescore }) {
             userId: user._id,
             recieptUrl: downloadURL,
           };
-          axios
-            .post(`${URL}/payment/deposit`, {
+          
+            API.post(`${URL}/payment/deposit`, {
               ...data,
             })
             .then((l) => {
