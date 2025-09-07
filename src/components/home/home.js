@@ -357,17 +357,21 @@ export function Home() {
                                                             {getJustHours(u.date, 'i')}
                                                         </span>
                                                         {/* Status/Date (below) */}
+
                                                         <span
                                                             style={{
-                                                                color: `var(--red)`,
+                                                                background: "var(--red)",
+                                                                color: "#fff",
                                                                 borderRadius: 6,
                                                                 padding: "3px 14px",
                                                                 fontWeight: 700,
-                                                                fontSize: 12,
-                                                                marginBottom: 0
+                                                                fontSize: 10,
+                                                                letterSpacing: 1,
+                                                                marginBottom: 0,
+                                                                boxShadow: "0 1px 4px rgba(31,169,81,0.08)"
                                                             }}
                                                         >
-                                                            COMPLETED
+                                                            completed
                                                         </span>
                                                         <span
                                                             style={{
