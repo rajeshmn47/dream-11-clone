@@ -97,4 +97,4 @@ function getfrontendurl() {
 
 export const URL = geturl();
 export const FURL = getfrontendurl();
-export const VIDEO_URL = "https://dream11bet.duckdns.org"
+export const VIDEO_URL = "https://fango11.duckdns.org"
