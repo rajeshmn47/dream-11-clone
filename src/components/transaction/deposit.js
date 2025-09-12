@@ -23,6 +23,7 @@ import * as Yup from 'yup';
 import { URL } from '../../constants/userConstants';
 import { storage } from '../../firebase';
 import { API } from '../../actions/userAction';
+import Loader from '../loader';
 
 const PanelBox = styled(Box)`
  @media(max-width: 600px) {
@@ -129,7 +130,7 @@ function a11yProps(index) {
 export default function Deposit({ tabs, g, livescore }) {
   const [value, setValue] = React.useState(0);
   const {
-    user, isAuthenticated, loading, error,
+    user, isAuthenticated, error,
   } = useSelector(
     (state) => state.user,
   );
@@ -139,6 +140,7 @@ export default function Deposit({ tabs, g, livescore }) {
   const [team, setTeam] = React.useState(null);
   const [leaderboard, setLeaderboard] = React.useState([]);
   const [selectedTeam, setSelectedTeam] = React.useState(null);
+  const [loading, setLoading] = useState(false);
   const alert = useAlert();
   const [selectTeams, setSelectTeams] = React.useState({
     selected: false,
@@ -205,6 +207,7 @@ export default function Deposit({ tabs, g, livescore }) {
     });
   }, [selectedTeam]);
   const onSubmit = async (formData) => {
+    setLoading(true);
     console.log(JSON.stringify(formData, null, 2));
     const storag = getStorage();
     /** @type {any} */
@@ -245,13 +248,14 @@ export default function Deposit({ tabs, g, livescore }) {
             userId: user._id,
             recieptUrl: downloadURL,
           };
-          
-            API.post(`${URL}/payment/deposit`, {
-              ...data,
-            })
+
+          API.post(`${URL}/payment/deposit`, {
+            ...data,
+          })
             .then((l) => {
               console.log('added to database', l);
-              // alert.success("deposit data added successfully");
+              alert.success("deposit done successfully!");
+              setLoading(false);
             });
         });
       },
@@ -265,9 +269,24 @@ export default function Deposit({ tabs, g, livescore }) {
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
-      sx={{ backgroundColor: "#f9fafb", height: "1000px", py: 4, px:2}}
+      sx={{ backgroundColor: "#f9fafb", height: "1000px", py: 4, px: 2 }}
     >
       <Card sx={{ width: "100%", maxWidth: 480, borderRadius: 3, boxShadow: 5 }}>
+        {loading &&
+          <div style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            zIndex: 9999, // high to overlay everything
+          }}>
+            <Loader />
+          </div>}
         <CardContent>
           <Typography variant="h6" fontWeight="bold" gutterBottom>
             Deposit
