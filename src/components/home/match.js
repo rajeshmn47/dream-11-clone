@@ -87,6 +87,8 @@ const Top = styled.div`
   border-bottom: 1px solid rgba(196, 195, 195, 0.15);
   padding: 5px 5px;
   background-color: #ffffff;
+  width: 100%;
+  box-sizing:border-box;
 `;
 
 const Dot = styled.div`
@@ -149,17 +151,14 @@ export function Match({ u, live }) {
             color: '#595959',
             fontSize: '12px',
             fontWeight: '800',
-            display: 'flex',
-            alignItems: 'center',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            width: "65%"
           }}
         >
           <span
             style={{
-              marginRight: '5px',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              width: '100%',
-              overflow: 'hidden',
               fontWeight: '200',
             }}
           >
@@ -170,12 +169,11 @@ export function Match({ u, live }) {
           style={{
             color: 'rgb(31, 169, 81)',
             fontFamily: 'Montserrat',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            width: '100px',
+            textAlign: 'right',
+            width: '35%',
           }}
         >
-          {live || u.lineups}
+          {live || u.lineups}Lineups Out
         </h5>
       </Top>
       <div className="match">
