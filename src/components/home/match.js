@@ -173,7 +173,7 @@ export function Match({ u, live }) {
             width: '35%',
           }}
         >
-          {live || u.lineups}Lineups Out
+          {live || u.lineups}
         </h5>
       </Top>
       <div className="match">
