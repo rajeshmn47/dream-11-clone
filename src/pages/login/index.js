@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../actions/userAction';
 import { Avatar, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
+import { FURL, URL } from '../../constants/userConstants';
 
 const Container = styled.div`
   display: flex;
@@ -88,6 +89,8 @@ const Err = styled.p`
 `;
 
 export function Login() {
+  const GITHUB_CLIENT_ID = "Ov23lid4UMXyeoT0VoYw"
+  const REDIRECT_URI = `https://dream-11-clone-nu.vercel.app/github-callback`
   const { user, isAuthenticated, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -103,6 +106,10 @@ export function Login() {
       alert.error(error);
     }
   }, [user, isAuthenticated, error]);
+
+  const loginWithGithub = () => {
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
+  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -127,8 +134,8 @@ export function Login() {
           <Button
             variant="contained"
             //disabled={true}
-            className="social-btn github"
-            onClick={() => alert('Not working yet, only Google login is available')}
+            className="social-btn"
+            onClick={() => loginWithGithub()}
           >
             <img src="./github.svg" alt="Github" className="social-icon" />
             Github

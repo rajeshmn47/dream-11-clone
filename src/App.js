@@ -49,6 +49,7 @@ import WithdrawCashPage from './components/withdrawPolicy';
 import GamizoCoins from './pages/GamizoCoins';
 import ReferWin from './pages/ReferWin';
 import Games from './pages/Games';
+import GithubCallback from './pages/GithubCallBack';
 
 function App() {
   const dispatch = useDispatch();
@@ -180,6 +181,7 @@ function App() {
           <Route path="/gamizocoins" element={<GamizoCoins />} />
           <Route path="/referwin" element={<ReferWin />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/github-callback" element={<GithubCallback />} />
         </Routes>
       </BrowserRouter>
       {confetti && (
