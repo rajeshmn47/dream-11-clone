@@ -5,7 +5,16 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "@emotion/styled";
 
 const SliderContainer = styled.div`
-      padding: 12px
+      padding: 12px;
+       img {
+          width: 100%;
+          border-radius: 5px !important;
+          height: 90px;
+         }
+        @media (min-width: 600px) {
+         padding:0 370px;
+         height: 100px;
+        }
 `
 
 const banners = [
@@ -46,8 +55,6 @@ export default function BannerSlider() {
                         <img
                             src={banner.img}
                             alt={banner.alt}
-                            style={{ width: "100%",borderRadius: "5px", height: "90px" }}
-                            className="rounded-2xl shadow-md w-full"
                         />
                     </div>
                 ))}
