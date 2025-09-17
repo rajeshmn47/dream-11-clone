@@ -122,28 +122,27 @@ export function Login() {
         {/* Header */}
 
         {/* Login Form Section */}
-        {/* Social Login Buttons 
-          <div className="social-login">
-            <Button
-              variant="contained"
-              //disabled={true}
-              className="social-btn github"
-              onClick={() => alert('Not working yet, only Google login is available')}
-            >
-              <img src="./github.svg" alt="Github" className="social-icon" />
-              Github
-            </Button>
-            <Button
-              variant="contained"
-              //disabled={true}
-              className="social-btn"
-              onClick={() => navigate('/googlelogin')}
-            >
-              <img src="./google.svg" alt="Google" className="social-icon" />
-              Google
-            </Button>
-          </div>
-*/}
+        {/* Social Login Buttons */}
+        <div className="social-login">
+          <Button
+            variant="contained"
+            //disabled={true}
+            className="social-btn github"
+            onClick={() => alert('Not working yet, only Google login is available')}
+          >
+            <img src="./github.svg" alt="Github" className="social-icon" />
+            Github
+          </Button>
+          <Button
+            variant="contained"
+            //disabled={true}
+            className="social-btn"
+            onClick={() => navigate('/googlelogin')}
+          >
+            <img src="./google.svg" alt="Google" className="social-icon" />
+            Google
+          </Button>
+        </div>
         {/* Login Form */}
         <form onSubmit={handlesubmit} className="login-form">
           <ChangedTextField
