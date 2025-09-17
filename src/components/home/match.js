@@ -347,17 +347,23 @@ export function Match({ u, live }) {
           <div style={{ display: "flex", alignItems: "center" }}>
             <img src='./m.png' alt="" width="22" style={{ marginRight: 6 }} />
             <span style={{ fontWeight: 700, color: "#222", fontSize: 13 }}>₹58 crores</span>
-            <span style={{
-              marginLeft: 8,
-              background: "#eaffea",
-              color: "var(--green)",
-              borderRadius: 6,
-              padding: "2px 8px",
-              fontSize: 12,
-              fontWeight: 600
-            }}>
+            <span
+              style={{
+                marginLeft: 8,
+                background: "var(--lightgreen)",
+                color: "var(--green)",
+                borderRadius: 12,
+                padding: "2px 5px",
+                fontSize: 10,
+                fontWeight: 600,
+                letterSpacing: 0.5,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+                textTransform: "uppercase",
+              }}
+            >
               Mega
             </span>
+
           </div>
           <div className="icon" style={{
             background: "#f6f6f6",
@@ -367,7 +373,7 @@ export function Match({ u, live }) {
             alignItems: "center",
             justifyContent: "center"
           }}>
-            <NotificationAddOutlinedIcon style={{ fontSize: '18px', color: "#888" }} />
+            <NotificationAddOutlinedIcon style={{ fontSize: '16px', color: "#888" }} />
           </div>
         </div>
       </div>

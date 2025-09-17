@@ -23,6 +23,7 @@ import Navbar from '../navbar';
 import Bottomnav from '../navbar/bottomnavbar';
 import Match from './match';
 import { onMessageListener } from '../../firebase';
+import BannerSlider from '../slider';
 
 const RightSide = styled.div`
   width: 120px;
@@ -406,8 +407,9 @@ export function Home() {
                                                                 style={{
                                                                     textTransform: 'capitalize',
                                                                     fontSize: '12px',
-                                                                    fontWeight: '200',
-                                                                    whiteSpace: 'nowrap'
+                                                                    fontWeight: '600',
+                                                                    whiteSpace: 'nowrap',
+                                                                    color: '#4d4d4d'
                                                                 }}
                                                             >
                                                                 {u.teams.length}
@@ -421,8 +423,9 @@ export function Home() {
                                                                     style={{
                                                                         textTransform: 'capitalize',
                                                                         fontSize: '12px',
-                                                                        fontWeight: '200',
-                                                                        whiteSpace: 'nowrap'
+                                                                        fontWeight: '600',
+                                                                        whiteSpace: 'nowrap',
+                                                                        color: '#4d4d4d'
                                                                     }}
                                                                 >
                                                                     {u.contests.length}
@@ -470,6 +473,9 @@ export function Home() {
                         </AllMatches>
                     </div>
                 )}
+                <div>
+                    <BannerSlider />
+                </div>
                 <div className="upcomingmatches">
                     <h3>Upcoming Matches</h3>
                     <AllMatches container rowSpacing={2} columnSpacing={4} justifyContent="center">

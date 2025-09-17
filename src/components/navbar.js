@@ -16,7 +16,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { logout } from '../actions/userAction';
 import LeftDrawer from './navbar/leftDrawer';
-import { Close, NotificationsNone } from '@mui/icons-material';
+import { AccountBalanceRounded, AccountBalanceSharp, AccountBalanceWalletSharp, Close, NotificationsNone, NotificationsNoneRounded, NotificationsNoneTwoTone } from '@mui/icons-material';
 import { FURL } from '../constants/userConstants';
 
 const LeftSide = styled.div`
@@ -175,7 +175,7 @@ export function Navbar({ home }) {
         </Center>
         <RightSide>
           <IconContainer>
-            <NotificationsNoneIcon
+            <NotificationsNoneTwoTone
               onClick={() => setNotifOpen(true)}
               style={{
                 marginRight: '0px',
@@ -188,7 +188,7 @@ export function Navbar({ home }) {
           </IconContainer>
 
           <IconContainer>
-            <AccountBalanceWalletOutlinedIcon
+            <AccountBalanceWalletSharp
               onClick={() => handleClick()}
               style={{
                 cursor: 'pointer',
