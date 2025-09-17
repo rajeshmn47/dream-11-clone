@@ -165,7 +165,7 @@ export function Navbar({ home }) {
             className="name"
           >
             {user?.image ?
-              <img src={`${user?.image}`} alt='logo' className="logo" style={{ height: "20px" }} /> :
+              <img src={`${user?.image}`} alt='logo' className="logo" style={{ height: "20px", borderRadius: "50%" }} /> :
               user?.username && user?.username.charAt(0)}
           </Account>
           <img src={`${FURL}/gamizologo.png`} alt='logo' className="logo" style={{ height: "20px" }} />
