@@ -30,6 +30,7 @@ const CommentCard = styled.div`
   display: flex;
   align-items: flex-start;
   transition: box-shadow 0.2s;
+  flex-direction: column;
   &:hover {
     box-shadow: 0 4px 16px rgba(44,62,80,0.13);
   }
@@ -103,7 +104,8 @@ const Des = styled.div`
 `;
 
 const Break = styled.div`
-  margin: 18px 0 10px 0;
+  margin: 10px 18px;
+  padding: 10px 16px;
   padding: 10px 18px;
   background-color: #e3f2fd;
   border-radius: 10px;
@@ -138,7 +140,6 @@ const VideoThumb = styled.video`
   max-height: 120px;
   border-radius: 8px;
   margin: 8px 0 0 0;
-  box-shadow: 0 1px 8px rgba(44,62,80,0.10);
   transition: box-shadow 0.2s;
   &:hover {
     box-shadow: 0 4px 16px rgba(44,62,80,0.18);
@@ -248,12 +249,12 @@ export function Commentary({ matchdata }) {
                   <span style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{p?.overNumber}</span>
                 </Left>
                 <Des>{p?.commText?.replace('$', '')}</Des>
+                {p.videoLink && (
+                  <VideoThumb controls muted>
+                    <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  </VideoThumb>
+                )}
               </CommentCard>
-              {p.videoLink && (
-                <VideoThumb controls muted>
-                  <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
-                </VideoThumb>
-              )}
             </>
           ) : (
             <>
@@ -272,12 +273,12 @@ export function Commentary({ matchdata }) {
                   <span style={{ fontSize: 12, color: "#888", marginTop: 2 }}>{p?.overNumber}</span>
                 </Left>
                 <Des>{p?.commText?.replace('$', '').replace('B0', '')}</Des>
+                {p.videoLink && (
+                  <VideoThumb controls muted>
+                    <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
+                  </VideoThumb>
+                )}
               </CommentCard>
-              {p.videoLink && (
-                <VideoThumb controls muted>
-                  <source src={`${VIDEO_URL}/mockvideos/${p.videoLink}`} type="video/mp4" />
-                </VideoThumb>
-              )}
             </>
           )}
         </div>

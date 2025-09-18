@@ -129,27 +129,6 @@
   text-transform: capitalize;
 }
 
-.bottomnav {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #ffffff;
-  position: fixed;
-  bottom: 0;
-  height: 60px;
-  font-size: 12px;
-  width: 100vw;
-}
-
-.bottomnav div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #5e5b5b;
-  font-weight: 400;
-}
-
 .bottom {
   background-color: #fff !important;
   display: flex;

@@ -59,6 +59,10 @@
   overflow-x: scroll;
   position: relative;
   min-height: 160px;
+
+  @media (min-width: 600px) {
+    padding: 0 50px;
+  }
 }
 
 .live {
@@ -153,6 +157,9 @@
 
 .homecontainer {
   margin-bottom: 40px;
+  @media screen and (min-width: 600px) {
+    margin-left: 220px;
+  }
 }
 
 .matchrights {
@@ -215,6 +222,10 @@
   height: 60px;
   font-size: 12px;
   width: 100vw;
+
+  @media screen and (min-width: 600px) {
+    display: none;
+  }
 }
 
 .bottomnav div {
@@ -284,5 +295,16 @@
 
   .pastMatchContainer {
     padding: 0 0px !important;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .pastMatchContainer {
+    padding: 0 0px !important;
+    display: none;
+  }
+
+  #section1 {
+    display: none;
   }
 }

@@ -6,14 +6,17 @@ import styled from "@emotion/styled";
 
 const SliderContainer = styled.div`
       padding: 12px;
+      margin: 10px;
        img {
           width: 100%;
           border-radius: 5px !important;
           height: 90px;
          }
-        @media (min-width: 600px) {
-         padding:0 370px;
+        @media (max-width: 600px) {
          height: 100px;
+         img {
+         object-fit: cover;
+         }
         }
 `
 

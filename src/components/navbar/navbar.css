@@ -5,5 +5,10 @@
     background-color: #000000;
     color: #5e5b5b !important;
     padding: 12px 9px;
+    margin-left: 220px;
     text-transform: capitalize;
+
+    @media screen and (min-width: 360px) {
+        margin-left: 0px;
+    }
 }

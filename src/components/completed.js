@@ -27,6 +27,7 @@ import Match from './home/match';
 import Loader from './loader';
 import Navbar from './navbar';
 import Bottomnav from './navbar/bottomnavbar';
+import Sidebar from './Sidebar';
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -183,6 +184,7 @@ export function Completed() {
   };
   return (
     <>
+      <Sidebar />
       <Navbar />
       {!loading ? (
         <Container>

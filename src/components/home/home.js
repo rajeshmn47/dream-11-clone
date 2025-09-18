@@ -24,6 +24,7 @@ import Bottomnav from '../navbar/bottomnavbar';
 import Match from './match';
 import { onMessageListener } from '../../firebase';
 import BannerSlider from '../slider';
+import Sidebar from '../Sidebar';
 
 const RightSide = styled.div`
   width: 120px;
@@ -121,7 +122,7 @@ const Spanner = styled.div`
 `;
 
 const AllMatches = styled(Grid)`
-  padding: 5px 65px;
+  padding: 5px 0;
   @media (max-width: 600px) {  /* xs and sm breakpoints */
     padding: 0px;  /* Adjust padding for mobile */
   }
@@ -195,6 +196,7 @@ export function Home() {
     return (
         <>
             <Navbar home />
+            <Sidebar />
             <div className="homecontainer">
                 <CricketBg id="section1">
                     {past?.length > 0 && <TopDiv>
