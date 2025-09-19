@@ -8,16 +8,6 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-
-  .navtopbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #000000;
-    color: #5e5b5b !important;
-    padding: 12px 9px;
-    text-transform: capitalize;
-}
   
   .withdraw-page h1 {
     font-size: 2rem;
