@@ -196,9 +196,9 @@ export function ScoreTable({ rows, batsmen, bowlers, wicketsData }) {
           <tbody>
             {wicketsData?.map((wicket, index) => (
               <tr key={index}>
-                <Td>{wicket.batName}</Td>
-                <td>{wicket.wktRuns}</td>
-                <td>{wicket.wktOver}</td>
+                <Td>{wicket.batsmanname}</Td>
+                <td>{wicket.runs}</td>
+                <td>{wicket.overnbr}</td>
               </tr>
             ))}
           </tbody>
