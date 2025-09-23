@@ -315,9 +315,16 @@ const AvatarWrapper = styled.div`
 `;
 
 const EditIconContainer = styled(EditIcon)`
-float: right;
-padding: 5px;
+padding: 1px;
+margin-left: 20px;
+font-size: 18px;
+cursor: pointer;
 `;
+
+const Points = styled.div`
+display: flex; 
+align-items: center;
+`
 
 export function Team({
   matchinfo,
@@ -337,20 +344,23 @@ export function Team({
             <div>
               Team({team?.teamId})
             </div>
-            {!(
-              matchlive?.result == 'In Progress'
-              || matchlive?.result == 'Complete'
-            ) && (
-                <EditIconContainer
-                  onClick={() => navigate(`/createTeam/${matchId}`, {
-                    state: {
-                      selectedPlayers,
-                      editMode: true,
-                      teamId,
-                    },
-                  })}
-                />
-              )}
+            <Points>
+              <h5>{team?.points} Pts</h5>
+              {!(
+                matchlive?.result == 'In Progress'
+                || matchlive?.result == 'Complete'
+              ) && (
+                  <EditIconContainer
+                    onClick={() => navigate(`/createTeam/${matchId}`, {
+                      state: {
+                        selectedPlayers,
+                        editMode: true,
+                        teamId,
+                      },
+                    })}
+                  />
+                )}
+            </Points>
           </TopLayer>
           <Top onClick={() => navigate(`/savedteam/${teamId}`)}>
             <div>
