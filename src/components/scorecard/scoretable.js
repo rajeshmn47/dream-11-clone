@@ -116,6 +116,17 @@ const S = styled.div`
   text-align:center;
 `;
 
+const WicketsContainer = styled.div`
+display:flex;
+flex-wrap: wrap;
+`
+const FowTitle = styled.h5``;
+
+const OneWicket = styled.div`
+white-space:nowrap;
+margin-right: 5px;
+`
+
 export function ScoreTable({ rows, batsmen, bowlers, wicketsData }) {
   return (
     <>
@@ -184,26 +195,17 @@ export function ScoreTable({ rows, batsmen, bowlers, wicketsData }) {
               ))}
         </Table>
       ) : null}
-      {wicketsData ? (
-        <Table>
-          <thead>
-            <tr>
-              <Th>Fall of Wickets</Th>
-              <th>Score</th>
-              <th>Over</th>
-            </tr>
-          </thead>
-          <tbody>
-            {wicketsData?.map((wicket, index) => (
-              <tr key={index}>
-                <Td>{wicket.batsmanname}</Td>
-                <td>{wicket.runs}</td>
-                <td>{wicket.overnbr}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : null}
+      {wicketsData ?
+        <div>
+          <FowTitle>Fow</FowTitle>
+          <WicketsContainer>
+            {wicketsData ?
+              wicketsData?.map((wicket, index) =>
+                <OneWicket key={index}>
+                  {wicket.runs}{" "}
+                  ({<a href={`../player/${wicket.batsmanid}`}>{wicket.batsmanname}</a>},{wicket.overnbr}),{" "}
+                </OneWicket>) : null}
+          </WicketsContainer></div> : null}
     </>
   );
 }
