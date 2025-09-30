@@ -195,6 +195,9 @@ const MatchInfo = styled.div`
   flex-direction:column;
   justify-content: space-between;
   align-items:center;
+  h1 {
+    white-space:nowrap;  
+  }
 `;
 
 const WalletBox = styled.div`
