@@ -202,7 +202,7 @@ export function ScoreTable({ rows, batsmen, bowlers, wicketsData }) {
             {wicketsData ?
               wicketsData?.map((wicket, index) =>
                 <OneWicket key={index}>
-                  {wicket.runs}{" "}
+                  {wicket.runs}-{index+1}{" "}
                   ({<a href={`../player/${wicket.batsmanid}`}>{wicket.batsmanname}</a>},{wicket.overnbr}),{" "}
                 </OneWicket>) : null}
           </WicketsContainer></div> : null}
