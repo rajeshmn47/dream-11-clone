@@ -212,15 +212,17 @@ export function ScoreCard({ data, g, livescore }) {
               {!data.isHomeFirst ? (
                 <>
                   <ScoreTable rows={data.teamHomePlayers} batsmen />
+                  <ScoreTable wicketsData={data.wicketsDataFI} />
                   <ScoreTable rows={data.teamAwayPlayers} bowlers />
                 </>
               ) : (
                 <>
                   <ScoreTable rows={data.teamAwayPlayers} batsmen />
+                  <ScoreTable wicketsData={data.wicketsDataSI} />
                   <ScoreTable rows={data.teamHomePlayers} bowlers />
                 </>
               )}
-              <ScoreTable wicketsData={data.wicketsDataSI} />
+              
             </AccordionDetails>
           </Accordion>
         </>

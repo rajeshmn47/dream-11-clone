@@ -186,7 +186,7 @@ export default function LeftDrawer({
           >
             <Grid sm={3} xs={3}>
               <Img
-                src="https://lh3.googleusercontent.com/a/AGNmyxY9RiRcvXurFSefCpIZl_loDW8VUJREU3Aej0a_Efd8qSmw7o4vzK-Uq88VQZ16JnBnBCxdBWuhwwQVD5q6hQ=s288"
+                src={user?.image ? user?.image : 'https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'}
                 alt=""
                 style={{ borderRadius: '50%' }}
               />
