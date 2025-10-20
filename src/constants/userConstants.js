@@ -92,9 +92,10 @@ function getfrontendurl() {
     return 'http://localhost:3000';
   }
   //return 'http://localhost:3000';
-  return 'https://gamizo.vercel.app';
+  return 'https://gclteam.duckdns.org';
 }
 
 export const URL = geturl();
 export const FURL = getfrontendurl();
-export const VIDEO_URL = "https://fango11.duckdns.org"
+export const VIDEO_URL = "https://gclteam.duckdns.org"
+//export const VIDEO_URL = 'http://localhost:8000';
