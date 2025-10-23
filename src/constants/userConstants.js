@@ -92,7 +92,7 @@ function getfrontendurl() {
     return 'http://localhost:3000';
   }
   //return 'http://localhost:3000';
-  return 'https://gclteam.duckdns.org';
+  return 'https://dream-11-clone-nu.vercel.app';
 }
 
 export const URL = geturl();
