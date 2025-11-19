@@ -149,7 +149,7 @@ export function LoginPhone() {
     return (
         <Container>
             <div className="app-title">
-                <img src="./gamizologo.png" alt="" width="200" />
+                <img src="./andrologo.png" alt="" width="200" />
             </div>
 
             <Paper>
