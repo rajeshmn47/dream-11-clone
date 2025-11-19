@@ -67,6 +67,11 @@ const ChangedButton = styled(Button)`
   }
 `;
 
+const LogoContainer = styled.div`
+  padding: 10px;
+  background-color:#000;
+`
+
 export function LoginPhone() {
     const [phone, setPhone] = useState("");
     const [otp, setOtp] = useState("");
@@ -129,7 +134,7 @@ export function LoginPhone() {
             });
 
             const data = await response.json();
-            console.log(data,'data');
+            console.log(data, 'data');
             localStorage.setItem('token', data.token);
             dispatch({ type: LOGIN_SUCCESS, payload: data.user });
             if (data.success) {
@@ -140,7 +145,7 @@ export function LoginPhone() {
             }
 
         } catch (err) {
-            alert(err,"Something went wrong while verifying OTP");
+            alert(err, "Something went wrong while verifying OTP");
         }
 
         setLoading(false);
@@ -149,7 +154,9 @@ export function LoginPhone() {
     return (
         <Container>
             <div className="app-title">
-                <img src="./andrologo.png" alt="" width="200" />
+                <LogoContainer>
+                    <img src="./andrologo.png" alt="" width="200" />
+                </LogoContainer>
             </div>
 
             <Paper>
