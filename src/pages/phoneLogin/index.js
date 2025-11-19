@@ -19,6 +19,7 @@ const Container = styled.div`
   width: 100%;
   padding: 20px;
   background-color: #f7f7f7;
+  box-sizing: border-box;
 
   .MuiPaper-root {
     width: 100%;
