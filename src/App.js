@@ -50,6 +50,7 @@ import GamizoCoins from './pages/GamizoCoins';
 import ReferWin from './pages/ReferWin';
 import Games from './pages/Games';
 import GithubCallback from './pages/GithubCallBack';
+import LoginPhone from './pages/phoneLogin';
 
 function App() {
   const dispatch = useDispatch();
@@ -149,6 +150,7 @@ function App() {
           <Route path="/football" element={<Football />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/phone-login" element={<LoginPhone />} />
           <Route path="/completed/:id" element={<Completed />} />
           <Route path="/players" element={<Players />} />
           <Route path="/createteam/:id" element={<CreateTeam />} />

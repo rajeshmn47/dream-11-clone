@@ -147,7 +147,7 @@ export function Home() {
     useEffect(() => {
         const servertoken = localStorage.getItem('token') && localStorage.getItem('token');
         if (!servertoken) {
-            navigate('/login');
+            navigate('/phone-login');
         }
         onMessageListener()
             .then((payload) => {
