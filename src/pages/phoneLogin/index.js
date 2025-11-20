@@ -69,7 +69,6 @@ const ChangedButton = styled(Button)`
 
 const LogoContainer = styled.div`
   padding: 10px;
-  background-color:#000;
 `
 
 export function LoginPhone() {
@@ -155,7 +154,7 @@ export function LoginPhone() {
         <Container>
             <div className="app-title">
                 <LogoContainer>
-                    <img src="./andrologo.png" alt="" width="200" />
+                    <img src="./andrologo.jpeg" alt="" width="200" />
                 </LogoContainer>
             </div>
 
