@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Button, Drawer, Paper, TextField, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import * as React from "react";
 
 const Container = styled("div")`
   width: 100vw;
@@ -75,11 +74,11 @@ export function Otp({ open, setOpen, otp, setOtp, handleOtp, err }) {
             variant="contained"
             fullWidth
             sx={{
-              backgroundColor: "#03d47c",
+              backgroundColor: "#FF4B00",
               mt: 2,
               padding: "10px 0",
               borderRadius: "8px",
-              "&:hover": { backgroundColor: "#02b86c" },
+              "&:hover": { backgroundColor: "#782400ff" },
             }}
             onClick={handleOtp}
           >
