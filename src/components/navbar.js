@@ -168,7 +168,7 @@ export function Navbar({ home }) {
               <img src={`${user?.image}`} alt='logo' className="logo" style={{ height: "20px", borderRadius: "50%" }} /> :
               user?.username && user?.username.charAt(0)}
           </Account>
-          <img src={`./andrologo.jpeg`} alt='logo' className="logo" style={{ height: "30px" }} />
+          <img src={`${FURL}/andrologo.jpeg`} alt='logo' className="logo" style={{ height: "30px" }} />
         </LeftSide>
         <Center>
 
