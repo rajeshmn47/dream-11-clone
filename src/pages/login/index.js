@@ -120,7 +120,7 @@ export function Login() {
   return (
     <Container>
       <div className="app-title">
-        <img src='./gamizologo.png' alt='' width='220' height='auto' />
+        <img src={`${FURL}/andrologo.jpeg`} alt='' width='220' height='auto' />
       </div>
       <Paper>
         <TopBar>

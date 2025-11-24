@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { LOGIN_SUCCESS, URL } from '../../constants/userConstants';
+import { FURL, LOGIN_SUCCESS, URL } from '../../constants/userConstants';
 import Otp from './../../components/otp'
 
 const Container = styled.div`
@@ -162,7 +162,7 @@ export function Register() {
   return (
     <Container>
       <div className="app-title">
-        <img src='./gamizologo.png' alt='' width='220' height='auto' />
+        <img src={`${FURL}/andrologo.jpeg`} alt='' width='220' height='auto' />
       </div>
       <Paper>
         <TopBar>

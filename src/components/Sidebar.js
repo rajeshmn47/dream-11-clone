@@ -35,7 +35,7 @@ const Sidebar = () => {
             onClick: () => navigate(`/completed/${user?._id}`),
         },
         {
-            label: "GamizoCoins",
+            label: "Dreamcricket11 Coins",
             icon: <FeedOutlinedIcon />,
             path: "/gamizocoins",
             selected: location.pathname === "/gamizocoins",

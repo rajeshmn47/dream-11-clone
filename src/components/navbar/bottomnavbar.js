@@ -22,7 +22,7 @@ export function Bottomnav() {
       <div
         onClick={() => navigate(`/completed/${user?._id}`)}
         className={
-          location.pathname == `/completed/${user._id}`
+          location.pathname == `/completed/${user?._id}`
             ? 'selectedrt'
             : 'notselectedrt'
         }
