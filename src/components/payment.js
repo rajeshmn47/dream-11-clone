@@ -26,67 +26,52 @@ const PageWrapper = styled(Box)`
 
 function Payment() {
   const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
 
   async function handlePayment(e) {
     e.preventDefault();
-    const API_URL = `${URL}/payment/createpayment/${amount}`;
-    const response = await API.get(API_URL);
-    const { data } = response;
 
-    const options = {
-      key: "rzp_test_3FLuLisPuowtZP",
-      name: "RazorPay",
-      description: "Secure Payment Gateway",
-      order_id: data.id,
-      handler: async (response) => {
-        try {
-          const paymentId = response.razorpay_payment_id;
-          const url = `${URL}/payment/capture/${paymentId}/${amount}`;
-          const captureResponse = await API.post(url, {});
-          const successObj = JSON.parse(captureResponse.data);
-          if (successObj.captured) {
-            console.log("Payment success ✅");
-          }
-        } catch (err) {
-          console.error(err);
-        } finally {
-          handleData();
-          navigate("/");
-        }
-      },
-      theme: { color: "#24b937" },
-    };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+    try {
+      // Create Paykuber payment request
+      const response = await API.post(`${URL}/payment/create`, {
+        userId: user._id,
+        amount,
+      });
+
+      if (!response.data.paymentLink) {
+        alert("Unable to generate payment link");
+        return;
+      }
+
+      // Redirect to payment page
+      window.location.href = response.data.paymentLink;
+
+    } catch (err) {
+      console.error("Payment Error:", err);
+      alert("Payment creation failed");
+    }
   }
-
-  const data = { id: user._id, amount };
-
-  const handleData = () => {
-    const config = {
-      method: "patch",
-      url: `${URL}/payment/addamount/`,
-      headers: { "Content-Type": "application/json" },
-      data: JSON.stringify(data),
-    };
-    API(config).catch((error) => console.error(error.response?.data));
-  };
 
   return (
     <div>
       <Navbar />
       <PageWrapper>
-        <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 3, boxShadow: 5 }}>
+        <Card
+          sx={{
+            width: "100%",
+            maxWidth: 420,
+            borderRadius: 3,
+            boxShadow: 5,
+          }}
+        >
           <CardContent>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
               Add Amount
             </Typography>
+
             <Typography variant="body2" color="text.secondary" mb={3}>
-              Enter the amount you want to add to your wallet and proceed securely
-              via Razorpay.
+              Enter the amount you want to add to your wallet.
             </Typography>
 
             <form onSubmit={handlePayment}>
@@ -105,17 +90,15 @@ function Payment() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                color="success"
                 size="large"
-                sx={{ mt: 2, borderRadius: 2, py: 1.5 }}
-                style={{
-                  marginTop: 18,
+                sx={{
+                  mt: 2,
+                  borderRadius: 2,
+                  py: 1.5,
                   fontSize: 16,
-                  borderRadius: 8,
                   fontWeight: 700,
-                  width: "100%",
-                  background: "var(--red)",
-                  color: "#fff"
+                  backgroundColor: "var(--red)",
+                  color: "#fff",
                 }}
               >
                 Pay Now
