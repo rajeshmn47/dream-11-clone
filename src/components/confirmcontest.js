@@ -3,10 +3,10 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Dialog } from '@mui/material';
 import * as React from 'react';
 import { useAlert } from 'react-alert';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { API } from '../actions/userAction';
+import { API, loadUser } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 
 const style = {
@@ -84,6 +84,7 @@ export default function ConfirmModal({
 }) {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const alert = useAlert();
   const handleClose = () => {
     handleclose();
@@ -95,6 +96,7 @@ export default function ConfirmModal({
         `${URL}/joincontest/${modal._id}?teamid=${teamid}`,
       );
       alert.success('joined contest successfully');
+      dispatch(loadUser())
       loadjoined();
       setSelectedTeam(null);
       setOpen(false);

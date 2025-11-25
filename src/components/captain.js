@@ -6,10 +6,10 @@ import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { API } from '../actions/userAction';
+import { API, loadUser } from '../actions/userAction';
 import { FURL, URL } from '../constants/userConstants';
 import { getImgurl } from '../utils/img_url';
 import Loader from './loader';
@@ -138,6 +138,7 @@ const Description = styled.div`
 `;
 export function Captain({ players, editMode, teamId }) {
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   console.log(user);
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
@@ -202,6 +203,7 @@ export function Captain({ players, editMode, teamId }) {
       setLoading(false);
       setSave(true);
       alert.success(data.data.message);
+      dispatch(loadUser())
       navigate(`/contests/${id}`);
     } catch (error) {
       alert.error(error.response.data.message);

@@ -131,7 +131,7 @@ export function Navbar({ home }) {
   const [leftOpen, setLeftOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState([
-    { id: 1, text: "Welcome to Gamizo!", time: "2 min ago" },
+    { id: 1, text: "Welcome to Dreamcricket11!", time: "2 min ago" },
     { id: 2, text: "You won ₹500 in Mega Contest", time: "10 min ago" },
     { id: 3, text: "Deposit bonus: Add ₹100 and get ₹50 bonus", time: "1 hr ago" },
   ]);
@@ -168,7 +168,7 @@ export function Navbar({ home }) {
               <img src={`${user?.image}`} alt='logo' className="logo" style={{ height: "20px", borderRadius: "50%" }} /> :
               user?.username && user?.username.charAt(0)}
           </Account>
-          <img src={`./andrologo.jpeg`} alt='logo' className="logo" style={{ height: "30px" }} />
+          <img src={`${FURL}/andrologo.jpeg`} alt='logo' className="logo" style={{ height: "30px" }} />
         </LeftSide>
         <Center>
 

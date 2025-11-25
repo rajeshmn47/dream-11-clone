@@ -32,6 +32,7 @@ export function ForgotPassword() {
   const [open, setOpen] = useState(false);
   const [otp, setOtp] = useState();
   const [cp, setCp] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -66,15 +67,16 @@ export function ForgotPassword() {
     });
     console.log(data);
     setErr(data.data.message);
+    setSuccess(true)
   };
   return (
     <>
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
-        FC4U
+        Dreamcricket11
       </div>
       {!open ? (
-        <div className="login">
+        <div className="forgot-password">
           <Paper style={{ padding: '2vh 2vw', height: '320px' }}>
             <h5 style={{ marginBottom: '10px' }}>LOG IN & PLAY</h5>
             <div
@@ -84,7 +86,7 @@ export function ForgotPassword() {
                 justifyContent: 'space-evenly',
               }}
             >
-              
+
             </div>
             <form onSubmit={handlesubmit} className="forgotform">
               <TextField
@@ -101,14 +103,13 @@ export function ForgotPassword() {
                 className="itseveryday"
                 variant="contained"
                 disableElevation
-                style={{ backgroundColor: '#03d47c',marginTop:'10px' }}
+                style={{ backgroundColor: '#FF4B00', marginTop: '10px' }}
               >
-                send otp
+                Send Otp
               </Button>
               {error && <Err>{error}</Err>}
             </form>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Link to="/forgot-password">forgot password</Link>
               <Link to="/register">Dont have a account?Sign up</Link>
             </div>
           </Paper>
@@ -131,6 +132,7 @@ export function ForgotPassword() {
           setConfirmPassword={setConfirmPassword}
           handlenewPassword={handlenewPassword}
           err={err}
+          success={success}
         />
       )}
     </>

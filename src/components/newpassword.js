@@ -6,7 +6,11 @@ import TextField from '@mui/material/TextField';
 import * as React from 'react';
 
 const Err = styled.p`
-  color: red;
+  color: #e53935;
+  font-size: 13.5px;
+  margin: 6px 0 0;
+  font-weight: 500;
+  letter-spacing: 0.2px;
 `;
 
 export function NewPassword({
@@ -18,6 +22,7 @@ export function NewPassword({
   setConfirmPassword,
   handlenewPassword,
   err,
+  success
 }) {
   const toggleDrawer = () => {
     console.log('rajesh');
@@ -47,7 +52,7 @@ export function NewPassword({
           alignItems: 'center',
         }}
       >
-        <Paper style={{ padding: '5vh 2vw', width: '90%', height:'30%',display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'center' }}>
+        <Paper style={{ padding: '5vh 2vw', width: '90%', height: '30%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
           <TextField
             placeholder="enter password"
             variant="standard"
@@ -66,12 +71,16 @@ export function NewPassword({
             variant="contained"
             type="submit"
             disableElevation
-            style={{ backgroundColor: '#03d47c' }}
+            style={{ backgroundColor: '#FF4B00' }}
             onClick={() => handlenewPassword()}
           >
             submit
           </Button>
-          {err && <Err>{err}</Err>}
+          {err &&
+            <Err>
+              {err}{" "}
+              {success && <span><a href="/login">login</a></span>}
+            </Err>}
         </Paper>
       </div>
     </Drawer>

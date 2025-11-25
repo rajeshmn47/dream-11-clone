@@ -14,6 +14,7 @@ import Next from '../captain';
 import Bottomnav from '../navbar/bottomnavbar';
 import CategoryTabs from './categorytabs';
 import LiveCategoryTabs from './playerscategory';
+import PreviewModal from './PreviewModal';
 
 const Container = styled.div`
   position: relative;
@@ -180,6 +181,8 @@ export function CreateTeam() {
   const [nonPlayers, setNonPlayers] = useState([]);
   const [lmPlayers, setLmplayers] = useState([]);
   const [live, setLive] = useState();
+  const [showPreview, setShowPreview] = useState(false);
+
   useEffect(() => {
     async function getupcoming() {
       if (id) {
@@ -238,7 +241,7 @@ export function CreateTeam() {
         setMatch(data.data.matchdetails);
         const k = homePlayers;
         const l = awayPlayers;
-        console.log(data.data.matchdetails.teamHomePlayers,data.data.matchdetails.teamAwayPlayers,'awaylastmatchplayers')
+        console.log(data.data.matchdetails.teamHomePlayers, data.data.matchdetails.teamAwayPlayers, 'awaylastmatchplayers')
         const nonp = k
           .slice(11, k.length)
           .concat(l.slice(11, l.length))
@@ -296,108 +299,129 @@ export function CreateTeam() {
   const handleNext = () => {
     setNext(true);
   };
+
+  const handlePreview = () => {
+    setShowPreview(true)
+  }
+
   console.log(state?.selectedPlayers, state?.editMode, 'state');
   return (
     <Container>
-      {!next ? (
-        <>
-          <NoPlayers container spacing={2}>
-            <PlayersIndicator container spacing={2} item lg={12} md={12} xs={12} sm={12} justifyContent="space-between">
-              <Grid item>
-                <Info>
-                  Players
-                  <p>
-                    {players.filter((p) => p.isSelected).length}
-                    /11
-                  </p>
-                </Info>
-              </Grid>
-              <Grid item justifyContent="center">
-                <Info>
-                  <Code>{match?.teamAwayCode}</Code>
-                  <p>1</p>
-                </Info>
-              </Grid>
-              <Grid item>
-                <Info>
-                  <Code>{match?.teamHomeCode}</Code>
-                  <p>1</p>
-                </Info>
-              </Grid>
-              <Grid item>
-                <Info>
-                  Credits Left
-                  <p>83.5</p>
-                </Info>
-              </Grid>
-            </PlayersIndicator>
-            {players.filter((k) => k.isSelected === true).length <= 11
-              && players
-                .filter((k) => k.isSelected === true)
-                .map((p, index) => (
-                  <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
-                    <NoPlayer />
-                  </Grid>
-                ))}
-            {players.filter((k) => k.isSelected === true).length <= 11
-              && players
-                .slice(
-                  0,
-                  11 - players.filter((k) => k.isSelected === true).length,
-                )
-                .map((g) => (
-                  <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
-                    <BlankPlayer />
-                  </Grid>
-                ))}
-          </NoPlayers>
-          {live ? (
-            <LiveCategoryTabs
-              players={players}
-              setPlayers={setPlayers}
-              match={match}
-              nonPlayers={nonPlayers}
-              loading={loading}
-            />
-          ) : (
-            <CategoryTabs
-              players={players}
-              setPlayers={setPlayers}
-              match={match}
-              nonPlayers={nonPlayers}
-              lmPlayers={lmPlayers}
-              loading={loading}
-            />
-          )}
-          <NextButtonContainer>
-            <PrevButton>
-              <RemoveRedEyeOutlinedIcon />
-              Preview / Lineup
-              <GroupsRoundedIcon />
-            </PrevButton>
-            <NextButton
-              disabled={
-                players.filter((k) => k.isSelected === true).length < 11
-              }
-              className={
-                players.filter((k) => k.isSelected === true).length >= 11
-                  ? 'notdisabled'
-                  : 'disablednext'
-              }
-              onClick={() => handleNext()}
-            >
-              next
-            </NextButton>
-          </NextButtonContainer>
-          <Bottomnav />
-        </>
-      ) : (
-        <Next
+      {showPreview ?
+        <PreviewModal
+          matchinfo={match}
           players={players.filter((k) => k.isSelected === true)}
-          editMode={state?.editMode}
-          teamId={state?.teamId}
-        />
-      )}
+          selectedPlayers={players.filter((k) => k.isSelected === true)}
+          showPreview={showPreview}
+          setShowPreview={setShowPreview}
+        /> :
+        !next ? (
+          <>
+            <NoPlayers container spacing={2}>
+              <PlayersIndicator container spacing={2} item lg={12} md={12} xs={12} sm={12} justifyContent="space-between">
+                <Grid item>
+                  <Info>
+                    Players
+                    <p>
+                      {players.filter((p) => p.isSelected).length}
+                      /11
+                    </p>
+                  </Info>
+                </Grid>
+                <Grid item justifyContent="center">
+                  <Info>
+                    <Code>{match?.teamAwayCode}</Code>
+                    <p>1</p>
+                  </Info>
+                </Grid>
+                <Grid item>
+                  <Info>
+                    <Code>{match?.teamHomeCode}</Code>
+                    <p>1</p>
+                  </Info>
+                </Grid>
+                <Grid item>
+                  <Info>
+                    Credits Left
+                    <p>83.5</p>
+                  </Info>
+                </Grid>
+              </PlayersIndicator>
+              {players.filter((k) => k.isSelected === true).length <= 11
+                && players
+                  .filter((k) => k.isSelected === true)
+                  .map((p, index) => (
+                    <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
+                      <NoPlayer />
+                    </Grid>
+                  ))}
+              {players.filter((k) => k.isSelected === true).length <= 11
+                && players
+                  .slice(
+                    0,
+                    11 - players.filter((k) => k.isSelected === true).length,
+                  )
+                  .map((g) => (
+                    <Grid item lg={12 / 11} md={12 / 11} xs={12 / 11} sm={12 / 11}>
+                      <BlankPlayer />
+                    </Grid>
+                  ))}
+            </NoPlayers>
+            {live ? (
+              <LiveCategoryTabs
+                players={players}
+                setPlayers={setPlayers}
+                match={match}
+                nonPlayers={nonPlayers}
+                loading={loading}
+              />
+            ) : (
+              <CategoryTabs
+                players={players}
+                setPlayers={setPlayers}
+                match={match}
+                nonPlayers={nonPlayers}
+                lmPlayers={lmPlayers}
+                loading={loading}
+              />
+            )}
+            <NextButtonContainer>
+              <PrevButton
+                className={
+                  players.filter((k) => k.isSelected === true).length >= 11
+                    ? 'notdisabled'
+                    : 'disablednext'
+                }
+                disabled={players.filter((k) => k.isSelected === true).length < 11}
+                onClick={() =>
+                  handlePreview()}>
+                <RemoveRedEyeOutlinedIcon />
+                Preview / Lineup
+                <GroupsRoundedIcon />
+              </PrevButton>
+              <NextButton
+                disabled={
+                  players.filter((k) => k.isSelected === true).length < 11
+                }
+                className={
+                  players.filter((k) => k.isSelected === true).length >= 11
+                    ? 'notdisabled'
+                    : 'disablednext'
+                }
+                onClick={() => handleNext()}
+              >
+                next
+              </NextButton>
+            </NextButtonContainer>
+            <Bottomnav />
+          </>
+        ) : (
+          <Next
+            players={players.filter((k) => k.isSelected === true)}
+            editMode={state?.editMode}
+            teamId={state?.teamId}
+          />
+        )}
     </Container>
   );
 }

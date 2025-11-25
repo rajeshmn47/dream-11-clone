@@ -402,7 +402,6 @@ export function MatchDetails({ players }) {
                 ₹{user?.wallet}
                 <PlusButton>+</PlusButton>
               </WalletBox>
-              <NotificationAddOutlinedIcon />
             </RightSide>
           </Top>
           {livescore?.matchScoreDetails && (

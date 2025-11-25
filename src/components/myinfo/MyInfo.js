@@ -55,7 +55,6 @@ export function MyInfo() {
     setValue('email', user?.email);
     setValue('username', user?.username);
     setValue('phoneNumber', user?.phonenumber);
-    setValue('password', user?.password);
     setValue('dateOfBirth', user?.dateOfBirth || null);
 
     // Set selected country, state, city as objects
@@ -165,10 +164,6 @@ export function MyInfo() {
       .min(6, 'Username must be at least 6 characters')
       .max(20, 'Username must not exceed 20 characters'),
     email: Yup.string().required('Email is required').email('Email is invalid'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(40, 'Password must not exceed 40 characters'),
     phoneInput: Yup.string(),
     phoneNumber: Yup.string()
       .required('Phone Number is required')
@@ -194,18 +189,19 @@ export function MyInfo() {
   console.log(errors, selectedState, 'errors');
 
   const onSubmit = async (formData) => {
-    console.log(JSON.stringify(formData, null, 2));
-    // e.preventDefault();
-    setEmail(formData.email);
-    const data = await API.put(`${URL}/auth/updateProfile/${user?._id}`, {
-      ...formData, country: selectedCountry.name, state: selectedState.name, city: selectedCity.name
-    });
-    console.log(data);
-    if (data.data.success) {
+    try {
+      console.log(JSON.stringify(formData, null, 2));
+      // e.preventDefault();
+      setEmail(formData.email);
+      const data = await API.put(`${URL}/auth/updateProfile/${user?._id}`, {
+        ...formData, country: selectedCountry.name, state: selectedState.name, city: selectedCity.name
+      });
+      console.log(data);
       setErr(data.data.message);
       alert.success(data.data.message);
       setOpen(true);
-    } else {
+    }
+    catch (error) {
       alert.error(data.data.message);
       setErr(data.data.message);
     }
@@ -276,21 +272,6 @@ export function MyInfo() {
             />
             <Typography variant="inherit" color="textSecondary">
               {errors.phoneNumber?.message}
-            </Typography>
-            <TextField
-              required
-              id="password"
-              name="password"
-              label="Password"
-              variant="standard"
-              fullWidth
-              margin="dense"
-              InputLabelProps={{ shrink: true }}
-              {...register('password')}
-              error={!!errors.password}
-            />
-            <Typography variant="inherit" color="textSecondary">
-              {errors.password?.message}
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ width: "100% !important" }}>
               <DemoContainer components={['DateField']} sx={{ width: "100% !important" }}>

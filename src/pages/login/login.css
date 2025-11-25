@@ -21,6 +21,13 @@
     /* Allows scrolling if content overflows */
 }
 
+.forgot-password {
+    padding: 20px;
+    @media screen and (min-width: 768px) {
+    padding: 20px 350px;
+    }
+}
+
 /* Login container */
 .login-container {
     padding: 3vh 2vw;

@@ -181,6 +181,11 @@ const Center = styled.div`
     font-size: 14px !important;
     line-height: 1;
   }
+  a {
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+  }
 `;
 
 const BlueDot = styled.span`
@@ -465,7 +470,7 @@ export default function CategoryTabs({
                   {players.length > 0 ? (
                     players
                       .filter(
-                        (p, index) => p.position === 'batsman' || p.position == 'batsmen' || p.position === 'batter'||p.position=='batting',
+                        (p, index) => p.position === 'batsman' || p.position == 'batsmen' || p.position === 'batter' || p.position == 'batting',
                       )
                       .map((p) => (
                         <EachPlayer
