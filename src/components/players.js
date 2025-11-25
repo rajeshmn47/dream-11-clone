@@ -50,7 +50,7 @@ export function Players() {
     <>
       <div className="logintopbar">
         <EmojiEventsOutlinedIcon style={{ marginRight: '1vw' }} />
-        FC4U
+        Dreamcricket11
       </div>
       <div className="stepper">
         <Steppr />

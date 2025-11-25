@@ -87,7 +87,16 @@ const Sidebar = () => {
                         <ListItemIcon sx={{ color: item.selected ? "var(--red)" : "inherit" }}>
                             {item.icon}
                         </ListItemIcon>
-                        <ListItemText primary={item.label} />
+                        <ListItemText primaryTypographyProps={{
+                            noWrap: true,
+                            sx: {
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                maxWidth: 120,  // prevent overflow
+                            },
+                        }}
+                            primary={item.label} />
                     </ListItem>
                 ))}
             </List>
