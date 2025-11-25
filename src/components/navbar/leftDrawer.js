@@ -211,11 +211,6 @@ export default function LeftDrawer({
             {' '}
             Logout
           </ListI>
-          <ListI onClick={() => navigate('/findpeople')}>
-            <BoyOutlined style={{ width: '60px' }} />
-            {' '}
-            Find People
-          </ListI>
           <ListI onClick={() => navigate('/my-info')}>
             <SettingsOutlinedIcon style={{ width: '60px' }} />
             My Info & Settings
