@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   TextField,
   Typography,
 } from "@mui/material";
@@ -28,12 +29,14 @@ function Payment() {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handlePayment(e) {
+  async function handlePaymentt(e) {
     e.preventDefault();
 
     try {
       // Create Paykuber payment request
+      setLoading(true); // Start loading
       const response = await API.post(`${URL}/payment/create`, {
         userId: user._id,
         amount,
@@ -45,6 +48,40 @@ function Payment() {
       }
 
       // Redirect to payment page
+      window.location.href = response.data.paymentLink;
+
+    } catch (err) {
+      console.error("Payment Error:", err);
+      alert("Payment creation failed");
+    }
+  }
+
+  async function handlePayment(e) {
+    e.preventDefault();
+
+    const numericAmount = Number(amount);
+
+    // Check for minimum amount
+    if (numericAmount < 100) {
+      alert("Minimum amount is 100");
+      return;
+    }
+
+    try {
+      // Create Paykuber payment request
+      setLoading(true); // Start loading
+      const response = await API.post(`${URL}/payment/create`, {
+        userId: user._id,
+        amount: numericAmount,
+      });
+
+      if (!response.data.paymentLink) {
+        alert("Unable to generate payment link");
+        return;
+      }
+
+      // Redirect to payment page
+      setLoading(false); // Stop loading
       window.location.href = response.data.paymentLink;
 
     } catch (err) {
@@ -82,6 +119,7 @@ function Payment() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter amount"
+                helperText="Minimum amount required is 100" // Show in UI
                 margin="normal"
                 required
               />
@@ -100,8 +138,9 @@ function Payment() {
                   backgroundColor: "var(--red)",
                   color: "#fff",
                 }}
+                disabled={loading} // disable while loading
               >
-                Pay Now
+                {loading ? <CircularProgress size={24} color="inherit" /> : "Pay Now"}
               </Button>
             </form>
           </CardContent>
