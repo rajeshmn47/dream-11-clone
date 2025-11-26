@@ -82,10 +82,12 @@ const MyTransactions = () => {
 
     const fetchTransactions = async () => {
         try {
-            setLoading(true);
-            const res = await API.get(`${URL}/payment/my-transactions/${user._id}`);
-            setTransactions(res.data || []);
-            setLoading(false);
+            if (user?._id) {
+                setLoading(true);
+                const res = await API.get(`${URL}/payment/my-transactions/${user._id}`);
+                setTransactions(res.data || []);
+                setLoading(false);
+            }
         } catch (err) {
             console.error(err);
             alert.error("Failed to fetch transactions");

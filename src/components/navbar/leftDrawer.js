@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BoyOutlined, PaymentOutlined } from '@mui/icons-material';
+import { BadgeOutlined, BoyOutlined, PaymentOutlined } from '@mui/icons-material';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
@@ -8,7 +8,7 @@ import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
-import { Grid } from '@mui/material';
+import { Badge, Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import * as React from 'react';
@@ -218,6 +218,10 @@ export default function LeftDrawer({
           <ListI onClick={() => navigate('/my-transactions')}>
             <PaymentOutlined style={{ width: '60px' }} />
             My Transactions
+          </ListI>
+          <ListI onClick={() => navigate('/kyc')}>
+            <BadgeOutlined style={{ width: '60px' }} />
+            KYC
           </ListI>
           <ListI onClick={() => navigate('/termsAndConditions')}>
             <TopicOutlinedIcon style={{ width: '60px' }} />

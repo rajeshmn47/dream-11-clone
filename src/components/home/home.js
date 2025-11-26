@@ -479,7 +479,7 @@ export function Home() {
                     <BannerSlider />
                 </div>
                 <div className="upcomingmatches">
-                    <h3>Upcoming Matches</h3>
+                    <h3 style={{margin:"10px 0"}}>Upcoming Matches</h3>
                     <AllMatches container rowSpacing={2} columnSpacing={4} justifyContent="center">
                         {!loading ? (
                             upcoming?.length > 0 ? (

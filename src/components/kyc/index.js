@@ -5,15 +5,19 @@ import { storage } from "../../firebase"; // Firebase client
 import { URL } from "../../constants/userConstants";
 import { API } from "../../actions/userAction";
 import { useSelector } from "react-redux";
+import Navbar from "../navbar";
+import Sidebar from "../Sidebar";
 
 // Styled components
 const Container = styled.div`
-  max-width: 600px;
   margin: 50px auto;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   background-color: #fff;
+  @media screen and (min-width: 600px) {
+    margin-left: 220px;
+  }
 `;
 
 const Title = styled.h2`
@@ -53,9 +57,23 @@ const DocumentLink = styled.a`
   }
 `;
 
+const StatusLabel = styled.span`
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+
+  background-color: ${(props) =>
+    props.status === "verified" ? "green" :
+    props.status === "pending" ? "orange" :
+    props.status === "rejected" ? "red" :
+    "gray"};
+`;
+
 const API_URL = "https://your-backend.com/api/kyc";
 
-function UserKYC({ currentUserId }) {
+function UserKYC() {
     const { user } = useSelector(state => state.user);
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
@@ -105,45 +123,69 @@ function UserKYC({ currentUserId }) {
     // Fetch current KYC status for user
     const fetchKycStatus = async () => {
         try {
-            const res = await fetch(`${API_URL}/status/${currentUserId}`);
-            if (res.status === 404) {
-                setKycStatus(null);
-                return;
-            }
-            const data = await res.json();
-            setKycStatus(data);
+            const res = await API.get(`${URL}/kyc/status/${user?._id}`);
+            setKycStatus(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
     useEffect(() => {
-        fetchKycStatus();
-    }, []);
+        if (user?._id) {
+            fetchKycStatus();
+        }
+    }, [user]);
 
     return (
-        <Container>
-            <Title>Submit KYC Documents</Title>
+        <>
+            <Navbar />
+            <Sidebar />
+            <Container>
+                <Title>KYC Verification</Title>
 
-            <FileInput type="file" multiple onChange={handleFileChange} />
-            <Button onClick={handleSubmit} disabled={uploading}>
-                {uploading ? "Uploading..." : "Submit KYC"}
-            </Button>
+                {/* If no KYC found → allow submit */}
+                {!kycStatus ? (
+                    <>
+                        <FileInput type="file" multiple onChange={handleFileChange} />
+                        <Button onClick={handleSubmit} disabled={uploading}>
+                            {uploading ? "Uploading..." : "Submit KYC"}
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <StatusBox>
+                            <div>
+                                <strong>Status:</strong>{" "}
+                                <StatusLabel status={kycStatus.status}>
+                                    {kycStatus.status}
+                                </StatusLabel>
+                            </div>
 
-            {kycStatus && (
-                <StatusBox>
-                    <strong>Status:</strong> {kycStatus.status}
-                    <div>
-                        <strong>Documents:</strong>
-                        {kycStatus.docs.map((url, idx) => (
-                            <DocumentLink key={idx} href={url} target="_blank" rel="noopener noreferrer">
-                                Document {idx + 1}
-                            </DocumentLink>
-                        ))}
-                    </div>
-                </StatusBox>
-            )}
-        </Container>
+                            {kycStatus.docs?.length > 0 && (
+                                <div style={{ marginTop: "10px" }}>
+                                    <strong>Your Uploaded Documents:</strong>
+                                    {kycStatus.docs.map((url, idx) => (
+                                        <DocumentLink
+                                            key={idx}
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Document {idx + 1}
+                                        </DocumentLink>
+                                    ))}
+                                </div>
+                            )}
+                        </StatusBox>
+
+                        {/* Disallow re-submission */}
+                        <Button disabled style={{ marginTop: "10px", background: "#777" }}>
+                            KYC Already Submitted
+                        </Button>
+                    </>
+                )}
+            </Container>
+        </>
     );
 }
 
