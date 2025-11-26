@@ -4,6 +4,15 @@
   margin: 10px;
   color: #333;
   margin-left: 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.term-and-condition {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .help-and-support h1 {
