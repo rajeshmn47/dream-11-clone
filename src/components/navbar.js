@@ -9,15 +9,16 @@ import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsHockeyIcon from '@mui/icons-material/SportsHockey';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import { Button, Drawer, Grid, IconButton } from '@mui/material';
-import { useState } from 'react';
+import { Badge, Button, Drawer, Grid, IconButton } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { logout } from '../actions/userAction';
+import { API, logout } from '../actions/userAction';
 import LeftDrawer from './navbar/leftDrawer';
 import { AccountBalanceRounded, AccountBalanceSharp, AccountBalanceWalletSharp, Close, NotificationsNone, NotificationsNoneRounded, NotificationsNoneTwoTone } from '@mui/icons-material';
-import { FURL } from '../constants/userConstants';
+import { FURL, URL } from '../constants/userConstants';
+import { getDisplayDate } from '../utils/dateformat';
 
 const LeftSide = styled.div`
   width: 150px;
@@ -130,13 +131,31 @@ export function Navbar({ home }) {
   const [open, setOpen] = useState(false);
   const [leftOpen, setLeftOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState([
-    { id: 1, text: "Welcome to Dreamcricket11!", time: "2 min ago" },
-    { id: 2, text: "You won ₹500 in Mega Contest", time: "10 min ago" },
-    { id: 3, text: "Deposit bonus: Add ₹100 and get ₹50 bonus", time: "1 hr ago" },
   ]);
   const dispatch = useDispatch;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getNotifications()
+  }, [user])
+
+  useEffect(() => {
+    if (user?._id) {
+      getUnread()
+    }
+  }, [user])
+
+  async function getNotifications() {
+    const { data } = await API.get(`${URL}/notifications/user-notifications`)
+    setNotifications([...data.slice(0, 10)])
+  }
+
+  async function getUnread() {
+    const { data } = await API.get(`${URL}/notifications/user-unread-count/${user?._id}`)
+    setUnreadCount(data.count)
+  }
 
   const handleClick = () => {
     setOpen(true);
@@ -174,30 +193,39 @@ export function Navbar({ home }) {
 
         </Center>
         <RightSide>
-          <IconContainer>
-            <NotificationsNoneTwoTone
-              onClick={() => setNotifOpen(true)}
-              style={{
-                marginRight: '0px',
-                cursor: 'pointer',
-                fontSize: '20px',
-                strokeWidth: '1.5',
-                color: '#5e5b5b'
-              }}
-            />
-          </IconContainer>
+          <IconButton>
+            <Badge
+              badgeContent={unreadCount}
+              color="error"
+              invisible={unreadCount === 0}
+            >
+              <NotificationsNoneTwoTone
+                onClick={async () => {
+                  setNotifOpen(true)
+                  await API.put(`${URL}/notifications/mark-read/${user._id}`);
+                  setUnreadCount(0);
+                }
+                }
+                style={{
+                  marginRight: '0px',
+                  cursor: 'pointer',
+                  fontSize: '22px',
+                  strokeWidth: '1.5',
+                  color: '#fff'
+                }}
+              />
+            </Badge>
+          </IconButton>
 
-          <IconContainer>
-            <AccountBalanceWalletSharp
-              onClick={() => handleClick()}
-              style={{
-                cursor: 'pointer',
-                fontSize: '20px',
-                color: '#5e5b5b',
-                strokeWidth: '1.5',
-              }}
-            />
-          </IconContainer>
+          <AccountBalanceWalletSharp
+            onClick={() => handleClick()}
+            style={{
+              cursor: 'pointer',
+              fontSize: '22px',
+              color: '#fff',
+              strokeWidth: '1.5',
+            }}
+          />
         </RightSide>
       </div>
       <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
@@ -261,17 +289,31 @@ export function Navbar({ home }) {
           </div>
           {notifications.length === 0 ? (
             <p>No new notifications</p>
-          ) : (
-            notifications.map((n) => (
-              <div key={n.id} style={{
-                padding: "10px",
-                borderBottom: "1px solid #ddd"
-              }}>
-                <p style={{ margin: 0 }}>{n.text}</p>
-                <small style={{ color: "gray" }}>{n.time}</small>
-              </div>
-            ))
-          )}
+          ) : 
+              notifications.map((n) => (
+                <div
+                  key={n.id}
+                  style={{
+                    padding: "10px",
+                    borderBottom: "1px solid #ddd",
+                    background: n.read ? "#fff" : "#eef6ff",  // 🔵 highlight unseen
+                    borderLeft: n.read ? "4px solid transparent" : "4px solid #007bff",
+                  }}
+                >
+                  <p style={{
+                    margin: 0,
+                    fontWeight: n.read ? "normal" : "600" // bold for unseen
+                  }}>
+                    {n.message}
+                  </p>
+
+                  <small style={{ color: "gray" }}>
+                    {getDisplayDate(n.createdAt)}
+                  </small>
+                </div>
+              ))
+            }
+
         </div>
       </Drawer>
 
