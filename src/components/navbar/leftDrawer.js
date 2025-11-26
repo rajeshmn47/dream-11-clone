@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BoyOutlined } from '@mui/icons-material';
+import { BoyOutlined, PaymentOutlined } from '@mui/icons-material';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
@@ -216,7 +216,7 @@ export default function LeftDrawer({
             My Info & Settings
           </ListI>
           <ListI onClick={() => navigate('/my-transactions')}>
-            <SettingsOutlinedIcon style={{ width: '60px' }} />
+            <PaymentOutlined style={{ width: '60px' }} />
             My Transactions
           </ListI>
           <ListI onClick={() => navigate('/termsAndConditions')}>
