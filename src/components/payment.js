@@ -15,6 +15,7 @@ import { API } from "../actions/userAction";
 import { URL } from "../constants/userConstants";
 import Navbar from "./navbar";
 import Bottomnav from "./navbar/bottomnavbar";
+import Sidebar from "./Sidebar";
 
 const PageWrapper = styled(Box)`
   display: flex;
@@ -23,6 +24,11 @@ const PageWrapper = styled(Box)`
   background-color: #f9fafb;
   min-height: 100vh;
   padding: 20px;
+
+  /* For desktop screens when sidebar is visible */
+  @media screen and (min-width: 600px) {
+    margin-left: 220px;
+  }
 `;
 
 function Payment() {
@@ -93,6 +99,7 @@ function Payment() {
   return (
     <div>
       <Navbar />
+      <Sidebar />
       <PageWrapper>
         <Card
           sx={{

@@ -13,10 +13,10 @@ function TermsAndConditions() {
         <h2>Terms and Conditions</h2>
       </div>
       <div className="term-and-condition">
-        <h1>Fantasycricket4u Terms and Conditions</h1>
+        <h1>dreamcricket11 Terms and Conditions</h1>
 
         <p>
-          Welcome to www.fantasycricket4u.com! These Terms and Conditions ("Terms")
+          Welcome to www.dreamcricket11.com! These Terms and Conditions ("Terms")
           govern your use of our fantasy platform and related services. By
           accessing or using our services, you agree to comply with and be bound
           by these Terms. If you do not agree with these Terms, please do not
@@ -133,7 +133,7 @@ function TermsAndConditions() {
               If you have any questions or concerns about these Terms, please
               contact us at
               {' '}
-              <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
+              <a href="mailto:info@dreamcricket11.com">info@dreamcricket11.com</a>
               .
             </p>
           </li>

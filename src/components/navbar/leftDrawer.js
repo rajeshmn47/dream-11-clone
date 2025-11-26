@@ -215,6 +215,10 @@ export default function LeftDrawer({
             <SettingsOutlinedIcon style={{ width: '60px' }} />
             My Info & Settings
           </ListI>
+          <ListI onClick={() => navigate('/my-transactions')}>
+            <SettingsOutlinedIcon style={{ width: '60px' }} />
+            My Transactions
+          </ListI>
           <ListI onClick={() => navigate('/termsAndConditions')}>
             <TopicOutlinedIcon style={{ width: '60px' }} />
             Terms & Conditions

@@ -74,7 +74,7 @@ const WithdrawCashPage = () => {
 
         <section>
           <h2>Common Wallet Policy</h2>
-          <p>If you play on both RummyCircle and fantasycricket4u (both run by Games24x7), your tax calculation will consider combined activity.</p>
+          <p>If you play on both RummyCircle and dreamcricket11 (both run by Games24x7), your tax calculation will consider combined activity.</p>
         </section>
 
         <section>
@@ -84,7 +84,7 @@ const WithdrawCashPage = () => {
         </section>
 
         <p className="support-note">
-          For more queries, please contact our support at <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
+          For more queries, please contact our support at <a href="mailto:info@dreamcricket11.com">info@dreamcricket11.com</a>
         </p>
       </div>
     </div>

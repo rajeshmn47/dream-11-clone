@@ -20,6 +20,7 @@ import Navbar from '../navbar';
 import Bottomnav from '../navbar/bottomnavbar';
 import Deposit from './deposit';
 import Withdraw from './withdraw';
+import Sidebar from '../Sidebar';
 
 const Container = styled.div`
   .MuiTabs-indicator {
@@ -48,6 +49,9 @@ const Container = styled.div`
   }
   .MuiTabs-indicator {
     top: 0;
+  }
+  @media screen and (min-width: 600px) {
+    margin-left: 220px;
   }
 `;
 
@@ -324,6 +328,7 @@ export default function TransactionTabs({ tabs, g, livescore }) {
   return (
     <>
       <Navbar />
+      <Sidebar />
       <Container style={{ zIndex: '1' }}>
         <Title>transfer online</Title>
         <Box sx={{ width: '100%' }}>

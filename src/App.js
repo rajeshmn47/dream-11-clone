@@ -51,6 +51,8 @@ import ReferWin from './pages/ReferWin';
 import Games from './pages/Games';
 import GithubCallback from './pages/GithubCallBack';
 import LoginPhone from './pages/phoneLogin';
+import UserKYC from './components/kyc';
+import MyTransactions from './components/transactions';
 
 function App() {
   const dispatch = useDispatch();
@@ -158,6 +160,7 @@ function App() {
           <Route path="/contests/:id" element={<Contests />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/savedteam/:id" element={<SavedTeam />} />
+          <Route path="/kyc" element={<UserKYC />} />
           <Route path="/contestdetail/:id" element={<ContestDetail />} />
           <Route path="/joined" element={<JoinedContests />} />
           <Route path="/test" element={<Test />} />
@@ -168,6 +171,7 @@ function App() {
           <Route path="/findpeople" element={<FindPeople />} />
           <Route path="/my-info" element={<MyInfo />} />
           <Route path="/transaction" element={<TransactionTabs />} />
+          <Route path="/my-transactions" element={<MyTransactions />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/withdrawPolicy" element={<WithdrawCashPage />} />

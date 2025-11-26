@@ -14,10 +14,10 @@ function PrivacyPolicy() {
         <h2>Privacy Policy</h2>
       </div>
       <div className="privacy-policy-container">
-        <h1>Fantasycricket4u Privacy Policy</h1>
+        <h1>dreamcricket11 Privacy Policy</h1>
 
         <p>
-          Welcome to the world of fantasy! At www.fantasycricket4u.com, we are
+          Welcome to the world of fantasy! At www.dreamcricket11.com, we are
           committed to ensuring the privacy and security of your personal
           information. This Privacy Policy explains how we collect, use,
           disclose, and protect your information when you use our fantasy
@@ -143,7 +143,7 @@ function PrivacyPolicy() {
               If you have any questions, concerns, or requests regarding this
               Privacy Policy, please contact us at
               {' '}
-              <a href="mailto:info@fantasycricket4u.com">info@fantasycricket4u.com</a>
+              <a href="mailto:info@dreamcricket11.com">info@dreamcricket11.com</a>
               .
             </p>
           </li>
