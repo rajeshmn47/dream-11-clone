@@ -7,6 +7,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { PaymentOutlined } from "@mui/icons-material";
 
 
 const drawerWidth = 220;
@@ -36,7 +37,7 @@ const Sidebar = () => {
         },
         {
             label: "My Transactions",
-            icon: <EmojiEventsOutlinedIcon />,
+            icon: <PaymentOutlined />,
             path: `/my-transactions`,
             selected: location.pathname === `/my-transactions`,
             onClick: () => navigate(`/my-transactions`),

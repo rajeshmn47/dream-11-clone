@@ -133,6 +133,7 @@ export default function Withdraw({ tabs, g, livescore }) {
   });
   const [contest, setContest] = React.useState([]);
   const [modal, setModal] = React.useState(null);
+  const [submitLoading, setSubmitLoading] = React.useState(false);
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     amount: Yup.string().required('amount is required'),
@@ -206,7 +207,7 @@ export default function Withdraw({ tabs, g, livescore }) {
       }
     }
   };
-  const onSubmit = async (formData) => {
+  const onSubmite = async (formData) => {
     console.log(JSON.stringify(formData, null, 2));
     /** @type {any} */
 
@@ -217,6 +218,25 @@ export default function Withdraw({ tabs, g, livescore }) {
         // alert.success("deposit data added successfully");
       });
     // e.preventDefault();
+  };
+
+  const onSubmit = async (formData) => {
+    setSubmitLoading(true);
+
+    try {
+      const res = await API.post(`${URL}/payment/withdraw`, {
+        ...formData,
+        userId: user._id,
+      });
+
+      console.log("withdraw added", res);
+      alert.success("Withdrawal request submitted!");
+    } catch (err) {
+      console.error(err);
+      alert.error("Failed to submit withdrawal");
+    } finally {
+      setSubmitLoading(false);
+    }
   };
 
   console.log(contest, matchlive, 'match_details');
@@ -253,13 +273,13 @@ export default function Withdraw({ tabs, g, livescore }) {
               error={!!errors.upiId}
               helperText={errors.upiId?.message}
             />
-
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="success"
               size="large"
+              disabled={submitLoading}
               style={{
                 marginTop: 18,
                 fontSize: 16,
@@ -267,10 +287,11 @@ export default function Withdraw({ tabs, g, livescore }) {
                 fontWeight: 700,
                 width: "100%",
                 background: "var(--red)",
-                color: "#fff"
+                color: "#fff",
+                opacity: submitLoading ? 0.7 : 1,
               }}
             >
-              Withdraw
+              {submitLoading ? "Processing..." : "Withdraw"}
             </Button>
           </form>
         </CardContent>

@@ -37,7 +37,7 @@ export function Bottomnav() {
         }
       >
         <FeedOutlinedIcon style={{ fontSize: '20px' }} />
-        GamizoCoins
+        Dreamcricket11Coins
       </div>
       <div
         onClick={() => navigate('/referwin')}

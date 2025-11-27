@@ -32,13 +32,15 @@ const LeftSide = styled.div`
 `;
 
 const RightSide = styled.div`
-  width: 90px;
+  width: 70px;
   display: flex;
+  padding: 0 15px;
   justify-content: center;
   align-items: center;
   @media (max-width: 600px) {
     width: auto;
     justify-content: flex-end;
+    padding: 0 0px;
   }
 `;
 
