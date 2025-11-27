@@ -26,7 +26,7 @@ const PaymentStatusPage = () => {
         async function fetchStatus() {
             try {
                 const res = await API.get(
-                    `${URL}/payment/payment/status?orderId=${orderId}`
+                    `${URL}/payment/status?orderId=${orderId}`
                 );
                 const data = res.data;
                 setPayment(data);
