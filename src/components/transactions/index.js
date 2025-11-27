@@ -147,6 +147,7 @@ const MyTransactions = () => {
                                     <tr>
                                         <Th>Amount</Th>
                                         <Th>Date</Th>
+                                        <Th>Status</Th>
                                         <Th>Type</Th>
                                     </tr>
                                 </thead>
@@ -155,6 +156,7 @@ const MyTransactions = () => {
                                         <tr key={tx._id}>
                                             <Td>₹ {tx.amount}</Td>
                                             <Td>{getDisplayDate(tx.createdAt)}</Td>
+                                            <Td>{tx.status}</Td>
                                             <Td>{tx.action}</Td>
                                         </tr>
                                     ))}
