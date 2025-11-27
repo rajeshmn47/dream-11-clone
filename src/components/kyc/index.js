@@ -9,15 +9,20 @@ import Navbar from "../navbar";
 import Sidebar from "../Sidebar";
 
 // Styled components
+
 const Container = styled.div`
-  margin: 50px auto;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   background-color: #fff;
   @media screen and (min-width: 600px) {
     margin-left: 220px;
   }
+`;
+
+const SubContainer = styled.div`
+  margin: 50px 10px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  background-color: #fff;
 `;
 
 const Title = styled.h2`
@@ -65,10 +70,10 @@ const StatusLabel = styled.span`
   color: white;
 
   background-color: ${(props) =>
-    props.status === "verified" ? "green" :
-    props.status === "pending" ? "orange" :
-    props.status === "rejected" ? "red" :
-    "gray"};
+        props.status === "verified" ? "green" :
+            props.status === "pending" ? "orange" :
+                props.status === "rejected" ? "red" :
+                    "gray"};
 `;
 
 const API_URL = "https://your-backend.com/api/kyc";
@@ -103,15 +108,10 @@ function UserKYC() {
             const res = await API.post(`${URL}/kyc/submit`,
                 { userId: user?._id, docs: uploadedUrls });
 
-            const data = await res.json();
-            if (res.ok) {
-                alert("KYC submitted successfully");
-                fetchKycStatus(); // Refresh status
-                setFiles([]);
-            } else {
-                alert(data.message || "Failed to submit KYC");
-            }
-
+            const data = res.data
+            alert("KYC submitted successfully");
+            fetchKycStatus(); // Refresh status
+            setFiles([]);
             setUploading(false);
         } catch (err) {
             console.error(err);
@@ -141,49 +141,51 @@ function UserKYC() {
             <Navbar />
             <Sidebar />
             <Container>
-                <Title>KYC Verification</Title>
+                <SubContainer>
+                    <Title>KYC Verification</Title>
 
-                {/* If no KYC found → allow submit */}
-                {!kycStatus ? (
-                    <>
-                        <FileInput type="file" multiple onChange={handleFileChange} />
-                        <Button onClick={handleSubmit} disabled={uploading}>
-                            {uploading ? "Uploading..." : "Submit KYC"}
-                        </Button>
-                    </>
-                ) : (
-                    <>
-                        <StatusBox>
-                            <div>
-                                <strong>Status:</strong>{" "}
-                                <StatusLabel status={kycStatus.status}>
-                                    {kycStatus.status}
-                                </StatusLabel>
-                            </div>
-
-                            {kycStatus.docs?.length > 0 && (
-                                <div style={{ marginTop: "10px" }}>
-                                    <strong>Your Uploaded Documents:</strong>
-                                    {kycStatus.docs.map((url, idx) => (
-                                        <DocumentLink
-                                            key={idx}
-                                            href={url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            Document {idx + 1}
-                                        </DocumentLink>
-                                    ))}
+                    {/* If no KYC found → allow submit */}
+                    {!kycStatus ? (
+                        <>
+                            <FileInput type="file" multiple onChange={handleFileChange} />
+                            <Button onClick={handleSubmit} disabled={uploading}>
+                                {uploading ? "Uploading..." : "Submit KYC"}
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <StatusBox>
+                                <div>
+                                    <strong>Status:</strong>{" "}
+                                    <StatusLabel status={kycStatus.status}>
+                                        {kycStatus.status}
+                                    </StatusLabel>
                                 </div>
-                            )}
-                        </StatusBox>
 
-                        {/* Disallow re-submission */}
-                        <Button disabled style={{ marginTop: "10px", background: "#777" }}>
-                            KYC Already Submitted
-                        </Button>
-                    </>
-                )}
+                                {kycStatus.docs?.length > 0 && (
+                                    <div style={{ marginTop: "10px" }}>
+                                        <strong>Your Uploaded Documents:</strong>
+                                        {kycStatus.docs.map((url, idx) => (
+                                            <DocumentLink
+                                                key={idx}
+                                                href={url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Document {idx + 1}
+                                            </DocumentLink>
+                                        ))}
+                                    </div>
+                                )}
+                            </StatusBox>
+
+                            {/* Disallow re-submission */}
+                            <Button disabled style={{ marginTop: "10px", background: "#777" }}>
+                                KYC Already Submitted
+                            </Button>
+                        </>
+                    )}
+                </SubContainer>
             </Container>
         </>
     );
