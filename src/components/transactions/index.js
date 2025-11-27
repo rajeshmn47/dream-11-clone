@@ -7,6 +7,7 @@ import { useAlert } from "react-alert";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import Sidebar from "../Sidebar";
+import { getDisplayDate } from "../../utils/dateformat";
 
 const Container = styled.div`
   max-width: 900px;
@@ -144,16 +145,16 @@ const MyTransactions = () => {
                             <Table>
                                 <thead>
                                     <tr>
-                                        <Th>Date</Th>
                                         <Th>Amount</Th>
+                                        <Th>Date</Th>
                                         <Th>Type</Th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {filteredTransactions.map((tx) => (
                                         <tr key={tx._id}>
-                                            <Td>{new Date(tx.createdAt).toLocaleString()}</Td>
                                             <Td>₹ {tx.amount}</Td>
+                                            <Td>{getDisplayDate(tx.createdAt)}</Td>
                                             <Td>{tx.action}</Td>
                                         </tr>
                                     ))}

@@ -24,7 +24,7 @@ const PaymentStatusPage = () => {
     async function fetchStatus() {
       try {
         const res = await fetch(
-          `https://dream11-api.insenc.in/payment/status?orderId=${orderId}`
+          `https://dream11-api.insenc.in/payment/payment/status?orderId=${orderId}`
         );
         const data = await res.json();
         setPayment(data);
@@ -115,7 +115,7 @@ const PaymentStatusPage = () => {
                 color="primary"
                 onClick={() => navigate("/")}
               >
-                Go to Dashboard
+                Go to Home
               </Button>
 
               <Button
