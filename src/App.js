@@ -53,6 +53,7 @@ import GithubCallback from './pages/GithubCallBack';
 import LoginPhone from './pages/phoneLogin';
 import UserKYC from './components/kyc';
 import MyTransactions from './components/transactions';
+import PaymentStatusPage from './pages/PayementStatusPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -188,6 +189,7 @@ function App() {
           <Route path="/referwin" element={<ReferWin />} />
           <Route path="/games" element={<Games />} />
           <Route path="/github-callback" element={<GithubCallback />} />
+          <Route path="/payment-status/:orderId" element={<PaymentStatusPage />} />
         </Routes>
       </BrowserRouter>
       {confetti && (
