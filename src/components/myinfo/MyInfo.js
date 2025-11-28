@@ -58,7 +58,7 @@ export function MyInfo() {
     setValue('dateOfBirth', user?.dateOfBirth || null);
 
     // Set selected country, state, city as objects
-  }, [user, countries, states, cities]);
+  }, [user]);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -170,7 +170,6 @@ export function MyInfo() {
       .matches(/^[0-9+-]+$/, 'It must be in numbers')
       .min(10, 'Phone Number must be at least 10 characters')
       .max(10, 'Phone Number must not exceed 10 characters'),
-    dateOfBirth: Yup.string().optional('Password is required'),
     dateOfBirth: Yup
       .string()
       .nullable()
@@ -282,14 +281,13 @@ export function MyInfo() {
                 <Controller
                   name="dateOfBirth"
                   control={control}
-                  defaultValue={null}
                   sx={{ width: "100% !important" }}
                   render={({ field }) => (
                     <DatePicker
                       label="Date of Birth"
-                      value={field.value ? dayjs(field.value) : null}   // ✅ ensure it's a dayjs object
+                      value={field.value ? dayjs(field.value) : null}
                       onChange={(newValue) => {
-                        field.onChange(newValue ? newValue.toISOString() : null); // store ISO string in form
+                        field.onChange(newValue ? newValue.toDate() : null);
                       }}
                       style={{ width: "100% !important" }}
                       slotProps={{
