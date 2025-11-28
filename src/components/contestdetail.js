@@ -9,10 +9,10 @@ import WestIcon from '@mui/icons-material/West';
 import { Button, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { API } from '../actions/userAction';
+import { API, loadUser } from '../actions/userAction';
 import { URL } from '../constants/userConstants';
 import Contest from './contests/contest';
 import ContestTabs from './ContestTabs';
@@ -108,12 +108,54 @@ const ContestContainer = styled.div`
   cursor: pointer;
 `;
 
+const WalletBox = styled.div`
+  background-color: #fcecec; // light red shade
+  color: #d32f2f;
+  padding: 4px 6px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:10px;
+`;
+
+const PlusButton = styled.button`
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  padding: 8px !important;
+  font-size: 10px;
+  line-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: #b71c1c;
+  }
+`;
+
 const tabs = [{ label: 'winnings' }, { label: 'leaderboard' }];
 
 export function ContestDetail() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const { match_details, matchlive } = useSelector((state) => state.match);
   const { state } = useLocation();
+  const dispatch = useDispatch();
   const [upcoming, setUpcoming] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [live, setLive] = useState([]);
@@ -224,6 +266,7 @@ export function ContestDetail() {
         setMatch(teamdata.data.match);
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
         setLeaderboard([...t]);
+        dispatch(loadUser())
       }
       else if (joinTeam) {
         const data = await API.get(
@@ -239,6 +282,7 @@ export function ContestDetail() {
         const t = teamdata.data.teams.sort((a, b) => a.points - b.points);
         setLeaderboard([...t]);
         setJoinTeam(false);
+        dispatch(loadUser())
       }
     } catch (error) {
       console.log(error.response);
@@ -252,74 +296,78 @@ export function ContestDetail() {
   );
   return (
     <>
-    {contest&&<>
-      {!selectTeams?.selected ? (
-        <>
-          <ContestsContainer container>
-            <Top>
-              <LeftSide>
-                <WestIcon
-                  onClick={() => history(-1)}
-                  style={{ cursor: 'pointer' }}
-                />
-                {match && (
-                  <h1>
-                    <span style={{ marginRight: '5px' }}>
-                      {match.teamAwayCode}
-                    </span>
-                    vs
-                    <span style={{ marginLeft: '5px' }}>
-                      {match.teamHomeCode}
-                    </span>
-                  </h1>
-                )}
-              </LeftSide>
-              <RightSide>
-                <Brightness1Icon />
-                <AccountBalanceWalletOutlinedIcon />
-                <NotificationAddOutlinedIcon />
-              </RightSide>
-            </Top>
-            <Contest contest={contest} handleClick={handleClick} />
-          </ContestsContainer>
-          <ContestTabs
-            contest={contest}
-            leaderboard={leaderboard}
-            handleSwap={handleSwap}
-          />
-        </>
-      ) : (
-        <>
-          {teams?.map((t) => (
-            <SelectTeam
-              players={t.players}
-              plo={t}
-              id={match_details?.matchId}
-              teamIds={
-                contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']
-              }
-              joinTeam={joinTeam}
-              selectTeams={selectTeams}
-              setSelectTeams={setSelectTeams}
-              selectedTeam={selectedTeam}
-              setSelectedTeam={setSelectedTeam}
-              match={matchlive || match_details}
-              matchdetails={match_details}
+      {contest && <>
+        {!selectTeams?.selected ? (
+          <>
+            <ContestsContainer container>
+              <Top>
+                <LeftSide>
+                  <WestIcon
+                    onClick={() => history(-1)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  {match && (
+                    <h1>
+                      <span style={{ marginRight: '5px' }}>
+                        {match.teamAwayCode}
+                      </span>
+                      vs
+                      <span style={{ marginLeft: '5px' }}>
+                        {match.teamHomeCode}
+                      </span>
+                    </h1>
+                  )}
+                </LeftSide>
+                <RightSide>
+                  <WalletBox onClick={() => setWalletOpen(true)}>
+                    <IconWrapper>
+                      <AccountBalanceWalletOutlinedIcon style={{ fontSize: "16px" }} />
+                    </IconWrapper>
+                    ₹{user?.wallet}
+                    <PlusButton>+</PlusButton>
+                  </WalletBox>
+                </RightSide>
+              </Top>
+              <Contest contest={contest} handleClick={handleClick} />
+            </ContestsContainer>
+            <ContestTabs
+              contest={contest}
+              leaderboard={leaderboard}
+              handleSwap={handleSwap}
             />
-          ))}
-          <Buttons>
-            <CreateButton onClick={() => history(`/createteam/${match_details?.matchId}`)}>create team</CreateButton>
-            {!selectTeams?.team ?
-              <Button style={{ width: "50%" }} disabled={!selectTeams?.team} onClick={() => handleJoin()}>
-                Join Team
-              </Button> :
-              <JoinButton disabled={!selectTeams?.team} onClick={() => handleJoin()}>
-                Join Team
-              </JoinButton>}
-          </Buttons>
-        </>
-      )}
-    </>}
+          </>
+        ) : (
+          <>
+            {teams?.map((t) => (
+              <SelectTeam
+                players={t.players}
+                plo={t}
+                id={match_details?.matchId}
+                teamIds={
+                  contest?.teamsId?.length > 0 ? [...contest.teamsId] : ['id']
+                }
+                joinTeam={joinTeam}
+                selectTeams={selectTeams}
+                setSelectTeams={setSelectTeams}
+                selectedTeam={selectedTeam}
+                setSelectedTeam={setSelectedTeam}
+                match={matchlive || match_details}
+                matchdetails={match_details}
+              />
+            ))}
+            <Buttons>
+              <CreateButton onClick={() => history(`/createteam/${match_details?.matchId}`)}>create team</CreateButton>
+              {!selectTeams?.team ?
+                <Button style={{ width: "50%" }} disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+                  Join Team
+                </Button> :
+                <JoinButton disabled={!selectTeams?.team} onClick={() => handleJoin()}>
+                  Join Team
+                </JoinButton>}
+            </Buttons>
+          </>
+        )}
+      </>}
     </>
   );
 }

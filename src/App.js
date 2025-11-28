@@ -200,7 +200,7 @@ function App() {
         />
       )}
       <div className="whatsappwidget">
-        <WhatsAppWidget phoneNumber="8920951507" />
+        <WhatsAppWidget phoneNumber="7860142652" />
       </div>
       <ToastContainer />
     </>

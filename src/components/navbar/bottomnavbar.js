@@ -31,13 +31,20 @@ export function Bottomnav() {
         My Matches
       </div>
       <div
+        style={{
+          maxWidth: "60px",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          cursor: "pointer",
+        }}
         onClick={() => navigate('/gamizocoins')}
         className={
           location.pathname === '/gamizocoins' ? 'selectedrt' : 'notselectedrt'
         }
       >
         <FeedOutlinedIcon style={{ fontSize: '20px' }} />
-        Dreamcricket11Coins
+        DC11Coins
       </div>
       <div
         onClick={() => navigate('/referwin')}
