@@ -115,10 +115,14 @@ const NextButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 10px;
+  padding: 0 60px;
   box-sizing: border-box;
   position: fixed;
   bottom: 15%;
+  gap: 10px;
+  @media screen and (min-width: 600px) {
+    padding: 0 220px;
+  }
 `;
 
 const NextButton = styled.button`
@@ -155,7 +159,7 @@ const PrevButton = styled.button`
   box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   display: flex;
   align-items: center;
-  width: 230px;
+  width: 240px;
   justify-content: space-evenly;
   white-space: nowrap;
 `;
@@ -395,9 +399,8 @@ export function CreateTeam() {
                 disabled={players.filter((k) => k.isSelected === true).length < 11}
                 onClick={() =>
                   handlePreview()}>
-                <RemoveRedEyeOutlinedIcon />
-                Preview / Lineup
-                <GroupsRoundedIcon />
+                <RemoveRedEyeOutlinedIcon />{" "}
+                Preview{" "}
               </PrevButton>
               <NextButton
                 disabled={

@@ -72,16 +72,21 @@ const Name = styled.div`
   h1 {
     white-space: nowrap;
   }
+  a {
+       white-space: nowrap;
+    }
 `;
 
 const NextButtonContainer = styled.div`
   position: fixed;
   bottom: 8%;
-  left: 0%;
+  padding: 0 30px;
   z-index: 1000000000000000000000;
   display: flex;
+  gap: 15px;
   justify-content: space-evenly;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const NextButton = styled.button`
@@ -277,9 +282,8 @@ export function Captain({ players, editMode, teamId }) {
           </CaptainSelector>
           <NextButtonContainer>
             <PrevButton>
-              <RemoveRedEyeOutlinedIcon />
-              Preview / Lineup
-              <GroupsRoundedIcon />
+              <RemoveRedEyeOutlinedIcon />{" "}
+              Preview
             </PrevButton>
             {editMode ? (
               <NextButton
