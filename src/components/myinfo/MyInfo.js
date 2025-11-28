@@ -171,6 +171,10 @@ export function MyInfo() {
       .min(10, 'Phone Number must be at least 10 characters')
       .max(10, 'Phone Number must not exceed 10 characters'),
     dateOfBirth: Yup.string().optional('Password is required'),
+    dateOfBirth: Yup
+      .string()
+      .nullable()
+      .required("Date of Birth cannot be null"),
     country: Yup.string().optional('Password is required'),
     state: Yup.string().optional('Password is required'),
     city: Yup.string().optional('Password is required'),
@@ -302,9 +306,6 @@ export function MyInfo() {
                 />
               </DemoContainer>
             </LocalizationProvider>
-            <Typography variant="inherit" color="textSecondary">
-              {errors.dateOfBirth?.message}
-            </Typography>
             <div className="selectContainer">
               <label className="selectLabel">Select a Country</label>
               <Select
