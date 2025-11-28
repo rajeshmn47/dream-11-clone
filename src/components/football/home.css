@@ -125,6 +125,10 @@
 
 .homecontainer {
   margin-bottom: 40px;
+
+  @media screen and (min-width: 600px) {
+    margin-left: 220px;
+  }
 }
 
 .matchfrights {

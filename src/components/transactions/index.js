@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 import Navbar from "../navbar";
 import Sidebar from "../Sidebar";
 import { getDisplayDate } from "../../utils/dateformat";
+import Loader from "../loader";
 
 const Container = styled.div`
-  max-width: 900px;
   margin: 2rem auto;
   padding: 1rem;
   @media screen and (min-width: 600px) {
@@ -137,7 +137,7 @@ const MyTransactions = () => {
                     </FilterContainer>
 
                     {loading ? (
-                        <CircularProgress />
+                        <Loader />
                     ) : filteredTransactions.length === 0 ? (
                         <p>No transactions found.</p>
                     ) : (

@@ -186,9 +186,9 @@ export function Completed() {
     <>
       <Sidebar />
       <Navbar />
-      {!loading ? (
-        <Container>
-          <div className="homecontainer">
+      <Container>
+        <div className="homecontainer" style={{ position: "relative" }}>
+          {loading ? (
             <Box sx={{ width: '100%' }}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
@@ -477,12 +477,11 @@ export function Completed() {
                   ) : null}
                 </div>
               </TabPanel>
-            </Box>
-          </div>
-        </Container>
-      ) : (
-        <Loader />
-      )}
+            </Box>) : (
+            <Loader />
+          )}
+        </div>
+      </Container>
       <Bottomnav />
     </>
   );
